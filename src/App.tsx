@@ -288,7 +288,7 @@ function App() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400">© 2024 Inspectr. All rights reserved.</p>
+            <p className="text-gray-400">© 2025 Inspectr. All rights reserved.</p>
             <div className="flex items-center gap-6">
               {/*<a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Privacy Policy</a>*/}
               {/*<a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Terms of Service</a>*/}
