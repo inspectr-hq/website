@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#002329] text-white antialiased;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-dark {
+    background: linear-gradient(to bottom right, rgba(0, 35, 41, 0.8), rgba(0, 35, 41, 0.4));
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-[#00E5FF] to-[#00B8D4] bg-clip-text text-transparent;
+  }
+}
