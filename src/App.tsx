@@ -256,6 +256,8 @@ function App() {
               <p className="text-gray-400">Simplifying API and Webhook debugging for developers.</p>
             </div>
 
+            <div></div>
+
             <div>
               <h3 className="font-semibold text-lg mb-4">Product</h3>
               <ul className="space-y-2">
