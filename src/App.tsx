@@ -82,7 +82,7 @@ function App() {
                    alt="Inspectr Logo" 
                    className="h-20 w-auto" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.2]">
               {/*Real-time API and Webhook Debugging Made Easy*/}
               Simplifying API Debugging
             </h1>
