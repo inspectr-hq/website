@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from './assets/inspectr_brand_logo.png';
+import logoBrand from './assets/brand_logo_name.png';
 import appView from './assets/inspectr-app.png';
 import IconSearch from './assets/icon_search.svg?react';
 import IconWebhook  from './assets/icon_webhook.svg?react';
@@ -75,7 +76,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">
-              <img src={logo}
+              <img src={logoBrand}
                    alt="Inspectr Logo" 
                    className="h-20 w-auto" />
             </div>
@@ -157,6 +158,69 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Terminal Preview */}
+{/*      <div id="terminal" className="py-24 bg-black/90">*/}
+{/*        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">*/}
+{/*          <div className="flex flex-col lg:flex-row">*/}
+{/*            /!* Text Section on the Left *!/*/}
+{/*            <div className="lg:w-1/2 flex flex-col justify-center bg-gray-800">*/}
+{/*              <h2 className="text-3xl font-bold text-white m-4 text-left">*/}
+{/*                Monitor Your Setup in Real-Time*/}
+{/*              </h2>*/}
+{/*              <p className="text-gray-300 text-lg text-left">*/}
+{/*                With Inspectr, you can effortlessly monitor your API and webhook activity.*/}
+{/*                Our intuitive terminal commands provide real-time feedback during installation and configuration,*/}
+{/*                ensuring you’re always in control.*/}
+{/*              </p>*/}
+{/*            </div>*/}
+
+{/*            /!* Terminal Preview Section on the Right *!/*/}
+{/*            <div className="lg:w-1/2 bg-black/90">*/}
+{/*              <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
+{/*                <div className="flex items-center gap-2 mb-3">*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-red-500" />*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-green-500" />*/}
+{/*                </div>*/}
+{/*                <pre className="font-mono text-sm text-gray-300">*/}
+{/*          <code>{`$ npm install @inspectr/inspectr*/}
+
+{/*✨ Installing Inspectr client...*/}
+{/*✨ Configuration generated*/}
+{/*✨ Ready to monitor your database!*/}
+
+{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
+{/*Starting Inspectr monitoring...*/}
+{/*Connected to database*/}
+{/*Dashboard available at http://localhost:3000`}</code>*/}
+{/*        </pre>*/}
+{/*              </div>*/}
+{/*            </div>*/}
+{/*          </div>*/}
+{/*        </div>*/}
+
+
+        {/*        <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
+{/*          <div className="flex items-center gap-2 mb-3">*/}
+{/*            <div className="w-3 h-3 rounded-full bg-red-500" />*/}
+{/*            <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
+{/*            <div className="w-3 h-3 rounded-full bg-green-500" />*/}
+{/*          </div>*/}
+{/*          <pre className="font-mono text-sm text-gray-300">*/}
+{/*              <code>{`$ npm install @inspectr/inspectr*/}
+
+{/*✨ Installing Inspectr client...*/}
+{/*✨ Configuration generated*/}
+{/*✨ Ready to monitor your database!*/}
+
+{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
+{/*Starting Inspectr monitoring...*/}
+{/*Connected to database*/}
+{/*Dashboard available at http://localhost:3000`}</code>*/}
+{/*            </pre>*/}
+{/*        </div>*/}
+{/*      </div>*/}
 
       {/* Use Cases Section */}
       <div id="use-cases" className="py-24 bg-gradient-to-b from-brand-dark to-black">
