@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import logo from './assets/inspectr_brand_logo.png';
+import logoBrand from './assets/brand_logo_name.png';
 import appView from './assets/inspectr-app.png';
 import IconSearch from './assets/icon_search.svg?react';
 import IconWebhook  from './assets/icon_webhook.svg?react';
@@ -40,9 +41,11 @@ function App() {
               {/*<a href="https://docs.inspectr.dev" className="text-gray-300 hover:text-brand-primary transition-colors">Documentation</a>*/}
               <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
                  className="text-gray-300 hover:text-brand-primary transition-colors">GitHub</a>
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -75,23 +78,27 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">
-              <img src={logo}
+              <img src={logoBrand}
                    alt="Inspectr Logo" 
                    className="h-20 w-auto" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.1]">
               {/*Real-time API and Webhook Debugging Made Easy*/}
-              Simplifying Request debugging
+              Simplifying API Debugging
             </h1>
-            <p className="text-l md:text-xl text-gray-400 max-w-3xl mx-auto mb-4">
-              Inspect API requests and webhook events in real-time.</p>
-              <p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">
-              No more digging through logs, copy-pasting payloads, or guessing what's happening — instantly see request & responses.
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
+              Inspect API requests and webhook events in real-time.
+            </p>
+            <p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">
+              No more digging through logs or guessing what's happening — instantly see requests & responses.
+              Easily expose your local API to test integrations and capture webhook events from remote systems.
             </p>
             <div className="flex items-center justify-center gap-4">
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
                 Get Started <IconArrowRight className="w-4 h-4" />
               </button>
+              </a>
               <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
                  className="flex items-center gap-2 px-8 py-3 rounded-lg border border-gray-700 hover:border-brand-primary transition-all">
                 <IconGithub className="w-5 h-5" />
@@ -157,6 +164,69 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Terminal Preview */}
+{/*      <div id="terminal" className="py-24 bg-black/90">*/}
+{/*        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">*/}
+{/*          <div className="flex flex-col lg:flex-row">*/}
+{/*            /!* Text Section on the Left *!/*/}
+{/*            <div className="lg:w-1/2 flex flex-col justify-center bg-gray-800">*/}
+{/*              <h2 className="text-3xl font-bold text-white m-4 text-left">*/}
+{/*                Monitor Your Setup in Real-Time*/}
+{/*              </h2>*/}
+{/*              <p className="text-gray-300 text-lg text-left">*/}
+{/*                With Inspectr, you can effortlessly monitor your API and webhook activity.*/}
+{/*                Our intuitive terminal commands provide real-time feedback during installation and configuration,*/}
+{/*                ensuring you’re always in control.*/}
+{/*              </p>*/}
+{/*            </div>*/}
+
+{/*            /!* Terminal Preview Section on the Right *!/*/}
+{/*            <div className="lg:w-1/2 bg-black/90">*/}
+{/*              <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
+{/*                <div className="flex items-center gap-2 mb-3">*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-red-500" />*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
+{/*                  <div className="w-3 h-3 rounded-full bg-green-500" />*/}
+{/*                </div>*/}
+{/*                <pre className="font-mono text-sm text-gray-300">*/}
+{/*          <code>{`$ npm install @inspectr/inspectr*/}
+
+{/*✨ Installing Inspectr client...*/}
+{/*✨ Configuration generated*/}
+{/*✨ Ready to monitor your database!*/}
+
+{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
+{/*Starting Inspectr monitoring...*/}
+{/*Connected to database*/}
+{/*Dashboard available at http://localhost:3000`}</code>*/}
+{/*        </pre>*/}
+{/*              </div>*/}
+{/*            </div>*/}
+{/*          </div>*/}
+{/*        </div>*/}
+
+
+        {/*        <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
+{/*          <div className="flex items-center gap-2 mb-3">*/}
+{/*            <div className="w-3 h-3 rounded-full bg-red-500" />*/}
+{/*            <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
+{/*            <div className="w-3 h-3 rounded-full bg-green-500" />*/}
+{/*          </div>*/}
+{/*          <pre className="font-mono text-sm text-gray-300">*/}
+{/*              <code>{`$ npm install @inspectr/inspectr*/}
+
+{/*✨ Installing Inspectr client...*/}
+{/*✨ Configuration generated*/}
+{/*✨ Ready to monitor your database!*/}
+
+{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
+{/*Starting Inspectr monitoring...*/}
+{/*Connected to database*/}
+{/*Dashboard available at http://localhost:3000`}</code>*/}
+{/*            </pre>*/}
+{/*        </div>*/}
+{/*      </div>*/}
 
       {/* Use Cases Section */}
       <div id="use-cases" className="py-24 bg-gradient-to-b from-brand-dark to-black">
@@ -256,6 +326,8 @@ function App() {
               <p className="text-gray-400">Simplifying API and Webhook debugging for developers.</p>
             </div>
 
+            <div></div>
+
             <div>
               <h3 className="font-semibold text-lg mb-4">Product</h3>
               <ul className="space-y-2">
@@ -288,7 +360,7 @@ function App() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400">© 2024 Inspectr. All rights reserved.</p>
+            <p className="text-gray-400">© 2025 Inspectr. All rights reserved.</p>
             <div className="flex items-center gap-6">
               {/*<a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Privacy Policy</a>*/}
               {/*<a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Terms of Service</a>*/}
