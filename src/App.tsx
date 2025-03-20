@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './assets/inspectr_brand_logo.png';
 import logoBrand from './assets/brand_logo_name.png';
-import appView from './assets/inspectr-app.png';
+import appView from './assets/inspectr-new.png';
 import IconSearch from './assets/icon_search.svg?react';
 import IconWebhook  from './assets/icon_webhook.svg?react';
 import IconGlobe  from './assets/icon_globe.svg?react';
