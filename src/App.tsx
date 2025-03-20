@@ -41,9 +41,11 @@ function App() {
               {/*<a href="https://docs.inspectr.dev" className="text-gray-300 hover:text-brand-primary transition-colors">Documentation</a>*/}
               <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
                  className="text-gray-300 hover:text-brand-primary transition-colors">GitHub</a>
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>
+              </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -82,18 +84,21 @@ function App() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.1]">
               {/*Real-time API and Webhook Debugging Made Easy*/}
-              Simplifying Request debugging
+              Simplifying API Debugging
             </h1>
-            <p className="text-l md:text-xl text-gray-400 max-w-3xl mx-auto mb-4">
-              Inspect API requests and webhook events in real-time. No more digging through logs or guessing what's happening — instantly see request & responses.
-            {/*</p>*/}
-            {/*<p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">*/}
-
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
+              Inspect API requests and webhook events in real-time.
+            </p>
+            <p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">
+              No more digging through logs or guessing what's happening — instantly see requests & responses.
+              Easily expose your local API to test integrations and capture webhook events from remote systems.
             </p>
             <div className="flex items-center justify-center gap-4">
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
                 Get Started <IconArrowRight className="w-4 h-4" />
               </button>
+              </a>
               <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
                  className="flex items-center gap-2 px-8 py-3 rounded-lg border border-gray-700 hover:border-brand-primary transition-all">
                 <IconGithub className="w-5 h-5" />
