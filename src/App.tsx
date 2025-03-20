@@ -85,9 +85,10 @@ function App() {
               Simplifying Request debugging
             </h1>
             <p className="text-l md:text-xl text-gray-400 max-w-3xl mx-auto mb-4">
-              Inspect API requests and webhook events in real-time.</p>
-              <p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">
-              No more digging through logs, copy-pasting payloads, or guessing what's happening — instantly see request & responses.
+              Inspect API requests and webhook events in real-time. No more digging through logs or guessing what's happening — instantly see request & responses.
+            {/*</p>*/}
+            {/*<p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">*/}
+
             </p>
             <div className="flex items-center justify-center gap-4">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
