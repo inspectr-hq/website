@@ -75,7 +75,7 @@ function App() {
       {/* Hero Section */}
       <div className="relative overflow-hidden pt-16">
         <div className="absolute inset-0 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">
               <img src={logoBrand}
@@ -108,7 +108,8 @@ function App() {
           </div>
 
           {/* App Screenshot */}
-          <div className="rounded-lg overflow-hidden shadow-2xl border border-gray-800">
+          {/*<div className="rounded-lg overflow-hidden shadow-2xl border border-gray-800">*/}
+          <div className="">
             <img src={appView}
                  alt="Inspectr App"
                  className="w-full" />
