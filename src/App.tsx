@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import logo from './assets/inspectr_brand_logo.png';
-import logoBrand from './assets/brand_logo_name.png';
-import appView from './assets/inspectr-new.png';
+import { useState } from 'react';
 import IconSearch from './assets/icon_search.svg?react';
 import IconWebhook  from './assets/icon_webhook.svg?react';
 import IconGlobe  from './assets/icon_globe.svg?react';
@@ -28,7 +25,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <img src={logo}
+              <img src="/inspectr_brand_logo.png"
                    alt="Inspectr Logo"
                    className="h-8 w-auto" />
               <span className="font-bold text-xl">Inspectr</span>
@@ -78,7 +75,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">
-              <img src={logoBrand}
+              <img src="/brand_logo_name.png"
                    alt="Inspectr Logo" 
                    className="h-20 w-auto" />
             </div>
@@ -110,7 +107,7 @@ function App() {
           {/* App Screenshot */}
           {/*<div className="rounded-lg overflow-hidden shadow-2xl border border-gray-800">*/}
           <div className="">
-            <img src={appView}
+            <img src="/inspectr-new.png"
                  alt="Inspectr App"
                  className="w-full" />
           </div>
@@ -319,8 +316,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <img src={logo}
-                        alt="Inspectr Logo"
+                <img src="/inspectr_brand_logo.png" alt="Inspectr Logo"
                      className="h-8 w-auto" />
                 <span className="font-bold text-xl">Inspectr</span>
               </div>
