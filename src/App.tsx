@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import logo from './assets/inspectr_brand_logo.png';
-import logoBrand from './assets/brand_logo_name.png';
-import appView from './assets/inspectr-new.png';
+import { useState } from 'react';
+import Terminal from './components/Terminal.jsx';
+
 import IconSearch from './assets/icon_search.svg?react';
 import IconWebhook  from './assets/icon_webhook.svg?react';
 import IconGlobe  from './assets/icon_globe.svg?react';
@@ -27,21 +26,21 @@ function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-lg border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <img src={logo}
+            <a href="/" className="flex items-center gap-2">
+              <img src="/inspectr_brand_logo.png"
                    alt="Inspectr Logo"
                    className="h-8 w-auto" />
               <span className="font-bold text-xl">Inspectr</span>
-            </div>
+            </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-gray-300 hover:text-brand-primary transition-colors">Features</a>
               <a href="#use-cases" className="text-gray-300 hover:text-brand-primary transition-colors">Use Cases</a>
               {/*<a href="https://docs.inspectr.dev" className="text-gray-300 hover:text-brand-primary transition-colors">Documentation</a>*/}
-              <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer"
                  className="text-gray-300 hover:text-brand-primary transition-colors">GitHub</a>
-              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
+              <a href="#get-started">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>
@@ -62,11 +61,13 @@ function App() {
               <a href="#features" className="block text-gray-300 hover:text-brand-primary transition-colors">Features</a>
               <a href="#use-cases" className="block text-gray-300 hover:text-brand-primary transition-colors">Use Cases</a>
               {/*<a href="https://docs.inspectr.dev" className="block text-gray-300 hover:text-brand-primary transition-colors">Documentation</a>*/}
-              <a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer"
-                 className="block text-gray-300 hover:text-brand-primary transition-colors">GitHub</a>
+              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer"
+                 className="text-gray-300 hover:text-brand-primary transition-colors">GitHub</a>
+              <a href="#get-started">
               <button className="w-full bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>
+              </a>
             </div>
           </div>
         )}
@@ -78,7 +79,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
           <div className="text-center mb-16">
             <div className="flex justify-center mb-6">
-              <img src={logoBrand}
+              <img src="/brand_logo_name.png"
                    alt="Inspectr Logo" 
                    className="h-20 w-auto" />
             </div>
@@ -94,7 +95,7 @@ function App() {
               Easily expose your local API to test integrations and capture webhook events from remote systems.
             </p>
             <div className="flex items-center justify-center gap-4">
-              <a href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start" target="_blank" rel="noopener noreferrer">
+              <a href="#get-started">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
                 Get Started <IconArrowRight className="w-4 h-4" />
               </button>
@@ -110,7 +111,7 @@ function App() {
           {/* App Screenshot */}
           {/*<div className="rounded-lg overflow-hidden shadow-2xl border border-gray-800">*/}
           <div className="">
-            <img src={appView}
+            <img src="/inspectr-new.png"
                  alt="Inspectr App"
                  className="w-full" />
           </div>
@@ -166,68 +167,96 @@ function App() {
         </div>
       </div>
 
-      {/* Terminal Preview */}
-{/*      <div id="terminal" className="py-24 bg-black/90">*/}
-{/*        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">*/}
-{/*          <div className="flex flex-col lg:flex-row">*/}
-{/*            /!* Text Section on the Left *!/*/}
-{/*            <div className="lg:w-1/2 flex flex-col justify-center bg-gray-800">*/}
-{/*              <h2 className="text-3xl font-bold text-white m-4 text-left">*/}
-{/*                Monitor Your Setup in Real-Time*/}
-{/*              </h2>*/}
-{/*              <p className="text-gray-300 text-lg text-left">*/}
-{/*                With Inspectr, you can effortlessly monitor your API and webhook activity.*/}
-{/*                Our intuitive terminal commands provide real-time feedback during installation and configuration,*/}
-{/*                ensuring you’re always in control.*/}
-{/*              </p>*/}
-{/*            </div>*/}
+      {/* Terminal & Getting Started Section */}
+      <div id="get-started" className="py-20 bg-black/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12 text-white">
+            Get Started with 1 command
+          </h2>
 
-{/*            /!* Terminal Preview Section on the Right *!/*/}
-{/*            <div className="lg:w-1/2 bg-black/90">*/}
-{/*              <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
-{/*                <div className="flex items-center gap-2 mb-3">*/}
-{/*                  <div className="w-3 h-3 rounded-full bg-red-500" />*/}
-{/*                  <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
-{/*                  <div className="w-3 h-3 rounded-full bg-green-500" />*/}
-{/*                </div>*/}
-{/*                <pre className="font-mono text-sm text-gray-300">*/}
-{/*          <code>{`$ npm install @inspectr/inspectr*/}
+          <div className="space-y-12">
 
-{/*✨ Installing Inspectr client...*/}
-{/*✨ Configuration generated*/}
-{/*✨ Ready to monitor your database!*/}
+            {/* Step 1 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div /> {/* empty for alignment */}
+              <div className="text-gray-400">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  1. Start Your Local Service
+                </h3>
+                <p>Run your app locally on <code>http://localhost:3000</code>.</p>
+              </div>
+            </div>
 
-{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
-{/*Starting Inspectr monitoring...*/}
-{/*Connected to database*/}
-{/*Dashboard available at http://localhost:3000`}</code>*/}
-{/*        </pre>*/}
-{/*              </div>*/}
-{/*            </div>*/}
-{/*          </div>*/}
-{/*        </div>*/}
+            {/* Step 2 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <Terminal
+                command='npx @inspectr/inspectr --backend="http://localhost:3000"'
+                prompt="$"
+                showCopyButton
+              />
+              <div className="text-gray-400">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  2. Launch Inspectr
+                </h3>
+                <p>Start Inspectr and expose your service.</p>
+              </div>
+            </div>
 
+            {/* Step 3 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div /> {/* empty for alignment */}
+              <div className="text-gray-400">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  3. Open the Dashboard
+                </h3>
+                <p>
+                  Visit{' '}
+                  <a
+                    href="http://localhost:4004"
+                    className="text-brand-primary hover:underline"
+                  >
+                    http://localhost:4004
+                  </a>{' '}
+                  to view the Inspectr UI.
+                </p>
+              </div>
+            </div>
 
-        {/*        <div className="mt-16 rounded-lg bg-gray-900 p-4 max-w-3xl mx-auto overflow-hidden">*/}
-{/*          <div className="flex items-center gap-2 mb-3">*/}
-{/*            <div className="w-3 h-3 rounded-full bg-red-500" />*/}
-{/*            <div className="w-3 h-3 rounded-full bg-yellow-500" />*/}
-{/*            <div className="w-3 h-3 rounded-full bg-green-500" />*/}
-{/*          </div>*/}
-{/*          <pre className="font-mono text-sm text-gray-300">*/}
-{/*              <code>{`$ npm install @inspectr/inspectr*/}
+            {/* Step 4 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <Terminal
+                command="curl http://localhost:8080"
+                prompt="$"
+                showCopyButton
+              />
+              <div className="text-gray-400">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  4. Make API Requests
+                </h3>
+                <p>
+                  Send requests to{' '}
+                  <code>http://localhost:8080</code> and see them live.
+                </p>
+              </div>
+            </div>
 
-{/*✨ Installing Inspectr client...*/}
-{/*✨ Configuration generated*/}
-{/*✨ Ready to monitor your database!*/}
+            {/* More Info */}
+            <div className="text-center mt-12">
+              <a
+                href="https://github.com/inspectr-hq/inspectr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-brand-primary hover:underline font-medium"
+              >
+                Learn more on GitHub
+                <IconArrowRight className="w-4 h-4 ml-1" />
+              </a>
+            </div>
 
-{/*$ npx inspectr --backend="http://localhost:3000" --expose*/}
-{/*Starting Inspectr monitoring...*/}
-{/*Connected to database*/}
-{/*Dashboard available at http://localhost:3000`}</code>*/}
-{/*            </pre>*/}
-{/*        </div>*/}
-{/*      </div>*/}
+          </div>
+        </div>
+      </div>
+
 
       {/* Use Cases Section */}
       <div id="use-cases" className="py-24 bg-gradient-to-b from-brand-dark to-black">
@@ -319,8 +348,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <img src={logo}
-                        alt="Inspectr Logo"
+                <img src="/inspectr_brand_logo.png" alt="Inspectr Logo"
                      className="h-8 w-auto" />
                 <span className="font-bold text-xl">Inspectr</span>
               </div>
@@ -354,7 +382,7 @@ function App() {
               <ul className="space-y-2">
                 <li><a href="https://github.com/inspectr-hq/inspectr" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-primary transition-colors">GitHub</a></li>
                 {/*<li><a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Twitter</a></li>*/}
-                <li><a href="https://discord.gg/VrW2tBHE" className="text-gray-400 hover:text-brand-primary transition-colors">Discord</a></li>
+                <li><a href="https://discord.gg/58rbCxdr8Z" className="text-gray-400 hover:text-brand-primary transition-colors">Discord</a></li>
                 {/*<li><a href="#" className="text-gray-400 hover:text-brand-primary transition-colors">Contact</a></li>*/}
               </ul>
             </div>
