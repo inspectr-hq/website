@@ -1,8 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import App from '../App.tsx';
+// import App from '../App.tsx';
+import Navigation   from '../components/Navigation'
+import Hero         from '../components/Hero'
+import Features     from '../components/SectionFeatures'
+import GettingStarted from '../components/SectionGettingStarted'
+import UseCases     from '../components/SectionUseCases'
+import Footer       from '../components/Footer'
 ---
 
+<!--<Layout>-->
+<!--	<App client:load />-->
+<!--</Layout>-->
+
 <Layout>
-	<App client:load />
+	<Navigation client:load />
+	<Hero />
+	<Features />
+	<GettingStarted />
+	<UseCases />
+	<Footer />
 </Layout>
+

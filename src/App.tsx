@@ -20,6 +20,7 @@ import IconClose  from './assets/icon_close.svg?react';
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // - Main website
   return (
     <div className="min-h-screen bg-brand-dark text-white">
       {/* Navigation */}
