@@ -29,6 +29,8 @@ export default function InspectrChecker() {
   // Redirect when up
   useEffect(() => {
     if (status === 'up') {
+      fetch('https://ingress.inspectr.dev/api/metrics/launch')
+        .catch(() => { /* fail silently */ });
       const target = `http://localhost:4004/?openapi=${encodeURIComponent(openapiUrl)}`;
       window.location.href = target;
     }
