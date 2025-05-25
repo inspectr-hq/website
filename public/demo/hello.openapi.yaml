@@ -3,15 +3,15 @@ info:
   title: Inspectr Hello World API
   version: "1.0.0"
   description: |
-    A minimal API example promoting Inspectr.
-    Inspectr helps you visualize and analyze your codebase effortlessly.
+    Spin up a mock backend from any OpenAPI — zero config.
+    A minimal API example for Mocking APIs in Inspectr.
 servers:
   - url: http://localhost:8080
 paths:
   /:
     get:
       summary: Hello World endpoint
-      description: Returns a greeting message promoting Inspectr.
+      description: Returns a greeting message from Inspectr.
       responses:
         '200':
           description: Successful response
