@@ -10,7 +10,7 @@ import IconGithub from '../assets/icon_github.svg?react';
 
 export default function InspectrChecker() {
   const [status, setStatus] = useState<'checking' | 'up' | 'down'>('checking');
-  const [openapiUrl, setOpenapiUrl] = useState<string|null>('https://inspectr.dev/demo/hello.openapi.yaml');
+  const [openapiUrl, setOpenapiUrl] = useState<string>('https://inspectr.dev/demo/hello.openapi.yaml');
 
   useEffect(() => {
       const params = new URLSearchParams(window.location.search);
@@ -29,8 +29,8 @@ export default function InspectrChecker() {
   // Redirect when up
   useEffect(() => {
     if (status === 'up') {
-      // const target = `http://localhost:4004/launch?openapi=${encodeURIComponent(openapiUrl)}`;
-      // window.location.href = target;
+      const target = `http://localhost:4004/?openapi=${encodeURIComponent(openapiUrl)}`;
+      window.location.href = target;
     }
   }, [status, openapiUrl]);
 
