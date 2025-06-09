@@ -1,15 +1,20 @@
 ---
-title: ⚡ Quick Start
+title: Quick Start
 description: Run Inspectr immediately using npx
 ---
 
 import { Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import appInspectr from '../../../../assets/docs/inspectr-app.png';
+import outputInspectr from '../../../../assets/docs/inspectr-output.png';
 
 [//]: # (# ⚡ Quick Start)
 
-Ready to debug your API traffic with Inspectr? This guide walks you through the fastest way to get started.
+Ready to debug your API traffic with Inspectr?
 
-## Prerequisites
+Inspectr makes it easy to monitor and debug HTTP traffic with zero-configuration CLI usage. This guide walks you through the installation and gets you started.
+
+## Quick start
 
 Before starting, make sure you have:
 
@@ -45,7 +50,7 @@ Before starting, make sure you have:
       * This starts the Inspectr proxy on port `8080`.
       * The Inspectr App UI is available at [http://localhost:4004](http://localhost:4004).
 
-      ![Inspectr Output](https://raw.githubusercontent.com/inspectr-hq/inspectr/main/assets/inspectr-output.png)
+      <Image src={outputInspectr} alt="Inspectr Output" />
 
     </li>
 
@@ -67,6 +72,8 @@ Before starting, make sure you have:
     <li>
       ### Inspect in the App
 
+      <Image src={appInspectr} alt="Inspectr App" />
+
       Use the Inspectr UI to:
 
       * View headers, query params, and request body
@@ -79,7 +86,9 @@ Before starting, make sure you have:
 
 </Steps>
 
-### Optional: Use Catch Mode (No Backend)
+## Optional
+
+### Use Catch Mode (No Backend)
 
 If you don’t have a backend, enable catch mode to accept and inspect any HTTP requests:
 
@@ -89,7 +98,7 @@ inspectr --catch=true
 
 Every request will return a `200 OK` with no forwarding. Great for testing tools or webhooks!
 
-### Optional: Expose Publicly
+### Expose Publicly
 
 To expose Inspectr to receive external requests (like webhooks):
 

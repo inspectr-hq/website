@@ -28,10 +28,11 @@ export default defineConfig({
       sidebar: [
         {
           label: 'Getting started',
-          autogenerate: { directory: 'docs/getting-started' }
-          // items: [
-          //   { label: 'Qucik start', slug: 'getting-started/quick-start' }
-          // ]
+          // autogenerate: { directory: 'docs/getting-started' }
+          items: [
+            { label: 'Quick start', slug: 'docs/getting-started/quick-start' },
+            { label: 'Installation', slug: 'docs/getting-started/installation' }
+          ]
         },
         {
           label: 'Concepts',
