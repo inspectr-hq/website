@@ -12,7 +12,7 @@ Having trouble getting Inspectr running? This guide covers the most common issue
 
 ## Port Conflicts
 
-### Problem:
+**Problem:**
 
 You see an error like:
 
@@ -20,11 +20,14 @@ You see an error like:
 listen tcp :8080: bind: address already in use
 ```
 
-### Solution:
+**Solution:**
 
 Another process is using the port. You can:
 
-* Kill the conflicting process or
+* Kill the conflicting process
+
+or
+
 * Change Inspectr’s listen port:
 
 ```bash
@@ -35,11 +38,11 @@ inspectr --listen=:8888 --backend=http://localhost:3000
 
 ## No Requests Showing in the UI
 
-### Problem:
+**Problem:**
 
 Inspectr starts, but no requests appear in the App.
 
-### Checklist:
+**Checklist:**
 
 * Are you sending requests **through** Inspectr (e.g., `localhost:8080`)?
 * Is the request path correct?
@@ -50,11 +53,11 @@ Inspectr starts, but no requests appear in the App.
 
 ## Replay Not Working
 
-### Problem:
+**Problem:**
 
 You click “Replay” in the UI, but your backend doesn’t receive the request.
 
-### Solution:
+**Solution:**
 
 * Make sure Inspectr is running with `--backend` set
 * If you switched ports, ensure the replay is targeting the correct backend
@@ -64,11 +67,11 @@ You click “Replay” in the UI, but your backend doesn’t receive the request
 
 ## Mock Mode Returning Empty Responses
 
-### Problem:
+**Problem:**
 
 Requests return `200 OK` but no body when using `--mock-backend`.
 
-### Solution:
+**Solution:**
 
 * Ensure your OpenAPI spec includes examples under the correct media type
 * For dynamic generation, use `--mock-dynamic=true`
@@ -77,11 +80,11 @@ Requests return `200 OK` but no body when using `--mock-backend`.
 
 ## UI Not Loading
 
-### Problem:
+**Problem:**
 
 App UI at `http://localhost:4004` is not responding.
 
-### Solution:
+**Solution:**
 
 * Add `--app=true --app-port=4004` if the app was disabled
 * Confirm the port is not blocked or already in use
