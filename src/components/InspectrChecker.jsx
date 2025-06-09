@@ -33,7 +33,9 @@ export default function InspectrChecker() {
         /* fail silently */
       });
       const target = `http://localhost:4004/?openapi=${encodeURIComponent(openapiUrl)}`;
-      window.location.href = target;
+      setTimeout(() => {
+        window.location.href = target;
+      }, 2000);
     }
   }, [status, openapiUrl]);
 
