@@ -1,0 +1,138 @@
+---
+title: Exposing n8n Workflows
+---
+
+import { Image } from 'astro:assets';
+import n8nWorkflow from '../../../../assets/guides/n8n_webhook_worfklow.png';
+import n8nConfigure from '../../../../assets/guides/n8n_webhook_configure.png';
+import n8nTriggered from '../../../..//assets/guides/n8n_webhook_triggered.png';
+import n8nSuccess from '../../../../assets/guides/n8n_webhook_success.png';
+import n8nInspectr from '../../../../assets/guides/n8n_webhook_inspectr.png';
+
+import FlowN8n from '../../../../components/DocFlows/FlowN8n.jsx';
+
+[//]: # (# Exposing n8n Workflows with Inspectr)
+
+[n8n](https://n8n.io/) is a powerful open-source workflow automation tool. Many workflows start with a webhook trigger—but exposing your local n8n instance to receive those webhooks can be tricky.
+
+With Inspectr, you can expose your local n8n webhook endpoints securely to the public and monitor all incoming traffic in real time.
+
+---
+
+## Data Flow
+
+<FlowN8n client:only="react" />
+
+## Why Use Inspectr with n8n?
+
+* Securely expose local n8n webhooks (no tunnel config needed)
+* Debug and replay webhook requests
+* View incoming headers and payloads in the UI
+* Share your webhook URL with third-party systems instantly
+
+---
+
+## Prerequisites
+
+* [n8n installed](https://docs.n8n.io/hosting/installation/npm/) and running locally (e.g. via [Docker](https://docs.n8n.io/hosting/installation/docker/) or [NPM](https://docs.n8n.io/hosting/installation/npm/))
+* Inspectr installed ([Install guide →](/docs/getting-started/install))
+
+---
+
+## Step 1: Start n8n Locally
+
+Run n8n locally with webhook endpoints enabled. For example:
+
+```bash
+npx n8n
+```
+
+or via Docker
+
+```bash
+docker run -it --rm \
+  -p 5678:5678 \
+  -e N8N_HOST=localhost \
+  -e N8N_PORT=5678 \
+  -e N8N_PROTOCOL=http \
+  -e WEBHOOK_TUNNEL_URL=http://localhost:8080 \
+  n8nio/n8n
+```
+
+Add a Webhook trigger to a n8n workflow.
+
+[//]: # (![n8n Webhook Workflow]&#40;./src/assets/guides/n8n_webhook_worfklow.png&#41;)
+
+<Image src={n8nWorkflow} alt="n8n Webhook Trigger" width="400" />
+
+Make sure your workflow includes a **Webhook Trigger** node with an appropriate path (e.g. `/inspectr`).
+
+<Image src={n8nConfigure} alt="n8n Webhook Configuration" height="500" />
+
+---
+
+## Step 2: Start Inspectr to Forward Requests to n8n
+
+Now launch Inspectr to forward incoming requests to your local n8n server:
+
+```bash
+inspectr --backend=http://localhost:5678 --expose --channel=n8n-demo --channel-code=n8ndemo123
+```
+
+* Inspectr will expose your service on:
+
+```
+https://n8n-demo.in-spectr.dev
+```
+
+* Any request to that domain will be forwarded to your local n8n instance
+* You’ll see real-time logs in both the terminal and Inspectr App UI
+
+---
+
+## Step 3: Configure Third-Party Webhook or Trigger Event
+
+Use your public Inspectr URL when setting up webhook integrations:
+
+```
+https://n8n-demo.in-spectr.dev/webhook-test/inspectr
+```
+
+This replaces `http://localhost:5678/webhook-test/inspectr` and allows services like Stripe, GitHub, or Zapier to reach your local workflow.
+
+For this demo, you can trigger the n8n workflow by opening the trigger URL in your browser.
+
+```bash
+https://n8n-demo.in-spectr.dev/webhook-test/inspectr
+```
+
+<Image src={n8nTriggered} alt="n8n Webhook triggered" />
+
+The n8n webhook workflow running on your local machine, was succesfully triggered remotely
+
+<Image src={n8nSuccess} alt="n8n Webhook success" />
+
+---
+
+## Step 4: Inspect and Replay
+
+* Watch incoming events in [http://localhost:4004](http://localhost:4004)
+* Use the Inspectr UI to inspect payloads, status codes, and headers
+* Replay captured requests into your workflow with one click
+
+<Image src={n8nInspectr} alt="n8n request in Inspectr" />
+
+---
+
+## Tips
+
+* Add request validation logic in your n8n workflow if needed
+* Use Inspectr even in production-like environments to log webhook traffic
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [How Inspectr Works →]&#40;/core-concepts/how-it-works&#41;)

@@ -1,0 +1,93 @@
+
+---
+title: Capturing Webhooks
+---
+import FlowIngressWebhook from '../../../../components/DocFlows/FlowIngressWebhook.jsx';
+
+<FlowIngressWebhook client:only="react" />
+
+Webhooks are crucial for integrating third-party systems—but they can be hard to debug. Inspectr makes it easy to capture, inspect, and replay webhook events locally or remotely.
+
+---
+
+## Common Use Case
+
+You’re building an app that receives webhook callbacks (e.g. from Stripe, GitHub, or Zapier), and you want to:
+
+* See exactly what payloads are sent
+* Validate headers or auth tokens
+* Debug retries and delivery issues
+
+---
+
+## Step 1: Start Inspectr in Catch Mode
+
+If you don’t have a backend to forward to, use `--catch` mode to just capture and respond:
+
+```bash
+inspectr --catch=true
+```
+
+* Returns `200 OK` by default to all requests
+* Captures and logs every request
+* UI available at [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Step 2: Expose It Publicly (for Remote Webhooks)
+
+To allow third-party services to call your local Inspectr instance:
+
+```bash
+inspectr --catch=true --expose=true --channel=wehhooks --channel-code=secret123
+```
+
+Your webhook endpoint becomes:
+
+```
+https://wehhooks.in-spectr.dev
+```
+
+---
+
+## Step 3: Trigger the Webhook
+
+Configure your third-party service to send its webhook to your Inspectr public URL:
+
+```
+https://wehhooks.in-spectr.dev/events
+```
+
+Once triggered, the request is:
+
+* Logged in your terminal
+* Available in the Inspectr App UI
+* Automatically responded to with `200 OK`
+
+---
+
+## Step 4: Replay Webhook Events
+
+Inside the Inspectr App, select any captured request and **Replay** it to:
+
+* Test how your local backend handles it
+* Re-trigger the same event without third-party involvement
+
+---
+
+## Best Practices
+
+* Use catch mode when testing webhooks without needing a backend
+* Secure your exposed channel using `--channel-code`
+* Use Inspectr’s **Replay** feature for iterative development and debugging
+
+[//]: # (---)
+
+[//]: # (## Next Steps)
+
+[//]: # ()
+[//]: # (* [Mocking APIs →]&#40;/guides/mocking&#41;)
+
+[//]: # (* [Inspecting Frontend Requests →]&#40;/guides/frontend-inspection&#41;)
+
+[//]: # (* [Expose Services Securely →]&#40;/exposing/securing-exposure&#41;)

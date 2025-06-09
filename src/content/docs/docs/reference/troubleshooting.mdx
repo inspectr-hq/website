@@ -1,0 +1,111 @@
+---
+
+title: Troubleshooting Common Issues
+
+---
+
+[//]: # (# 🛠️ Troubleshooting Common Issues)
+
+Having trouble getting Inspectr running? This guide covers the most common issues and how to resolve them.
+
+---
+
+## Port Conflicts
+
+### Problem:
+
+You see an error like:
+
+```
+listen tcp :8080: bind: address already in use
+```
+
+### Solution:
+
+Another process is using the port. You can:
+
+* Kill the conflicting process or
+* Change Inspectr’s listen port:
+
+```bash
+inspectr --listen=:8888 --backend=http://localhost:3000
+```
+
+---
+
+## No Requests Showing in the UI
+
+### Problem:
+
+Inspectr starts, but no requests appear in the App.
+
+### Checklist:
+
+* Are you sending requests **through** Inspectr (e.g., `localhost:8080`)?
+* Is the request path correct?
+* Are you forwarding to the right backend?
+* Try adding `--print=true` to see terminal output.
+
+---
+
+## Replay Not Working
+
+### Problem:
+
+You click “Replay” in the UI, but your backend doesn’t receive the request.
+
+### Solution:
+
+* Make sure Inspectr is running with `--backend` set
+* If you switched ports, ensure the replay is targeting the correct backend
+* Check if your backend is running and reachable
+
+---
+
+## Mock Mode Returning Empty Responses
+
+### Problem:
+
+Requests return `200 OK` but no body when using `--mock-backend`.
+
+### Solution:
+
+* Ensure your OpenAPI spec includes examples under the correct media type
+* For dynamic generation, use `--mock-dynamic=true`
+
+---
+
+## UI Not Loading
+
+### Problem:
+
+App UI at `http://localhost:4004` is not responding.
+
+### Solution:
+
+* Add `--app=true --app-port=4004` if the app was disabled
+* Confirm the port is not blocked or already in use
+
+---
+
+## Need More Help?
+
+* Check verbose logs with `--log-level=debug`
+* Join our community on [Discord](https://discord.gg/58rbCxdr8Z)
+* File an issue or start a discussion for support
+
+---
+
+## Tips for Smooth Debugging
+
+* Always check the CLI output when something doesn’t work
+* Confirm your Inspectr config with `--print` and `--log-level`
+* Restart Inspectr if switching modes (mock/catch/backend)
+
+[//]: # (---)
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [How It Works →]&#40;/core-concepts/how-it-works&#41;)
+[//]: # (* [CLI Options →]&#40;/configuration/cli-options&#41;)
+[//]: # (* [Expose Publicly →]&#40;/exposing/exposing-publicly&#41;)

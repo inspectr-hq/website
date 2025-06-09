@@ -1,0 +1,105 @@
+/* Custom header styles for Starlight integration */
+
+/* Ensure Tailwind classes work in Starlight context */
+.header .hidden.md\:flex {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .header .hidden.md\:flex {
+    display: flex;
+  }
+}
+
+/* Brand colors */
+:root {
+  --brand-primary: #00e5ff;
+  --brand-secondary: #00b8d4;
+  --brand-dark: #002329;
+}
+
+.header .text-gray-300 {
+  color: #d1d5db;
+}
+
+.header .hover\:text-brand-primary:hover {
+  color: var(--brand-primary);
+}
+
+.header .bg-brand-primary {
+  background-color: var(--brand-primary);
+}
+
+.header .hover\:bg-brand-secondary:hover {
+  background-color: var(--brand-secondary);
+}
+
+.header .text-brand-dark {
+  color: var(--brand-dark);
+}
+
+/* Button styles */
+.header .rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.header .px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.header .py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.header .font-medium {
+  font-weight: 500;
+}
+
+.header .transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Icon sizes */
+.header .w-6 {
+  width: 1.5rem;
+}
+
+.header .h-6 {
+  height: 1.5rem;
+}
+
+.header .h-8 {
+  height: 2rem;
+}
+
+.header .w-auto {
+  width: auto;
+}
+
+/* Gap utilities */
+.header .gap-4 {
+  gap: 1rem;
+}
+
+/* Font utilities */
+.header .font-bold {
+  font-weight: 700;
+}
+
+.header .text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+/* Backdrop and border utilities */
+/* Apply the Tailwind classes to the outer header element */
+header.header {
+  backdrop-filter: blur(16px); /* backdrop-blur-lg */
+  border-bottom-width: 1px; /* border-b */
+  border-bottom-style: solid; /* border-b */
+  border-color: #1f2937; /* border-gray-800 */
+}

@@ -1,0 +1,107 @@
+---
+
+title: Using Inspectr with Flask
+
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowFlask.jsx';
+
+<FlowBase client:only="react" />
+
+
+[//]: # (# Using Inspectr with Flask &#40;Python&#41;)
+
+Inspectr is an ideal companion for Python Flask applications, giving you a clear view of all HTTP traffic, helping you debug issues, and even enabling you to expose your local API to the internet for testing.
+
+This guide shows how to use Inspectr with Flask.
+
+---
+
+## Prerequisites
+
+* Python 3.8+
+* Flask installed (`pip install flask`)
+* Inspectr installed ([Install guide →](/docs/getting-started/install))
+
+---
+
+## Step 1: Create or Start Your Flask App
+
+Create a simple Flask app (`app.py`):
+
+```python
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/hello', methods=['GET'])
+def hello():
+    return jsonify({"message": "Hello from Flask!"})
+
+if __name__ == '__main__':
+    app.run(port=5000)
+```
+
+Start your app:
+
+```bash
+python app.py
+```
+
+---
+
+## Step 2: Run Inspectr as a Proxy
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:5000
+```
+
+Make a request via Inspectr:
+
+```bash
+curl http://localhost:8080/hello
+```
+
+Inspectr will forward the request to Flask, capture the response, and show it in:
+
+* Terminal log
+* Inspectr App UI: [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Optional: Expose Flask Publicly
+
+<FlowIngress client:only="react" />
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:5000 \
+  --expose \
+  --channel=flask-demo \
+  --channel-code=flask123
+```
+
+Your app is now accessible via:
+
+```
+https://flask-demo.in-spectr.dev
+```
+
+---
+
+## Summary
+
+Inspectr makes it easy to debug Flask APIs and receive traffic from external sources:
+
+* Local proxy for inspection
+* Public exposure with access control
+* Live UI for inspecting and replaying traffic
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Expose Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Quick Start →]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)

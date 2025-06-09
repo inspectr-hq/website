@@ -1,0 +1,106 @@
+---
+title: ⚡ Quick Start
+description: Run Inspectr immediately using npx
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+[//]: # (# ⚡ Quick Start)
+
+Ready to debug your API traffic with Inspectr? This guide walks you through the fastest way to get started.
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+* Installed Inspectr ([see installation guide](/getting-started/install))
+* A local API or web service to test (e.g. running on [http://localhost:3000](http://localhost:3000))
+
+---
+
+<Steps>
+
+  <ol>
+
+    <li>
+      ### Start Your Backend (Optional)
+
+      If you're testing against your own backend, make sure it’s running:
+
+      ```bash
+      # Example: Node.js/Express app on port 3000
+      npm start
+      ```
+    </li>
+
+    <li>
+      ### Start Inspectr
+
+      Run Inspectr and point it to your local backend:
+
+      ```bash
+      inspectr --backend=http://localhost:3000
+      ```
+
+      * This starts the Inspectr proxy on port `8080`.
+      * The Inspectr App UI is available at [http://localhost:4004](http://localhost:4004).
+
+      ![Inspectr Output](https://raw.githubusercontent.com/inspectr-hq/inspectr/main/assets/inspectr-output.png)
+
+    </li>
+
+    <li>
+      ### Make Your First Request
+
+      Send a request through Inspectr to see it in action:
+
+      ```bash
+      curl http://localhost:8080/hello
+      ```
+
+      In the **terminal**, you'll see a color-coded log of the request.
+
+      In the **browser**, go to [http://localhost:4004](http://localhost:4004) to view full request/response details in real time.
+
+    </li>
+
+    <li>
+      ### Inspect in the App
+
+      Use the Inspectr UI to:
+
+      * View headers, query params, and request body
+      * See backend response data
+      * Filter or replay previous requests
+
+    </li>
+
+  </ol>
+
+</Steps>
+
+### Optional: Use Catch Mode (No Backend)
+
+If you don’t have a backend, enable catch mode to accept and inspect any HTTP requests:
+
+```bash
+inspectr --catch=true
+```
+
+Every request will return a `200 OK` with no forwarding. Great for testing tools or webhooks!
+
+### Optional: Expose Publicly
+
+To expose Inspectr to receive external requests (like webhooks):
+
+```bash
+inspectr --backend=http://localhost:3000 --expose --channel=hello-world --channel-code=secure123
+```
+
+Your service is now available at:
+
+```
+https://hello-world.in-spectr.dev
+```
+
+

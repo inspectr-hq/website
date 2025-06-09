@@ -1,0 +1,85 @@
+---
+title: Using Inspectr with Express
+description: Combine Inspectr with Express middleware
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowNode.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with Express)
+
+Inspectr is a great tool for debugging and analyzing API traffic in Node.js applications, including those built with [Express](https://expressjs.com/). You can use it to inspect incoming requests to your Express app by placing Inspectr as a **proxy** in front of it.
+
+---
+
+## Use Inspectr as a Proxy
+
+Inspectr sits in front of your app and captures traffic before forwarding it to your Express backend.
+
+### 1. Start Your Express App
+
+Make sure your app is running, for example on port 3000:
+
+```js
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/api/data', (req, res) => {
+  console.log('Received:', req.body);
+  res.status(200).json({ message: 'OK' });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+```
+
+### 2. Start Inspectr in Front of Your App
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:3000
+```
+
+Now, make requests to `http://localhost:8080/api/data`. Inspectr will:
+
+* Log the request in the terminal
+* Show it in the Inspectr App UI
+* Forward it to your Express app on port 3000
+
+---
+
+## Optional: Expose Your Express API Publicly
+
+<FlowIngress client:only="react" />
+
+You can expose your local Express server with Inspectr Ingress:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:3000 \
+  --expose \
+  --channel=express-demo \
+  --channel-code=express123
+```
+
+Your public endpoint will be:
+
+```
+https://express-demo.in-spectr.dev
+```
+
+---
+
+## Summary
+
+Inspectr enhances Express development by giving you full visibility into all traffic and making debugging simple and interactive. While middleware-based capture is not supported, proxy mode works great for local and public exposure workflows.
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Quick Start →]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [How Inspectr Works →]&#40;/core-concepts/how-it-works&#41;)

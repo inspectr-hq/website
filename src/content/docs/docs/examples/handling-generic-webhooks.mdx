@@ -1,0 +1,107 @@
+---
+title: Handling Generic Webhooks
+description: Capture and debug generic webhook events using Inspectr
+---
+
+import FlowIngressWebhook from '../../../../components/DocFlows/FlowIngressWebhook.jsx';
+
+<FlowIngressWebhook client:only="react" />
+
+
+[//]: # (# Handling Generic Webhooks with Inspectr)
+Webhooks are used across many platforms to send real-time data to your services. Whether you're integrating with custom apps, IoT devices, or internal systems, Inspectr gives you a simple and powerful way to capture, inspect, and replay any HTTP webhook.
+
+---
+
+## Why Use Inspectr for Webhooks?
+
+* No backend needed to start debugging
+* Instantly expose a public endpoint
+* See request headers, bodies, and metadata in real time
+* Replay requests without re-triggering the sender
+
+---
+
+## Common Scenarios
+
+* Catching webhooks from custom SaaS platforms
+* Debugging IoT or edge device payloads
+* Monitoring internal app integrations
+* Logging events from CI/CD tools (e.g. GitHub, GitLab, Jenkins)
+
+---
+
+## Step 1: Start Inspectr in Catch Mode
+
+Run Inspectr in catch mode with public exposure:
+
+```bash
+inspectr --catch=true --expose --channel=wehhooks --channel-code=webhooks123
+```
+
+* This creates a public endpoint:
+
+```
+https://wehhooks.in-spectr.dev
+```
+
+* Any request sent to this URL is captured, logged, and acknowledged with `200 OK`
+* UI: [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Step 2: Point Your Webhook Sender to Inspectr
+
+In your platform or service, configure the webhook destination:
+
+```
+https://wehhooks.in-spectr.dev/my-webhook-endpoint
+```
+
+You can use any path. Inspectr will capture:
+
+* HTTP method (GET, POST, etc.)
+* Headers (e.g. auth, signature)
+* Body (JSON, XML, raw text, etc.)
+
+---
+
+## Step 3: Inspect the Payload
+
+Once the webhook is sent:
+
+* View it in your **terminal** (color-coded log)
+* Open the **Inspectr App** in your browser
+* Filter by method, path, or timestamp
+* See full request body and headers
+
+---
+
+## Step 4: Replay Events
+
+From the Inspectr App, click **Replay** to send the webhook again to a new backend URL:
+
+```bash
+inspectr --backend=http://localhost:3000 --expose --channel=wehhooks --channel-code=secret123
+```
+
+Now all captured webhooks will be forwarded to your local backend, and can be replayed from the UI.
+
+---
+
+## Summary
+
+Inspectr gives you everything you need to work with generic webhooks:
+
+* Expose endpoints publicly with zero setup
+* Inspect full payloads and metadata
+* Replay and forward to local services
+* Secure access with optional authentication
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Public Exposure →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Replay Mode →]&#40;/core-concepts/how-it-works&#41;)

@@ -1,0 +1,110 @@
+---
+title: Using Inspectr with .NET
+description: Forward API traffic to an ASP.NET backend using Inspectr
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowNet.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with .NET APIs)
+
+Inspectr is a powerful tool when working with .NET web APIs. You can use it to debug incoming requests, inspect headers and payloads, and expose your local .NET services for webhook testing or external integrations.
+
+This guide shows how to use Inspectr as a **proxy** in front of your .NET application.
+
+---
+
+## Prerequisites
+
+* .NET SDK installed ([Install .NET →](https://dotnet.microsoft.com/en-us/download))
+* Inspectr installed ([Install guide →](/getting-started/install))
+* A running .NET Web API project (e.g., built with ASP.NET Core)
+
+---
+
+## Step 1: Create or Start Your .NET Web API
+
+You can use the .NET CLI to scaffold a new API:
+
+```bash
+dotnet new webapi -n MyApiApp
+cd MyApiApp
+dotnet run
+```
+
+By default, this runs on `http://localhost:5000`.
+
+---
+
+## Step 2: Start Inspectr as a Proxy
+
+Run Inspectr and forward traffic to your running .NET backend:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:5000
+```
+
+Now, any requests made to `http://localhost:8080` will be:
+
+* Logged in the terminal
+* Captured in the Inspectr App UI ([http://localhost:4004](http://localhost:4004))
+* Forwarded to your .NET API
+
+### Example request:
+
+```bash
+curl http://localhost:8080/weatherforecast
+```
+
+---
+
+## Optional: Expose Your API Publicly
+
+<FlowIngress client:only="react" />
+
+You can expose your .NET API to the internet via Inspectr’s Ingress relay:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:5000 \
+  --expose \
+  --channel=dotnet-demo \
+  --channel-code=dotnet123
+```
+
+Your API will now be available at:
+
+```
+https://dotnet-demo.in-spectr.dev
+```
+
+---
+
+## Step 3: Inspect and Debug
+
+Use the Inspectr App to:
+
+* View request/response bodies, status codes, and headers
+* Replay requests to test your endpoints
+* Catch malformed or unauthorized requests
+* Log activity during development or integration testing
+
+---
+
+## Summary
+
+Using Inspectr with .NET APIs allows you to:
+
+* Debug traffic in real time
+* Replay incoming requests for testing
+* Expose services for external integrations or webhook development
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Architecture Overview →]&#40;/core-concepts/architecture&#41;)

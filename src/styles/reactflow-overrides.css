@@ -1,0 +1,113 @@
+/* react-flow Overwrites */
+/* Dark mode for ReactFlow container */
+:root[data-theme='dark'] .react-flow {
+  background-color: #2f385a; /* gray-900 */
+  /*background-color: rgb(0, 184, 212); !* gray-900 *!*/
+}
+:root {
+  /* Light mode variables */
+  --label-bg-color: #fff;
+  --label-text-color: #000;
+  --background-dot-color: #f1f1f1;
+  --handle-color: #555;
+  --edge-color: #b1b1b7;
+  --xy-node-background-color-default: #ffffff;
+  --xy-node-color-default: #000000;
+}
+
+:root[data-theme='dark'] {
+  /* Dark mode variables */
+  --label-bg-color: #70757a; /* gray-800 */
+  /*--label-bg-color: #1f2937; !* gray-800 *!*/
+  --label-text-color: #e5e7eb; /* gray-200 */
+  --background-dot-color: #374151; /* gray-700 */
+  --handle-color: #9ca3af; /* gray-400 */
+  --edge-color: #6b7280; /* gray-500 */
+  --xy-node-background-color-default: #1f2937 !important; /* gray-800 */
+  --xy-node-color-default: #e5e7eb; /* gray-200 */
+}
+.react-flow__handle,
+.react-flow__edgelabel-renderer {
+  margin: 0;
+}
+
+.react-flow__handle {
+  background-color: var(--handle-color, #555);
+}
+
+:root[data-theme='dark'] .react-flow__handle {
+  background-color: var(--handle-color, #9ca3af);
+}
+
+.react-flow .react-flow__edges svg {
+  overflow: visible;
+  position: absolute;
+  pointer-events: none;
+}
+
+.flow-container :is(canvas, svg) {
+  display: block !important;
+  max-width: none !important;
+  /*height: auto !important;*/
+}
+
+.flow-container
+  :not(a, strong, em, del, span, input, code, br)
+  + :not(a, strong, em, del, span, input, code, br, :where(.not-content *)) {
+  margin-top: 0 !important;
+}
+
+.react-flow__renderer defs marker path {
+  transform: scale(2);
+  transform-origin: center;
+}
+
+/* Edge styling for dark mode */
+:root[data-theme='dark'] .react-flow__edge path {
+  stroke: var(--edge-color, #6b7280);
+}
+
+:root[data-theme='dark'] .react-flow__edge-path {
+  stroke: var(--edge-color, #6b7280);
+}
+
+:root[data-theme='dark'] .react-flow__edge-text {
+  fill: var(--label-text-color, #e5e7eb);
+}
+
+/*.flow-container .react-flow__node svg {*/
+/*    display: inline-block !important;*/
+/*}*/
+
+/* Attribution panel styling for dark mode */
+:root[data-theme='dark'] .react-flow__panel.react-flow__attribution {
+  background-color: rgba(31, 41, 55, 0.8); /* gray-800 with opacity */
+  color: #e5e7eb; /* gray-200 */
+}
+
+.react-flow__node-input,
+.react-flow__node-default,
+.react-flow__node-output,
+.react-flow__node-group {
+  padding: 10px;
+  border-radius: var(--xy-node-border-radius, var(--xy-node-border-radius-default));
+  width: 150px;
+  font-size: 12px;
+  color: var(--xy-node-color, var(--xy-node-color-default));
+  text-align: center;
+  border: var(--xy-node-border, var(--xy-node-border-default));
+  background-color: var(--xy-node-background-color, var(--xy-node-background-color-default));
+}
+
+/* Explicitly set background color for nodes in dark mode */
+:root[data-theme='dark'] .react-flow__node-input,
+:root[data-theme='dark'] .react-flow__node-default,
+:root[data-theme='dark'] .react-flow__node-output {
+  background-color: #1f2937 !important; /* gray-800 */
+  color: var(--xy-node-color-default);
+}
+
+:root[data-theme='dark'] .react-flow__node-group {
+  background-color: #3d4045 !important; /* gray-800 */
+  color: var(--xy-node-color-default);
+}

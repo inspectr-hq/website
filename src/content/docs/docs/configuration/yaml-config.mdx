@@ -1,0 +1,100 @@
+---
+
+title: YAML Configuration
+
+---
+
+[//]: # (# 📝 YAML Configuration &#40;.inspectr.yaml&#41;)
+
+Instead of passing CLI flags every time, Inspectr can be configured using a `.inspectr.yaml` file. This is useful for saving common setups and sharing configurations across teams.
+
+---
+
+## How It Works
+
+* The file should be named `.inspectr.yaml` by default
+* You can specify a different file with `--config`
+* CLI flags always override YAML values if both are present
+
+---
+
+## Example `.inspectr.yaml`
+
+```yaml
+listen: ":8080"
+backend: "http://localhost:3000"
+print: true
+app: true
+appPort: "4004"
+expose: false
+mockBackend: "./openapi.yaml"
+mockDynamic: true
+storePath: ".inspectr.db"
+apiSecret: "changeme"
+```
+
+---
+
+## Configuration Sections
+
+### Core Proxy Settings
+
+| Key       | Type    | Description                        |
+| --------- | ------- | ---------------------------------- |
+| `listen`  | string  | Port to listen on (e.g. `":8080"`) |
+| `backend` | string  | URL to forward requests to         |
+| `catch`   | boolean | Enable catch mode                  |
+
+### Mocking Support
+
+| Key           | Type    | Description                      |
+| ------------- | ------- | -------------------------------- |
+| `mockBackend` | string  | Path to OpenAPI spec for mocking |
+| `mockDynamic` | boolean | Enable dynamic mock generation   |
+
+### Exposure and Ingress
+
+| Key           | Type    | Description                                      |
+| ------------- | ------- | ------------------------------------------------ |
+| `expose`      | boolean | Enable public exposure via Ingress               |
+| `channel`     | string  | Custom subdomain on `in-spectr.dev`              |
+| `channelCode` | string  | Security code for accessing your public endpoint |
+
+### Inspectr App UI
+
+| Key       | Type    | Description              |
+| --------- | ------- | ------------------------ |
+| `app`     | boolean | Enable Inspectr App UI   |
+| `appPort` | string  | Port to serve the App UI |
+
+### Security and Storage
+
+| Key             | Type    | Description                                 |
+| --------------- | ------- | ------------------------------------------- |
+| `apiSecret`     | string  | Secret for securing Inspectr’s internal API |
+| `storePath`     | string  | Path to database file                       |
+| `storeInMemory` | boolean | Store operations in memory only             |
+
+### Technical Settings
+
+| Key           | Type    | Description                                           |
+| ------------- | ------- | ----------------------------------------------------- |
+| `httpTimeout` | integer | Timeout in seconds when forwarding requests           |
+| `logLevel`    | string  | Log verbosity: `debug`, `info`, `warn`, `error`, etc. |
+| `backendCors` | boolean | Allow backend to handle CORS requests                 |
+
+---
+
+## Tips
+
+* Commit `.inspectr.yaml` to version control for team use
+* Avoid storing sensitive tokens (use env vars or secrets management)
+* Use different configs per environment (e.g. `.inspectr.dev.yaml`, `.inspectr.prod.yaml`)
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [CLI Options →]&#40;/configuration/cli-options&#41;)
+[//]: # (* [Mocking APIs →]&#40;/guides/mocking&#41;)
+[//]: # (* [Secure Exposure →]&#40;/exposing/securing-exposure&#41;)

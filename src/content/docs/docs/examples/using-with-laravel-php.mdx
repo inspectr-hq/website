@@ -1,0 +1,115 @@
+---
+title: Using Inspectr with Laravel PHP
+description: Capture and inspect requests to a Laravel backend
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowLaravel.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with Laravel &#40;PHP&#41;)
+
+Laravel is a popular PHP framework for building web applications and APIs. Inspectr lets you inspect, debug, and securely expose your Laravel endpoints for testing or integration with third-party services.
+
+This guide walks you through using Inspectr as a proxy in front of a Laravel app.
+
+---
+
+## Prerequisites
+
+* PHP 8.1+
+* Laravel installed (`laravel new myapp` or via Composer)
+* Inspectr installed ([Install guide →](/getting-started/install))
+
+---
+
+## Step 1: Start Your Laravel App
+
+If you haven’t already, create and start a Laravel application:
+
+```bash
+laravel new myapp
+cd myapp
+php artisan serve --port=8000
+```
+
+Laravel will be available at:
+
+```
+http://localhost:8000
+```
+
+---
+
+## Step 2: Start Inspectr as a Proxy
+
+Run Inspectr to forward incoming requests to your Laravel app:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:8000
+```
+
+Now you can access your Laravel routes via Inspectr at `http://localhost:8080`.
+
+For example:
+
+```bash
+curl http://localhost:8080/api/user
+```
+
+Inspectr will:
+
+* Log and inspect the request
+* Forward it to your Laravel backend
+* Show the full request/response in the Inspectr App UI ([http://localhost:4004](http://localhost:4004))
+
+---
+
+## Optional: Expose Laravel Publicly
+
+<FlowIngress client:only="react" />
+
+Use Inspectr’s public ingress mode to receive traffic from external services (e.g., webhooks):
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:8000 \
+  --expose \
+  --channel=laravel-demo \
+  --channel-code=laravel123
+```
+
+Your Laravel API will now be available at:
+
+```
+https://laravel-demo.in-spectr.dev
+```
+
+---
+
+## Step 3: Debug and Replay
+
+In the Inspectr App:
+
+* Watch live traffic from frontend clients or third-party systems
+* Replay webhook requests directly to Laravel
+* See request payloads, headers, methods, and status codes
+
+---
+
+## Summary
+
+Inspectr makes Laravel development and integration easier by:
+
+* Acting as a transparent proxy in front of your app
+* Allowing safe, temporary public exposure
+* Providing a UI for inspection and request replay
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Inspectr Architecture →]&#40;/core-concepts/architecture&#41;)
