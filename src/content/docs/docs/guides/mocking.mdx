@@ -5,11 +5,19 @@ title: Mocking API Responses
 
 ---
 
+import { Image } from 'astro:assets';
+import stoplightPrism from '../../../../assets/docs/stoplight-prism.png';
 import FlowLocalMock from '../../../../components/DocFlows/FlowLocalMock.jsx';
 
 <FlowLocalMock client:only="react" />
 
-When your backend isn’t ready—or you want to simulate specific responses—Inspectr lets you mock APIs based on an OpenAPI specification and override responses in real time. It leverages Stoplight Prism behind the scenes, giving you access to both static and dynamic mocking powered by Faker and JSON Schema Faker.
+When your backend isn’t ready—or you want to simulate specific responses—Inspectr lets you mock APIs based on an OpenAPI specification and override responses in real time.
+
+<a href="https://github.com/stoplightio/prism" target="_blank" rel="noopener noreferrer">
+<Image src={stoplightPrism} alt="Inspectr Mocking" width="100%" />
+</a>
+
+Inspectr leverages Stoplight Prism behind the scenes, giving you access to both static and dynamic mocking powered by Faker and JSON Schema Faker.
 
 ---
 

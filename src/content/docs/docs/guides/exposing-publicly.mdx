@@ -26,6 +26,15 @@ https://my-api.in-spectr.dev → http://localhost:8080
 
 ---
 
+## Use Cases
+
+* Testing third-party webhooks (Stripe, GitHub, Zapier...)
+* Sharing live demos without deployment
+* Allowing remote teammates to test your local service
+* Forwarding traffic to local AI models (e.g. Ollama)
+
+---
+
 ## Step 1: Run Inspectr with `--expose`
 
 ```bash
@@ -49,15 +58,6 @@ curl https://my-api.in-spectr.dev/api/hello
 * Requests are forwarded to your local backend
 * All traffic is logged in the terminal and UI
 * Works seamlessly with webhooks, HTTP clients, or external services
-
----
-
-## Use Cases
-
-* Testing third-party webhooks (Stripe, GitHub, Zapier...)
-* Sharing live demos without deployment
-* Allowing remote teammates to test your local service
-* Forwarding traffic to local AI models (e.g. Ollama)
 
 ---
 

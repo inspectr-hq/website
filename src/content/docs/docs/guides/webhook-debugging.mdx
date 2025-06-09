@@ -10,7 +10,7 @@ Webhooks are crucial for integrating third-party systems—but they can be hard 
 
 ---
 
-## Common Use Case
+## Use Cases
 
 You’re building an app that receives webhook callbacks (e.g. from Stripe, GitHub, or Zapier), and you want to:
 
@@ -39,13 +39,13 @@ inspectr --catch=true
 To allow third-party services to call your local Inspectr instance:
 
 ```bash
-inspectr --catch=true --expose=true --channel=wehhooks --channel-code=secret123
+inspectr --catch=true --expose=true --channel=webhooks --channel-code=secret123
 ```
 
 Your webhook endpoint becomes:
 
 ```
-https://wehhooks.in-spectr.dev
+https://webhooks.in-spectr.dev
 ```
 
 ---
@@ -55,7 +55,7 @@ https://wehhooks.in-spectr.dev
 Configure your third-party service to send its webhook to your Inspectr public URL:
 
 ```
-https://wehhooks.in-spectr.dev/events
+https://webhooks.in-spectr.dev/events
 ```
 
 Once triggered, the request is:

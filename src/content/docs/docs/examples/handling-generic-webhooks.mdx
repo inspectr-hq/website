@@ -36,13 +36,13 @@ Webhooks are used across many platforms to send real-time data to your services.
 Run Inspectr in catch mode with public exposure:
 
 ```bash
-inspectr --catch=true --expose --channel=wehhooks --channel-code=webhooks123
+inspectr --catch=true --expose --channel=webhooks --channel-code=webhooks123
 ```
 
 * This creates a public endpoint:
 
 ```
-https://wehhooks.in-spectr.dev
+https://webhooks.in-spectr.dev
 ```
 
 * Any request sent to this URL is captured, logged, and acknowledged with `200 OK`
@@ -55,7 +55,7 @@ https://wehhooks.in-spectr.dev
 In your platform or service, configure the webhook destination:
 
 ```
-https://wehhooks.in-spectr.dev/my-webhook-endpoint
+https://webhooks.in-spectr.dev/my-webhook-endpoint
 ```
 
 You can use any path. Inspectr will capture:
@@ -82,7 +82,7 @@ Once the webhook is sent:
 From the Inspectr App, click **Replay** to send the webhook again to a new backend URL:
 
 ```bash
-inspectr --backend=http://localhost:3000 --expose --channel=wehhooks --channel-code=secret123
+inspectr --backend=http://localhost:3000 --expose --channel=webhooks --channel-code=secret123
 ```
 
 Now all captured webhooks will be forwarded to your local backend, and can be replayed from the UI.
