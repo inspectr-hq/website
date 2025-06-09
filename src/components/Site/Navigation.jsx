@@ -41,7 +41,7 @@ export default function Navigation() {
               </button>
             </a>
             <a
-                href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start"
+                href="https://github.com/inspectr-hq/inspectr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-brand-primary transition-colors"
@@ -49,7 +49,7 @@ export default function Navigation() {
               <IconGithub className="w-6 h-6" />
             </a>
             <a
-                href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start"
+                href="https://discord.gg/58rbCxdr8Z"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-brand-primary transition-colors"
