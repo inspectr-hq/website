@@ -31,7 +31,8 @@ export default defineConfig({
           // autogenerate: { directory: 'docs/getting-started' }
           items: [
             { label: 'Quick start', slug: 'docs/getting-started/quick-start' },
-            { label: 'Installation', slug: 'docs/getting-started/installation' }
+            { label: 'Installation', slug: 'docs/getting-started/installation' },
+            { label: 'Quick OpenAPI Mocking', slug: 'docs/getting-started/mocking-quick-start' },
           ]
         },
         {
