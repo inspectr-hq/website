@@ -26,7 +26,7 @@ const { labels } = Astro.props;
 
   <!-- Right section: menu links, social links, and theme selection -->
   <div class="sl-flex header-right">
-    <div class="menu-links hidden md:flex items-center gap-4">
+    <div class="menu-links hidden md:flex items-center gap-8">
       <a
           href="/#features"
           class="text-gray-300 hover:text-brand-primary transition-colors"
@@ -40,10 +40,16 @@ const { labels } = Astro.props;
         Use Cases
       </a>
       <a
-          href="/docs/"
+          href="/docs"
           class="text-gray-300 hover:text-brand-primary transition-colors"
       >
         Documentation
+      </a>
+      <a
+        href="/pricing"
+        class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        Pricing
       </a>
     </div>
 
@@ -73,7 +79,7 @@ const { labels } = Astro.props;
     </div>
 
     <!--<SocialIcons />-->
-    <ThemeSelect />
+    <!--<ThemeSelect />-->
     <!--<a href="https://github.com/inspectr-hq/inspectr" class="sl-flex action-icon github-link">-->
     <!--  <Icon name="github" size="1.5rem" label="Github" />-->
     <!--</a>-->
@@ -176,6 +182,6 @@ const { labels } = Astro.props;
   }
 </style>
 
-<!--<script is:inline>-->
-<!--  document.documentElement.dataset.theme = 'dark';-->
-<!--</script>-->
+<script is:inline>
+// <!--  document.documentElement.dataset.theme = 'dark';-->
+</script>

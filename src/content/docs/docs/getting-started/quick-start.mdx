@@ -16,11 +16,6 @@ Inspectr makes it easy to monitor and debug HTTP traffic with zero-configuration
 
 ## Quick start
 
-Before starting, make sure you have:
-
-* Installed Inspectr ([see installation guide](/getting-started/install))
-* A local API or web service to test (e.g. running on [http://localhost:3000](http://localhost:3000))
-
 ---
 
 <Steps>
@@ -44,7 +39,7 @@ Before starting, make sure you have:
       Run Inspectr and point it to your local backend:
 
       ```bash
-      inspectr --backend=http://localhost:3000
+      npx @inspectr/inspectr --backend=http://localhost:3000
       ```
 
       * This starts the Inspectr proxy on port `8080`.
@@ -93,7 +88,7 @@ Before starting, make sure you have:
 If you don’t have a backend, enable catch mode to accept and inspect any HTTP requests:
 
 ```bash
-inspectr --catch=true
+npx @inspectr/inspectr --catch=true
 ```
 
 Every request will return a `200 OK` with no forwarding. Great for testing tools or webhooks!
@@ -103,7 +98,7 @@ Every request will return a `200 OK` with no forwarding. Great for testing tools
 To expose Inspectr to receive external requests (like webhooks):
 
 ```bash
-inspectr --backend=http://localhost:3000 --expose --channel=hello-world --channel-code=secure123
+npx @inspectr/inspectr --backend=http://localhost:3000 --expose --channel=hello-world --channel-code=secure123
 ```
 
 Your service is now available at:

@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

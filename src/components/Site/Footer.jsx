@@ -31,9 +31,15 @@ export default function Footer() {
                 <a href="#use-cases" className="hover:text-brand-primary">
                   Use Cases
                 </a>
-              </li><li>
+              </li>
+              <li>
                 <a href="/docs" className="hover:text-brand-primary">
                   Documentation
+                </a>
+              </li>
+              <li>
+                <a href="/pricing" className="hover:text-brand-primary">
+                  Pricing
                 </a>
               </li>
             </ul>
@@ -57,14 +63,15 @@ export default function Footer() {
                    target="_blank"
                    rel="noopener noreferrer"
                    className="hover:text-brand-primary">
-                   Discord
+                  Discord
                 </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div
+          className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400">© 2025 Inspectr. All rights reserved.</p>
         </div>
       </div>

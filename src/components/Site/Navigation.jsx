@@ -18,24 +18,30 @@ export default function Navigation() {
 
           <div className="hidden md:flex items-center gap-8">
             <a
-              href="#features"
+              href="/#features"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Features
             </a>
             <a
-              href="#use-cases"
+              href="/#use-cases"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Use Cases
             </a>
             <a
-              href="/docs/"
+              href="/docs"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Documentation
             </a>
-            <a href="#get-started">
+            <a
+              href="/pricing"
+              className="text-gray-300 hover:text-brand-primary transition-colors"
+            >
+              Pricing
+            </a>
+            <a href="/#get-started">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>

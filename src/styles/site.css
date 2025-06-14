@@ -33,7 +33,35 @@
 
 /* Component-level overrides */
 @layer components {
-  /* e.g. .btn { @apply px-4 py-2 rounded-lg; } */
+  /* Base badge styles */
+  .badge {
+    @apply inline-block px-3 py-1.5 rounded-lg font-semibold uppercase leading-4;
+  }
+
+  /* Solid primary background */
+  .badge-solid {
+    @apply bg-brand-primary text-brand-dark;
+  }
+
+  /* Solid secondary background */
+  .badge-secondary {
+    @apply bg-brand-secondary text-brand-dark;
+  }
+
+  /* Outline style */
+  .badge-outline {
+    @apply border border-brand-primary text-brand-primary bg-transparent;
+  }
+
+  /* Gradient text (no background) */
+  .badge-gradient {
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-600 bg-clip-text text-transparent;
+  }
+
+  /* Ghost (text‑only) */
+  .badge-ghost {
+    @apply bg-transparent text-brand-primary;
+  }
 }
 
 /* utilities */
