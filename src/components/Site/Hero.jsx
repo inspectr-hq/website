@@ -2,6 +2,7 @@ import React from 'react';
 
 import IconArrowRight from '../../assets/icon_arrow_right.svg?react';
 import IconGithub from '../../assets/icon_github.svg?react';
+import IconBook from '../../assets/icon_book.svg?react';
 
 export default function Hero() {
   return (
@@ -33,13 +34,23 @@ export default function Hero() {
               </button>
             </a>
             <a
+              href="/docs"
+              // href="https://github.com/inspectr-hq/inspectr"
+              // target="_blank"
+              // rel="noopener noreferrer"
+              className="flex items-center gap-2 px-8 py-3 rounded-lg border border-gray-700 hover:border-brand-primary transition-all"
+            >
+              <IconBook className="w-5 h-5" />
+              Docs
+            </a>
+            <a
               href="https://github.com/inspectr-hq/inspectr"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-8 py-3 rounded-lg border border-gray-700 hover:border-brand-primary transition-all"
+              className="flex items-center gap-2 px-8 py-3 rounded-lg border border-gray-700 hover:border-white transition-all"
             >
               <IconGithub className="w-5 h-5" />
-              View on GitHub
+              Github
             </a>
           </div>
         </div>
