@@ -15,15 +15,16 @@ const PricingSection = () => {
         'Basic statistics',
         'OpenAPI Mocking',
         'SSL/TLS Encryption',
-        'Community support (Discord)',
+        'Community support (Discord)'
       ],
-      ctaText: 'Get Started',
+      ctaText: 'Get Started, without sign up',
       ctaVariant: 'invert',
-      ctaLink: '/#get-started',
+      ctaLink: '/#get-started'
     },
     {
       name: 'Pro',
       price: '$5',
+      oldPrice: '$8',
       description: 'For professional developers, with a domain',
       features: [
         'Everything in Open Source',
@@ -31,7 +32,7 @@ const PricingSection = () => {
         'Reserved subdomains',
         'Advanced analytics',
         'Inspectr AI MCP Server (coming soon)',
-        'Priority support (email)',
+        'Priority support (email)'
       ],
       isPopular: true,
       ctaText: 'Schedule a Call',
@@ -64,7 +65,7 @@ const PricingSection = () => {
         'Self-hosted deployment',
         'Priority feature requests',
         // 'Advanced reporting (coming soon)',
-        'Dedicated support',
+        'Dedicated support'
       ],
       ctaText: 'Schedule a Call',
       ctaLink: 'https://forms.gle/httYMeu7arsfpeuZA',
@@ -81,6 +82,7 @@ const PricingSection = () => {
               key={index}
               name={plan.name}
               price={plan.price}
+              oldPrice={plan.oldPrice}
               description={plan.description}
               features={plan.features}
               isPopular={plan.isPopular}
@@ -99,8 +101,19 @@ const PricingSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="text-left">
             <h4 className="font-semibold text-white mb-3">Can I change plans anytime?</h4>
-            <p className="text-white/70 text-sm">Yes, you can upgrade or downgrade your plan at any time. Changes take
-              effect immediately.</p>
+            <p className="text-white/70 text-sm">
+              Yes, you can upgrade or downgrade your plan at any time. Changes take effect
+              immediately.
+            </p>
+          </div>
+          <div className="text-left">
+            <h4 className="font-semibold text-white mb-3">
+              Do I need to sign up or create an account?
+            </h4>
+            <p className="text-white/70 text-sm">
+              No signup or account is required. You can start using Inspectr right away while
+              keeping your data private.
+            </p>
           </div>
           {/*<div className="text-left">*/}
           {/*  <h4 className="font-semibold text-white mb-3">Is there a free trial?</h4>*/}
@@ -109,11 +122,19 @@ const PricingSection = () => {
           {/*</div>*/}
           <div className="text-left">
             <h4 className="font-semibold text-white mb-3">What payment methods do you accept?</h4>
-            <p className="text-white/70 text-sm">We accept all major credit cards and invoice payments. <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank">Contact us</a> for more details.</p>
+            <p className="text-white/70 text-sm">
+              We accept all major credit cards and invoice payments.{' '}
+              <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank">
+                Contact us
+              </a>{' '}
+              for more details.
+            </p>
           </div>
           <div className="text-left">
             <h4 className="font-semibold text-white mb-3">Do you offer refunds?</h4>
-            <p className="text-white/70 text-sm">Yes, we offer a 30-day money-back guarantee for all paid plans.</p>
+            <p className="text-white/70 text-sm">
+              Yes, we offer a 30-day money-back guarantee for all paid plans.
+            </p>
           </div>
         </div>
       </div>

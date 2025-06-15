@@ -24,6 +24,9 @@ const PricingHero = () => {
           {/*Choose the plan that's right for you. Start free, scale as you grow.*/}
           Choose the plan that's right for you. Just start, scale as you grow.
         </p>
+        <p className="text-lg text-white/70 max-w-2xl mx-auto mt-2">
+          No signup or account needed — jump right in.
+        </p>
       </div>
     </div>
   );

@@ -18,6 +18,9 @@ export default function Hero() {
           <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
             Inspect API requests and webhook events in real-time.
           </p>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-4">
+            No signup or account required&nbsp;&mdash; start instantly.
+          </p>
           <p className="text-m md:text-l text-gray-400 max-w-3xl mx-auto mb-8">
             No more digging through logs or guessing what's happening — instantly see requests &
             responses. Easily expose your local API to test integrations and capture webhook events
