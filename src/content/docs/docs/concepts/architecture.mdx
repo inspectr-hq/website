@@ -1,0 +1,85 @@
+---
+title: Inspectr Architecture
+description: Proxy, Ingress, App overview
+---
+
+import FlowIngress from '../../../../components/DocFlows/FlowIngress.jsx';
+import IconInspectr from '../../../../components/Flow/IconInspectr.jsx'
+
+[//]: # (# Inspectr Architecture Overview)
+
+Inspectr is a lightweight yet powerful proxy and inspection tool that helps developers debug, analyze, and simulate API traffic. It consists of modular components that work together to provide real-time visibility and control over HTTP requests.
+
+---
+
+## Core Components
+
+<FlowIngress client:only="react" />
+
+### <IconInspectr width={24} height={24}/> Inspectr Proxy
+
+The Inspectr proxy acts as an HTTP middleman between clients and your backend service.
+
+* Listens on a local port (e.g. `:8080`)
+* Captures incoming requests and optionally forwards them to a backend
+* Logs and broadcasts requests/responses for inspection
+
+#### Mock & Catch Engine
+
+Built-in Inspectr Proxy, used when no backend is defined or when mocking is required.
+
+* **Catch Mode**: Returns a `200 OK` without forwarding
+* **Mock Mode**: Uses OpenAPI specs to simulate backend behavior
+* Supports dynamic and example-based responses
+
+#### Data Store
+
+Captures all operations (requests/responses) and stores them locally:
+
+* In-memory (ephemeral) or SQLite (persistent)
+* Indexed for searching and filtering in the API & UI
+
+
+### <IconInspectr width={24} height={24} from="#ff8c00" to='#ffd700'/>  Inspectr App (Web UI)
+
+A web-based dashboard for viewing and analyzing captured requests.
+
+* Accessible at [http://localhost:4004](http://localhost:4004)
+* Displays live request/response data
+* Supports filtering, replaying, and metadata inspection
+
+### <IconInspectr width={24} height={24} from="#26ff00" to='#9fe491'/> Inspectr Ingress (Public Exposure)
+
+An optional cloud service to expose your local Inspectr proxy securely to the public. Creates a public ingress endpoint that forwards incoming requests to your local Inspectr Proxy.
+
+* Subdomain routing on `in-spectr.dev`
+* Forwards external traffic to your local Inspectr instance
+* Supports secure channels via `--channel-code`
+
+---
+
+## Request Lifecycle
+
+1. **Receive**: Inspectr listens for HTTP requests or Webhook events on the configured `--listen` port.
+2. **Inspect**: Headers, method, URL, and body are parsed.
+3. **Route**:
+
+* If `--backend` is set → forward request to a backend service and capture the response.
+* If `--mock-backend` is set → generate response based on OpenAPI.
+* If `--catch` is enabled → return default 200 OK.
+
+4. **Response**: Return the response to the client
+
+---
+
+## Summary
+
+Inspectr’s modular architecture allows it to adapt to many workflows—from debugging local APIs to capturing external webhooks. Its combination of proxying, mocking, and live inspection provides a full API traffic debugging toolkit.
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Proxy Mode →]&#40;/core-concepts/proxy-mode&#41;)
+[//]: # (* [Ingress Mode →]&#40;/core-concepts/ingress-mode&#41;)
+[//]: # (* [Mocking →]&#40;/guides/mocking&#41;)

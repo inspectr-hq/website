@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Site/Navigation';
+import Footer from '../components/Site/Footer';
+
+import InspectrChecker from '../components/InspectrChecker.jsx';
+---
+<Layout>
+  <Navigation client:load />
+  <InspectrChecker client:load />
+  <Footer />
+</Layout>

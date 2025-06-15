@@ -1,0 +1,61 @@
+---
+title: Handling CORS Issues
+description: Understand Cross-Origin Resource Sharing and use Inspectr to overcome CORS errors
+---
+
+[//]: # '# Handling CORS Issues'
+
+Cross-Origin Resource Sharing (**CORS**) is a browser security feature that restricts requests from one origin (scheme, host, and port) to another. When the target server does not return the expected CORS headers, the browser blocks the response and you see messages like **"No 'Access-Control-Allow-Origin' header"** in the console.
+
+Inspectr simplifies debugging these scenarios by acting as a proxy that automatically sets permissive CORS headers.
+
+---
+
+## Step 1: Start Inspectr
+
+Run Inspectr and point it to your API backend:
+
+```bash
+inspectr --listen=:8080 --backend=https://api.example.com
+```
+
+Inspectr listens locally on `http://localhost:8080` and forwards requests to your backend. It will respond to preflight `OPTIONS` requests and add `Access-Control-Allow-*` headers so your browser can communicate without CORS errors.
+
+---
+
+## Step 2: Update Your Frontend
+
+Change your application to send API requests to Inspectr:
+
+```js
+// Before
+fetch('https://api.example.com/data');
+
+// After
+fetch('http://localhost:8080/data');
+```
+
+Your frontend now interacts with Inspectr, which handles the cross-origin headers for you.
+
+---
+
+## Step 3: Inspect Traffic
+
+Open the Inspectr UI at [http://localhost:4004](http://localhost:4004) to see each request and response, including any preflight checks. You can replay or modify requests during development.
+
+If you prefer to test your backend's own CORS configuration, disable Inspectr's built-in handling:
+
+```bash
+inspectr --listen=:8080 --backend=https://api.example.com --backend-cors=true
+```
+
+This forwards the browser's CORS preflight directly to your backend.
+
+---
+
+## Tips
+
+- Inspect preflight requests in the UI to verify allowed methods and headers.
+- Combine Inspectr with **catch** or **mock** modes to test CORS behavior without a live backend.
+
+[//]: # '---'

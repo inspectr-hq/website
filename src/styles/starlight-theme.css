@@ -1,0 +1,49 @@
+/* Starlight theme customization to align with brand colors */
+:root {
+  --brand-primary: #00e5ff;
+  --brand-secondary: #00b8d4;
+  --brand-dark: #002329;
+
+  /* Brand colors from site.css */
+  --color-brand-primary: #00e5ff;
+  --color-brand-secondary: #00b8d4;
+  --color-brand-dark: #002329;
+
+  /* Override Starlight theme colors with brand colors */
+  --sl-color-accent-low: #002329; /* brand-dark */
+  --sl-color-accent: #00b8d4; /* brand-secondary */
+  --sl-color-accent-high: #00e5ff; /* brand-primary */
+
+  /* Text accent color used in Header.astro */
+  --sl-color-text-accent: #00e5ff; /* brand-primary */
+
+  /* Additional common theme color variables */
+  --sl-color-accent-light: #00e5ff; /* brand-primary */
+  --sl-color-accent-dark: #00b8d4; /* brand-secondary */
+
+  /* Button and interactive element colors */
+  --sl-color-accent-btn: #00e5ff; /* brand-primary */
+  --sl-color-accent-btn-hover: #00b8d4; /* brand-secondary */
+
+  /* Border colors */
+  --sl-color-accent-border: #00b8d4; /* brand-secondary */
+}
+
+/* Dark theme specific overrides if needed */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #002329; /* brand-dark */
+  --sl-color-accent: #00b8d4; /* brand-secondary */
+  --sl-color-accent-high: #00e5ff; /* brand-primary */
+  --sl-color-text-accent: #00e5ff; /* brand-primary */
+}
+
+/* Light theme specific overrides if needed */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #002329; /* brand-dark */
+  --sl-color-accent: #00b8d4; /* brand-secondary */
+  /*--sl-color-accent-high: #00e5ff; !* brand-primary *!*/
+  /*--sl-color-text-accent: #00e5ff; !* brand-primary *!*/
+  --sl-color-accent: #00b8d4; /* brand-secondary */
+  --sl-color-accent-high: #00b8d4; /* brand-primary */
+  --sl-color-text-accent: #20B9BFFF; /* brand-primary */
+}

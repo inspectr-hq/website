@@ -1,0 +1,30 @@
+---
+title: Mocking Quick Start
+description: Launch Inspectr mocking in your browser or via the CLI
+---
+
+Inspectr lets you spin up a mock server from any OpenAPI file in seconds. Choose one of the options below to get started.
+
+## Option 1: Launch in the Browser
+
+Open the URL https://inspectr.dev/launch which a reference to a remote OpenAPI document:
+
+```
+https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml
+```
+
+Replace the `openapi` parameter with the URL of your own OpenAPI file. Inspectr will start immediately with mocking enabled.
+
+## Option 2: Start from the CLI
+
+Run Inspectr locally and point it to the same OpenAPI spec:
+
+```bash
+npx @inspectr/inspectr --mock-backend=https://inspectr.dev/demo/hello.openapi.yaml
+```
+
+The proxy listens on port `8080` and the UI is available at [http://localhost:4004](http://localhost:4004).
+
+---
+
+[Learn more about Mocking →](/docs/guides/mocking)

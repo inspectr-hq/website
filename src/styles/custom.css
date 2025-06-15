@@ -1,0 +1,27 @@
+/* Hide theme selector*/
+.social-icons::after {
+  display: none;
+}
+
+.pagination-links a {
+  padding: 0.25rem;
+}
+
+.astro-code {
+  --shiki-light: #383a42;
+  --shiki-dark: #adbac7;
+  --shiki-light-bg: #fafafa;
+  --shiki-dark-bg: #22272e;
+  overflow-x: auto;
+}
+
+.social-icons svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.pagination-links a span.link-title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}

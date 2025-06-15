@@ -1,0 +1,112 @@
+---
+title: Exposing Ollama
+description: Publicly expose local Ollama service
+---
+
+[//]: # (# 🧠 Exposing Ollama with Inspectr)
+
+import { Image } from 'astro:assets';
+import ollamaReq from '../../../../assets/guides/ollama_inspectr_request.png';
+
+import { FlowIngress } from '../../../../components/DocFlows/FlowOllama.jsx';
+
+<FlowIngress client:only="react" />
+
+[Ollama](https://ollama.com) is a local LLM runner that lets you serve AI models on your own machine. Inspectr makes it easy to expose your Ollama API to the internet for demos, integrations, or remote collaboration.
+
+This guide walks through exposing your Ollama instance securely using Inspectr.
+
+---
+
+## Why Use Inspectr with Ollama?
+
+* Share a live AI model without deploying it
+* Inspect and debug request/response cycles
+* Secure access with a one-time code
+* Replay or log incoming requests
+
+---
+
+## Prerequisites
+
+* [Ollama installed and running locally](https://github.com/ollama/ollama)
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+
+Start Ollama locally:
+
+```bash
+ollama serve
+```
+
+Finally, in a separate shell, run a model:
+
+```bash
+ollama run llama3.2
+```
+
+Ollama listens on:
+
+```
+http://localhost:11434
+```
+
+---
+
+## Step 1: Start Inspectr in Front of Ollama
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:11434 \
+  --expose \
+  --channel=ollama-demo \
+  --channel-code=ollama123
+```
+
+Inspectr will:
+
+* Forward all traffic from `https://ollama-demo.in-spectr.dev` to your local Ollama
+* Log and show all requests/responses in the App UI
+* Require callers to include the access code `ollama123`
+
+---
+
+## Example Request
+
+With Inspectr running, you can now send prompts remotely:
+
+```bash
+curl https://ollama-demo.in-spectr.dev/api/generate \
+  -d '{ "model": "llama3.2", "prompt": "Why is the sky blue?" }'
+```
+
+
+<Image src={ollamaReq} alt="Ollama Request" />
+
+---
+
+## Inspect in Real Time
+
+Use the Inspectr App UI ([http://localhost:4004](http://localhost:4004)) to:
+
+* Monitor prompts sent to Ollama
+* Inspect request headers, bodies, and responses
+* Replay past requests to test model behavior
+
+---
+
+## Summary
+
+Inspectr + Ollama is ideal for:
+
+* Sharing demos with teammates or clients
+* Testing integration pipelines
+* Observing and replaying LLM behavior remotely
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Replay Requests →]&#40;/core-concepts/how-it-works&#41;)
+[//]: # (* [Inspectr Architecture →]&#40;/core-concepts/architecture&#41;)

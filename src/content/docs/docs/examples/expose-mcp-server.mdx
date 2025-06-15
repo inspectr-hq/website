@@ -1,0 +1,100 @@
+---
+
+title: Exposing a MCP Server
+
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcp.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# 🧠 Exposing a Model Context Protocol &#40;MCP&#41; Server with Inspectr)
+
+[Model Context Protocol (MCP)](https://www.anthropic.com/news/model-context-protocol) is an open standard for enabling language models to use tools, retrieve data, and operate over structured inputs. If you're running a local MCP server, Inspectr lets you expose it securely to the internet and inspect real-time traffic.
+
+This guide walks you through exposing your MCP server using Inspectr.
+
+---
+
+## Prerequisites
+
+* A running MCP-compatible server (e.g. on `http://localhost:3000`)
+* Inspectr installed ([Install Guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Start Your MCP Server
+
+Make sure your server is running locally:
+
+```bash
+mcp-server --port 3000
+```
+
+Or however you start your local MCP-compatible service.
+
+---
+
+## Step 2: Start Inspectr to Forward Requests
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:3000
+```
+
+* Inspectr listens on port `8080`
+* Forwards traffic to your MCP server on port `3000`
+* Captures and displays traffic in the App UI at [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Step 3: Expose Your MCP Server Publicly
+
+<FlowIngress client:only="react" />
+
+To allow external access:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:3000 \
+  --expose \
+  --channel=mcp-demo \
+  --channel-code=mcpserver123
+```
+
+Your MCP server is now available at:
+
+```
+https://mcp-demo.in-spectr.dev
+```
+
+---
+
+## Monitor and Replay
+
+Inspect all traffic in the Inspectr UI:
+
+* Live requests and responses
+* Request headers and bodies
+* Replay past requests
+* Filter by endpoint or method
+
+---
+
+## Summary
+
+Inspectr makes it easy to:
+
+* Expose your local MCP server to the internet
+* Debug incoming traffic
+* Share model tools and endpoints securely
+
+---
+
+[//]: # (## 📚 Further Resources)
+[//]: # ()
+[//]: # (* [Anthropic's Model Context Protocol]&#40;https://www.anthropic.com/news/model-context-protocol&#41;)
+[//]: # (* [Inspectr Documentation]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Replay Traffic →]&#40;/core-concepts/how-it-works&#41;)

@@ -1,0 +1,80 @@
+/* src/styles/site.css */
+
+/*@config "../../tailwind.config.js";*/
+@import 'tailwindcss';
+
+/* Theme variables */
+@theme {
+  /* ← note the --color- prefix */
+  --color-brand-primary: #00e5ff;
+  --color-brand-secondary: #00b8d4;
+  --color-brand-dark: #002329;
+
+  /* fonts still get their own utilities */
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Global resets */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    @apply antialiased bg-brand-dark text-white;
+  }
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Component-level overrides */
+@layer components {
+  /* Base badge styles */
+  .badge {
+    @apply inline-block px-3 py-1.5 rounded-lg font-semibold uppercase leading-4;
+  }
+
+  /* Solid primary background */
+  .badge-solid {
+    @apply bg-brand-primary text-brand-dark;
+  }
+
+  /* Solid secondary background */
+  .badge-secondary {
+    @apply bg-brand-secondary text-brand-dark;
+  }
+
+  /* Outline style */
+  .badge-outline {
+    @apply border border-brand-primary text-brand-primary bg-transparent;
+  }
+
+  /* Gradient text (no background) */
+  .badge-gradient {
+    @apply bg-gradient-to-r from-indigo-500 to-indigo-600 bg-clip-text text-transparent;
+  }
+
+  /* Ghost (text‑only) */
+  .badge-ghost {
+    @apply bg-transparent text-brand-primary;
+  }
+}
+
+/* utilities */
+@layer utilities {
+  .bg-gradient-dark {
+    background: linear-gradient(to bottom right, rgba(0, 35, 41, 0.8), rgba(0, 35, 41, 0.4));
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r
+           from-brand-primary
+           to-brand-secondary
+           bg-clip-text
+           text-transparent;
+  }
+}

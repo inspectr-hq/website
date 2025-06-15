@@ -1,0 +1,86 @@
+---
+title: Using Inspectr with Django
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowDjango.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with Django)
+
+Django is a popular Python web framework for building robust applications. Inspectr lets you debug HTTP traffic and expose your local Django server for webhook testing.
+
+This guide walks you through using Inspectr with a Django project.
+
+---
+
+## Prerequisites
+
+* Python 3.8+
+* Django installed (`pip install django`)
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Create or Start a Django Project
+
+If you don't have one already, create a new project and start the development server:
+
+```bash
+django-admin startproject mysite
+cd mysite
+python manage.py runserver 8000
+```
+
+Your app will be available at `http://localhost:8000`.
+
+---
+
+## Step 2: Run Inspectr as a Proxy
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:8000
+```
+
+Send a request via Inspectr:
+
+```bash
+curl http://localhost:8080/
+```
+
+Requests will be forwarded to Django and displayed in the Inspectr App UI at [http://localhost:4004](http://localhost:4004).
+
+---
+
+## Optional: Expose Django Publicly
+
+<FlowIngress client:only="react" />
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:8000 \
+  --expose \
+  --channel=django-demo \
+  --channel-code=django123
+```
+
+Your public endpoint will be:
+
+```
+https://django-demo.in-spectr.dev
+```
+
+---
+
+## Summary
+
+Inspectr helps you debug Django applications by capturing requests, replaying them, and exposing your local server for external integrations.
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Quick Start →](/docs/getting-started/quick-start))
+[//]: # (* [Exposing Publicly →](/docs/exposing/exposing-publicly))
+[//]: # (* [Webhook Debugging →](/docs/guides/webhook-debugging))

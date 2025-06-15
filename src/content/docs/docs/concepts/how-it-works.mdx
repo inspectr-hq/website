@@ -1,0 +1,98 @@
+---
+title: How It Works
+description: Internals of Inspectr
+---
+
+import FlowProxy from '../../../../components/DocFlows/FlowProxy.jsx';
+
+[//]: # (# How Inspectr Works)
+
+Understanding how Inspectr operates helps you get the most out of its features. This page breaks down the high-level flow of how requests are captured, analyzed, and displayed in real time.
+
+---
+
+## Overview
+
+Inspectr sits between your client (frontend, curl, API tool) and your backend or external service. It captures every request and response, adds visibility, and optionally mocks or exposes the traffic externally.
+
+You can think of it as:
+
+<FlowProxy client:only="react" />
+
+---
+
+## End-to-End Flow
+
+### 1. **Start Inspectr**
+
+You launch Inspectr with CLI flags or a `.inspectr.yaml` config:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:3000
+```
+
+### 2. **Inspectr Listens**
+
+Inspectr listens for incoming HTTP requests on the configured port (default `:8080`).
+
+### 3. **Incoming Request Captured**
+
+When a request is received, Inspectr:
+
+* Parses headers, query params, path, and body
+* Creates an internal **operation object** to store metadata
+
+### 4. **Routing Decision**
+
+Inspectr decides what to do with the request:
+
+* **Forward to backend** if `--backend` is defined
+* **Mock a response** if `--mock-backend` is defined
+* **Catch it** if `--catch` is true (default when no backend is set)
+
+### 5. **Response Returned**
+
+Inspectr returns the appropriate response to the client:
+
+* Backend response
+* Mocked OpenAPI response
+* Default 200 OK (catch mode)
+
+### 6. **Store + Broadcast**
+
+The request and response are:
+
+* Stored in-memory or SQLite (for later search/replay)
+* Sent as an SSE (Server-Sent Event) to the Inspectr App
+
+### 7. **UI Display**
+
+In the browser, the Inspectr App (default `http://localhost:4004`) shows:
+
+* Live request logs
+* Headers, bodies, status codes
+* Replay options and override flags
+
+---
+
+## Optional Features
+
+* **Ingress Mode**: Expose your proxy via `in-spectr.dev`
+* **Response Overrides**: Use headers to simulate delays, errors, or switch examples
+* **Mock Mode**: Use OpenAPI specs to respond even if your backend is unavailable
+* **Catch Mode**: Catch and view any incoming requests without forwarding
+
+---
+
+## Summary
+
+Inspectr captures traffic in real time, whether you're testing integrations, debugging webhooks, or mocking APIs. It gives full visibility into what’s happening between client and backend.
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Architecture →]&#40;/core-concepts/architecture&#41;)
+[//]: # (* [Proxy Mode →]&#40;/core-concepts/proxy-mode&#41;)
+[//]: # (* [Mocking →]&#40;/guides/mocking&#41;)
+[//]: # (* [Request Structure →]&#40;/core-concepts/request-structure&#41;)

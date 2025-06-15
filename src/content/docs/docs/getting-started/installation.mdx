@@ -1,0 +1,80 @@
+---
+title: Installation
+description: Install Inspectr via NPM, Homebrew, or binaries
+---
+
+[//]: # (# Install Inspectr)
+
+There are multiple ways to install **Inspectr**, depending on your preferred platform and workflow. Whether you're testing something quickly or setting up a full dev toolchain, Inspectr makes it easy to get started.
+
+## Option 1: Use `npx` (Zero Install)
+
+For a quick test run without installing anything globally:
+
+```bash
+npx @inspectr/inspectr --backend=http://localhost:3000
+```
+
+* This downloads and runs the latest version on demand.
+* Great for trying Inspectr without committing to a full install.
+* The UI is available at [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Option 2: Install via Homebrew (macOS)
+
+```bash
+brew tap inspectr-hq/inspectr
+brew install inspectr
+```
+
+* Easiest way for macOS users to keep Inspectr up to date.
+* Works well with terminal workflows.
+
+Run it with:
+
+```bash
+inspectr --backend=http://localhost:3000
+```
+
+---
+
+## Option 3: Install via npm (Node.js users)
+
+```bash
+npm install -g @inspectr/inspectr
+```
+
+* Installs Inspectr globally via the Node package manager.
+* Useful for users already in the Node.js ecosystem.
+
+Run Inspectr like this:
+
+```bash
+inspectr --backend=http://localhost:3000
+```
+
+---
+
+## Option 4: Download Precompiled Binaries
+
+You can download pre-built Inspectr binaries directly from GitHub:
+
+📦 [Releases on GitHub](https://github.com/inspectr-hq/inspectr/releases)
+
+* Binaries are available for **macOS**, **Linux**, and **Windows**.
+* Just download the appropriate binary, extract it, and run it:
+
+```bash
+./inspectr --backend=http://localhost:3000
+```
+
+> 💡 Tip: Make sure the binary is executable (`chmod +x ./inspectr`) if needed.
+
+---
+
+## Next Step:
+
+Once you’ve installed Inspectr, you’re ready to run it and start debugging API traffic in seconds!
+
+[Quick Start →](/docs/getting-started/quick-start)

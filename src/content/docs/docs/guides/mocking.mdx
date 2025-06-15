@@ -1,0 +1,161 @@
+
+---
+
+title: Mocking API Responses
+
+---
+
+import { Image } from 'astro:assets';
+import stoplightPrism from '../../../../assets/docs/stoplight-prism.png';
+import FlowLocalMock from '../../../../components/DocFlows/FlowLocalMock.jsx';
+
+<FlowLocalMock client:only="react" />
+
+When your backend isn’t ready—or you want to simulate specific responses—Inspectr lets you mock APIs based on an OpenAPI specification and override responses in real time.
+
+<a href="https://github.com/stoplightio/prism" target="_blank" rel="noopener noreferrer">
+<Image src={stoplightPrism} alt="Inspectr Mocking" width="100%" class="mx-auto" />
+</a>
+
+Inspectr leverages Stoplight Prism behind the scenes, giving you access to both static and dynamic mocking powered by Faker and JSON Schema Faker.
+
+> Want a fast demo? Jump to the [Mocking Quick Start →](/docs/getting-started/mocking-quick-start).
+
+---
+
+## Use Cases
+
+* Frontend development before backend is available
+* Testing edge cases (timeouts, errors, unexpected payloads)
+* Demos and offline API development
+* Simulating invalid or large payloads for robustness testing
+
+---
+
+## Static Mocking
+
+Static mocking uses predefined examples in your OpenAPI spec to return consistent, predictable responses.
+
+### Step 1: Prepare Your OpenAPI File
+
+```yaml
+paths:
+  /items:
+    get:
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    items: ["A", "B", "C"]
+```
+
+Save it as `openapi.yaml`.
+
+### Step 2: Start Inspectr in Static Mock Mode
+
+Just visit https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml or any link to an OpenAPI document.
+
+```bash
+inspectr --listen=:8080 --mock-backend=./openapi.yaml
+```
+
+* Returns mock responses based on OpenAPI examples
+* No backend service needed
+* Captures requests in the Inspectr UI at [http://localhost:4004](http://localhost:4004)
+
+### Step 3: Use Response Overrides
+
+Use headers to simulate conditions or return different examples:
+
+| Header                           | Description                               |
+| -------------------------------- | ----------------------------------------- |
+| `inspectr-response-status`       | Override status code (e.g. `404`, `500`)  |
+| `inspectr-response-delay`        | Add artificial delay in milliseconds      |
+| `inspectr-response-example`      | Choose a specific OpenAPI example by name |
+| `inspectr-response-content-type` | Override `Content-Type` header            |
+
+#### Example:
+
+```bash
+curl http://localhost:8080/items \
+  -H "inspectr-response-status: 404"
+```
+
+See the guide [Response Overrides →](/docs/guides/response-override) for more examples
+
+---
+
+## Dynamic Mocking
+
+Dynamic mocking generates data using Faker and JSON Schema Faker based on your OpenAPI schema and `x-faker` extensions.
+
+### Step 1: Extend Your OpenAPI with x-faker
+
+```yaml
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          x-faker: name.firstName
+        photoUrls:
+          type: array
+          items:
+            type: string
+            x-faker: image.imageUrl
+```
+
+> If `x-faker` is missing or invalid, Prism falls back to JSON Schema Faker.
+
+### Step 2: Start Inspectr in Dynamic Mode
+
+```bash
+inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
+```
+
+### Example Response (Generated):
+
+```json
+{
+  "id": 12608726,
+  "name": "Addison",
+  "photoUrls": [
+    "http://lorempixel.com/640/480",
+    "http://lorempixel.com/640/480"
+  ]
+}
+```
+
+---
+
+## Comparison: Static vs. Dynamic Mocking
+
+| Mode    | Behavior                                                             |
+| ------- | -------------------------------------------------------------------- |
+| Static  | Returns predefined examples from OpenAPI spec                        |
+| Dynamic | Generates data using Faker/JSF from schema and `x-faker` annotations |
+
+Use static mode for stable mocks based on the provided examples. Use dynamic mode to simulate variability and more dynamic data.
+
+---
+
+## Summary
+
+Mock mode in Inspectr gives you full flexibility when developing against APIs. Whether you need consistent fixtures or random data, mocking accelerates frontend and QA workflows.
+
+[//]: # (---)
+[//]: # ()
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Response Overrides →]&#40;/guides/response-overrides&#41;)
+[//]: # (* [Catch Mode →]&#40;/core-concepts/how-it-works&#41;)
+[//]: # (* [Replay Traffic →]&#40;/core-concepts/how-it-works&#41;)

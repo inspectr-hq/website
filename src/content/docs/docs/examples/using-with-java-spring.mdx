@@ -1,0 +1,116 @@
+---
+title: Using Inspectr with Java Spring
+description: Forward HTTP traffic from Inspectr to a Spring Boot backend
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowJava.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with Java Spring Boot)
+
+Inspectr works seamlessly with Java Spring Boot applications, making it easy to debug API calls, inspect HTTP traffic, and expose your local service to the internet for webhook testing or integration with external systems.
+
+This guide walks you through running Inspectr in front of a Spring Boot API.
+
+---
+
+## Prerequisites
+
+* Java 17+ and Maven installed
+* A Spring Boot project (e.g. using Spring Initializr)
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Create or Start a Spring Boot App
+
+You can quickly create a new Spring Boot app:
+
+```bash
+curl https://start.spring.io/starter.zip \
+  -d dependencies=web \
+  -d name=DemoApi \
+  -o demo.zip
+unzip demo.zip && cd DemoApi
+./mvnw spring-boot:run
+```
+
+By default, Spring Boot listens on:
+
+```
+http://localhost:8080
+```
+
+---
+
+## Step 2: Run Inspectr on a Different Port
+
+To avoid conflicts with Spring Boot’s default port, run Inspectr on a different port and forward to your Spring backend:
+
+```bash
+inspectr --listen=:8181 --backend=http://localhost:8080
+```
+
+Now you can access your Spring API via Inspectr at:
+
+```
+http://localhost:8181
+```
+
+Example:
+
+```bash
+curl http://localhost:8181/api/hello
+```
+
+All traffic will be logged and shown in the Inspectr App at [http://localhost:4004](http://localhost:4004).
+
+---
+
+## Optional: Expose Your Spring Boot API Publicly
+
+<FlowIngress client:only="react" />
+
+Run Inspectr with Ingress enabled to expose your API to external services:
+
+```bash
+inspectr \
+  --listen=:8181 \
+  --backend=http://localhost:8080 \
+  --expose \
+  --channel=spring-demo \
+  --channel-code=spring123
+```
+
+Your API will now be available at:
+
+```
+https://spring-demo.in-spectr.dev
+```
+
+---
+
+## Step 3: Debugging with Inspectr
+
+* View requests/responses in real time
+* Replay requests to your Spring controllers
+* Capture external events (e.g., webhooks) and forward them into your API
+
+---
+
+## Summary
+
+With Inspectr and Spring Boot, you can:
+
+* Debug and inspect HTTP traffic between clients and your backend
+* Safely expose your local API for integration testing
+* Replay traffic and simulate events using the Inspectr App
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Quick Start →]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Public Exposure →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Request Replay →]&#40;/core-concepts/how-it-works&#41;)

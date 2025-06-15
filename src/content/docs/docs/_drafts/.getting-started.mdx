@@ -1,0 +1,102 @@
+---
+title: Getting Started
+description: Learn how to install and run Inspectr using npx, NPM, Homebrew, or binary downloads.
+---
+
+import { Steps } from '@astrojs/starlight/components'
+
+Inspectr makes it easy to monitor and debug HTTP traffic with zero-configuration CLI usage. This guide walks you through the installation and first run experience using different methods.
+
+## Prerequisites
+
+You’ll need:
+
+- Node.js installed for the `npx` or `npm` commands.
+- A backend service running on a local port (e.g., `http://localhost:3000`).
+
+---
+
+## Quick start
+
+
+      ### Run Immediately with `npx`
+
+      No installation required:
+
+      ```bash
+      npx @inspectr/inspectr --backend=http://localhost:3000
+      ```
+
+      Open [http://localhost:4004](http://localhost:4004) to access the UI, and begin sending requests:
+
+      ```bash
+      curl http://localhost:8080/
+      ```
+
+## Installation
+
+<Steps>
+
+  <ol>
+
+
+    <li>
+
+      ### 1. Install Inspectr
+
+      You can also install Inspectr permanently using your preferred method:
+
+      **NPM:**
+
+      ```bash
+      npm install -g @inspectr/inspectr
+      ```
+
+      **Homebrew (macOS):**
+
+      ```bash
+      brew tap inspectr-hq/inspectr
+      brew install inspectr
+      ```
+
+      **Binary Download:**
+
+      Visit the [Releases page](https://github.com/inspectr-hq/inspectr/releases) to download pre-built binaries for your platform.
+
+    </li>
+
+    <li>
+
+      ### 2. Start Inspectr
+
+      After installation, ensure your backend is running on port `3000`.
+
+      Run Inspectr:
+
+      ```bash
+      inspectr --backend="http://localhost:3000"
+      ```
+
+      ### 3. Open Inspectr UI
+
+      Open [http://localhost:4004](http://localhost:4004) to view the Inspectr UI.
+
+      ### 4. Receive requests
+
+      Send a request to your backend:
+
+      ```bash
+      curl http://localhost:8080/
+      ```
+
+      ![Inspectr Output](https://raw.githubusercontent.com/inspectr-hq/inspectr/main/assets/inspectr-output.png)
+
+    </li>
+
+  </ol>
+
+</Steps>
+
+---
+
+You're now ready to dive into inspecting your first request!

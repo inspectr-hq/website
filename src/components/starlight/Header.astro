@@ -1,0 +1,187 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Search from '@astrojs/starlight/components/Search.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import { Icon } from '@astrojs/starlight/components';
+import IconGithub from '../../assets/icon_github.svg';
+import IconDiscord from '../../assets/icon_discord.svg';
+
+const { labels } = Astro.props;
+---
+
+<div class="header sl-flex">
+  <!-- Left section: logo & name -->
+  <div class="sl-flex header-left">
+    <a href="/" class="sl-flex logo-link">
+      <img src="/brand/inspectr_brand_logo.png" alt="Inspectr Logo" class="h-8 w-auto" />
+      <span class="font-bold text-xl">Inspectr</span>
+    </a>
+  </div>
+
+  <!-- Middle section: search box -->
+  <div class="sl-flex header-middle">
+    <Search {labels} />
+  </div>
+
+  <!-- Right section: menu links, social links, and theme selection -->
+  <div class="sl-flex header-right">
+    <div class="menu-links hidden md:flex items-center gap-8">
+      <a
+          href="/#features"
+          class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        Features
+      </a>
+      <a
+          href="/#use-cases"
+          class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        Use Cases
+      </a>
+      <a
+          href="/docs"
+          class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        Documentation
+      </a>
+      <a
+        href="/pricing"
+        class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        Pricing
+      </a>
+    </div>
+
+    <a href="/#get-started" class="get-started-btn">
+      <button class="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
+        Get Started
+      </button>
+    </a>
+
+    <div class="social-icons">
+      <a
+        href="https://github.com/inspectr-hq/inspectr"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        <IconGithub class="w-6 h-6" />
+      </a>
+      <a
+        href="https://discord.gg/58rbCxdr8Z"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-300 hover:text-brand-primary transition-colors"
+      >
+        <IconDiscord class="w-6 h-6" />
+      </a>
+    </div>
+
+    <!--<SocialIcons />-->
+    <ThemeSelect />
+    <!--<a href="https://github.com/inspectr-hq/inspectr" class="sl-flex action-icon github-link">-->
+    <!--  <Icon name="github" size="1.5rem" label="Github" />-->
+    <!--</a>-->
+  </div>
+</div>
+
+<style>
+  .header {
+    gap: var(--sl-nav-gap);
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--sl-nav-pad-x);
+    justify-content: space-between;
+  }
+
+  .header-left {
+    gap: var(--sl-nav-gap);
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header-middle {
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sl-nav-gap);
+  }
+
+  .menu-links a {
+    text-decoration: none;
+  }
+
+  .header-right {
+    gap: 1rem;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo-link {
+    gap: 0.5rem;
+    align-items: center;
+    //color: var(--sl-color-text-accent);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .menu-links {
+    margin-left: 1rem;
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .get-started-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .action-icon {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--sl-color-text-accent);
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .menu-links, .social-icons, .get-started-btn {
+      display: none;
+    }
+
+    .header {
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      flex-basis: 50%;
+    }
+
+    .header-middle {
+      flex-basis: 100%;
+      order: 3;
+      margin-top: 0.5rem;
+    }
+
+    .header-right {
+      flex-basis: 50%;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (min-width: 50rem) {
+    .github-link {
+      display: none;
+    }
+  }
+</style>
+
+<!--<script is:inline>-->
+<!--// &lt;!&ndash;  document.documentElement.dataset.theme = 'dark';&ndash;&gt;-->
+<!--</script>-->

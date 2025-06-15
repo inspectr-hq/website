@@ -1,0 +1,83 @@
+---
+
+title: Exposing Services Publicly
+
+---
+
+import FlowIngress from '../../../../components/DocFlows/FlowIngress.jsx';
+
+[//]: # (# Exposing Services Publicly with Inspectr Ingress)
+
+Sometimes you need your local service to be accessible from the outside world—for testing webhooks, collaborating on demos, or integrating with external systems. Inspectr makes this easy with **Ingress Mode**.
+
+---
+
+## What Is Inspectr Ingress?
+
+<FlowIngress client:only="react" />
+
+Inspectr Ingress is a hosted relay that securely exposes your locally running Inspectr proxy to the public internet via a temporary subdomain on `in-spectr.dev`.
+
+Example:
+
+```
+https://my-api.in-spectr.dev → http://localhost:8080
+```
+
+---
+
+## Use Cases
+
+* Testing third-party webhooks (Stripe, GitHub, Zapier...)
+* Sharing live demos without deployment
+* Allowing remote teammates to test your local service
+* Forwarding traffic to local AI models (e.g. Ollama)
+
+---
+
+## Step 1: Run Inspectr with `--expose`
+
+```bash
+inspectr --backend=http://localhost:3000 --expose --channel=my-api --channel-code=secret123
+```
+
+* `--channel` sets your subdomain (e.g., `my-api.in-spectr.dev`)
+* If omitted, a random channel is assigned
+* The terminal will display the public URL after launch
+
+---
+
+## Step 2: Send Remote Requests
+
+Use the public URL to test integrations, receive webhooks, or collaborate:
+
+```bash
+curl https://my-api.in-spectr.dev/api/hello
+```
+
+* Requests are forwarded to your local backend
+* All traffic is logged in the terminal and UI
+* Works seamlessly with webhooks, HTTP clients, or external services
+
+---
+
+## Channel Lifetime
+
+* Channels exist only while your Inspectr session is active
+* Once Inspectr stops, the public subdomain is released
+* No data is persisted on the ingress server—only forwarded
+
+---
+
+[//]: # (## Best Practices)
+[//]: # ()
+[//]: # (* Use `--channel-code` to secure sensitive testing endpoints)
+[//]: # (* Combine with `--catch` or `--mock-backend` if no backend exists)
+[//]: # ()
+[//]: # (---)
+[//]: # ()
+[//]: # (## 📚 Related Docs)
+[//]: # ()
+[//]: # (* [Securing Exposure →]&#40;/exposing/securing-exposure&#41;)
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Ollama Exposure Guide →]&#40;/use-cases/ollama&#41;)

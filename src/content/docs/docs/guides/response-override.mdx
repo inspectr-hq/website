@@ -1,0 +1,115 @@
+
+---
+title: Using Response Overrides
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import FlowLocalOverride from '../../../../components/DocFlows/FlowLocalOverride.jsx';
+
+<FlowLocalOverride client:only="react" />
+
+Inspectr supports special headers that let you override the response behavior for a request. This is helpful when you're testing edge cases, simulating failures, or customizing mock data on the fly.
+
+This guide covers how to use response override headers and what they do.
+
+---
+
+##  When to Use Overrides
+
+* Simulate network latency
+* Force specific HTTP status codes (e.g. 404, 500)
+* Choose a specific example in your OpenAPI spec
+* Override the Content-Type of a response
+
+Overrides work in:
+
+* **Mock mode** (with `--mock-backend`)
+* **Catch mode** (with `--catch=true`)
+
+---
+
+## Supported Headers
+
+| Header                           | Description                                             |
+| -------------------------------- | ------------------------------------------------------- |
+| `inspectr-response-status`       | Override the HTTP status code (e.g. `404`, `503`)       |
+| `inspectr-response-delay`        | Delay response in milliseconds (e.g. `2000` = 2s delay) |
+| `inspectr-response-example`      | Return a specific OpenAPI example by name               |
+| `inspectr-response-content-type` | Override the `Content-Type` header in the response      |
+
+<Aside>
+These headers only affect how Inspectr generates or returns a response. They don’t change the request forwarded to the backend.
+</Aside>
+
+---
+
+## Example: Simulate Downtime
+
+```bash
+curl http://localhost:8080/api/items \
+  -H "inspectr-response-status: 503" \
+  -H "inspectr-response-delay: 3000"
+```
+
+This simulates a 3-second server outage with a `503 Service Unavailable` status.
+
+---
+
+## Example: Return a Named OpenAPI Example
+
+Your OpenAPI spec includes this:
+
+```yaml
+examples:
+  validList:
+    summary: A list of valid items
+    value:
+      items: ["A", "B", "C"]
+  emptyList:
+    summary: An empty list
+    value:
+      items: []
+```
+
+Use this header to select `emptyList`:
+
+```bash
+curl http://localhost:8080/api/items \
+  -H "inspectr-response-example: emptyList"
+```
+
+---
+
+## Example: Override Status Code Only
+
+```bash
+curl http://localhost:8080/api/submit \
+  -H "inspectr-response-status: 404"
+```
+
+This returns a `404 Not Found` response regardless of the mock or catch behavior.
+
+---
+
+## Example: Change Content-Type
+
+Force a different `Content-Type` in the response:
+
+```bash
+curl http://localhost:8080/echo \
+  -H "inspectr-response-content-type: text/plain"
+```
+
+---
+
+## Summary
+
+Response overrides help you simulate different scenarios without changing your backend or OpenAPI file. They’re great for testing, mocking, and QA validation workflows.
+
+[//]: # (---)
+
+[//]: # (## Related Topics)
+[//]: # ()
+[//]: # (* [Mocking Responses →]&#40;/guides/mocking&#41;)
+[//]: # (* [Catch Mode →]&#40;/core-concepts/how-it-works&#41;)
+[//]: # (* [Replay Requests →]&#40;/core-concepts/how-it-works&#41;)

@@ -1,7 +1,8 @@
 ---
-// import "../styles/global.css";
-import '../index.css';
-import PostHog from '../components/posthog.astro'
+import "../styles/site.css";
+// import '../index.css';
+import PostHog from './posthog.astro'
+import Penkle from './penkle.astro';
 ---
 
 <!doctype html>
@@ -32,11 +33,5 @@ import PostHog from '../components/posthog.astro'
 <body>
   <slot />
 </body>
-<script
-  async
-  defer
-  data-domain="inspectr.dev"
-  src="https://penkle.com/scripts/penkle.min.js"
->
-</script>
+<Penkle />
 </html>

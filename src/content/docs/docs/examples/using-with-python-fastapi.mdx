@@ -1,0 +1,106 @@
+---
+
+title: Using Inspectr with FastAPI
+
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowFastApi.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with FastAPI &#40;Python&#41;)
+
+FastAPI is a high-performance Python web framework, ideal for building modern APIs. Inspectr lets you debug traffic, inspect payloads, and securely expose your FastAPI endpoints with minimal configuration.
+
+This guide walks you through using Inspectr with a FastAPI project.
+
+---
+
+## Prerequisites
+
+* Python 3.8+
+* FastAPI and Uvicorn installed:
+
+```bash
+pip install fastapi uvicorn
+```
+
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Create or Run a FastAPI App
+
+Here’s a simple FastAPI app (`main.py`):
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+def read_root():
+    return {"message": "Hello from FastAPI!"}
+```
+
+Start the server:
+
+```bash
+uvicorn main:app --port 5001
+```
+
+---
+
+## Step 2: Start Inspectr to Forward Traffic
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:5001
+```
+
+Make a request via Inspectr:
+
+```bash
+curl http://localhost:8080/hello
+```
+
+* The request is forwarded to FastAPI
+* The response is captured in Inspectr
+* You can view it in the App UI: [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Optional: Expose FastAPI Publicly
+
+<FlowIngress client:only="react" />
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:5001 \
+  --expose \
+  --channel=fastapi-demo \
+  --channel-code=fastapi123
+```
+
+Your public endpoint:
+
+```
+https://fastapi-demo.in-spectr.dev
+```
+---
+
+## Summary
+
+Inspectr + FastAPI gives you:
+
+* Simple request logging and inspection
+* Public webhook endpoint for testing
+* Real-time debugging and replay
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Quick Start →]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Expose Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Inspectr Architecture →]&#40;/core-concepts/architecture&#41;)

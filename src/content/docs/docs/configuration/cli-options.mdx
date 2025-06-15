@@ -1,0 +1,96 @@
+---
+title: CLI Options
+description: Inspectr command-line reference
+---
+
+[//]: # (# ⚙️ Command-Line Options)
+
+Inspectr supports a wide range of CLI flags to control how it captures, proxies, and exposes traffic. These options allow you to customize Inspectr to match your workflow.
+
+---
+
+## Basic Options
+
+| Flag             | Type    | Default | Description                                           |
+| ---------------- | ------- | ------- | ----------------------------------------------------- |
+| `--listen`       | string  | `:8080` | Address where Inspectr listens for HTTP requests      |
+| `--backend`      | string  | (none)  | Forward requests to this backend service              |
+| `--mock-backend` | string  | (none)  | Serve mock responses from OpenAPI spec                |
+| `--mock-dynamic` | boolean | `false` | Generate dynamic mock data instead of static examples |
+| `--catch`        | boolean | `true`  | Accept and log requests without forwarding            |
+
+---
+
+## App and Logging
+
+| Flag          | Type    | Default | Description                                       |
+| ------------- | ------- | ------- | ------------------------------------------------- |
+| `--app`       | boolean | `true`  | Enable embedded Inspectr App UI                   |
+| `--app-port`  | string  | `4004`  | Port to serve the UI app                          |
+| `--print`     | boolean | `true`  | Print color-coded log output to the terminal      |
+
+---
+
+## Public Exposure
+
+| Flag             | Type    | Default | Description                                                       |
+| ---------------- | ------- | ------- | ----------------------------------------------------------------- |
+| `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress service                      |
+| `--channel`      | string  |         | Subdomain to use on `in-spectr.dev` (e.g. `my-api.in-spectr.dev`) |
+| `--channel-code` | string  |         | Secret code required for remote access to the channel             |
+
+---
+
+## Security and Storage
+
+| Flag                | Type    | Default        | Description                                           |
+| ------------------- | ------- | -------------- | ----------------------------------------------------- |
+| `--apiSecret`       | string  | (none)         | Protect access to Inspectr's admin API                |
+| `--store-path`      | string  | `.inspectr.db` | Path to store request/response history                |
+| `--store-in-memory` | boolean | `false`        | Use in-memory storage instead of persistent disk file |
+
+---
+
+## Configuration & Version
+
+| Flag             | Type    | Default          | Description                                       |
+|------------------|---------|------------------|---------------------------------------------------|
+| `--config`       | string  | `.inspectr.yaml` | Path to YAML config file (overrides CLI flags)    |
+| `--version`      |         |                  | Print Inspectr version and exit                   |
+
+## Advanced
+
+| Flag             | Type    | Default          | Description                                       |
+|------------------|---------|------------------|---------------------------------------------------|
+| `--log-level`    | string  | `none`           | Set log verbosity (`debug`, `info`, `warn`, etc.) |
+| `--http-timeout` | integer | `30`             | HTTP timeout in seconds for backend requests      |
+
+---
+
+## Examples
+
+### Basic Proxy Setup
+
+```bash
+inspectr --backend=http://localhost:3000
+```
+
+### Catch Mode for Webhook Testing
+
+```bash
+inspectr --catch=true --expose --channel=webhook-test --channel-code=secure123
+```
+
+### Mocking With OpenAPI
+
+```bash
+inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
+```
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [YAML Configuration →]&#40;/configuration/yaml-config&#41;)
+[//]: # (* [Mocking APIs →]&#40;/guides/mocking&#41;)
+[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)

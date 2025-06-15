@@ -1,0 +1,63 @@
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@layer theme {
+  :root {
+    /* increase the width of the main pane */
+    --sl-content-width: 70rem;
+  }
+  .main-pane .sl-container {
+    margin-inline: unset;
+    margin-left: 14%;
+    margin-right: 14%;
+  }
+}
+
+/* utilities */
+@layer utilities {
+  .bg-gradient-dark,
+  header {
+    background: linear-gradient(to bottom right, rgba(0, 35, 41, 0.8), rgba(0, 35, 41, 0.4));
+  }
+  .to-black {
+    --tw-gradient-to: var(--color-black);
+    --tw-gradient-stops: var(
+      --tw-gradient-via-stops,
+      var(--tw-gradient-position),
+      var(--tw-gradient-from) var(--tw-gradient-from-position),
+      var(--tw-gradient-to) var(--tw-gradient-to-position)
+    );
+  }
+
+  .from-brand-dark {
+    --tw-gradient-from: var(--color-brand-dark);
+    --tw-gradient-stops: var(
+      --tw-gradient-via-stops,
+      var(--tw-gradient-position),
+      var(--tw-gradient-from) var(--tw-gradient-from-position),
+      var(--tw-gradient-to) var(--tw-gradient-to-position)
+    );
+  }
+
+  .bg-gradient-to-b {
+    --tw-gradient-position: to bottom in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+
+  /* Apply the gradient classes to the sidebar */
+  :root[data-theme='dark'] .sidebar-pane{
+    --tw-gradient-position: to left in oklab;
+    --tw-gradient-from: var(--color-brand-dark);
+    --tw-gradient-to: var(--color-black);
+    --tw-gradient-stops: var(
+      --tw-gradient-via-stops,
+      var(--tw-gradient-position),
+      var(--tw-gradient-from) var(--tw-gradient-from-position),
+      var(--tw-gradient-to) var(--tw-gradient-to-position)
+    );
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+}

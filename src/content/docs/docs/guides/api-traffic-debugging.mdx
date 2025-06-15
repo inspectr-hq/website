@@ -1,0 +1,80 @@
+---
+title: Debugging API Traffic
+description: Install Inspectr via NPM, Homebrew, or binaries
+---
+import FlowLocalDebug from '../../../../components/DocFlows/FlowLocalDebug.jsx';
+
+<FlowLocalDebug client:only="react" />
+
+Inspectr helps you inspect, trace, and debug API requests and responses in real time. Whether you're working on a backend service or testing an integration, Inspectr gives you the visibility you need.
+
+---
+
+## Step 1: Start Your Backend Service
+
+Ensure your API service is running locally. For example, a backend on port `3000`:
+
+```bash
+npm run dev
+# or
+python app.py
+```
+
+---
+
+## Step 2: Start Inspectr as a Proxy
+
+Use the `--backend` flag to forward requests from Inspectr to your backend:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:3000
+```
+
+* Inspectr listens on port `8080`.
+* Incoming requests will be forwarded to `localhost:3000`.
+* All requests/responses will be captured and shown in:
+
+* **Console log** (color-coded summary)
+* **UI App** ([http://localhost:4004](http://localhost:4004))
+
+---
+
+## Step 3: Send Requests
+
+Send requests to your backend through Inspectr:
+
+```bash
+curl http://localhost:8080/api/users
+```
+
+Or update your frontend/API client to target `http://localhost:8080` instead of the original backend.
+
+---
+
+## Step 4: Explore in the UI
+
+Visit [http://localhost:4004](http://localhost:4004) to:
+
+* Inspect the request method, path, headers, body
+* View the forwarded backend response
+* Filter by status code, method, endpoint
+* Replay past requests for regression testing
+
+---
+
+## Debugging Tips
+
+Use Inspectr to debug:
+
+* 4xx/5xx responses with full request visibility
+* Misconfigured headers or missing tokens
+* Wrong HTTP methods or paths
+* Combine with browser dev tools or API clients (Postman, Insomnia)
+
+[//]: # (---)
+[//]: # ()
+[//]: # (## Next Steps)
+[//]: # ()
+[//]: # (* [Frontend Inspection →]&#40;/guides/frontend-inspection&#41;)
+[//]: # (* [Mocking Responses →]&#40;/guides/mocking&#41;)
+[//]: # (* [Expose Publicly →]&#40;/exposing/exposing-publicly&#41;)

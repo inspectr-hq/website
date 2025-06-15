@@ -1,0 +1,132 @@
+---
+title: Handling Stripe Webhooks
+description: Capture and test Stripe webhook events using Inspectr
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+import { Image } from 'astro:assets';
+import stripeStart from '../../../../assets/guides/stripe_add.png';
+import stripeDestination from '../../../../assets/guides/stripe_destination_inspectr.png';
+
+import FlowIngressStripe from '../../../../components/DocFlows/FlowIngressStripe.jsx';
+
+<FlowIngressStripe client:only="react" />
+
+[//]: # (# Handling Stripe Webhooks with Inspectr)
+
+Stripe sends webhook events to notify your application about things like successful payments or subscription changes. With Inspectr, you can capture, inspect, and replay these events—even when developing locally.
+
+---
+
+## Why Use Inspectr for Stripe Webhooks?
+
+* See the **raw payloads** Stripe sends
+* Verify headers like `Stripe-Signature`
+* Debug issues without needing to re-trigger events
+* Replay captured events multiple times
+
+---
+
+## Prerequisites
+
+* A [Stripe account](https://dashboard.stripe.com/login)
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+* Stripe CLI (optional, for testing locally)
+
+---
+
+## Step 1: Start Inspectr in Catch Mode
+
+You don’t need a backend during early development:
+
+```bash
+inspectr --catch=true --expose --channel=stripe-webhooks --channel-code=webhooks123
+```
+
+This will:
+
+* Accept incoming requests on both `http://localhost:8080` and `https://stripe-webhooks.in-spectr.dev`
+* Automatically return a `200 OK` to all requests
+* Display all webhook events in the Inspectr App UI (`http://localhost:4004`)
+
+---
+
+## Step 2: Configure Stripe to Send Events
+
+Login to your Stripe account, goto [Stripe Workbench](https://dashboard.stripe.com/test/workbench/webhooks) and start the wizard to create a webhook destination:
+
+<Image src={stripeStart} alt="Stripe Webhook Add" />
+
+
+In the Stripe Dashboard or Stripe CLI, set your webhook endpoint to:
+
+```
+https://stripe-webhooks.in-spectr.dev/stripe
+```
+
+<Image src={stripeDestination} alt="Stripe Webhook Destination" width="600" />
+
+Or use the Stripe CLI to forward events:
+
+```bash
+stripe listen --forward-to https://stripe-webhooks.in-spectr.dev/stripe
+```
+
+---
+
+## Step 3: Inspect Events in Real Time
+
+As Stripe sends events, you’ll see them in:
+
+* Your **terminal**: color-coded request logs
+* The **Inspectr App**: full event details, headers, body, and timestamp
+
+You can:
+
+* Replay events to another backend (once it's live)
+* Download payloads for offline testing
+* View signature headers to validate signing logic
+
+---
+
+## Step 4: Validate Signatures (Optional)
+
+Inspectr captures the `Stripe-Signature` header so you can:
+
+* Extract and test your signing secret manually
+* Confirm timestamp & signature values in the UI
+
+ <Aside type="tip" title="Production">
+ For production validation, you must verify Stripe's signature on your server.
+ </Aside>
+
+---
+
+## Step 5: Replay Webhooks to Local Backend
+
+Once your backend is running locally:
+
+```bash
+inspectr --backend=http://localhost:3000 --expose --channel=stripe-webhooks --channel-code=webhooks123
+```
+
+Now replay the captured Stripe events to your real handler at `http://localhost:3000/stripe`.
+
+---
+
+## Summary
+
+Inspectr is a powerful companion for working with Stripe webhooks:
+
+* Capture and analyze events safely
+* Replay and test integrations on demand
+* Eliminate the pain of re-triggering third-party systems
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Webhook Debugging →]&#40;/guides/webhook-debugging&#41;)
+[//]: # (* [Public Exposure →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # (* [Replay & Catch Mode →]&#40;/core-concepts/how-it-works&#41;)

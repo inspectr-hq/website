@@ -1,0 +1,95 @@
+---
+title: Inspecting Frontend API Requests
+description: Install Inspectr via NPM, Homebrew, or binaries
+---
+
+import FlowLocalBrowser from '../../../../components/DocFlows/FlowLocalBrowser.jsx';
+
+<FlowLocalBrowser client:only="react" />
+
+Inspectr can help you debug outgoing HTTP requests made by your frontend applications. With a single URL change, you can inspect request details, trace issues, and test interactions without touching your backend.
+
+---
+
+## Use Cases
+
+You're developing a web app and want to:
+
+* See the actual requests your frontend sends
+* Inspect headers, methods, and payloads
+* View backend responses
+* Debug issues like CORS, 4xx/5xx errors, or missing data
+
+---
+
+## Step 1: Start Inspectr with a Backend
+
+Point Inspectr to your API backend:
+
+```bash
+inspectr --listen=:8080 --backend=https://api.example.com
+```
+
+This sets Inspectr to:
+
+* Receive requests on `http://localhost:8080`
+* Forward them to `https://api.example.com`
+* Log and display traffic in real time
+
+---
+
+## Step 2: Update Frontend Base URL
+
+Modify your frontend to send API requests to Inspectr:
+
+```js
+// Before:
+fetch("https://api.example.com/data")
+```
+
+```js
+// After:
+fetch("http://localhost:8080/data")
+```
+
+* Works with any framework (React, Vue, Angular, etc.)
+* Works with any HTTP client (fetch, axios, etc.)
+* No backend changes required
+
+---
+
+## Step 3: Inspect in the UI
+
+Visit [http://localhost:4004](http://localhost:4004) to:
+
+* View requests and responses
+* Monitor headers, bodies, and status codes
+* Replay requests during development
+
+---
+
+## Optional: Enable CORS backend Handling
+
+If you want to validate the original backend CORS validation, you can turn off the CORS handling by Inspectr and let the CORS setting of the backend handle the validation:
+
+```bash
+inspectr --listen=:8080 --backend=https://api.example.com --backend-cors=true
+```
+
+By default, Inspectr will allow preflight OPTIONS requests and pass through headers appropriately.
+
+---
+
+## Tips
+
+* Use filters in the UI to isolate specific endpoints
+* Replay requests after changing frontend code
+* Use override headers to simulate errors and delays in mock/catch modes
+
+[//]: # (---)
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Mocking Responses →]&#40;/guides/mocking&#41;)
+[//]: # (* [CLI Options →]&#40;/configuration/cli-options&#41;)
+[//]: # (* [Expose Publicly →]&#40;/exposing/exposing-publicly&#41;)

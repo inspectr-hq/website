@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation   from '../components/Site/Navigation'
+import PricingHero       from '../components/PricingHero'
+import PricingSection       from '../components/SectionPricing'
+import Footer       from '../components/Site/Footer'
+---
+
+<Layout>
+	<Navigation client:load />
+	<PricingHero />
+ 	<PricingSection />
+	<Footer />
+</Layout>
+
