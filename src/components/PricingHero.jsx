@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from './Badge.jsx';
 
 const PricingHero = () => {
   return (
@@ -25,7 +26,7 @@ const PricingHero = () => {
           Choose the plan that's right for you. Just start, scale as you grow.
         </p>
         <p className="text-lg text-white/70 max-w-2xl mx-auto mt-2">
-          No signup or account needed — jump right in.
+          <Badge variant="outline">No signup or account needed — jump right in.</Badge>
         </p>
       </div>
     </div>

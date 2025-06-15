@@ -25,12 +25,13 @@ const PricingSection = () => {
       name: 'Pro',
       price: '$5',
       oldPrice: '$8',
-      description: 'For professional developers, with a domain',
+      // description: 'For professional developers, with a domain',
+      description: 'Level up with custom & reserved subdomains',
       features: [
-        'Everything in Open Source',
-        'Custom domains and subdomains',
+        'Everything in Open Source, plus',
+        'Custom domains',
         'Reserved subdomains',
-        'Advanced analytics',
+        'Advanced analytics (coming soon)',
         'Inspectr AI MCP Server (coming soon)',
         'Priority support (email)'
       ],
@@ -60,7 +61,7 @@ const PricingSection = () => {
       price: 'Contact Us',
       description: 'For large organizations with advanced needs',
       features: [
-        'Everything in Pro',
+        'Everything in Pro, plus',
         'Advanced security & compliance',
         'Self-hosted deployment',
         'Priority feature requests',
