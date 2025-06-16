@@ -97,45 +97,47 @@ const PricingSection = () => {
 
       {/* FAQ Section */}
 
-      <div className="mt-20 py-20 text-center bg-gradient-to-b from-brand-dark to-black">
-        <h3 className="text-2xl font-bold text-white mb-12">Frequently Asked Questions</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="text-left">
-            <h4 className="font-semibold text-white mb-3">Can I change plans anytime?</h4>
-            <p className="text-white/70 text-sm">
-              Yes, you can upgrade or downgrade your plan at any time. Changes take effect
-              immediately.
-            </p>
-          </div>
-          <div className="text-left">
-            <h4 className="font-semibold text-white mb-3">
-              Do I need to sign up or create an account?
-            </h4>
-            <p className="text-white/70 text-sm">
-              No signup or account is required. You can start using Inspectr right away while
-              keeping your data private.
-            </p>
-          </div>
-          {/*<div className="text-left">*/}
-          {/*  <h4 className="font-semibold text-white mb-3">Is there a free trial?</h4>*/}
-          {/*  <p className="text-white/70 text-sm">Yes, we offer a 14-day free trial for all paid plans. No credit card*/}
-          {/*    required.</p>*/}
-          {/*</div>*/}
-          <div className="text-left">
-            <h4 className="font-semibold text-white mb-3">What payment methods do you accept?</h4>
-            <p className="text-white/70 text-sm">
-              We accept all major credit cards and invoice payments.{' '}
-              <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank">
-                Contact us
-              </a>{' '}
-              for more details.
-            </p>
-          </div>
-          <div className="text-left">
-            <h4 className="font-semibold text-white mb-3">Do you offer refunds?</h4>
-            <p className="text-white/70 text-sm">
-              Yes, we offer a 30-day money-back guarantee for all paid plans.
-            </p>
+      <div className="mt-20 py-20 bg-gradient-to-b from-brand-dark to-black">
+        <div className="container mx-auto text-center p-4">
+          <h3 className="text-2xl font-bold text-white mb-12">Frequently Asked Questions</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="text-left">
+              <h4 className="font-semibold text-white mb-3">Can I change plans anytime?</h4>
+              <p className="text-white/70 text-sm">
+                Yes, you can upgrade or downgrade your plan at any time. Changes take effect
+                immediately.
+              </p>
+            </div>
+            <div className="text-left">
+              <h4 className="font-semibold text-white mb-3">
+                Do I need to sign up or create an account?
+              </h4>
+              <p className="text-white/70 text-sm">
+                No signup or account is required. You can start using Inspectr right away while
+                keeping your data private.
+              </p>
+            </div>
+            {/*<div className="text-left">*/}
+            {/*  <h4 className="font-semibold text-white mb-3">Is there a free trial?</h4>*/}
+            {/*  <p className="text-white/70 text-sm">Yes, we offer a 14-day free trial for all paid plans. No credit card*/}
+            {/*    required.</p>*/}
+            {/*</div>*/}
+            <div className="text-left">
+              <h4 className="font-semibold text-white mb-3">What payment methods do you accept?</h4>
+              <p className="text-white/70 text-sm">
+                We accept all major credit cards and invoice payments.{' '}
+                <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank">
+                  Contact us
+                </a>{' '}
+                for more details.
+              </p>
+            </div>
+            <div className="text-left">
+              <h4 className="font-semibold text-white mb-3">Do you offer refunds?</h4>
+              <p className="text-white/70 text-sm">
+                Yes, we offer a 30-day money-back guarantee for all paid plans.
+              </p>
+            </div>
           </div>
         </div>
       </div>

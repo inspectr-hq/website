@@ -27,7 +27,7 @@ export default function Hero() {
             responses. Easily expose your local API to test integrations and capture webhook events
             from remote systems.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
             <a href="#get-started">
               <button className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-8 py-3 rounded-lg font-medium flex items-center gap-2 transition-all">
                 Get Started <IconArrowRight className="w-4 h-4" />

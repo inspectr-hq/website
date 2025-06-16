@@ -61,7 +61,7 @@ const PricingCard = ({
           {name}
         </h3>
         <div className="mb-4">
-          {oldPrice  && (<span className="text-white/60 mr-2 text-m">🚀launch promo</span>)}
+          {oldPrice  && (<span className="text-white/60 mr-2 text-m">🚀 launch promo</span>)}
           <span className="text-2xl font-bold text-white">{price}</span>
           {price !== 'FREE' && price !== 'Contact Us' && (
             <span className="text-white/60 ml-0">/month</span>

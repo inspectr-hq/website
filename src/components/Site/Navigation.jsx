@@ -74,13 +74,13 @@ export default function Navigation() {
         <div className="md:hidden bg-black/95 border-b border-gray-800">
           <div className="px-4 py-4 space-y-4">
             <a
-              href="#features"
+              href="/#features"
               className="block text-gray-300 hover:text-brand-primary transition-colors"
             >
               Features
             </a>
             <a
-              href="#use-cases"
+              href="/#use-cases"
               className="block text-gray-300 hover:text-brand-primary transition-colors"
             >
               Use Cases
@@ -91,11 +91,19 @@ export default function Navigation() {
             >
               Documentation
             </a>
-            <a href="#get-started">
+            <a
+              href="/pricing"
+              className="block text-gray-300 hover:text-brand-primary transition-colors"
+            >
+              Pricing
+            </a>
+            <a href="/#get-started" className="block">
               <button className="w-full bg-brand-primary hover:bg-brand-secondary text-brand-dark px-4 py-2 rounded-lg font-medium transition-all">
                 Get Started
               </button>
             </a>
+
+<div className="flex items-center justify-center gap-4">
             <a
                 href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start"
                 target="_blank"
@@ -105,13 +113,14 @@ export default function Navigation() {
               <IconGithub className="w-6 h-6" />
             </a>
             <a
-                href="https://github.com/inspectr-hq/inspectr?tab=readme-ov-file#-quick-start"
+                href="https://discord.gg/inspectr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               <IconDiscord className="w-6 h-6" />
             </a>
+            </div>
           </div>
         </div>
       )}
