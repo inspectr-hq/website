@@ -3,7 +3,7 @@ import FlowVisualizer from '../Flow/FlowVisualizer.jsx';
 import { buildBaseFlow, buildIngressFlow } from '../Flow/FlowBuilder.jsx';
 
 import clientIcon from '../../assets/icons/zap.svg?react';
-import serviceIcon from '../../assets/icons/microsoft_dotnet.svg?react';
+import serviceIcon from '../../assets/icons/stack.svg?react';
 
 
 export function FlowBase() {
@@ -29,9 +29,9 @@ export function FlowIngress() {
   const { nodes, edges } = useMemo(
     () =>
       buildIngressFlow({
-        overrides: {'group_public': { label: 'dotnet-app.in-spectr.dev'}},
+        overrides: {'group_public': { label: 'internal-api.in-spectr.dev'}, 'group_local': { label: 'On-prem - intranet.local'}},
         start: { label: 'Client', icon: clientIcon },
-        end: { label: '.Net App', icon: serviceIcon, width: 120 }
+        end: { label: 'Internal API', icon: serviceIcon, width: 140 }
       }),
     []
   );
