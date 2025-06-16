@@ -7,23 +7,26 @@ import { FlowIngress } from '../../../../components/DocFlows/FlowOnprem.jsx';
 
 <FlowIngress client:only="react" />
 
-Running REST APIs inside a private network is common for enterprise or self-hosted setups. You can place Inspectr in front of your internal service to expose it temporarily and inspect all incoming traffic.
+Running REST APIs inside a private network is common for enterprise or self-hosted setups. You can place Inspectr in front of your internal service to expose it and inspect all incoming traffic.
 
-In many enterprise networks, opening up a service to the outside world means requesting firewall changes, setting up NAT rules, or configuring DMZ proxies. Each of these steps can involve multiple configurations and complex network policies. Inspectr avoids that headache: run it on the same machine as your API and it creates a secure single outbound HTTP connection to the Inspectr Cloud. Because most organizations already allow outbound traffic, you can safely share a public URL without altering inbound firewall rules.
+In many enterprise networks, exposing a service to the internet typically involves firewall rules, NAT configurations, or configuring DMZ proxies. Each of these steps can involve multiple configurations and complex network policies.
+
+Inspectr helps to reduce this complexity.
+
+Inspectr creates a secure single outbound HTTP connection to the public Inspectr Ingress. Since most organizations already allow outbound traffic, you can safely share a public URL for the internal service without altering inbound firewall rules.
 
 ---
 
 ## Prerequisites
 
-* Inspectr installed ([Install guide →](/docs/getting-started/installation)) on a on-premise setup
-* An internal REST API running on your network, for example `http://intranet.local:5000`
+* Inspectr installed ([Installation guide →](/docs/getting-started/installation)) on a on-premise setup
+* A REST API running internally, e.g., `http://intranet.local:5000`
 
 ---
 
 ## Step 1: Ensure Your API is Running
 
-Make sure your on-prem API is reachable from the machine where you run Inspectr.
-
+Make sure your on-prem API is reachable from the machine where Inspectr is running.
 
 Example:
 ```bash
@@ -34,9 +37,10 @@ Inspectr will forward traffic to this address.
 
 ---
 
-## Step 2: Configure & Run Inspectr on-premise
+## Step 2: Configure & Run Inspectr On-Premise
 
-Run Inspectr and point it to your internal service.
+You can easily [install](/docs/getting-started/installation) Inspectr on any Windows or Linux server.
+After the installation, start Inspectr and configure it to point to your internal service.
 
 ```bash
 inspectr \
@@ -55,23 +59,38 @@ https://internal-api.in-spectr.dev
 
 Share this URL with partners or tools that must access your on-prem service.
 
-* Inspectr listens locally on port `8080`.
-* All requests are forwarded to your on-prem API.
+* Starts Inspectr locally on port `8080`
+* Forwards incoming requests to your internal API
+* Access the internal setup over a public URL
 * View captured traffic at [http://localhost:4004](http://localhost:4004).
+
+You can now share the public Inspectr URL with external stakeholders or services that need temporary access to your on-prem system.
 
 ---
 
-## Step 3: Inspect
+## Step 3: Connect to your internal API
 
-Use the Inspectr App UI to:
+Now that your internal API is exposed, it can be accessed securely from outside your network using the Inspectr-generated URL.
 
-* Monitor all requests hitting your internal API
-* Inspect headers and bodies for debugging
+Example:
+```bash
+curl https://internal-api.in-spectr.dev/health
+```
+
+- Your request hits the Inspectr Ingress via `https://internal-api.in-spectr.dev`
+- Inspectr routes the request through the secure channel to your on-prem server
+- The response is returned seamlessly to the external client
+- You can view request/response details instantly in the local dashboard
+
+It's just a regular HTTPS call, with Inspectr securely handling the relay behind the scenes.
 
 ---
 
 ## Summary
 
-Inspectr lets you safely expose and debug on-prem REST APIs without complex tunneling. Start it in front of your service, optionally enable public exposure, and inspect traffic in real time.
+Inspectr makes it painless to expose and inspect internal REST APIs without changing firewall rules or setting up VPNs or tunnels.
+Start it next to your service, make it publicly accessible by the expose option, and share a live URL.
 
-
+- 🔐 Secure, outbound-only traffic.
+- 🌐 Public access without the complex networking.
+- 🔍 Real-time visibility.
