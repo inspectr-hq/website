@@ -9,6 +9,8 @@ import { FlowIngress } from '../../../../components/DocFlows/FlowOnprem.jsx';
 
 Running REST APIs inside a private network is common for enterprise or self-hosted setups. You can place Inspectr in front of your internal service to expose it temporarily and inspect all incoming traffic.
 
+In many enterprise networks, opening up a service to the outside world means requesting firewall changes, setting up NAT rules, or configuring DMZ proxies. Each of these steps can involve multiple configurations and complex network policies. Inspectr avoids that headache: run it on the same machine as your API and it creates a secure single outbound HTTP connection to the Inspectr Cloud. Because most organizations already allow outbound traffic, you can safely share a public URL without altering inbound firewall rules.
+
 ---
 
 ## Prerequisites
