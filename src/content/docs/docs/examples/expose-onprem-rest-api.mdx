@@ -1,0 +1,75 @@
+---
+title: Exposing an On-Premise REST API
+description: Use Inspectr to expose and debug an internal REST API
+---
+
+import { FlowIngress } from '../../../../components/DocFlows/FlowOnprem.jsx';
+
+<FlowIngress client:only="react" />
+
+Running REST APIs inside a private network is common for enterprise or self-hosted setups. You can place Inspectr in front of your internal service to expose it temporarily and inspect all incoming traffic.
+
+---
+
+## Prerequisites
+
+* Inspectr installed ([Install guide →](/docs/getting-started/installation)) on a on-premise setup
+* An internal REST API running on your network, for example `http://intranet.local:5000`
+
+---
+
+## Step 1: Ensure Your API is Running
+
+Make sure your on-prem API is reachable from the machine where you run Inspectr.
+
+
+Example:
+```bash
+curl http://intranet.local:5000/health
+```
+
+Inspectr will forward traffic to this address.
+
+---
+
+## Step 2: Configure & Run Inspectr on-premise
+
+Run Inspectr and point it to your internal service.
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://intranet.local:5000 \
+  --expose \
+  --channel=internal-api \
+  --channel-code=access123
+```
+
+Your API will be reachable via:
+
+```
+https://internal-api.in-spectr.dev
+```
+
+Share this URL with partners or tools that must access your on-prem service.
+
+* Inspectr listens locally on port `8080`.
+* All requests are forwarded to your on-prem API.
+* View captured traffic at [http://localhost:4004](http://localhost:4004).
+
+---
+
+## Step 3: Inspect
+
+Use the Inspectr App UI to:
+
+* Monitor all requests hitting your internal API
+* Inspect headers and bodies for debugging
+
+---
+
+## Summary
+
+Inspectr lets you safely expose and debug on-prem REST APIs without complex tunneling. Start it in front of your service, optionally enable public exposure, and inspect traffic in real time.
+
+
