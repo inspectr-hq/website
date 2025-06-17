@@ -7,6 +7,9 @@ import { Icon } from '@astrojs/starlight/components';
 import IconGithub from '../../assets/icon_github.svg';
 import IconDiscord from '../../assets/icon_discord.svg';
 
+import PostHog from '../../layouts/posthog.astro'
+import Penkel from '../../layouts/penkle.astro'
+
 const { labels } = Astro.props;
 ---
 
@@ -187,3 +190,6 @@ const { labels } = Astro.props;
 <!--<script is:inline>-->
 <!--// &lt;!&ndash;  document.documentElement.dataset.theme = 'dark';&ndash;&gt;-->
 <!--</script>-->
+
+<PostHog />
+<Penkel />
