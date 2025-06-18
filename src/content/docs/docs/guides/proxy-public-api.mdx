@@ -1,0 +1,112 @@
+---
+title: Proxying a public API
+description: Forward traffic to a public API
+---
+
+import { Image } from 'astro:assets';
+import remoteWebsite from '../../../../assets/guides/remote-api.png';
+import inspectrScreen from '../../../../assets/guides/remote-api-inspectr.png';
+import inspectrTroubleshooting from '../../../../assets/guides/remote-api-troubleshooting.png';
+
+Your API might not always run on your local machine, it could be a public API. Inspectr can still capture and replay requests by forwarding them to that public API.
+
+We'll use [Open Brewery DB](https://www.openbrewerydb.org/), a public dataset of craft breweries.
+
+<Image src={remoteWebsite} alt="Open Brewery DB Documentation" />
+
+For more details on available endpoints, see the [Open Brewery DB documentation](https://www.openbrewerydb.org/documentation)
+
+---
+
+## Step 1: Verify Access to the Remote API
+
+Make sure you can reach the remote backend from your current machine.
+
+```bash
+curl "https://api.openbrewerydb.org"
+```
+
+results in
+```json
+{
+  "message": "Welcome to the Breweries API, see the documentation at https://www.openbrewerydb.org/documentation"
+}
+```
+
+
+---
+
+## Step 2: Start Inspectr
+
+Run Inspectr locally and point it at the remote API using the `--backend` flag:
+
+```bash
+inspectr --listen=:8080 --backend=https://api.openbrewerydb.org
+```
+
+* Inspectr listens on `:8080`.
+* Incoming requests are forwarded to `https://api.openbrewerydb.org`.
+* Request and response details appear in the console and at [http://localhost:4004](http://localhost:4004).
+
+---
+
+## Step 3: Send Requests Through Inspectr
+
+Update your client or tools to use the local Inspectr address:
+
+```bash
+curl "http://localhost:8080/v1/breweries"
+```
+
+results in:
+
+```json
+[
+  {
+    "id": "5128df48-79fc-4f0f-8b52-d06be54d0cec",
+    "name": "(405) Brewing Co",
+    "brewery_type": "micro",
+    "address_1": "1716 Topeka St",
+    "address_2": null,
+    "address_3": null,
+    "city": "Norman",
+    "state_province": "Oklahoma",
+    "postal_code": "73069-8224",
+    "country": "United States",
+    "longitude": -97.46818222,
+    "latitude": 35.25738891,
+    "phone": "4058160490",
+    "website_url": "http://www.405brewing.com",
+    "state": "Oklahoma",
+    "street": "1716 Topeka St"
+  },
+  ...
+]
+```
+
+Inspectr forwards the request to the remote backend and displays the response.
+
+<Image src={inspectrScreen} alt="Inspectr Open Brewery DB results" />
+
+---
+
+## Troubleshooting
+
+When the remote backend is not available or the request cannot be delivered, Inspectr will return a `502` HTTP status with a response:
+
+```json
+{
+  "error": "Inspectr backend unavailable. Unable to connect to the backend service. Please ensure the service is running.",
+  "code": 502
+}
+```
+
+In the Inspectr, you will see a request with the status `N/A`
+
+<Image src={inspectrTroubleshooting} alt="Inspectr Troubleshooting" />
+
+---
+
+## Summary
+
+Using Inspectr with a remote backend lets you debug staging or production APIs with the same tools you use locally. Point Inspectr at any public API, send traffic through it, and replay requests when needed.

@@ -1,8 +1,10 @@
 ---
-
 title: Troubleshooting Common Issues
-
+description: Troubleshoot the most common issues and how to resolve
 ---
+
+import { Image } from 'astro:assets';
+import inspectrTroubleshooting from '../../../../assets/guides/remote-api-troubleshooting.png';
 
 [//]: # (# 🛠️ Troubleshooting Common Issues)
 
@@ -17,7 +19,7 @@ Having trouble getting Inspectr running? This guide covers the most common issue
 You see an error like:
 
 ```
-listen tcp :8080: bind: address already in use
+Inspectr Proxy service error: listen tcp :8080: bind: address already in use
 ```
 
 **Solution:**
@@ -33,6 +35,21 @@ or
 ```bash
 inspectr --listen=:8888 --backend=http://localhost:3000
 ```
+
+## Backend is unavailable
+
+When the configured backend is not available or the request cannot be delivered, Inspectr will return a `502` HTTP status with a response:
+
+```json
+{
+  "error": "Inspectr backend unavailable. Unable to connect to the backend service. Please ensure the service is running.",
+  "code": 502
+}
+```
+
+In the Inspectr, you will see a request with the status `N/A`
+
+<Image src={inspectrTroubleshooting} alt="Inspectr Troubleshooting" />
 
 ---
 
