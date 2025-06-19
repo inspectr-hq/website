@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://inspectr.dev/sitemap-index.xml
