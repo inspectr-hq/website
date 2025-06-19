@@ -32,6 +32,46 @@ Inspectr leverages Stoplight Prism behind the scenes, giving you access to both 
 
 ---
 
+## Providing OpenAPI for mocking
+
+You can provide the OpenAPI documents as a **local file** or as a **public URL**.
+
+Local File:
+```bash
+inspectr --listen=:8080 --mock-backend=./openapi.yaml
+```
+
+Public URL:
+```bash
+inspectr --listen=:8080 --mock-backend=https://inspectr.dev/demo/hello.openapi.yaml
+```
+
+## Quick Launch OpenAPI mock
+
+You can also launch an OpenAPI Mock using Inspectr, by just using the URL https://inspectr.dev/launch which a reference to a remote OpenAPI document:
+
+```
+https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml
+```
+
+Replace the `openapi` parameter with the URL of your own OpenAPI file. Inspectr will start immediately with mocking enabled.
+
+You can easily mock the typical OpenAPI example APIs using Inspectr, by clicking the launch link:
+
+- [Museum API](https://redocly.com/demo/openapi/museum-api) by [Redocly](https://redocly.com/)
+
+  Click here to [Launch Museum API](https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/museum.openapi.yaml) or visit https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/museum.openapi.yaml
+
+- [Train Travel API](https://bump.sh/bump-examples/doc/train-travel-api/) by [Bump.sh](https://bump.sh/)
+
+  Click here [Train Travel API](https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/train-travel-api-openapi-source.yaml) or visit https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/train-travel-api-openapi-source.yaml
+
+- [Galaxy API](https://galaxy.scalar.com/) by [Scalar](https://scalar.com/)
+
+  Click here [Galaxy API](https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/galaxy.openapi.yaml) or visit https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/galaxy.openapi.yaml
+
+---
+
 ## Static Mocking
 
 Static mocking uses predefined examples in your OpenAPI spec to return consistent, predictable responses.
@@ -56,8 +96,6 @@ paths:
 Save it as `openapi.yaml`.
 
 ### Step 2: Start Inspectr in Static Mock Mode
-
-Just visit https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml or any link to an OpenAPI document.
 
 ```bash
 inspectr --listen=:8080 --mock-backend=./openapi.yaml
