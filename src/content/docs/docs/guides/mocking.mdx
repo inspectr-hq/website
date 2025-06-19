@@ -8,6 +8,8 @@ title: Mocking API Responses
 import { Image } from 'astro:assets';
 import stoplightPrism from '../../../../assets/docs/stoplight-prism.png';
 import FlowLocalMock from '../../../../components/DocFlows/FlowLocalMock.jsx';
+import launchWebsite from '../../../../assets/guides/mock-launch-compact.png';
+import launchInspectr from '../../../../assets/guides/mock-launch-inspectr.png';
 
 <FlowLocalMock client:only="react" />
 
@@ -34,7 +36,7 @@ Inspectr leverages Stoplight Prism behind the scenes, giving you access to both 
 
 ## Providing OpenAPI for mocking
 
-You can provide the OpenAPI documents as a **local file** or as a **public URL**.
+You can provide the OpenAPI documents as a **local file** or as a **public URL** by using the `--mock-backend` parameter.
 
 Local File:
 ```bash
@@ -48,13 +50,17 @@ inspectr --listen=:8080 --mock-backend=https://inspectr.dev/demo/hello.openapi.y
 
 ## Quick Launch OpenAPI mock
 
-You can also launch an OpenAPI Mock using Inspectr, by just using the URL https://inspectr.dev/launch which a reference to a remote OpenAPI document:
+You can also launch an OpenAPI Mock using Inspectr, by just using the URL https://inspectr.dev/launch with a reference to any remote OpenAPI document:
 
 ```
 https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml
 ```
 
 Replace the `openapi` parameter with the URL of your own OpenAPI file. Inspectr will start immediately with mocking enabled.
+
+<Image src={launchWebsite} alt="Launch OpenAPI mock" />
+
+<Image src={launchInspectr} alt="Inspectr Launch OpenAPI mock" />
 
 You can easily mock the typical OpenAPI example APIs using Inspectr, by clicking the launch link:
 

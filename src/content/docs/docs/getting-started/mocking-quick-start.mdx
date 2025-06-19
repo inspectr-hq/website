@@ -2,18 +2,25 @@
 title: Mocking Quick Start
 description: Launch Inspectr mocking in your browser or via the CLI
 ---
+import { Image } from 'astro:assets';
+import launchWebsite from '../../../../assets/guides/mock-launch-compact.png';
+import launchInspectr from '../../../../assets/guides/mock-launch-inspectr.png';
 
 Inspectr lets you spin up a mock server from any OpenAPI file in seconds. Choose one of the options below to get started.
 
 ## Option 1: Launch in the Browser
 
-Open the URL https://inspectr.dev/launch which a reference to a remote OpenAPI document:
+Open the URL https://inspectr.dev/launch with a reference to any remote OpenAPI document:
 
 ```
 https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/hello.openapi.yaml
 ```
 
 Replace the `openapi` parameter with the URL of your own OpenAPI file. Inspectr will start immediately with mocking enabled.
+
+<Image src={launchWebsite} alt="Launch OpenAPI mock" />
+
+<Image src={launchInspectr} alt="Inspectr Launch OpenAPI mock" />
 
 You can easily mock the typical OpenAPI example APIs using Inspectr, by clicking the launch link:
 
