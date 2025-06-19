@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -10,6 +11,7 @@ import svgr     from 'vite-plugin-svgr'
 // https://astro.build/config
 export default defineConfig({
   // base: '/docs/',
+  site: 'https://inspectr.dev',
 
   integrations: [
     react(),
@@ -71,7 +73,8 @@ export default defineConfig({
         './src/styles/custom-header.css',
         './src/styles/starlight-theme.css',
       ],
-    })
+    }),
+    sitemap()
   ],
 
   vite: {
