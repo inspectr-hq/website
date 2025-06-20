@@ -19,7 +19,6 @@
     "@xyflow/react": "^12.6.0",
     "astro": "^5.9.2",
     "sharp": "^0.34.1",
-    "starlight-llms-txt": "^0.5.1",
     "tailwindcss": "^4.1.6"
   },
   "devDependencies": {

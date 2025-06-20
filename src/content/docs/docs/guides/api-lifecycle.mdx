@@ -1,0 +1,73 @@
+---
+title: Inspectr in the API Lifecycle
+description: How Inspectr accelerates a API-first workflow
+---
+
+API-first development often follows a clear lifecycle—from defining your OpenAPI spec to monitoring production traffic. Inspectr fits into each stage, providing tooling that saves time and reduces friction.
+
+## 1. Design & Mocking
+
+Before any code is written, you can use Inspectr’s **Mocking with OpenAPI** feature to validate your API design. With the [`--mock-backend`](../../configuration/cli-options/#mocking-with-openapi) flag, Inspectr serves responses directly from your specification, even when no backend exists.
+
+```bash
+inspectr --listen=:8080 --mock-backend=./openapi.yaml
+```
+
+Dynamic mocks are also available via `--mock-dynamic=true`, letting frontend and SDK teams iterate immediately.
+
+**Benefits**
+
+- **Start frontend work** while the backend is still in progress.
+- **Skip deploying** a temporary staging service just to try out your spec.
+
+## 2. Local Development
+
+During implementation, Inspectr acts as a real-time proxy and traffic inspector. As documented in the [Key Features](../../index/#key-features) list, it provides **Real-Time Proxying**, a live **UI Dashboard**, and the ability to **Replay Requests**. Start Inspectr alongside your backend to capture each request and response:
+
+```bash
+inspectr --backend=http://localhost:3000
+```
+
+Every operation is stored locally and visible in the app at [http://localhost:4004](http://localhost:4004).
+
+**Benefits**
+
+- **Instant visibility** into each request/response without extra logging code.
+- **Replay failed calls** to debug issues faster than re-running your entire test suite.
+
+## 3. Integration Testing
+
+Need to simulate errors or latency? Inspectr supports [Response Overrides](./response-override/) so you can force specific status codes or delays without touching your code. When you’re ready to test webhooks or third‑party callbacks, run Inspectr with `--catch=true` and optionally `--expose` to create a public endpoint:
+
+```bash
+inspectr --catch=true --expose --channel=test-api --channel-code=secret123
+```
+
+This exposes a secure URL such as `https://test-api.in-spectr.dev` for remote services while logging everything in real time.
+
+**Benefits**
+
+- **Validate integrations quickly** without setting up a full staging environment.
+- **Simulate failures** and edge cases to harden clients before going live.
+
+## 4. Pre‑Deployment Demos
+
+Ingress mode also streamlines staging reviews. By using [`--expose`](../../configuration/cli-options/#public-exposure), teammates and stakeholders can interact with your local build before it’s deployed. Channels live only for the duration of your session, so there’s no cleanup required.
+
+**Benefits**
+
+- **Share feature previews** instantly instead of pushing to remote staging.
+- **Gather feedback earlier**, reducing the number of deployment cycles.
+
+## 5. Monitoring & Troubleshooting
+
+Inspectr keeps a history of every operation. As described in the [Architecture](../../concepts/architecture/#inspectr-proxy) docs, requests and responses can be stored in memory or in a persistent SQLite database. This history enables quick search and replay to reproduce issues even after they occur.
+
+**Benefits**
+
+- **Persist request history** so you can troubleshoot issues days later.
+- **Replay any call** to reproduce bugs without needing to capture fresh traffic.
+
+---
+
+By weaving Inspectr into each phase—design, development, testing, deployment, and monitoring—you shorten feedback loops and gain visibility across your entire API lifecycle.
