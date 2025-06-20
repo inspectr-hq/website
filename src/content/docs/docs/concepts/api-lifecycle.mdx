@@ -8,11 +8,12 @@ import specDriven from '../../../../assets/guides/spec-driven-diagram.png';
 import specDrivenStages from '../../../../assets/guides/spec-driven-diagram-stages.png';
 
 API-first or Spec-driven development often follows a clear lifecycle; from defining your OpenAPI spec to monitoring production traffic.
-I talk about this in blog posts like ["An introduction to spec-driven API development"](https://www.apideck.com/blog/spec-driven-development-part-1) at [Apideck](https://www.apideck.com/) and at several Meetups (["Unlocking the Power of Spec-Driven API Development"](https://www.youtube.com/watch?v=YXRstde1SeA&t=198s))
+
+I talk about API-first or Spec-driven development in blog posts like ["An introduction to spec-driven API development"](https://www.apideck.com/blog/spec-driven-development-part-1) at [Apideck](https://www.apideck.com/) and at several Meetups (["Unlocking the Power of Spec-Driven API Development"](https://www.youtube.com/watch?v=YXRstde1SeA&t=198s))
 
 <Image src={specDriven} alt="Spec-driven development" height="500" />
 
-The concept was nicely visualised by this diagram from Mulesoft, where the API spec is used as a starting point.
+The concept was nicely visualised by this diagram from Mulesoft (a long time ago), where the API spec is used as a starting point.
 
 With 3 clear stages: Design, Implementation, Management
 
@@ -30,7 +31,7 @@ This can also be linked to [API Lifecycle Management](https://medium.com/api-cen
 
 Inspectr fits into each stage, providing tooling that saves time and reduces friction.
 
-## 1. Design & Mocking
+## Build Stage – Design & Mocking
 
 Before any code is written, you can use Inspectr’s **Mocking with OpenAPI** feature to validate your API design. With the [`--mock-backend`](../../configuration/cli-options/#mocking-with-openapi) flag, Inspectr serves responses directly from your specification, even when no backend exists.
 
@@ -42,10 +43,11 @@ Dynamic mocks are also available via `--mock-dynamic=true`, letting frontend and
 
 **Benefits**
 
+- Get started in minutes to **iterate and try the model** the while designing and specifying the endpoints.
 - **Start frontend work** while the backend is still in progress.
-- **Skip deploying** a temporary staging service just to try out your spec.
+- **Skip deploying** a temporary staging service just to try out your spec and cut hours of setting up that environment.
 
-## 2. Local Development
+## Build Stage – Local Development
 
 During implementation, Inspectr acts as a real-time proxy and traffic inspector. As documented in the [Key Features](../../index/#key-features) list, it provides **Real-Time Proxying**, a live **UI Dashboard**, and the ability to **Replay Requests**. Start Inspectr alongside your backend to capture each request and response:
 
@@ -60,7 +62,7 @@ Every operation is stored locally and visible in the app at [http://localhost:40
 - **Instant visibility** into each request/response without extra logging code.
 - **Replay failed calls** to debug issues faster than re-running your entire test suite.
 
-## 3. Integration Testing
+## Build Stage – Testing
 
 Need to simulate errors or latency? Inspectr supports [Response Overrides](./response-override/) so you can force specific status codes or delays without touching your code. When you’re ready to test webhooks or third‑party callbacks, run Inspectr with `--catch=true` and optionally `--expose` to create a public endpoint:
 
@@ -73,25 +75,25 @@ This exposes a secure URL such as `https://test-api.in-spectr.dev` for remote se
 **Benefits**
 
 - **Validate integrations quickly** without setting up a full staging environment.
-- **Simulate failures** and edge cases to harden clients before going live.
+- **Simulate failures** and edge cases to harden clients before going live, saving hours of manual testing.
 
-## 4. Pre‑Deployment Demos
+## Build Stage – Pre‑Deployment Demos
 
 Ingress mode also streamlines staging reviews. By using [`--expose`](../../configuration/cli-options/#public-exposure), teammates and stakeholders can interact with your local build before it’s deployed. Channels live only for the duration of your session, so there’s no cleanup required.
 
 **Benefits**
 
-- **Share feature previews** instantly instead of pushing to remote staging.
+- **Share feature previews instantly**, saving time normally spent pushing to remote staging.
 - **Gather feedback earlier**, reducing the number of deployment cycles.
 
-## 5. Monitoring & Troubleshooting
+## Build Release – Monitoring & Troubleshooting
 
 Inspectr keeps a history of every operation. As described in the [Architecture](../../concepts/architecture/#inspectr-proxy) docs, requests and responses can be stored in memory or in a persistent SQLite database. This history enables quick search and replay to reproduce issues even after they occur.
 
 **Benefits**
 
-- **Persist request history** so you can troubleshoot issues days later.
-- **Replay any call** to reproduce bugs without needing to capture fresh traffic.
+- **Persist request history** so you can troubleshoot issues days instead of wasting time recreating scenarios.
+- **Replay any call** to reproduce bugs without needing to capture fresh traffic, speeding up root-cause analysis.
 
 ---
 
