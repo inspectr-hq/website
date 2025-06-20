@@ -1,9 +1,34 @@
 ---
-title: Inspectr in the API Lifecycle
+title: Accelerate API-first workflows
 description: How Inspectr accelerates a API-first workflow
 ---
 
-API-first development often follows a clear lifecycle—from defining your OpenAPI spec to monitoring production traffic. Inspectr fits into each stage, providing tooling that saves time and reduces friction.
+import { Image } from 'astro:assets';
+import specDriven from '../../../../assets/guides/spec-driven-diagram.png';
+import specDrivenStages from '../../../../assets/guides/spec-driven-diagram-stages.png';
+
+API-first or Spec-driven development often follows a clear lifecycle; from defining your OpenAPI spec to monitoring production traffic.
+I talk about this in blog posts like ["An introduction to spec-driven API development"](https://www.apideck.com/blog/spec-driven-development-part-1) at [Apideck](https://www.apideck.com/) and at several Meetups (["Unlocking the Power of Spec-Driven API Development"](https://www.youtube.com/watch?v=YXRstde1SeA&t=198s))
+
+<Image src={specDriven} alt="Spec-driven development" height="500" />
+
+The concept was nicely visualised by this diagram from Mulesoft, where the API spec is used as a starting point.
+
+With 3 clear stages: Design, Implementation, Management
+
+- **Design**: The creation of the specification API contracts, with designing, simulating it with Mocks, Collect feedback from stakeholders & validate with linting (is it valid)
+- **Implementation**: Development of code & validation (testing) to match the Spec. Refine the specification to match the final result
+- **Management**: The stage where you deploy & monitor the API
+
+This can also be linked to [API Lifecycle Management](https://medium.com/api-center/api-lifecycle-management-9fb0caaa41de), like the excellent explanation by [TR Goodwill](https://medium.com/@trgoodwill) from 2022, resulting in very similar stages but with some small nuances
+
+<Image src={specDrivenStages} alt="API first stages" height="500" />
+
+- **Design**: The creation of the specification API contracts, with validation and documentation creation
+- **Build & Test**: Development of code & validation (testing) to match the Spec. Refine the specification or application to publish the final result
+- **Release**: The stage where you deploy & monitor the API, and evolve to keep everything up-to-date but also sunset parts of the API
+
+Inspectr fits into each stage, providing tooling that saves time and reduces friction.
 
 ## 1. Design & Mocking
 

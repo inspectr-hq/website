@@ -39,7 +39,12 @@ export default defineConfig({
         },
         {
           label: 'Concepts',
-          autogenerate: { directory: 'docs/concepts' }
+          // autogenerate: { directory: 'docs/concepts' }
+          items: [
+            { label: 'Inspectr Architecture', slug: 'docs/concepts/architecture' },
+            { label: 'How It Works', slug: 'docs/concepts/how-it-works' },
+            { label: 'Accelerate API-first workflows', slug: 'docs/concepts/api-lifecycle' }
+          ]
         },
         {
           label: 'Configuration',
