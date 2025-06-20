@@ -75,11 +75,11 @@ This exposes a secure URL such as `https://test-api.in-spectr.dev` for remote se
 **Benefits**
 
 - **Validate integrations quickly** without setting up a full staging environment.
-- **Simulate failures** and edge cases to harden clients before going live, saving hours of manual testing.
+- **Simulate failures** and edge cases to see how your API handles them before going live, saving hours of manual testing.
 
 ## Build Stage – Pre‑Deployment Demos
 
-Ingress mode also streamlines staging reviews. By using [`--expose`](../../configuration/cli-options/#public-exposure), teammates and stakeholders can interact with your local build before it’s deployed. Channels live only for the duration of your session, so there’s no cleanup required.
+The Inspectr Ingress also streamlines staging reviews. By using [`--expose`](../../configuration/cli-options/#public-exposure), teammates and stakeholders can interact with your local build before it’s deployed. The exposed URL live only for the duration of your session, so there’s no cleanup required.
 
 **Benefits**
 
@@ -88,7 +88,7 @@ Ingress mode also streamlines staging reviews. By using [`--expose`](../../confi
 
 ## Build Release – Monitoring & Troubleshooting
 
-Inspectr keeps a history of every operation. As described in the [Architecture](../../concepts/architecture/#inspectr-proxy) docs, requests and responses can be stored in memory or in a persistent SQLite database. This history enables quick search and replay to reproduce issues even after they occur.
+Inspectr keeps a history of every operation. As described in the [Architecture](../../concepts/architecture/#inspectr-proxy) docs, historical requests and responses can be kept. This history enables quick search and replay to reproduce issues even after they occur.
 
 **Benefits**
 
@@ -97,4 +97,4 @@ Inspectr keeps a history of every operation. As described in the [Architecture](
 
 ---
 
-By weaving Inspectr into each phase—design, development, testing, deployment, and monitoring—you shorten feedback loops and gain visibility across your entire API lifecycle.
+By using Inspectr during each phase: Design, Build & Test and Release; you gain time spent on technical plumbing, have shorter feedback loops and gain visibility across your entire API lifecycle.
