@@ -55,7 +55,7 @@ export default function Navigation() {
               <IconGithub className="w-6 h-6" />
             </a>
             <a
-                href="https://discord.gg/58rbCxdr8Z"
+                href="https://discord.gg/AA5nRgwngs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-brand-primary transition-colors"
@@ -113,7 +113,7 @@ export default function Navigation() {
               <IconGithub className="w-6 h-6" />
             </a>
             <a
-                href="https://discord.gg/inspectr"
+                href="https://discord.gg/AA5nRgwngs"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-brand-primary transition-colors"

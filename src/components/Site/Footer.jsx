@@ -59,7 +59,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://discord.gg/58rbCxdr8Z"
+                <a href="https://discord.gg/AA5nRgwngs"
                    target="_blank"
                    rel="noopener noreferrer"
                    className="hover:text-brand-primary">
