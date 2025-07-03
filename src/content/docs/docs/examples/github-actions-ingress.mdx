@@ -1,0 +1,92 @@
+---
+title: Using Inspectr with GitHub Actions
+description: Use Inspectr's remote ingress to capture and inspect CI requests
+---
+
+import { FlowIngress } from '../../../../components/DocFlows/FlowGithubCI.jsx';
+
+[//]: # (# Inspect API Tests in GitHub Actions)
+
+<FlowIngress client:only="react" />
+
+Running API tests inside GitHub Actions is a typically workflow and part of testing pipeline, but it can be hard to see exactly what the runner sends and receives. Inspectr solves this by exposing a **remote ingress domain** that forwards traffic from your CI job to your local Inspectr instance.
+
+---
+
+## Why Use Remote Ingress?
+
+* Capture every request made during CI runs
+* Replay failing calls without re-triggering the workflow
+* Share a single endpoint with multiple runners
+
+---
+
+## Step 1: Start Inspectr with `--expose`
+
+Start Inspectr locally (or on any reachable machine) and open a public channel:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://api.staging.com \
+  --expose \
+  --channel=ci-tests \
+  --channel-code=secret123
+```
+
+Inspectr creates a public URL, for example:
+
+```
+https://ci-tests.in-spectr.dev
+```
+
+All traffic hitting this URL will be forwarded to the staging/testing/... service and recorded.
+
+---
+
+## Step 2: Configure GitHub Actions
+
+Point your tests at the Inspectr URL. A minimal workflow might look like:
+
+```yaml
+name: API Tests
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: https://ci-tests.in-spectr.dev
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+```
+
+Update your tests so they use the `BASE_URL` environment variable when sending requests.
+
+---
+
+## Step 3: Inspect the Requests
+
+While the workflow runs, Inspectr logs everything:
+
+* Watch the CLI output or open `http://localhost:4004`
+* View full request and response details
+* Replay or modify requests from the UI
+
+---
+
+## Problem Solved
+
+Without Inspectr, capturing traffic from GitHub Actions is tricky and usually requires custom logging. With a remote ingress domain you get real-time visibility into every request that are triggered in your GitHub CI workflow.
+
+## Benefits
+
+* Centralized API debugging across all CI jobs
+* No need to expose your test environment directly
+* Works with any language or test framework
+
+
