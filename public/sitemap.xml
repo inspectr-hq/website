@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Static pages -->
+    <sitemap>
+        <loc>https://inspectr.dev/static-pages-sitemap.xml</loc>
+        <lastmod>2025-07-08</lastmod>
+    </sitemap>
+
+    <!-- Docs sitemap index -->
+    <sitemap>
+        <loc>https://inspectr.dev/sitemap-index.xml</loc>
+    </sitemap>
+</sitemapindex>
