@@ -3,7 +3,7 @@ title: CLI Options
 description: Inspectr command-line reference
 ---
 
-[//]: # (# ⚙️ Command-Line Options)
+[//]: # '# ⚙️ Command-Line Options'
 
 Inspectr supports a wide range of CLI flags to control how it captures, proxies, and exposes traffic. These options allow you to customize Inspectr to match your workflow.
 
@@ -23,11 +23,11 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ## App and Logging
 
-| Flag          | Type    | Default | Description                                       |
-| ------------- | ------- | ------- | ------------------------------------------------- |
-| `--app`       | boolean | `true`  | Enable embedded Inspectr App UI                   |
-| `--app-port`  | string  | `4004`  | Port to serve the UI app                          |
-| `--print`     | boolean | `true`  | Print color-coded log output to the terminal      |
+| Flag         | Type    | Default | Description                                  |
+| ------------ | ------- | ------- | -------------------------------------------- |
+| `--app`      | boolean | `true`  | Enable embedded Inspectr App UI              |
+| `--app-port` | string  | `4004`  | Port to serve the UI app                     |
+| `--print`    | boolean | `true`  | Print color-coded log output to the terminal |
 
 ---
 
@@ -38,6 +38,16 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 | `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress service                      |
 | `--channel`      | string  |         | Subdomain to use on `in-spectr.dev` (e.g. `my-api.in-spectr.dev`) |
 | `--channel-code` | string  |         | Secret code required for remote access to the channel             |
+
+---
+
+## Authentication Guard
+
+| Flag               | Type    | Default | Description                                        |
+|--------------------|---------|---------|----------------------------------------------------|
+| `--auth-enabled`   | boolean | `false` | Enable API key authentication for proxied requests |
+| `--auth-secret`    | string  | (none)  | Guard secret used to generate API keys             |
+| `--auth-token-ttl` | integer | `24`    | Guard token expiration time in hours               |
 
 ---
 
@@ -53,17 +63,17 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ## Configuration & Version
 
-| Flag             | Type    | Default          | Description                                       |
-|------------------|---------|------------------|---------------------------------------------------|
-| `--config`       | string  | `.inspectr.yaml` | Path to YAML config file (overrides CLI flags)    |
-| `--version`      |         |                  | Print Inspectr version and exit                   |
+| Flag        | Type   | Default          | Description                                    |
+| ----------- | ------ | ---------------- | ---------------------------------------------- |
+| `--config`  | string | `.inspectr.yaml` | Path to YAML config file (overrides CLI flags) |
+| `--version` |        |                  | Print Inspectr version and exit                |
 
 ## Advanced
 
-| Flag             | Type    | Default          | Description                                       |
-|------------------|---------|------------------|---------------------------------------------------|
-| `--log-level`    | string  | `none`           | Set log verbosity (`debug`, `info`, `warn`, etc.) |
-| `--http-timeout` | integer | `30`             | HTTP timeout in seconds for backend requests      |
+| Flag             | Type    | Default | Description                                       |
+| ---------------- | ------- | ------- | ------------------------------------------------- |
+| `--log-level`    | string  | `none`  | Set log verbosity (`debug`, `info`, `warn`, etc.) |
+| `--http-timeout` | integer | `30`    | HTTP timeout in seconds for backend requests      |
 
 ---
 
@@ -89,8 +99,8 @@ inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
 
 ---
 
-[//]: # (## 📚 Related Topics)
-[//]: # ()
-[//]: # (* [YAML Configuration →]&#40;/configuration/yaml-config&#41;)
-[//]: # (* [Mocking APIs →]&#40;/guides/mocking&#41;)
-[//]: # (* [Exposing Publicly →]&#40;/exposing/exposing-publicly&#41;)
+[//]: # '## 📚 Related Topics'
+[//]: #
+[//]: # '* [YAML Configuration →](/configuration/yaml-config)'
+[//]: # '* [Mocking APIs →](/guides/mocking)'
+[//]: # '* [Exposing Publicly →](/exposing/exposing-publicly)'

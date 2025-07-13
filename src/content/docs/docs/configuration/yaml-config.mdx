@@ -1,10 +1,8 @@
 ---
-
 title: YAML Configuration
-
 ---
 
-[//]: # (# 📝 YAML Configuration &#40;.inspectr.yaml&#41;)
+[//]: # '# 📝 YAML Configuration (.inspectr.yaml)'
 
 Instead of passing CLI flags every time, Inspectr can be configured using a `.inspectr.yaml` file. This is useful for saving common setups and sharing configurations across teams.
 
@@ -12,25 +10,28 @@ Instead of passing CLI flags every time, Inspectr can be configured using a `.in
 
 ## How It Works
 
-* The file should be named `.inspectr.yaml` by default
-* You can specify a different file with `--config`
-* CLI flags always override YAML values if both are present
+- The file should be named `.inspectr.yaml` by default
+- You can specify a different file with `--config`
+- CLI flags always override YAML values if both are present
 
 ---
 
 ## Example `.inspectr.yaml`
 
 ```yaml
-listen: ":8080"
-backend: "http://localhost:3000"
+listen: ':8080'
+backend: 'http://localhost:3000'
 print: true
 app: true
-appPort: "4004"
+appPort: '4004'
 expose: false
-mockBackend: "./openapi.yaml"
+mockBackend: './openapi.yaml'
 mockDynamic: true
-storePath: ".inspectr.db"
-apiSecret: "changeme"
+authEnabled: true
+authSecret: 'letsgo'
+authTokenTtl: 1
+storePath: '.inspectr.db'
+apiSecret: 'changeme'
 ```
 
 ---
@@ -67,6 +68,14 @@ apiSecret: "changeme"
 | `app`     | boolean | Enable Inspectr App UI   |
 | `appPort` | string  | Port to serve the App UI |
 
+### Auth Guard
+
+| Key            | Type    | Description                                         |
+|----------------|---------|-----------------------------------------------------|
+| `authEnabled`  | boolean | Enable API key authentication on all requests       |
+| `authSecret`   | string  | Guard secret used to generate API keys              |
+| `authTokenTtl` | integer | Guard token expiration time in hours (default `24`) |
+
 ### Security and Storage
 
 | Key             | Type    | Description                                 |
@@ -87,14 +96,14 @@ apiSecret: "changeme"
 
 ## Tips
 
-* Commit `.inspectr.yaml` to version control for team use
-* Avoid storing sensitive tokens (use env vars or secrets management)
-* Use different configs per environment (e.g. `.inspectr.dev.yaml`, `.inspectr.prod.yaml`)
+- Commit `.inspectr.yaml` to version control for team use
+- Avoid storing sensitive tokens (use env vars or secrets management)
+- Use different configs per environment (e.g. `.inspectr.dev.yaml`, `.inspectr.prod.yaml`)
 
 ---
 
-[//]: # (## 📚 Related Topics)
-[//]: # ()
-[//]: # (* [CLI Options →]&#40;/configuration/cli-options&#41;)
-[//]: # (* [Mocking APIs →]&#40;/guides/mocking&#41;)
-[//]: # (* [Secure Exposure →]&#40;/exposing/securing-exposure&#41;)
+[//]: # '## 📚 Related Topics'
+[//]: #
+[//]: # '* [CLI Options →](/configuration/cli-options)'
+[//]: # '* [Mocking APIs →](/guides/mocking)'
+[//]: # '* [Secure Exposure →](/exposing/securing-exposure)'

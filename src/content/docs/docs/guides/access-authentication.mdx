@@ -1,0 +1,95 @@
+---
+title: Access Authentication
+description: Protect backend or mock services with Inspectr's guard authentication
+---
+
+[//]: # '# Access Authentication'
+
+Sometimes your backend or mock API doesn't include authentication, especially when you expose the service, so you want to restrict who can access it. Inspectr can introduce a guard, a simple auth layer to secure any service it proxies.
+
+---
+
+## Why Use Inspectr Authentication
+
+- Shield mock or catch endpoints from unwanted traffic
+- Secure exposed, public access to your service without adding code
+- Provide temporary auth when the backend lacks it
+
+---
+
+## How It Works
+
+Start Inspectr with authentication enabled and a secret:
+
+```bash
+inspectr --auth-enabled=true --auth-secret=mysecret
+```
+
+Inspectr prints two **API key** headers in the terminal:
+
+```
+inspectr-auth-key: mysecret
+inspectr-auth-token: <jwt>
+```
+
+Send **one** of these headers with each request.
+
+| Header                | Description                                                |
+| --------------------- | ---------------------------------------------------------- |
+| `inspectr-auth-key`   | Plain secret for quick local testing                       |
+| `inspectr-auth-token` | JWT signed with the secret; expires per `--auth-token-ttl` |
+
+Both headers act as API keys—include either one with every request.
+
+Requests lacking a valid key or token get `401 Unauthorized`.
+
+---
+
+## Token TTL
+
+Customize token lifetime (default `24h`) when starting Inspectr:
+
+```bash
+inspectr --auth-enabled=true --auth-secret=mysecret --auth-token-ttl=2
+```
+
+A fresh token is generated every run and expires after the TTL.
+
+---
+
+## Example Usage
+
+### Using the encrypted Key
+
+```bash
+curl http://localhost:8080/api \
+  -H "inspectr-auth-key: <key>"
+```
+
+### Using the JWT Token
+
+```bash
+curl http://localhost:8080/api \
+  -H "inspectr-auth-token: <jwt>"
+```
+
+Tokens and keys appear each time Inspectr starts. Use this feature whenever you need lightweight protection without modifying your backend.
+
+- **When to use the key:** handy for local development and CI where the secret needs to be private but can be reused without limits.
+- **When to use the token:** safer for public or shared channels because it expires per the TTL. Restart Inspectr to rotate the token.
+
+## Configuration
+
+Enable the guard with CLI flags:
+
+```bash
+inspectr --auth-enabled=true --auth-secret=mysecret --auth-token-ttl=1h
+```
+
+Or in `.inspectr.yaml`:
+
+```yaml
+authEnabled: true
+authSecret: mysecret
+authTokenTtl: 1
+```
