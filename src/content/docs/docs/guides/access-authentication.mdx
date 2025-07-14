@@ -2,6 +2,11 @@
 title: Access Authentication
 description: Protect backend or mock services with Inspectr's guard authentication
 ---
+import { Image } from 'astro:assets';
+import inspectrGuard from '../../../../assets/guides/settings-guard.png';
+import inspectrGuardMenu from '../../../../assets/guides/settings-guard-menu.png';
+
+import { FlowIngress } from '../../../../components/DocFlows/FlowGuard.jsx';
 
 [//]: # '# Access Authentication'
 
@@ -11,7 +16,9 @@ Sometimes your backend or mock API doesn't include authentication, especially wh
 
 ## Why Use Inspectr Authentication
 
-- Shield mock or catch endpoints from unwanted traffic
+<FlowIngress client:only="react" />
+
+- Shield your API endpoints from unwanted traffic
 - Secure exposed, public access to your service without adding code
 - Provide temporary auth when the backend lacks it
 
@@ -76,7 +83,11 @@ curl http://localhost:8080/api \
 Tokens and keys appear each time Inspectr starts. Use this feature whenever you need lightweight protection without modifying your backend.
 
 - **When to use the key:** handy for local development and CI where the secret needs to be private but can be reused without limits.
-- **When to use the token:** safer for public or shared channels because it expires per the TTL. Restart Inspectr to rotate the token.
+- **When to use the token:** safer for public or shared channels because it expires per the TTL. $
+
+Restart Inspectr to rotate the token or set/renew the token and secret from the "Inspectr App" > "Settings".
+
+<Image src={inspectrGuardMenu} alt="Inspectr - Guard Settings" />
 
 ## Configuration
 
@@ -93,3 +104,7 @@ authEnabled: true
 authSecret: mysecret
 authTokenTtl: 1
 ```
+
+or via the settings in the Inspectr App
+
+<Image src={inspectrGuardMenu} alt="Inspectr - Guard Settings" />

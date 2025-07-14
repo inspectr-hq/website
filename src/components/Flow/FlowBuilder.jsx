@@ -6,6 +6,7 @@ import { MarkerType } from '@xyflow/react';
 // default icons
 import ZapIcon from '../../assets/icons/zap.svg?react';
 import ServiceIcon from '../../assets/icons/stack.svg?react';
+import ShieldIcon from '../../assets/icons/shield.svg?react';
 
 /**
  * @typedef NodeMeta
@@ -64,6 +65,7 @@ export function buildIngressFlow({
                                    start = {},
                                    end = {},
                                    mode = null,
+                                    badge = null,
                                    overrides = {}
                                  } = {}) {
 
@@ -83,6 +85,7 @@ export function buildIngressFlow({
   };
 
   const ModeLabel = mode ? MODE_LABEL[mode] : MODE_LABEL['proxy'];
+  const BadgeLabel = badge ? badge : null;
 
   const rawNodes = [
     // ─────── Group Nodes ───────
@@ -125,7 +128,7 @@ export function buildIngressFlow({
     {
       id: '2',
       type: 'proxy',
-      data: { label: ModeLabel, showBottom: true },
+      data: { label: ModeLabel, showBottom: true, badge: BadgeLabel},
       position: { x: 550, y: 30 },
       parentNode: 'group_local',
       extent: 'parent'
@@ -166,7 +169,8 @@ export function buildIngressFlow({
       id: `e-${startMeta.id}-1`,
       source: startMeta.id, sourceHandle: 'outRight',
       target: '1', targetHandle: 'inLeft',
-      label: 'Request', markerEnd: bigArrow(MarkerType.ArrowClosed)
+      label: 'Request',
+      markerEnd: bigArrow(MarkerType.ArrowClosed)
     },
     {
       id: `e-1-${startMeta.id}`,
@@ -190,7 +194,8 @@ export function buildIngressFlow({
       id: 'e-a-pr1',
       source: '2', sourceHandle: 'outRight',
       target: endMeta.id, targetHandle: 'inLeft',
-      label: 'Request', markerEnd: bigArrow(MarkerType.ArrowClosed)
+      label: 'Request',
+      markerEnd: bigArrow(MarkerType.ArrowClosed)
     },
     {
       id: 'e-b-px2',
@@ -304,7 +309,8 @@ export function buildBaseFlow({
       id: 'e-1-2',
       source: '1', sourceHandle: 'outRight',
       target: endMeta.id, targetHandle: 'inLeft',
-      label: 'Request', markerEnd: bigArrow(MarkerType.ArrowClosed)
+      label: 'Request',
+      markerEnd: bigArrow(MarkerType.ArrowClosed)
     },
     {
       id: 'e-2-1',
