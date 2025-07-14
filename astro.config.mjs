@@ -52,11 +52,18 @@ export default defineConfig({
         },
         {
           label: 'Guides',
-          autogenerate: { directory: 'docs/guides' }
-          // items: [
-          //   // Each item here is one entry in the navigation menu.
-          //   { label: 'Example Guide', slug: 'guides/example' }
-          // ]
+          // autogenerate: { directory: 'docs/guides' }
+          items: [
+            { label: 'Debugging APl Traffic', slug: 'docs/guides/api-traffic-debugging' },
+            { label: 'Exposing Services Publicly', slug: 'docs/guides/exposing-publicly' },
+            { label: 'Access Authentication', slug: 'docs/guides/access-authentication' },
+            { label: 'Proxying a public API', slug: 'docs/guides/proxy-public-api' },
+            { label: 'Inspecting Frontend API Requests', slug: 'docs/guides/frontend-inspection' },
+            { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
+            { label: 'Mocking API Responses', slug: 'docs/guides/mocking' },
+            { label: 'Using Response Overrides', slug: 'docs/guides/response-override' },
+            { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' }
+          ]
         },
         {
           label: 'Examples',

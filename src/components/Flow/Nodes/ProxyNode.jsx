@@ -7,11 +7,13 @@ import IconInspectr from '../IconInspectr.jsx';
 import ProxyBadge from '../../../assets/icons/stack.svg?react';
 import MockBadge from '../../../assets/icons/openapi.svg?react';
 import CatchBadge from '../../../assets/icons/corner-down-left.svg?react';
+import ShieldBadge from '../../../assets/icons/shield-keyhole-fill.svg?react';
 
-const MODE_ICONS = {
+const BADGE_ICONS = {
   proxy: ProxyBadge,
   mock:  MockBadge,
   catch: CatchBadge,
+  guard: ShieldBadge,
 };
 
 export default function ProxyNode({ data }) {
@@ -26,11 +28,14 @@ export default function ProxyNode({ data }) {
     showLeft = true,
     showRight = true,
     showBottom = false,
-    mode,
+    badge,
     width= 165
   } = data;
 
-  const ModeIcon = mode ? MODE_ICONS[mode] : null;
+  const BadgeIcon = badge ? BADGE_ICONS[badge] : null;
+
+  const badgeClass = 'absolute -right-3 -top-4'
+  const guardClass = 'absolute -left-3'
 
   return (
     <div
@@ -39,9 +44,26 @@ export default function ProxyNode({ data }) {
     >
 
       {/* MODE BADGE */}
-      {ModeIcon && (
-        <div className="absolute -top-4 -right-3 bg-white dark:bg-gray-800 p-0.5 rounded-lg shadow-lg dark:shadow-gray-700 border-2 border-gray-200 dark:border-gray-700">
-          <ModeIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+      {BadgeIcon && badge !== 'guard' &&  (
+        <div
+          className={`absolute -right-3 -top-4
+            bg-white dark:bg-gray-800 p-0.5 rounded-lg 
+            shadow-lg dark:shadow-gray-700 
+            border-2 border-gray-200 dark:border-gray-700
+          `}
+        >
+          <BadgeIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        </div>
+      )}
+      {BadgeIcon && badge === 'guard' &&  (
+        <div
+          className={`absolute -left-3 -top-3
+            bg-white dark:bg-gray-800 p-0.5 rounded-lg 
+            shadow-lg dark:shadow-gray-700 
+            border-2 border-gray-200 dark:border-gray-700
+          `}
+        >
+          <BadgeIcon className="w-5 h-5 text-green-500 dark:text-gray-400" />
         </div>
       )}
 
