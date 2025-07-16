@@ -86,7 +86,11 @@ export default defineConfig({
         './src/styles/starlight-theme.css',
       ],
     }),
-    sitemap()
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date('2025-07-14'),
+    })
   ],
 
   vite: {
