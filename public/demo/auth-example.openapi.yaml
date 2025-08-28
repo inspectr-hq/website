@@ -14,6 +14,8 @@ paths:
             application/json:
               example:
                 message: OK
+        '401':
+          description: Unauthorized
   /items:
     get:
       security:
@@ -25,6 +27,8 @@ paths:
             application/json:
               example:
                 items: ['A', 'B']
+        '401':
+          description: Unauthorized
 components:
   securitySchemes:
     basicAuth:

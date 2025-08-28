@@ -103,6 +103,8 @@ paths:
             application/json:
               example:
                 message: OK
+        '401':
+          description: Unauthorized
 ```
 
 Start Inspectr as usual:
@@ -140,6 +142,8 @@ paths:
             application/json:
               example:
                 items: ['A', 'B']
+        '401':
+          description: Unauthorized
 ```
 
 Start Inspectr with the spec and send the header:
