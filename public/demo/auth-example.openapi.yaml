@@ -1,9 +1,12 @@
 openapi: 3.0.3
 info:
-  title: Authenticated API Example
+  title: Inspectr Authenticated API Example
   version: 1.0.0
+  description: |
+    Spin up a mock backend from any OpenAPI — zero config.
+    A minimal API example for Mocking APIs with Authentication in Inspectr.
 paths:
-  /protected:
+  /basic-auth-protected:
     get:
       security:
         - basicAuth: []
@@ -16,7 +19,7 @@ paths:
                 message: OK
         '401':
           description: Unauthorized
-  /items:
+  /api-key-protected:
     get:
       security:
         - ApiKeyAuth: []
@@ -26,7 +29,7 @@ paths:
           content:
             application/json:
               example:
-                items: ['A', 'B']
+                message: OK
         '401':
           description: Unauthorized
 components:

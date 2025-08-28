@@ -92,7 +92,7 @@ components:
       type: http
       scheme: basic
 paths:
-  /protected:
+  /basic-auth-protected:
     get:
       security:
         - basicAuth: []
@@ -116,7 +116,7 @@ inspectr --mock-backend=./openapi.yaml
 Then include credentials when calling the mock:
 
 ```bash
-curl -u user:pass http://localhost:8080/protected
+curl -u user:pass http://localhost:8080/basic-auth-protected
 ```
 
 ### API Key Header
@@ -131,7 +131,7 @@ components:
       in: header
       name: X-API-Key
 paths:
-  /items:
+  /api-key-protected:
     get:
       security:
         - ApiKeyAuth: []
@@ -141,7 +141,7 @@ paths:
           content:
             application/json:
               example:
-                items: ['A', 'B']
+                message: OK
         '401':
           description: Unauthorized
 ```
@@ -149,7 +149,7 @@ paths:
 Start Inspectr with the spec and send the header:
 
 ```bash
-curl http://localhost:8080/items -H "X-API-Key: secret"
+curl http://localhost:8080/api-key-protected -H "X-API-Key: secret"
 ```
 
 Try both authentication styles with this ready-to-use spec:
