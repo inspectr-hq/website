@@ -1,8 +1,5 @@
-
 ---
-
 title: Mocking API Responses
-
 ---
 
 import { Image } from 'astro:assets';
@@ -16,7 +13,7 @@ import launchInspectr from '../../../../assets/guides/mock-launch-inspectr.png';
 When your backend isn’t ready—or you want to simulate specific responses—Inspectr lets you mock APIs based on an OpenAPI specification and override responses in real time.
 
 <a href="https://github.com/stoplightio/prism" target="_blank" rel="noopener noreferrer">
-<Image src={stoplightPrism} alt="Inspectr Mocking" width="100%" class="mx-auto" />
+  <Image src={stoplightPrism} alt="Inspectr Mocking" width="100%" class="mx-auto" />
 </a>
 
 Inspectr leverages Stoplight Prism behind the scenes, giving you access to both static and dynamic mocking powered by Faker and JSON Schema Faker.
@@ -27,10 +24,10 @@ Inspectr leverages Stoplight Prism behind the scenes, giving you access to both 
 
 ## Use Cases
 
-* Frontend development before backend is available
-* Testing edge cases (timeouts, errors, unexpected payloads)
-* Demos and offline API development
-* Simulating invalid or large payloads for robustness testing
+- Frontend development before backend is available
+- Testing edge cases (timeouts, errors, unexpected payloads)
+- Demos and offline API development
+- Simulating invalid or large payloads for robustness testing
 
 ---
 
@@ -39,11 +36,13 @@ Inspectr leverages Stoplight Prism behind the scenes, giving you access to both 
 You can provide the OpenAPI documents as a **local file** or as a **public URL** by using the `--mock-backend` parameter.
 
 Local File:
+
 ```bash
 inspectr --listen=:8080 --mock-backend=./openapi.yaml
 ```
 
 Public URL:
+
 ```bash
 inspectr --listen=:8080 --mock-backend=https://inspectr.dev/demo/hello.openapi.yaml
 ```
@@ -78,6 +77,83 @@ You can easily mock the typical OpenAPI example APIs using Inspectr, by clicking
 
 ---
 
+## Mocking Authenticated APIs
+
+Even endpoints that require authentication can be mocked with Inspectr.
+
+### Basic Authentication
+
+Add a `basicAuth` security scheme and apply it to a path:
+
+```yaml
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+paths:
+  /protected:
+    get:
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Protected resource
+          content:
+            application/json:
+              example:
+                message: OK
+```
+
+Start Inspectr as usual:
+
+```bash
+inspectr --mock-backend=./openapi.yaml
+```
+
+Then include credentials when calling the mock:
+
+```bash
+curl -u user:pass http://localhost:8080/protected
+```
+
+### API Key Header
+
+Define an API key scheme that expects a header:
+
+```yaml
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+paths:
+  /items:
+    get:
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                items: ['A', 'B']
+```
+
+Start Inspectr with the spec and send the header:
+
+```bash
+curl http://localhost:8080/items -H "X-API-Key: secret"
+```
+
+Try both authentication styles with this ready-to-use spec:
+
+[Launch Authenticated API example](https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/auth-example.openapi.yaml)
+
+---
+
 ## Static Mocking
 
 Static mocking uses predefined examples in your OpenAPI spec to return consistent, predictable responses.
@@ -96,7 +172,7 @@ paths:
               examples:
                 default:
                   value:
-                    items: ["A", "B", "C"]
+                    items: ['A', 'B', 'C']
 ```
 
 Save it as `openapi.yaml`.
@@ -107,9 +183,9 @@ Save it as `openapi.yaml`.
 inspectr --listen=:8080 --mock-backend=./openapi.yaml
 ```
 
-* Returns mock responses based on OpenAPI examples
-* No backend service needed
-* Captures requests in the Inspectr UI at [http://localhost:4004](http://localhost:4004)
+- Returns mock responses based on OpenAPI examples
+- No backend service needed
+- Captures requests in the Inspectr UI at [http://localhost:4004](http://localhost:4004)
 
 ### Step 3: Use Response Overrides
 
@@ -172,10 +248,7 @@ inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
 {
   "id": 12608726,
   "name": "Addison",
-  "photoUrls": [
-    "http://lorempixel.com/640/480",
-    "http://lorempixel.com/640/480"
-  ]
+  "photoUrls": ["http://lorempixel.com/640/480", "http://lorempixel.com/640/480"]
 }
 ```
 
@@ -196,10 +269,10 @@ Use static mode for stable mocks based on the provided examples. Use dynamic mod
 
 Mock mode in Inspectr gives you full flexibility when developing against APIs. Whether you need consistent fixtures or random data, mocking accelerates frontend and QA workflows.
 
-[//]: # (---)
-[//]: # ()
-[//]: # (## 📚 Related Topics)
-[//]: # ()
-[//]: # (* [Response Overrides →]&#40;/guides/response-overrides&#41;)
-[//]: # (* [Catch Mode →]&#40;/core-concepts/how-it-works&#41;)
-[//]: # (* [Replay Traffic →]&#40;/core-concepts/how-it-works&#41;)
+[//]: # '---'
+[//]: #
+[//]: # '## 📚 Related Topics'
+[//]: #
+[//]: # '* [Response Overrides →](/guides/response-overrides)'
+[//]: # '* [Catch Mode →](/core-concepts/how-it-works)'
+[//]: # '* [Replay Traffic →](/core-concepts/how-it-works)'

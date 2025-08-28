@@ -1,0 +1,36 @@
+openapi: 3.0.3
+info:
+  title: Authenticated API Example
+  version: 1.0.0
+paths:
+  /protected:
+    get:
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Protected resource
+          content:
+            application/json:
+              example:
+                message: OK
+  /items:
+    get:
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              example:
+                items: ['A', 'B']
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
