@@ -1,0 +1,94 @@
+---
+title: Observability for MCP Agents
+description: Track Model Context Protocol API usage with Inspectr
+---
+
+import { FlowBase } from '../../../../components/DocFlows/FlowMcp.jsx';
+
+<FlowBase client:only="react" />
+
+AI agents powered by the Model Context Protocol (MCP) can access a growing ecosystem of tools and data sources. As these agents invoke APIs on your behalf, visibility into that traffic becomes essential. This guide explains why API usage observability matters, gives an overview of MCP, and shows how Inspectr can reveal which endpoints an agent calls.
+
+---
+
+## Why API Usage Observability Matters
+
+Modern AI systems frequently chain together multiple HTTP requests to deliver a single answer. Without observability you cannot:
+
+- Understand which services an agent depends on
+- Measure latency, error rates, or cost per call
+- Detect misbehaving or unauthorized requests
+- Optimize prompts, tool definitions, or infrastructure
+
+Observability provides the feedback loop required to design a stable and efficient MCP deployment.
+
+---
+
+## What is the Model Context Protocol?
+
+MCP is an open protocol that connects AI applications to the systems where context lives. Rather than wiring bespoke integrations, MCP lets an application discover **tools**, **resources**, and **prompts** from any compatible server and use them securely.
+
+When an agent such as Claude, ChatGPT, or a custom client connects to an MCP server it can:
+
+1. List available tools and schemas
+2. Retrieve or search documents
+3. Execute actions like updating tickets or sending messages
+
+This standardized approach allows agents to work with real data and perform actions in your environment, but it also means they may interact with numerous external APIs.
+
+---
+
+## Inspectr for MCP Traffic
+
+[Inspectr](https://inspectr.dev) operates as a transparent proxy. By running Inspectr between the MCP client and server you capture every request and response:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:3000
+```
+
+- The MCP client targets `http://localhost:8080` instead of the server directly.
+- Inspectr forwards traffic to `localhost:3000` and records the exchange.
+- The Inspectr UI at `http://localhost:4004` displays the captured calls.
+
+Each entry in the UI shows the HTTP method, path, headers, body, and response. Filters help you isolate calls from a particular tool or resource. You can even replay requests to reproduce behavior.
+
+---
+
+## Understanding Agent Behavior
+
+With traffic flowing through Inspectr you gain insight into how the agent uses your API surface:
+
+- **Endpoint mapping** – See which tools or resources are invoked and how often.
+- **Prompt evaluation** – Determine whether prompt changes alter the sequence of API calls.
+- **Performance tuning** – Measure latency and error rates to identify slow or failing dependencies.
+- **Cost and quota control** – Track high-volume requests that may require caching or rate limiting.
+- **Security reviews** – Audit headers and payloads to ensure agents only access permitted data.
+
+This observability helps refine MCP tool definitions, allocate resources, and craft an API strategy that anticipates agent workloads.
+
+---
+
+## Common Questions
+
+### Why should I monitor API usage from MCP agents?
+
+Even a simple prompt can trigger a cascade of HTTP calls. Observability surfaces which services the agent relies on, their latency, and the cost of each request so you can design reliable, compliant systems.
+
+### What insights does Inspectr provide beyond standard logs?
+
+Inspectr associates every request with the tool or prompt that caused it, showing the full payload, timing, and response. This makes it easy to spot unused endpoints, failing integrations, or sensitive data exposure.
+
+### How does this visibility influence my API strategy?
+
+Understanding real traffic patterns lets you prioritize documentation, set quotas, cache high-volume calls, or retire endpoints agents never touch. The result is a leaner API surface tailored to agent workloads.
+
+---
+
+## Putting It All Together
+
+1. Run your MCP server locally or in the cloud.
+2. Start Inspectr as a proxy and point your agent to it.
+3. Interact with the agent and watch Inspectr reveal every API call.
+4. Use the collected data to adjust prompts, consolidate endpoints, or expose only the APIs the agent actually needs.
+
+By combining MCP's standardized interface with Inspectr's real-time inspection, teams build AI agents that are transparent, reliable, and easier to optimize.
