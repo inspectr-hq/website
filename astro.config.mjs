@@ -62,7 +62,8 @@ export default defineConfig({
             { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
             { label: 'Mocking API Responses', slug: 'docs/guides/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/guides/response-override' },
-            { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' }
+            { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' },
+            { label: 'Observability for MCP Agents', slug: 'docs/guides/mcp-observability' }
           ]
         },
         {
