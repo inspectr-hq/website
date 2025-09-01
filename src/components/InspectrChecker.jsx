@@ -127,9 +127,7 @@ export default function InspectrChecker() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
           <button
-            onClick={() =>
-              window.open('https://inspectr.dev/docs/guides/mocking/', '_blank')
-            }
+            onClick={() => window.open('https://inspectr.dev/docs/guides/mocking/', '_blank')}
             className="bg-brand-primary hover:bg-brand-secondary text-brand-dark px-6 py-2 rounded-lg font-medium transition"
           >
             Learn More

@@ -48,7 +48,7 @@
   }
 
   /* Apply the gradient classes to the sidebar */
-  :root[data-theme='dark'] .sidebar-pane{
+  :root[data-theme='dark'] .sidebar-pane {
     --tw-gradient-position: to left in oklab;
     --tw-gradient-from: var(--color-brand-dark);
     --tw-gradient-to: var(--color-black);
@@ -73,5 +73,4 @@
     font-size: 14px;
     line-height: 20px;
   }
-
 }

@@ -11,21 +11,14 @@ const Badge = ({
   // map variant → CSS class
   const variantClass = {
     gradient: 'badge-gradient',
-    solid:    'badge-solid',
-    secondary:'badge-secondary',
-    outline:  'badge-outline',
-    ghost:    'badge-ghost',
+    solid: 'badge-solid',
+    secondary: 'badge-secondary',
+    outline: 'badge-outline',
+    ghost: 'badge-ghost'
   }[variant];
 
   return (
-    <span
-      className={cx(
-        'badge',
-        variantClass,
-        className
-      )}
-      {...props}
-    >
+    <span className={cx('badge', variantClass, className)} {...props}>
       {children}
     </span>
   );

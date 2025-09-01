@@ -22,11 +22,11 @@ import Penkle from './penkle.astro';
   <meta property="og:description"
         content="Capture and inspect API requests and webhook events in real-time using Inspectr. Simplifying API & Webhook Debugging.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://inspectr.dev/">
+  <meta property="og:url" content={(new URL(Astro.url.pathname, Astro.site)).toString()}>
 
-  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="sitemap" href="/sitemap.xml" />
 
-  <link rel="canonical" href="https://inspectr.dev" />
+  <link rel="canonical" href={(new URL(Astro.url.pathname, Astro.site)).toString()} />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
