@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -114,10 +115,45 @@ export default defineConfig({
               return { ...item, lastmod: new Date(stat.mtimeMs) };
             }
           }
+
+          // Set lastmod for key non-docs static pages from their .astro files
+          const staticPageFileByPath = new Map([
+            ['/', 'src/pages/index.astro'],
+            ['/launch/', 'src/pages/launch.astro'],
+            ['/pricing/', 'src/pages/pricing.astro'],
+          ]);
+          const astroFile = staticPageFileByPath.get(p);
+          if (astroFile) {
+            const filePath = path.resolve(astroFile);
+            if (fs.existsSync(filePath)) {
+              const stat = fs.statSync(filePath);
+              return { ...item, lastmod: new Date(stat.mtimeMs) };
+            }
+          }
         } catch {}
         return item;
       },
     })
+    ,
+    {
+      name: 'sitemap-postprocess',
+      hooks: {
+        'astro:build:done': async ({ dir, logger }) => {
+          try {
+            const outDir = fileURLToPath(dir);
+            const idx = path.join(outDir, 'sitemap-index.xml');
+            const target = path.join(outDir, 'sitemap.xml');
+            if (fs.existsSync(idx)) {
+              // Copy the index to sitemap.xml while keeping the original for any references
+              fs.copyFileSync(idx, target);
+              logger.info('Copied sitemap-index.xml -> sitemap.xml');
+            }
+          } catch (e) {
+            console.warn('sitemap postprocess failed:', e?.message || e);
+          }
+        }
+      }
+    }
   ],
 
   vite: {
