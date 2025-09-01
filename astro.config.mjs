@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import fs from 'node:fs';
+import path from 'node:path';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -89,7 +91,31 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date('2025-07-23'),
+      // Ensure standard filename and enable per-URL lastmod via serialize
+      filenameBase: 'sitemap',
+      serialize: (item) => {
+        try {
+          const url = new URL(item.url);
+          const p = url.pathname;
+          // Only set lastmod for docs pages based on MD/MDX mtimes
+          if (p.startsWith('/docs')) {
+            // Map '/docs/.../' -> src/content/docs/docs/... .mdx (index.mdx for '/docs/')
+            let rel = p.slice('/docs'.length); // e.g. '/getting-started/installation/'
+            let filePath;
+            if (rel === '' || rel === '/') {
+              filePath = path.resolve('src/content/docs/docs/index.mdx');
+            } else {
+              if (rel.endsWith('/')) rel = rel.slice(0, -1);
+              filePath = path.resolve('src/content/docs/docs' + rel + '.mdx');
+            }
+            if (fs.existsSync(filePath)) {
+              const stat = fs.statSync(filePath);
+              return { ...item, lastmod: new Date(stat.mtimeMs) };
+            }
+          }
+        } catch {}
+        return item;
+      },
     })
   ],
 
