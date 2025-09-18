@@ -1,36 +1,44 @@
 ---
 
-title: Using Inspectr with Flask
+title: Using Inspectr with Flask & FastAPI
 
 ---
 
-import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowFlask.jsx';
+import { FlowBase as FlowFlaskBase, FlowIngress as FlowFlaskIngress } from '../../../../components/DocFlows/FlowFlask.jsx';
+import { FlowBase as FlowFastApiBase, FlowIngress as FlowFastApiIngress } from '../../../../components/DocFlows/FlowFastApi.jsx';
 
-<FlowBase client:only="react" />
+Inspectr is an ideal companion for Python web frameworks like Flask and FastAPI, giving you a clear view of all HTTP traffic, helping you debug issues, and even enabling you to expose your local API to the internet for testing.
 
-
-[//]: # (# Using Inspectr with Flask &#40;Python&#41;)
-
-Inspectr is an ideal companion for Python Flask applications, giving you a clear view of all HTTP traffic, helping you debug issues, and even enabling you to expose your local API to the internet for testing.
-
-This guide shows how to use Inspectr with Flask.
+This guide shows how to use Inspectr with either Flask or FastAPI.
 
 ---
 
 ## Prerequisites
 
 * Python 3.8+
-* Flask installed (`pip install flask`)
 * Inspectr installed ([Install guide →](/docs/getting-started/installation))
+* Choose your framework and install the dependencies:
+  * **Flask**
+    ```bash
+    pip install flask
+    ```
+  * **FastAPI + Uvicorn**
+    ```bash
+    pip install fastapi uvicorn
+    ```
 
 ---
 
-## Step 1: Create or Start Your Flask App
+## Step 1: Start Your API
+
+### Flask quick start
+
+<FlowFlaskBase client:only="react" />
 
 Create a simple Flask app (`app.py`):
 
 ```python
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -42,36 +50,76 @@ if __name__ == '__main__':
     app.run(port=5000)
 ```
 
-Start your app:
+Run it:
 
 ```bash
 python app.py
+```
+
+### FastAPI quick start
+
+<FlowFastApiBase client:only="react" />
+
+Create a FastAPI app (`main.py`):
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/hello")
+async def hello():
+    return {"message": "Hello from FastAPI!"}
+```
+
+Start the server (default port 8000):
+
+```bash
+uvicorn main:app --port 8000
 ```
 
 ---
 
 ## Step 2: Run Inspectr as a Proxy
 
-```bash
-inspectr --listen=:8080 --backend=http://localhost:5000
-```
+Start Inspectr so it listens on port 8080 and forwards to your chosen framework:
 
-Make a request via Inspectr:
+* **Forward to Flask**
+  ```bash
+  inspectr --listen=:8080 --backend=http://localhost:5000
+  ```
+* **Forward to FastAPI**
+  ```bash
+  inspectr --listen=:8080 --backend=http://localhost:8000
+  ```
 
-```bash
-curl http://localhost:8080/hello
-```
+---
 
-Inspectr will forward the request to Flask, capture the response, and show it in:
+## Step 3: Send Requests via Inspectr
+
+Make requests to Inspectr and it will proxy them to your backend while capturing the traffic:
+
+* **Flask endpoint**
+  ```bash
+  curl http://localhost:8080/hello
+  ```
+* **FastAPI endpoint**
+  ```bash
+  curl http://localhost:8080/hello
+  ```
+
+Inspectr will forward the request, capture the response, and show it in:
 
 * Terminal log
 * Inspectr App UI: [http://localhost:4004](http://localhost:4004)
 
 ---
 
-## Optional: Expose Flask Publicly
+## Optional: Expose Your API Publicly
 
-<FlowIngress client:only="react" />
+### Flask exposure
+
+<FlowFlaskIngress client:only="react" />
 
 ```bash
 inspectr \
@@ -88,15 +136,36 @@ Your app is now accessible via:
 https://flask-demo.in-spectr.dev
 ```
 
+### FastAPI exposure
+
+<FlowFastApiIngress client:only="react" />
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:8000 \
+  --expose \
+  --channel=fastapi-demo \
+  --channel-code=fastapi123
+```
+
+Your FastAPI app is accessible at:
+
+```
+https://fastapi-demo.in-spectr.dev
+```
+
 ---
 
 ## Summary
 
-Inspectr makes it easy to debug Flask APIs and receive traffic from external sources:
+Inspectr makes it easy to debug Python APIs built with Flask or FastAPI:
 
-* Local proxy for inspection
+* Local proxy for real-time inspection
 * Public exposure with access control
 * Live UI for inspecting and replaying traffic
+
+For a deeper FastAPI walkthrough, check out the [dedicated FastAPI guide →](/docs/examples/using-with-python-fastapi/).
 
 ---
 
