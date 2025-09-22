@@ -6,38 +6,69 @@ import IconPython from '../assets/icons/python.svg?react';
 import IconSpring from '../assets/icons/java_spring_boot.svg?react';
 import IconDotnet from '../assets/icons/microsoft_dotnet.svg?react';
 import IconLaravel from '../assets/icons/php_laravel.svg?react';
+import IconPhp from '../assets/icons/php.svg?react';
+import IconMcp from '../assets/icons/mcp.svg?react';
+import IconN8n from '../assets/icons/n8n_white.svg?react';
+import IconOllama from '../assets/icons/ollama_white.svg?react';
+import IconWebhooks from '../assets/icons/webhook.svg?react';
 
 const stacks = [
   {
-    name: 'Node.js (Express)',
-    href: '/docs/examples/using-with-express',
-    Icon: IconNode,
+    name: 'Node.js',
+    href: '/docs/examples/using-with-express/',
+    Icon: IconNode
   },
   {
-    name: 'Python (FastAPI)',
-    href: '/docs/examples/using-with-python-fastapi',
-    Icon: IconFastAPI,
+    name: 'FastAPI',
+    href: '/docs/examples/using-with-python-fastapi/',
+    Icon: IconFastAPI
   },
   {
-    name: 'Python (Django)',
-    href: '/docs/examples/using-with-python-django',
-    Icon: IconPython,
+    name: 'Python',
+    href: '/docs/examples/using-with-python-django/',
+    Icon: IconPython
   },
   {
     name: 'Java Spring Boot',
-    href: '/docs/examples/using-with-java-spring',
-    Icon: IconSpring,
+    href: '/docs/examples/using-with-java-spring/',
+    Icon: IconSpring
   },
   {
     name: '.NET',
-    href: '/docs/examples/using-with-dotnet',
-    Icon: IconDotnet,
+    href: '/docs/examples/using-with-dotnet/',
+    Icon: IconDotnet
   },
   {
-    name: 'Laravel (PHP)',
-    href: '/docs/examples/using-with-laravel-php',
-    Icon: IconLaravel,
+    name: 'Laravel',
+    href: '/docs/examples/using-with-laravel-php/',
+    Icon: IconLaravel
   },
+  {
+    name: 'PHP',
+    href: '/docs/examples/using-with-laravel-php/',
+    Icon: IconPhp
+  },
+  {
+    name: 'MCP',
+    href: '/docs/examples/expose-mcp-server/',
+    Icon: IconMcp
+  },
+  {
+    name: 'Ollama',
+    href: '/docs/examples/examples/expose-ollama/',
+    Icon: IconOllama
+  },
+  {
+    name: 'N8N',
+    href: '/docs/examples/expose-n8n-workflow/',
+    Icon: IconN8n
+  }
+  ,
+  {
+    name: 'Webhooks',
+    href: '/docs/examples/handling-generic-webhooks/',
+    Icon: IconWebhooks
+  }
 ];
 
 export default function TechStacksSection() {
@@ -45,12 +76,15 @@ export default function TechStacksSection() {
     <section className="py-24 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white">Learn how to use Inspectr with your stack</h2>
+          <h2 className="text-3xl font-bold text-white">
+            Learn how to use Inspectr with your favorite stack and tools
+          </h2>
           <p className="mt-4 text-gray-400">
-            Follow step-by-step guides to integrate Inspectr with the frameworks your team already uses.
+            Follow step-by-step guides to integrate Inspectr with the frameworks and tools your team
+            already uses.
           </p>
         </div>
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-10 sm:gap-12">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-8 sm:gap-10">
           {stacks.map(({ name, href, Icon }) => (
             <a
               key={name}
