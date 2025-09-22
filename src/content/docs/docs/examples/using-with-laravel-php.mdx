@@ -9,7 +9,7 @@ import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowLarav
 
 [//]: # (# Using Inspectr with Laravel &#40;PHP&#41;)
 
-Laravel is a popular PHP framework for building web applications and APIs. Inspectr lets you inspect, debug, and securely expose your Laravel endpoints for testing or integration with third-party services.
+[Laravel](https://laravel.com/) is a popular PHP framework for building web applications and APIs. Inspectr lets you inspect, debug, and securely expose your Laravel endpoints for testing or integration with third-party services.
 
 This guide walks you through using Inspectr as a proxy in front of a Laravel app.
 
@@ -18,7 +18,7 @@ This guide walks you through using Inspectr as a proxy in front of a Laravel app
 ## Prerequisites
 
 * PHP 8.1+
-* Laravel installed (`laravel new myapp` or via Composer)
+* Laravel installed (`laravel new myapp` or via Composer `composer global require laravel/installer`)
 * Inspectr installed ([Install guide →](/docs/getting-started/installation))
 
 ---
@@ -30,7 +30,8 @@ If you haven’t already, create and start a Laravel application:
 ```bash
 laravel new myapp
 cd myapp
-php artisan serve --port=8000
+npm install && npm run build
+composer run dev # php artisan serve --port=8000
 ```
 
 Laravel will be available at:
