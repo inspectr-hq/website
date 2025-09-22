@@ -8,9 +8,9 @@ import IconDotnet from '../assets/icons/microsoft_dotnet.svg?react';
 import IconLaravel from '../assets/icons/php_laravel.svg?react';
 import IconPhp from '../assets/icons/php.svg?react';
 import IconMcp from '../assets/icons/mcp.svg?react';
-import IconN8n from '../assets/icons/n8n_white.svg?react';
+import IconN8n from '../assets/icons/n8n-color.svg?react';
 import IconOllama from '../assets/icons/ollama_white.svg?react';
-import IconWebhooks from '../assets/icons/webhook.svg?react';
+import IconWebhooks from '../assets/icons/webhook-color.svg?react';
 
 const stacks = [
   {
@@ -72,10 +72,9 @@ const stacks = [
 ];
 
 function Row() {
-  // duplicate once for a seamless loop (A…A)
+  // Duplicate once for a seamless loop (A…A)
   const items = [...stacks, ...stacks];
   return (
-
     <div className="inline-flex w-max items-center gap-8 sm:gap-10 px-4">
       {items.map(({ name, href, Icon }, i) => (
         <a
@@ -110,33 +109,14 @@ export default function TechStacksSection() {
           </p>
         </div>
 
-        {/* Marquee */}
+        {/* Marquee (single lane) */}
         <div
           className="
             mt-12 relative overflow-hidden
             [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
           "
         >
-          {/* lane 1 */}
-          <div
-            className="
-              will-change-transform
-              animate-marquee
-              hover:[animation-play-state:paused]
-            "
-          >
-            <Row />
-          </div>
-
-          {/* lane 2 (offset copy for continuous flow) */}
-          <div
-            className="
-              absolute inset-0 will-change-transform
-              animate-marquee2
-              hover:[animation-play-state:paused]
-            "
-            aria-hidden="true"
-          >
+          <div className="will-change-transform animate-marquee hover:[animation-play-state:paused]">
             <Row />
           </div>
         </div>
