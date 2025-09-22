@@ -62,7 +62,7 @@ const stacks = [
   },
   {
     name: 'OpenAI',
-    href: '/docs/examples/expose-mcp-server/',
+    href: '/docs/examples/expose-mcp-server-openai/',
     Icon: IconOpenAI
   },
   {

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import FlowVisualizer from '../Flow/FlowVisualizer.jsx';
 import { buildBaseFlow, buildIngressFlow } from '../Flow/FlowBuilder.jsx';
 
-import clientIcon from '../../assets/icons/openai.svg?react';
+import clientIcon from '../../assets/icons/openai_black.svg?react';
 import serviceIcon from '../../assets/icons/mcp.svg?react';
 
 export function FlowBase() {
