@@ -1,6 +1,8 @@
 import React from 'react';
 import IconSearch from '../assets/icon_search.svg?react';
 import IconWebhook from '../assets/icon_webhook.svg?react';
+import IconSafe from '../assets/icon_safe.svg?react';
+import IconCode from '../assets/icon_code.svg?react';
 // import IconCode from '../assets/icon_code.svg?react'
 import IconOpenApi from '../assets/icon_openapi_mono.svg?react';
 // import IconProxy from '../assets/icon_arrow-left-right.svg?react'
@@ -36,10 +38,15 @@ const features = [
     title: 'Real-time Logging',
     description: 'Monitor incoming requests as they happen in your terminal and UI.'
   },
+  // {
+  //   icon: <IconHistory className="w-6 h-6" />,
+  //   title: 'History & Replay',
+  //   description: 'Review past requests with filtering and search, replay them as needed.'
+  // },
   {
-    icon: <IconHistory className="w-6 h-6" />,
-    title: 'History & Replay',
-    description: 'Review past requests with filtering and search, replay them as needed.'
+    icon: <IconSafe className="w-6 h-6" />,
+    title: 'Full Data Privacy & Control',
+    description: 'Requests and responses are only processed & stored locally.'
   },
   {
     icon: <IconGlobe className="w-6 h-6" />,
@@ -51,7 +58,7 @@ const features = [
 export default function FeaturesSection() {
   return (
     <div>
-      <FeaturesList heading="Everything you need for API debugging" features={features} />
+      <FeaturesList heading="Everything you need for API & Webhook debugging" features={features} />
     </div>
   );
 }

@@ -74,8 +74,7 @@ const stacks = [
     name: 'N8N',
     href: '/docs/examples/expose-n8n-workflow/',
     Icon: IconN8n
-  }
-  ,
+  },
   {
     name: 'Webhooks',
     href: '/docs/examples/handling-generic-webhooks/',
