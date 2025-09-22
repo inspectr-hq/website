@@ -1,0 +1,136 @@
+---
+title: Using Inspectr with PHP
+description: Debug and expose a vanilla PHP backend with Inspectr
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowPhp.jsx';
+
+<FlowBase client:only="react" />
+
+[//]: # (# Using Inspectr with PHP)
+
+PHP's built-in web server makes it easy to spin up lightweight APIs for prototypes, demos, or webhook receivers.
+Inspectr sits in front of your PHP app so you can see every request, replay traffic, and optionally share your endpoint with the outside world.
+
+This guide shows how to connect Inspectr to a basic PHP application.
+
+---
+
+## Prerequisites
+
+* PHP 8.1+
+* Inspectr installed ([Install guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Serve a PHP Endpoint
+
+Create a minimal project structure:
+
+```bash
+mkdir php-demo
+cd php-demo
+mkdir public
+```
+
+Inside `public/index.php`, return a JSON response so it is easy to see in Inspectr:
+
+```php
+<?php
+// public/index.php
+header('Content-Type: application/json');
+
+echo json_encode([
+    'message' => 'Hello from plain PHP!',
+    'timestamp' => date(DATE_ATOM)
+]);
+```
+
+Start PHP’s development server:
+
+```bash
+php -S localhost:8000 -t public
+```
+
+Your PHP app is now available at:
+
+```
+http://localhost:8000
+```
+
+---
+
+## Step 2: Proxy Traffic with Inspectr
+
+In a new terminal, launch Inspectr and point it at the PHP server:
+
+```bash
+inspectr --listen=:8080 --backend=http://localhost:8000
+```
+
+Send a request through Inspectr to confirm it forwards correctly:
+
+```bash
+curl http://localhost:8080/
+```
+
+You’ll see the request in the terminal output and inside the Inspectr App UI ([http://localhost:4004](http://localhost:4004)).
+
+Inspectr will:
+
+* Relay the request to PHP
+* Capture headers, payload, and response timing
+* Let you replay or modify the call during development
+
+---
+
+## Optional: Accept External Requests
+
+<FlowIngress client:only="react" />
+
+Enable Inspectr’s ingress mode to make your local PHP endpoint reachable from third-party services:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:8000 \
+  --expose \
+  --channel=php-demo \
+  --channel-code=php123
+```
+
+Your PHP app becomes available at:
+
+```
+https://php-demo.in-spectr.dev
+```
+
+Use this URL as a webhook target or share it with teammates. You can pause or revoke access at any time by stopping Inspectr
+or rotating the channel code.
+
+---
+
+## Step 3: Iterate with Confidence
+
+With Inspectr in place you can:
+
+* Inspect and replay requests without editing PHP code
+* Capture failing webhook payloads for later debugging
+* Toggle between private proxying and public ingress in a single command
+
+---
+
+## Summary
+
+Inspectr acts as a smart proxy for PHP applications:
+
+* Works with the built-in PHP server or full frameworks
+* Adds a visual timeline of requests and responses
+* Simplifies testing integrations that expect a public URL
+
+---
+
+[//]: # (## 📚 Related Topics)
+[//]: # ()
+[//]: # (* [Webhook Debugging →](/docs/guides/webhook-debugging))
+[//]: # (* [Exposing Publicly →](/docs/guides/exposing-publicly))
