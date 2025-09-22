@@ -11,7 +11,7 @@ export function FlowBase() {
     () =>
       buildBaseFlow({
         start: { label: 'Client', icon: clientIcon },
-        end: { label: 'Laravel App', icon: serviceIcon, width: 140 }
+        end: { label: 'PHP App', icon: serviceIcon, width: 140 }
       }),
     []
   );
