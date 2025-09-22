@@ -1,0 +1,149 @@
+---
+
+title: Exposing MCP Server to OpenAI
+
+---
+
+import { Image } from 'astro:assets';
+import mcpOpenAIConnectorConnected from '../../../../assets/guides/mcp-openai-connector-connected.png.png';
+import mcpOpenAIConnectorNew from '../../../../assets/guides/mcp-openai-connector-new.png';
+import mcpChatGptResultGraph from '../../../../assets/guides/mcp-openai-connector-result-graph.png';
+import mcpChatGptResult from '../../../../assets/guides/mcp-openai-connector-result.png';
+import mcpOpenAIConnectorUse from '../../../../assets/guides/mcp-openai-connector-use.png';
+import mcpOpenAIConnector from '../../../../assets/guides/mcp-openai-connector.png';
+import mcpOpenAIDevMode from '../../../../assets/guides/mcp-openai-dev-mode.png';
+import mcpInspectrRequest from '../../../../assets/guides/mcp-openai-inspectr-request.png';
+import mcpInspectrResponse from '../../../../assets/guides/mcp-openai-inspectr-response.png';
+import mcpOpenAI from '../../../../assets/guides/mcp-openai.png';
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcpOpenAI.jsx';
+
+<FlowIngress client:only="react" />
+
+# Unlock MCP Power in ChatGPT with Inspectr
+
+Want to unlock even more power inside ChatGPT?
+Now you can enable remote, third-party **MCP Servers** in Developer Mode in ChatGPT!
+
+With MCP (Model Context Protocol), you can connect proprietary systems and apps so your team can **search, reason, and act** on that knowledge — right alongside web results and built-in connectors.
+
+Inspectr makes it simple to expose your MCP server securely and inspect real-time traffic.
+
+## What You’ll Learn
+
+* Enable Developer Mode in ChatGPT
+* Expose your local MCP server using Inspectr
+* Connect it to ChatGPT as a custom connector
+* Inspect requests and responses in the Inspectr UI
+* Use your MCP server directly in ChatGPT conversations
+
+---
+
+## Prerequisites
+
+* A running MCP-compatible server (for example on `http://localhost:3000`)
+* Inspectr installed ([Install Guide →](/docs/getting-started/installation))
+* ChatGPT with **Developer Mode** enabled
+
+---
+
+## Step 1: Start Your MCP Server
+
+Make sure your server is running locally.
+
+[//]: # (For this example, we'll use the [MCP Server]&#40;https://github.com/inspectr/mcp-server&#41; from Inspectr.)
+
+```bash
+mcp-server --port 3000
+```
+
+---
+
+## Step 2: Expose MCP via Inspectr
+
+Run Inspectr with the `--expose flag:
+
+```bash
+inspectr \
+  --listen=:8080 \
+  --backend=http://localhost:3000 \
+  --expose \
+  --channel=mcp-demo \
+  --channel-code=mcpserver123
+```
+
+Your MCP server is now available at:
+
+```
+https://mcp-demo.in-spectr.dev/mcp
+```
+
+* Inspectr listens on port `8080`
+* Forwards traffic to your MCP server on port `3000`
+* Captures and displays traffic in the App UI at [http://localhost:4004](http://localhost:4004)
+
+---
+
+## Step 3 — Enable Developer Mode in ChatGPT
+
+Go to Settings → Connectors → Advanced settings, and enable Developer Mode.
+
+<Image src="/mcp-openai-dev-mode.png" alt="Enable Developer Mode in ChatGPT" />
+
+## Step 4 — Add a Custom Connector
+
+In ChatGPT, go to Settings → Connectors
+
+Click Create
+
+Fill in the connector details:
+
+Name: Inspectr
+
+Description: Inspectr MCP Server
+
+MCP Server URL: https://mcp-demo.in-spectr.dev/mcp
+
+Authentication: No authentication
+
+Tick I trust this application
+
+Click Create
+
+<Image src="/mcp-openai-connector-new.png" alt="Add new MCP connector" /> <Image src="/mcp-openai-connector-connected.png" alt="Connector connected view" />
+
+## Step 5 — Use Inspectr in ChatGPT
+
+Once connected, your MCP server appears under Use tools in the composer.
+
+<Image src="/mcp-openai-connector-use.png" alt="Inspectr available as a tool" />
+
+You can now run prompts that leverage the tools inside Inspectr:
+
+<Image src="/mcp-openai-connector-result.png" alt="Most used API endpoints result" /> <Image src="/mcp-openai-connector-result-graph.png" alt="Response times over time graph" />
+
+## Monitor and Replay
+
+Inspect all traffic in the Inspectr UI:
+
+* Live requests and responses
+* Request headers and bodies
+* Replay past requests
+* Filter by endpoint or method
+
+---
+
+## Summary
+
+Inspectr makes it easy to:
+
+* Expose your local MCP server to the OpenAI ChatGPT
+* Review how ChatGPT uses your MCP tools, prompts & resources
+
+---
+
+[//]: # (## 📚 Further Resources)
+[//]: # ()
+[//]: # (* [Anthropic's Model Context Protocol]&#40;https://www.anthropic.com/news/model-context-protocol&#41;)
+[//]: # (* [Inspectr Documentation]&#40;/getting-started/quick-start&#41;)
+[//]: # (* [Replay Traffic →]&#40;/core-concepts/how-it-works&#41;)
