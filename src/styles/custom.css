@@ -19,29 +19,3 @@
   width: 1.5rem;
   height: 1.5rem;
 }
-
-/* Marquee animation */
-/* Marquee: duplicate content (A…A) and move left by 50% for a seamless loop */
-@keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* First lane */
-.animate-marquee {
-    animation: marquee 20s linear infinite;
-}
-
-/* Second lane: same animation with a negative half-duration delay to fill the gap */
-.animate-marquee2 {
-    animation: marquee 20s linear infinite;
-    animation-delay: -10s; /* half of 20s */
-}
-
-/* Optional: respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-    .animate-marquee,
-    .animate-marquee2 {
-        animation: none !important;
-    }
-}
