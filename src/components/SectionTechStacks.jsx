@@ -45,7 +45,7 @@ const stacks = [
   },
   {
     name: 'PHP',
-    href: '/docs/examples/using-with-laravel-php/',
+    href: '/docs/examples/using-with-php/',
     Icon: IconPhp
   },
   {
