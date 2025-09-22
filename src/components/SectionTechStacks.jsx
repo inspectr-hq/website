@@ -8,6 +8,8 @@ import IconDotnet from '../assets/icons/microsoft_dotnet.svg?react';
 import IconLaravel from '../assets/icons/php_laravel.svg?react';
 import IconPhp from '../assets/icons/php.svg?react';
 import IconMcp from '../assets/icons/mcp.svg?react';
+import IconOpenAI from '../assets/icons/openai.svg?react';
+import IconClaude from '../assets/icons/claude-color.svg?react';
 import IconN8n from '../assets/icons/n8n-color.svg?react';
 import IconOllama from '../assets/icons/ollama_white.svg?react';
 import IconWebhooks from '../assets/icons/webhook-color.svg?react';
@@ -54,6 +56,16 @@ const stacks = [
     Icon: IconMcp
   },
   {
+    name: 'Claude',
+    href: '/docs/examples/expose-mcp-server/',
+    Icon: IconClaude
+  },
+  {
+    name: 'OpenAI',
+    href: '/docs/examples/expose-mcp-server/',
+    Icon: IconOpenAI
+  },
+  {
     name: 'Ollama',
     href: '/docs/examples/examples/expose-ollama/',
     Icon: IconOllama
@@ -71,14 +83,15 @@ const stacks = [
   }
 ];
 
-function Row() {
-  // Duplicate once for a seamless loop (A…A)
-  const items = [...stacks, ...stacks];
+function Row({ ariaHidden = false }) {
   return (
-    <div className="inline-flex w-max items-center gap-8 sm:gap-10 px-4">
-      {items.map(({ name, href, Icon }, i) => (
+    <div
+      className="flex-none inline-flex items-center gap-8 sm:gap-10 px-4"
+      aria-hidden={ariaHidden || undefined}
+    >
+      {stacks.map(({ name, href, Icon }) => (
         <a
-          key={`${name}-${i}`}
+          key={`${ariaHidden ? 'copy-' : ''}${name}`}
           href={href}
           className="group flex flex-col items-center text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/70"
           aria-label={name}
@@ -101,27 +114,33 @@ export default function TechStacksSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white">
-            Learn how to use Inspectr with your favorite stack and tools
+            Use Inspectr with your favorite stack and tools
           </h2>
           <p className="mt-4 text-gray-400">
-            Follow step-by-step guides to integrate Inspectr with the frameworks and tools your team
-            already uses.
+            Discover how to integrate Inspectr with the frameworks and tools your team already uses.
           </p>
         </div>
 
-        {/* Marquee (single lane) */}
+        {/* Marquee */}
         <div
           className="
             mt-12 relative overflow-hidden
             [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
           "
         >
-          <div className="will-change-transform animate-marquee hover:[animation-play-state:paused]">
+          {/* The moving strip contains Row A and Row A again (identical copy) */}
+          <div
+            className="
+              animate-marquee will-change-transform hover:[animation-play-state:paused]
+              inline-flex w-max
+            "
+          >
             <Row />
+            <Row ariaHidden />
           </div>
         </div>
 
-        {/* Visually hidden static list for screen readers (accessibility) */}
+        {/* Visually hidden static list for screen readers */}
         <ul className="sr-only">
           {stacks.map(({ name }) => (
             <li key={name}>{name}</li>
