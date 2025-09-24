@@ -1,8 +1,22 @@
 ---
-
 title: Exposing a MCP Server
 
 ---
+
+import { Image } from 'astro:assets';
+
+import inspectrExpose from '../../../../assets/guides/mcp-openai-inspectr-expose2.png';
+import mcpInspectr from '../../../../assets/guides/mcp-inspectr.png';
+import mcpInspector from '../../../../assets/guides/mcp-inspector.png';
+import mcpStartServer from '../../../../assets/guides/mcp-start-server.png';
+import mcpClaudeChatResultsGraph from '../../../../assets/guides/mcp-claude-chat-results-graph.png';
+import mcpClaudeResults from '../../../../assets/guides/mcp-claude-results.png';
+import mcpClaudeChatActivate from '../../../../assets/guides/mcp-claude-chat-activate.png';
+import mcpClaudeConnectorConfig from '../../../../assets/guides/mcp-claude-connector-config.png';
+import mcpClaudeConnectors from '../../../../assets/guides/mcp-claude-connectors.png';
+import mcpClaudeConfig from '../../../../assets/guides/mcp-claude-config.png';
+import mcpClaudeConfigured from '../../../../assets/guides/mcp-claude-configured.png';
+
 
 import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcp.jsx';
 
@@ -12,59 +26,74 @@ import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcp.j
 
 [Model Context Protocol (MCP)](https://www.anthropic.com/news/model-context-protocol) is an open standard for enabling language models to use tools, retrieve data, and operate over structured inputs. If you're running a local MCP server, Inspectr lets you expose it securely to the internet and inspect real-time traffic.
 
-This guide walks you through exposing your MCP server using Inspectr.
+Inspectr makes it easy to run and test your local MCP servers by exposing them via a streamable HTTP transport. This allows you to connect MCP servers to a wide range of MCP clients without worrying about WebSocket bindings or specialized transports.
+
+If you haven’t built an MCP server yet, start with the Build a Local MCP Server guide ↗
+before continuing here.
 
 ---
 
-#### Prerequisites
+### What You’ll Learn
 
-* A running MCP-compatible server (e.g. on `http://localhost:3000`)
-* Inspectr installed ([Install Guide →](/docs/getting-started/installation))
+In this guide, you’ll learn how to:
+
+- Run a local MCP server.
+- Expose your MCP server as an HTTP/SSE endpoint.
+- Test your MCP server visually with the MCP Inspector.
+- Connect your server to popular MCP clients like Claude Desktop, Cursor, and Windsurf.
+- Securely share your MCP server session with teammates.
+
+---
+
+### Prerequisites
+
+Before you begin, make sure you have:
+
+- **Node.js 22+** installed on your system.
+- **npm or npx** available to run Inspectr and MCP tools.
+- A working MCP server (for example, the [Everything MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/everything)).
 
 ---
 
 ## Step 1: Start Your MCP Server
 
-Make sure your server is running locally:
+Let’s say you already have an MCP server, spin it up.
 
 ```bash
-mcp-server --port 3000
+mcp-server --port 3001
 ```
 
-Or however you start your local MCP-compatible service.
+or if you are looking for an example MCP server, you can use he [Everything MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/everything).
+
+```bash
+npm run start:streamableHttp
+```
+
+<Image src={mcpStartServer} alt="Start MCP server" />
+
+This means that the MCP server is running on `http://localhost:3001`
 
 ---
 
-## Step 2: Start Inspectr to Forward Requests
+## Step 2: Start Inspectr to Expose Your MCP Server
 
 ```bash
 inspectr \
   --listen=:8080 \
-  --backend=http://localhost:3000
-```
-
-* Inspectr listens on port `8080`
-* Forwards traffic to your MCP server on port `3000`
-* Captures and displays traffic in the App UI at [http://localhost:4004](http://localhost:4004)
-
----
-
-## Step 3: Expose Your MCP Server Publicly
-
-<FlowIngress client:only="react" />
-
-To allow external access:
-
-```bash
-inspectr \
-  --listen=:8080 \
-  --backend=http://localhost:3000 \
+  --backend=http://localhost:3001 \
   --expose \
   --channel=mcp-demo \
   --channel-code=mcpserver123
 ```
 
-Your MCP server is now available at:
+<Image src={inspectrExpose} alt="Inspectr exposing MCP server" />
+
+This means:
+- Inspectr listens on port `8080`
+- Forwards traffic to your MCP server on port `3001`
+- Captures and displays traffic in the App UI at [http://localhost:4004](http://localhost:4004)
+
+The MCP server is now publicly available at:
 
 ```
 https://mcp-demo.in-spectr.dev
@@ -72,14 +101,140 @@ https://mcp-demo.in-spectr.dev
 
 ---
 
-## Monitor and Replay
+## Step 3: Test with the MCP Inspector
 
-Inspect all traffic in the Inspectr UI:
+The [`@modelcontextprotocol/inspector` ](https://www.npmjs.com/package/@modelcontextprotocol/inspector) is a visual testing tool for MCP servers.
 
-* Live requests and responses
-* Request headers and bodies
-* Replay past requests
-* Filter by endpoint or method
+You can start the MCP Inspector with the following command:
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+As the server URL, enter the Inspectr session URL from above (notice the `/mcp` if that is applicable), for example:
+
+`https://mcp-demo.in-spectr.dev/mcp`
+
+<Image src={mcpInspector} alt="MCP Inspector" />
+
+After connecting, try the **List Tools** button to confirm your MCP server is working correctly through Inspectr.
+
+---
+
+## Step 4: Connect to Claude Desktop
+
+Claude Desktop doesn’t support HTTP/SSE MCP servers directly, but you can combine Inspectr with [mcp-remote](https://www.npmjs.com/package/mcp-remote).
+
+Edit your Claude Desktop config.
+Go to "Settings"" → "Developer" → "Edit Config":
+
+<Image src={mcpClaudeConfig} alt="Claude Desktop config" />
+
+Set the configuration details, for example:
+
+```json
+{
+  "mcpServers": {
+    "inspectr": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp-demo.in-spectr.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+Save and restart Claude Desktop (`Cmd/Ctrl + R`).
+
+<Image src={mcpClaudeConfigured} alt="Claude Desktop configured" />
+
+When Claude restarts, it will connect to your MCP server through Inspectr.
+
+Once connected, if you open the "Connectors", you will see your MCP server listed.
+
+<Image src={mcpClaudeConnectors} alt="Claude Desktop connectors" />
+
+When clicking on "Configure, you can see a list of available actions of the MCP server.
+
+<Image src={mcpClaudeConnectorConfig} alt="Claude Desktop connectors actions" />
+
+--- 
+
+## Step 5: Use Inspectr in Claude Desktop
+
+Once your MCP server is exposed through Inspectr, you can interact with it directly inside **Claude Desktop**.
+
+<Image src={mcpClaudeChatActivate} alt="Claude Desktop connectors details" />
+
+This lets you test how Claude queries your MCP server in a natural conversation flow, with results displayed as structured data or even visualizations.
+
+For example, let’s run a prompt that searches for the most used API endpoints:
+
+<Image src={mcpClaudeResults} alt="Claude Desktop results" />
+
+Next we want Claude to show how the response times visually look like:
+
+<Image src={mcpClaudeChatResultsGraph} alt="Claude chat graphing results" />
+
+---
+
+## Connect to MCP Clients
+
+Once your MCP server is running through Inspectr, you can connect it to real MCP clients. Different clients configure MCP servers differently, but the general idea is to point them at your Inspectr session URL.
+
+### Cursor
+
+Cursor accepts a simple command-style configuration. Use `mcp-remote` to forward the Inspectr session URL:
+
+```
+{
+  "mcpServers": {
+    "inspectr": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp-demo.in-spectr.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+### Windsurf
+
+Windsurf uses an `mcp_config.json` file. Add an entry like:
+
+```json
+{
+  "mcpServers": {
+    "inspectr": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp-demo.in-spectr.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+ ---
+
+## View MCP Requests in Inspectr
+
+When Claude Desktop interacts with your MCP server through Inspectr, every request and response is captured in Inspectr’s dashboard. This lets you see exactly what’s happening behind the scenes.
+
+1. Open [http://localhost:4004](http://localhost:4004) in your browser while Inspectr is running.
+
+<Image src={mcpInspectr} alt="Inspectr request details" />
+
+2. You’ll see a history of **requests** made by Claude, including the tools it invoked, prompts it sent, and any parameters.
+
+3. Select a request to view the **response** returned by your MCP server, including result data, errors, or logs.
+
+This makes Inspectr not just a bridge but also an **observability layer** for MCP development.
 
 ---
 
@@ -87,14 +242,9 @@ Inspect all traffic in the Inspectr UI:
 
 Inspectr makes it easy to:
 
-* Expose your local MCP server to the internet
-* Debug incoming traffic
-* Share model tools and endpoints securely
+- Expose any local MCP server as an HTTP/SSE endpoint.
+- Test your MCP server visually with the MCP Inspector.
+- Connect it to MCP clients like Claude Desktop, Cursor, or Windsurf.
+- Monitor every MCP interaction in real time via the Inspectr dashboard.
 
 ---
-
-[//]: # (## 📚 Further Resources)
-[//]: # ()
-[//]: # (* [Anthropic's Model Context Protocol]&#40;https://www.anthropic.com/news/model-context-protocol&#41;)
-[//]: # (* [Inspectr Documentation]&#40;/getting-started/quick-start&#41;)
-[//]: # (* [Replay Traffic →]&#40;/core-concepts/how-it-works&#41;)
