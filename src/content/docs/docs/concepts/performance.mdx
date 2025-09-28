@@ -1,0 +1,41 @@
+---
+title: Performance Principles
+description: Understand how Inspectr delivers fast, secure request handling without compromising throughput.
+---
+
+## Why speed and performance matter
+
+At **Inspectr**, we take performance and security seriously. Every design choice is driven by a simple principle: *handle every request as fast and safely as possible*.
+
+## Built for throughput
+
+Inspectr is designed to process **large volumes of requests per second** without introducing bottlenecks. The architecture is optimized around the **hot path**: receiving an incoming request and returning the response immediately.
+
+No added delays. No hidden layers. Just speed.
+
+## Why we chose Go
+
+Go lets Inspectr ship as a single binary that is easy to run anywhere.
+
+- **High performance** with a small memory footprint (about 50MB RAM in typical usage).
+- **Minimal external dependencies**, which lowers the attack surface and keeps upgrades simple.
+- **Single, static binarie**s that are easy to run, distribute, deploy, and trust.
+
+## Keeping it local
+
+All operations are stored local-only; ensuring fast throughput, reduced latency, and improved security by keeping sensitive data on your own system.
+
+## Processing beyond the request/response
+
+Inspectr includes optional capabilities that never interfere with the primary request pipeline.
+
+- Operations archive for historical context.
+- In-app SSE streams to power the real-time dashboard.
+- Live statistics to watch performance metrics.
+- Rules engine to automate request handling.
+
+Each feature runs alongside the hot path so Inspectr can scale while staying responsive. All are carefully designed so they **never impact request handling performance**.
+
+## Security and performance, together
+
+Performance without security is risky; security without performance is frustrating. Inspectr is commited to deliver both at once so you can rely on it even in demanding environments.
