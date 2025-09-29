@@ -17,7 +17,36 @@ export default function Footer() {
             <p className="text-gray-400">Simplifying API and Webhook debugging for developers.</p>
           </div>
 
-          <div />
+          <div>
+            <h3 className="font-semibold text-lg mb-4">Docs</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <a href="/docs/concepts/performance/" className="hover:text-brand-primary">
+                  Performance Principles
+                </a>
+              </li>
+              <li>
+                <a href="/docs/concepts/api-lifecycle/" className="hover:text-brand-primary">
+                  Accelerate API-first workflows
+                </a>
+              </li>
+              <li>
+                <a href="/docs/guides/exposing-publicly/" className="hover:text-brand-primary">
+                  Exposing an API
+                </a>
+              </li>
+              <li>
+                <a href="/docs/guides/api-traffic-debugging/" className="hover:text-brand-primary">
+                  Debugging an API
+                </a>
+              </li>
+              <li>
+                <a href="/docs/examples/expose-mcp-server/" className="hover:text-brand-primary">
+                  Exposing a MCP Server
+                </a>
+              </li>
+            </ul>
+          </div>
 
           <div>
             <h3 className="font-semibold text-lg mb-4">Product</h3>
