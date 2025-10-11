@@ -36,6 +36,7 @@ Overrides work in:
 | `inspectr-response-delay`        | Delay response in milliseconds (e.g. `2000` = 2s delay) |
 | `inspectr-response-example`      | Return a specific OpenAPI example by name               |
 | `inspectr-response-content-type` | Override the `Content-Type` header in the response      |
+| `inspectr-tag`                   | Tag a request with one or more values (e.g. `billing`, `user:123`) |
 
 <Aside>
 These headers only affect how Inspectr generates or returns a response. They don’t change the request forwarded to the backend.
@@ -99,6 +100,31 @@ Force a different `Content-Type` in the response:
 curl http://localhost:8080/echo \
   -H "inspectr-response-content-type: text/plain"
 ```
+
+---
+
+## Example: Tag a Request
+
+Apply simple or key/value tags that downstream tooling can read:
+
+```bash
+curl http://localhost:8080/api/items \
+  -H "inspectr-tag: billing, user:123"
+```
+
+You can send multiple `inspectr-tag` headers to attach several tags to the same request, or use the `key:value` pattern for structured tagging.
+
+### When to tag requests
+
+As you collect responses or webhooks, tags give you lightweight metadata that can help you bundle and mark operations, giving them additional context.
+These tags can be used for filtering in the history and for statistic insights.
+
+Some use-cases:
+* **QA test runs** – Mark exploratory sessions (e.g. `inspectr-tag: qa:test-run-42`) so logs and analytics are easy to filter when triaging bugs.
+* **Environment targeting** – Compare request data and how the API services behave differently (e.g. `inspectr-tag: env:staging`) between dev/staging/prod environments.
+* **Version tracking** – Capture which app or API version triggered the request (e.g. `inspectr-tag: client-version:2.3.1`) when validating compatibility.
+
+The `inspectr-tag" is never forwarded to the connected service, so your requests stay untouched. It is a powerful option to use for observability use-cases, comparing statistics on the dashboard or reviewing the request history with the extra context.
 
 ---
 
