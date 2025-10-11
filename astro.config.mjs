@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import svgr     from 'vite-plugin-svgr'
+import svgr from 'vite-plugin-svgr';
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,7 +37,7 @@ export default defineConfig({
           items: [
             { label: 'Quick start', slug: 'docs/getting-started/quick-start' },
             { label: 'Installation', slug: 'docs/getting-started/installation' },
-            { label: 'Quick OpenAPI Mocking', slug: 'docs/getting-started/mocking-quick-start' },
+            { label: 'Quick OpenAPI Mocking', slug: 'docs/getting-started/mocking-quick-start' }
           ]
         },
         {
@@ -52,7 +52,13 @@ export default defineConfig({
         },
         {
           label: 'Features',
-          autogenerate: { directory: 'docs/features' }
+          // autogenerate: { directory: 'docs/features' }
+          items: [
+            { label: 'Rules Engine', slug: 'docs/features/inspectr-rules-engine' },
+            { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
+            { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
+            { label: 'Access Authentication', slug: 'docs/features/access-authentication' }
+          ]
         },
         {
           label: 'Configuration',
@@ -64,12 +70,9 @@ export default defineConfig({
           items: [
             { label: 'Debugging APl Traffic', slug: 'docs/guides/api-traffic-debugging' },
             { label: 'Exposing Services Publicly', slug: 'docs/guides/exposing-publicly' },
-            { label: 'Access Authentication', slug: 'docs/guides/access-authentication' },
             { label: 'Proxying a public API', slug: 'docs/guides/proxy-public-api' },
             { label: 'Inspecting Frontend API Requests', slug: 'docs/guides/frontend-inspection' },
             { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
-            { label: 'Mocking API Responses', slug: 'docs/guides/mocking' },
-            { label: 'Using Response Overrides', slug: 'docs/guides/response-override' },
             { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' },
             { label: 'Observability for MCP Agents', slug: 'docs/guides/mcp-observability' }
           ]
@@ -86,14 +89,14 @@ export default defineConfig({
       ],
       components: {
         ThemeSelect: './src/components/EmptyThemeSelect.astro', // Path to your empty component
-        Header: './src/components/starlight/Header.astro', // Custom header component
+        Header: './src/components/starlight/Header.astro' // Custom header component
       },
       customCss: [
         './src/styles/docs.css',
         './src/styles/reactflow-overrides.css',
         './src/styles/custom-header.css',
-        './src/styles/starlight-theme.css',
-      ],
+        './src/styles/starlight-theme.css'
+      ]
     }),
     sitemap({
       changefreq: 'weekly',
@@ -125,7 +128,7 @@ export default defineConfig({
           const staticPageFileByPath = new Map([
             ['/', 'src/pages/index.astro'],
             ['/launch/', 'src/pages/launch.astro'],
-            ['/pricing/', 'src/pages/pricing.astro'],
+            ['/pricing/', 'src/pages/pricing.astro']
           ]);
           const astroFile = staticPageFileByPath.get(p);
           if (astroFile) {
@@ -135,9 +138,10 @@ export default defineConfig({
               return { ...item, lastmod: new Date(stat.mtimeMs) };
             }
           }
-        } catch {}
+        } catch {
+        }
         return item;
-      },
+      }
     })
     ,
     {
