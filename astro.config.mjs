@@ -51,6 +51,10 @@ export default defineConfig({
           ]
         },
         {
+          label: 'Features',
+          autogenerate: { directory: 'docs/features' }
+        },
+        {
           label: 'Configuration',
           autogenerate: { directory: 'docs/configuration' }
         },

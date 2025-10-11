@@ -1,0 +1,180 @@
+
+---
+title: Rules Engine
+description: Classify, enrich, and analyze API requests and webhook events
+---
+import { Aside, Badge } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import ruleForm from '../../../../assets/features/rules/rules-form.png';
+import ruleCreate from '../../../../assets/features/rules/rules-create.png';
+import ruleImport from '../../../../assets/features/rules/rules-import.png';
+import ruleOverview from '../../../../assets/features/rules/rules-overview.png';
+import ruleTemplates from '../../../../assets/features/rules/rules-templates.png';
+import opsHistoryFilter from '../../../../assets/features/rules/tag-history-filter.png';
+import opsDetails from '../../../../assets/features/rules/tag-request-details.png';
+import statsFilter from '../../../../assets/features/rules/tag-statistics-filter.png';
+import statsCompare from '../../../../assets/features/rules/tag-statistics-compare.png';
+
+
+<Aside type="note" icon="rocket">
+  <Badge text="Upcoming feature" variant="default" />
+  Use Inspectr’s new **Rules Engine** to classify, enrich, and analyze API requests and webhook events with zero code changes.
+</Aside>
+
+<Image src={ruleOverview} alt="Rules Overview" />
+
+## Why Rules?
+
+APIs and webhooks pass through your environments with minimal context. You want to answer questions like:
+
+- *Which requests belong to which test run?*
+- *Which connector or MCP tool produced this call?*
+- *How many 5xx errors happened on auth routes last night?*
+- *What’s the latency of “version: 1.0.1” since the last deploy?*
+
+The **Rules Engine** lets you **conditionally enrich operations** as they are being forwarded by Inspectr.
+
+You define rules that match on request/response attributes (path, method, headers, body fields, status, latency, etc.) and **attach tags** (and other actions) automatically.
+
+Those tags can be used in all capabilities of Inspectr:
+
+- Tags appear on **Request Details**
+- **Request History** can be filtered by tags
+- **Statistics** dashboards can be filtered by tags
+- **Compare** view can chart two tag populations side-by-side
+
+This turns raw traffic into labeled datasets you can slice, measure, and improve.
+
+----
+
+## What can you configure
+
+<Image src={ruleForm} alt="Rules Form" />
+
+A Rule has three parts:
+
+1. **Event trigger** → when the rule should run (e.g., `operation.completed`)
+
+2. **Conditions** → what must match (JSONPath, headers, status, latency, etc.)
+
+3. **Actions** → what to do when it matches (e.g., add one or more tags)
+
+
+Common use-cases:
+
+- Tag requests by **version**, **environment**, **feature flag**, **connector**
+- Mark MCP actions by **tool**, **prompt**, **resource**
+- Group specific endpoints (e.g., `endpoint.auth`)
+- Label anomalies (e.g., `ERROR: 5xx`, `ERROR: 405`)
+- Add performance context (e.g., `HTTP: performance monitoring`, `p95>200ms`)
+
+---
+
+## Configure Rules
+
+You can create rules three ways in the UI:
+
+### 1. Create from scratch
+
+<Image src={ruleCreate} alt="Rules Create" />
+
+1. Go to **Rules → Add rule**.
+
+2. **Event Trigger:** choose **Operation Completed**.
+
+3. **Conditions:** add one or more conditions.
+
+    Example:
+      - Type: **JSON path**
+      - Path: `$.request.path`
+      - Compare value: `/api/versions`
+
+4. **Actions:** Select on of the available actions.
+    - **Static Tags** (inspectr.tag_static) → add one or more fixed tags (example: `ENV: staging`, `FEATURE: checkout`).
+    - **Dynamic Tags** (inspectr.tag_dynamic) → compute tags from the request/response (JSONPath/header extraction, templating), example: `ENDPOINT:$.request.path` or `STATUS:$.response.status`.
+    - **Git Branch Tag** (inspectr.tag_git_branch) → attach the current Git branch/tag/commit as a tag (great for CI runs), example: `GIT: main` or `GIT: feature/x`.
+    - **File Value Tag** (inspectr.tag_file_value) → read a local file and tag with its content (version file, build number), example: `VERSION: 1.2.3` from ./VERSION.
+    - **Remote HTTP Tag** (inspectr.tag_remote_http) → call an external HTTP endpoint during rule execution and tag with its response (lookup env/tenant/feature flags), example: `TENANT_TIER: gold`.
+
+5. Save.
+
+This produces tags that will appear on each matching operation.
+
+### 2. Start from a template
+
+<Image src={ruleTemplates} alt="Rules Templates" />
+
+1. **Rules → Start from template**.
+
+2. Pick a template, e.g.:
+   
+      - **Tag 5xx responses** (monitors 5xx patterns)
+   
+      - **Surface auth failures** (flags 4xx on auth endpoints)
+   
+      - **MCP Visibility** templates (classify MCP traffic by tool/prompt/resource)
+
+3. Click **Use template**, tweak conditions/actions, save.
+
+Templates are the fastest way to bootstrap standard monitoring and MCP visibility.
+
+### 3. Import a rule (YAML)
+
+<Image src={ruleImport} alt="Rules Import" />
+
+1. **Rules → Import rule**.
+
+2. Paste YAML or upload a file.
+
+3. Click **Import** (optionally choose **Overwrite existing rules**).
+
+<Aside>Tip: Keep your “starter rules” in a repo so you can import them for any workspace.</Aside>
+
+---
+
+## What the results look like
+
+Once rules are active, and you use the "tag" actions:
+
+### Request Details
+
+<Image src={opsDetails} alt="Operation details" />
+
+- Matching requests show your tags directly on the **Request Details** page (example: `GIT: <branch>`, `HTTP: performance monitoring`, `TESTRUN: 123`, `VERSION: 1.0.0`).
+
+### Filter Operation History by Tags
+
+<Image src={opsHistoryFilter} alt="Operations Filter" />
+
+- In **Request History**, open **Filter & Sort**, add one or more tags to narrow the list (e.g., `VERSION: 1.0.0`, `alert.internal_server_error`, or your MCP tags).
+
+### Filter Statistics by Tags
+
+<Image src={statsFilter} alt="Statistics Filter" />
+
+- In **Statistics → Overview**, select a tag to scope the dashboard (Total Requests, Avg Response Time, Success/Error rate, volume by status buckets, time series).
+
+### Compare Two Tag Statistics
+
+<Image src={statsCompare} alt="Statistics Compare" />
+
+- In **Statistics → Compare**, pick two tags (e.g., `endpoint.api_versions` vs `ERROR: 405`) and Inspectr will chart both cohorts side-by-side over the selected time range.
+
+- Great for A/B environments (`ENV: staging` vs `ENV: prod`), feature flags,... .
+
+----
+
+## Recommended tagging conventions
+
+Adopt consistent namespaces so you can filter quickly:
+
+- `ENV: dev|staging|prod`
+- `VERSION: 1.2.3` (client/app version or API version)
+- `TESTRUN: <id>` (suite or CI build number)
+- `FEATURE: <name>` (flag/experiment)
+- `SERVICE: <name>` (downstream API service)
+- `ENDPOINT: <token>` (if you prefer a single tag, otherwise `endpoint.*`)
+- `ERROR: 4xx|5xx|405|timeout`
+- `LATENCY: p95>200ms`
+- `MCP_TOOL:<tool>`, `MCP_PROMPT:<prompt>`, `RESOURCE:<id>`
