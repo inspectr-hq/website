@@ -1,0 +1,107 @@
+---
+title: Exposing Local EventCatalog
+description: Visualize and document events with EventCatalog.
+---
+
+import { Image } from 'astro:assets';
+
+import { Aside } from '@astrojs/starlight/components';
+
+import eventCatalog from '../../../../assets/guides/eventcatalog.png';
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowEventCatalog.jsx';
+
+## What is EventCatalog?
+
+**[EventCatalog](https://www.eventcatalog.dev/)** is an open-source, docs-as-code tool for event-driven and microservice architectures. It lets you describe **domains, services, and messages (events/commands/queries)**, attach schemas (e.g., AsyncAPI/OpenAPI), and keep everything discoverable for your teams. It’s technology-agnostic, pluggable, and self-hosted.
+
+<Image src={eventCatalog} alt="EventCatalog hero" />
+
+## Why EventCatalog?
+
+Documenting events in a clear and consistent way is often complex and hard to navigate. This is where EventCatalog truly shines.
+It provides a powerful portal that lets you explore events from different perspectives; making it easy to understand how your architecture fits together and how events and commands flow between services.
+
+EventCatalog is the perfect tool for event documentation and serves as a central portal because it offers:
+
+- **Single source of truth** → for producers, consumers, channels, and schemas.
+- **Visual browsing** → navigate and search through events, commands, and channels in an intuitive, visual way.
+- **Discoverability for developers** → a searchable catalog of events, services, and domains with ownership context.
+- **Safer change management** → track schema evolution and version history over time.
+- **Cross-team alignment** → diagrams, tables, and embeddable views (e.g., Backstage plugin, OpenAPI/EventBridge plugins).
+- **Docs-as-code workflow** → markdown-based, generator-friendly, and CI/CD ready.
+
+---
+
+## Quickstart: Run & Expose EventCatalog locally
+
+1. **Scaffold a catalog**
+
+```bash
+npx @eventcatalog/create-eventcatalog@latest my-catalog cd my-catalog
+npm install
+```
+
+You can scaffold a default or empty catalog; the CLI creates the structure for you.) [More info about setting up EventCatalog](https://eventcatalog.dev/docs/development/getting-started/installation)
+
+2. **Build the EventCatalog & Preview**
+
+```bash
+npm run build && npm run preview
+```
+
+By default the EventCatalog preview server runs at `http://localhost:3000`.
+
+3. **Expose EventCatalog**
+
+<Aside type="tip" icon="approve-check" title="Goal">
+Make `http://localhost:3000` reachable via a secure, shareable URL for a few teammates — without deploying.
+</Aside>
+
+**Concept:** Inspectr can forward a **public URL** to a **local EventCatalog**. You work on documenting your EventCatalog locally; teammates can open the public URL.
+
+<FlowIngress client:only="react" />
+
+Use your Inspectr CLI to expose the local port where EventCatalog runs (3000). Include an **access code / channel code** so only invited teammates can open it.
+
+```bash
+npx @inspectr/inspectr --backend=http://localhost:3000 --expose
+```
+
+- **Output:** Inspectr prints a **public URL**.
+- **Teammates open:** `https://<inspectr-url>`
+- EventCatalog stays at **localhost:3000** on your machine; Inspectr handles the secure relay.
+
+---
+
+[//]: # (## Security & good practices when sharing)
+
+[//]: # (- **Always use an access code** &#40;e.g., `--channel-code`&#41; and rotate it when you’re done. &#40;You noted you want this on by default—keep it!&#41;)
+
+[//]: # (- **Prefer static builds** for demos; fewer moving parts across the tunnel. [eventcatalog.dev]&#40;https://eventcatalog.dev/docs/development/deployment/build-and-deploy?utm_source=chatgpt.com&#41;)
+
+[//]: # (- **Limit exposure time**: stop the Inspectr session when you’re finished.)
+
+[//]: # (- **Keep the URL private**: only share with those who need access.)
+
+[//]: # (- If you need LAN-only access &#40;no internet&#41;, set `host: '0.0.0.0'` and share your machine’s IP on the same network instead of exposing. [eventcatalog.dev]&#40;https://www.eventcatalog.dev/docs/api/config?utm_source=chatgpt.com&#41;)
+
+[//]: # (---)
+
+## Going further with EventCatalog
+
+- **Explore the demo** to understand structure and navigation. [EventCatalog Demo](https://demo.eventcatalog.dev/docs?utm_source=chatgpt.com)
+- **Plugins**: pull in OpenAPI or EventBridge resources to enrich services and messages. [EventCatalog Plugins](https://eventcatalog.dev/docs/plugins/openapi/intro)
+- **Backstage integration**: embed EventCatalog views in your internal developer portal. [EventCatalog Backstage](https://www.eventcatalog.dev/docs/development/plugins/backstage/intro)
+- **Hosting options**: containerize/server deploy when you’re ready to make it permanent. [EventCatalog Hosting](https://eventcatalog.dev/docs/development/deployment/hosting-options)
+
+---
+
+## Summary
+
+1. **Run EventCatalog**
+   `npm run build && npm run preview`  (serves on `http://localhost:3000`).
+
+2. **Share it** with teammates via Inspectr: `npx @inspectr/inspectr --backend=http://localhost:3000 --expose`
+
+---

@@ -80,7 +80,8 @@ export function buildIngressFlow({
       data: {
         ...node.data,
         ...override         // allow label, icon, showIcon, etc
-      }
+      },
+      style: { ...node.style, ...override.style }
     };
   };
 
