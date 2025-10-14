@@ -1,7 +1,10 @@
 ---
 title: Installation
-description: Install Inspectr via NPM, Homebrew, or binaries
+description: Install Inspectr via NPM, Homebrew, Docker, or binaries
 ---
+
+import { Image } from 'astro:assets';
+import dockerTerminal from '../../../../assets/docs/docker-terminal.png';
 
 [//]: # (# Install Inspectr)
 
@@ -12,6 +15,7 @@ Getting started with **Inspectr** is simple. The table below summarizes the diff
 | npx      | Quick one-off runs without installing                                    |
 | Homebrew | macOS users who want easy updates                                        |
 | npm      | Cross-platform installation using npm for Windows, macOS, Linux          |
+| Docker   | Containerized deployments using pre-built images from GitHub Container Registry |
 | Binary   | Cross-platform installation using the binaries for Windows, macOS, Linux |
 
 ## Quick installation (npx)
@@ -84,8 +88,70 @@ Download the binary for your platform from [GitHub Releases](https://github.com/
 
 ---
 
+### Docker
+
+Run Inspectr as a container using images hosted on [GitHub Container Registry](https://ghcr.io/inspectr-hq/inspectr:latest):
+
+```bash
+docker pull ghcr.io/inspectr-hq/inspectr:latest
+docker run --rm -p 4004:4004 -p 8080:8080 inspectr
+```
+
+<Image src={dockerTerminal} alt="Run Insecptr via Docker" />
+
+* `-p 4004:4004` exposes the UI so you can open Inspectr in your browser at [http://localhost:4004](http://localhost:4004).
+* `-p 8080:8080` exposes the API endpoint for testing with your preferred API client.
+* The container runs as a single service, making it easy to integrate Inspectr into CI pipelines or local development environments.
+
+#### Docker Compose
+
+You can also run Inspectr using Docker Compose for easier configuration and to persist data across runs:
+
+```yaml
+version: "3.9"
+
+services:
+  inspectr:
+    image: ghcr.io/inspectr-hq/inspectr:latest
+    container_name: inspectr
+    ports:
+      - "4004:4004" # Inspect App (http://localhost:4004)
+      - "8080:8080" # Proxy Port (http://localhost:8080)
+    volumes:
+      - inspectr-data:/data
+    command: >
+      inspectr
+      --listen=:8080
+      --app-port=4004
+    restart: unless-stopped
+
+volumes:
+  inspectr-data:
+```
+
+Then start Inspectr with:
+
+```bash
+docker compose up -d
+```
+
+Inspectr will now be accessible at:
+
+UI → http://localhost:4004
+API → http://localhost:8080
+
+To stop and remove containers, networks and volumes:
+
+```bash
+docker compose down
+```
+
+---
+
 ## Next step
 
 You’re ready to run Inspectr and start debugging API traffic in seconds.
 
 [Quick Start →](/docs/getting-started/quick-start)
+
+Explore the [configuration options](/docs/configuration) to customize your Inspectr settings.
