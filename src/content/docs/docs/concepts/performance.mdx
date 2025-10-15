@@ -1,19 +1,25 @@
 ---
-title: Performance Principles
-description: Understand how Inspectr delivers fast, secure request handling without compromising throughput.
+title: Built for Speed, Designed for Privacy
+description: Understand how Inspectr delivers fast, secure request handling without compromising throughput or privacy.
 ---
+
+Understand how Inspectr delivers fast, secure request handling without compromising throughput or privacy.
 
 ## Why speed and performance matter
 
-At **Inspectr**, we take performance and security seriously. Every design choice is driven by a simple principle: *handle every request as fast and safely as possible*.
+At **Inspectr**, we take performance and privacy seriously.
 
-## Built for throughput
+Every design choice is driven by a simple principle:
+
+> *Handle every request as fast and safely as possible*.
+
+### Built for throughput
 
 Inspectr is designed to process **large volumes of requests per second** without introducing bottlenecks. The architecture is optimized around the **hot path**: receiving an incoming request and returning the response immediately.
 
 No added delays. No hidden layers. Just speed.
 
-## Why we chose Go
+### Why we chose Go
 
 Go lets Inspectr ship as a single binary that is easy to run anywhere.
 
@@ -23,7 +29,17 @@ Go lets Inspectr ship as a single binary that is easy to run anywhere.
 
 ## Keeping it local
 
-All operations are stored local-only; ensuring fast throughput, reduced latency, and improved security by keeping sensitive data on your own system.
+> _**Full Data Privacy & Control**:
+All operations are stored local-only; ensuring fast throughput, reduced latency, and improved security by keeping sensitive data on your own system_.
+
+Inspectr was designed as a **local-first tool**, not a SaaS service. All captured requests and responses are processed, analyzed, and stored entirely on your machine - never sent to any remote server.This means you remain in full control of your data, your keys, and all payloads.
+
+Even when using the `--expose` option, Inspectr functions purely as a lightweight proxy that forwards encrypted traffic directly to your local instance without retaining or inspecting it on the ingress side.
+
+This local-only approach means: no hidden backends or centralized data stores — just your environment, under your control.
+It’s a privacy-by-design model that keeps sensitive information where it belongs: with you.
+
+In contrast to traditional tunneling or debugging tools, Inspectr provides the same convenience and real-time inspection capabilities without ever transferring ownership of your data.
 
 ## Processing beyond the request/response
 
@@ -36,6 +52,6 @@ Inspectr includes optional capabilities that never interfere with the primary re
 
 Each feature runs alongside the hot path so Inspectr can scale while staying responsive. All are carefully designed so they **never impact request handling performance**.
 
-## Security and performance, together
+## Security, privacy, and performance - together
 
-Performance without security is risky; security without performance is frustrating. Inspectr is commited to deliver both at once so you can rely on it even in demanding environments.
+Performance without security is dangerous; security without privacy is incomplete. Inspectr delivers all three, designed for developers who need speed without sacrificing control.
