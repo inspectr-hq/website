@@ -46,7 +46,7 @@ export default defineConfig({
           items: [
             { label: 'Inspectr Architecture', slug: 'docs/concepts/architecture' },
             { label: 'How It Works', slug: 'docs/concepts/how-it-works' },
-            { label: 'Performance & Privacy Principles', slug: 'docs/concepts/performance' },
+            { label: 'Performance & Privacy Principles', slug: 'docs/concepts/performance-privacy' },
             { label: 'Accelerate API-first workflows', slug: 'docs/concepts/api-lifecycle' }
           ]
         },
