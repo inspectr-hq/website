@@ -52,17 +52,17 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Product</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#features" className="hover:text-brand-primary">
+                <a href="/#features" className="hover:text-brand-primary">
                   Features
                 </a>
               </li>
               <li>
-                <a href="#use-cases" className="hover:text-brand-primary">
+                <a href="/#use-cases" className="hover:text-brand-primary">
                   Use Cases
                 </a>
               </li>
               <li>
-                <a href="/docs" className="hover:text-brand-primary">
+                <a href="/docs/" className="hover:text-brand-primary">
                   Documentation
                 </a>
               </li>

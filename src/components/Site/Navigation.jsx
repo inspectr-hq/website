@@ -30,7 +30,7 @@ export default function Navigation() {
               Use Cases
             </a>
             <a
-              href="/docs"
+              href="/docs/"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Documentation
@@ -86,7 +86,7 @@ export default function Navigation() {
               Use Cases
             </a>
             <a
-              href="/docs"
+              href="/docs/"
               className="block text-gray-300 hover:text-brand-primary transition-colors"
             >
               Documentation
