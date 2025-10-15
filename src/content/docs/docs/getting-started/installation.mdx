@@ -94,6 +94,7 @@ Run Inspectr as a container using images hosted on [GitHub Container Registry](h
 
 ```bash
 docker pull ghcr.io/inspectr-hq/inspectr:latest
+docker tag ghcr.io/inspectr-hq/inspectr:latest inspectr
 docker run --rm -p 4004:4004 -p 8080:8080 inspectr
 ```
 
