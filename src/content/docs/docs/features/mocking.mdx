@@ -1,5 +1,6 @@
 ---
 title: Mocking API Responses
+description: A deep-dive into how to easily mock APIs with Inspectr.
 ---
 
 import { Image } from 'astro:assets';
@@ -23,6 +24,12 @@ Inspectr leverages Stoplight Prism behind the scenes, giving you access to both 
 ---
 
 ## Use Cases
+
+There a great articles about why and how it is useful to mock API responses:
+- [Just-in-Time API Prototyping](https://apichangelog.substack.com/p/just-in-time-api-prototyping) - By [Bruno Pedro](https://substack.com/@bpedro)
+- [Can a Mock Server be an API Sandbox?](https://apichangelog.substack.com/p/can-a-mock-server-be-an-api-sandbox)  - By [Bruno Pedro](https://substack.com/@bpedro)
+
+Very common use cases for mocking are the following:
 
 - Frontend development before backend is available
 - Testing edge cases (timeouts, errors, unexpected payloads)

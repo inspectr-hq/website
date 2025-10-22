@@ -44,7 +44,7 @@ export function FlowIngress() {
     <FlowVisualizer
       nodeData={nodes}
       edgeData={edges}
-      style={{ width: '100%', height: '100px' }}
+      style={{ width: '100%', height: '120px' }}
     />
   );
 }

@@ -26,21 +26,24 @@ export function FlowBase() {
 
 
 export function FlowIngress() {
-  const { nodes, edges } = useMemo(
-    () =>
-      buildIngressFlow({
-        overrides: {'group_public': { label: 'mcp-demo.in-spectr.dev'}},
-        start: { label: 'ChatGPT', icon: clientIcon },
-        end: { label: 'MCP Server', icon: serviceIcon, width: 140 }
-      }),
-    []
-  );
+  const { nodes, edges } = useMemo(() => {
+    const flow = buildIngressFlow({
+      overrides: { 'group_public': { label: 'mcp-demo.in-spectr.dev' },'group_local': { style: { height: 100 } }  },
+      start: { label: 'ChatGPT', icon: clientIcon },
+      end: { label: 'MCP Server', icon: serviceIcon, width: 140 }
+    });
+    // filter out Inspectr App (id = '5')
+    return {
+      nodes: flow.nodes.filter(n => n.id !== '5'),
+      edges: flow.edges.filter(e => e.source !== '5' && e.target !== '5')
+    };
+  }, []);
 
   return (
     <FlowVisualizer
       nodeData={nodes}
       edgeData={edges}
-      style={{ width: '100%', height: '210px' }}
+      style={{ width: '100%', height: '120px' }}
     />
   );
 }
