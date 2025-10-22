@@ -27,12 +27,12 @@ You're developing a web app and want to:
 Point Inspectr to your API backend:
 
 ```bash
-inspectr --listen=:8080 --backend=https://api.example.com
+inspectr --backend=https://api.example.com
 ```
 
 This sets Inspectr to:
 
-* Receive requests on `http://localhost:8080`
+* Receive requests on `http://localhost:8080` (use `--listen=` to change this)
 * Forward them to `https://api.example.com`
 * Log and display traffic in real time
 
@@ -73,7 +73,7 @@ Visit [http://localhost:4004](http://localhost:4004) to:
 If you want to validate the original backend CORS validation, you can turn off the CORS handling by Inspectr and let the CORS setting of the backend handle the validation:
 
 ```bash
-inspectr --listen=:8080 --backend=https://api.example.com --backend-cors=true
+inspectr --backend=https://api.example.com --backend-cors=true
 ```
 
 By default, Inspectr will allow preflight OPTIONS requests and pass through headers appropriately.

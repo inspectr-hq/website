@@ -47,7 +47,7 @@ http://localhost:8000
 Run Inspectr to forward incoming requests to your Laravel app:
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:8000
+inspectr --backend=http://localhost:8000
 ```
 
 Now you can access your Laravel routes via Inspectr at `http://localhost:8080`.
@@ -74,7 +74,6 @@ Use Inspectr’s public ingress mode to receive traffic from external services (
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:8000 \
   --expose \
   --channel=laravel-demo \

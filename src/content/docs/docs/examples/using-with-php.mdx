@@ -65,7 +65,7 @@ http://localhost:8000
 In a new terminal, launch Inspectr and point it at the PHP server:
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:8000
+inspectr --backend=http://localhost:8000
 ```
 
 Send a request through Inspectr to confirm it forwards correctly:
@@ -92,7 +92,6 @@ Enable Inspectr’s ingress mode to make your local PHP endpoint reachable from 
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:8000 \
   --expose \
   --channel=php-demo \

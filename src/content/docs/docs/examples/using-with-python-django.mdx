@@ -40,7 +40,7 @@ Your app will be available at `http://localhost:8000`.
 ## Step 2: Run Inspectr as a Proxy
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:8000
+inspectr --backend=http://localhost:8000
 ```
 
 Send a request via Inspectr:
@@ -59,7 +59,6 @@ Requests will be forwarded to Django and displayed in the Inspectr App UI at [ht
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:8000 \
   --expose \
   --channel=django-demo \

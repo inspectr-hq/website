@@ -41,10 +41,10 @@ results in
 Run Inspectr locally and point it at the remote API using the `--backend` flag:
 
 ```bash
-inspectr --listen=:8080 --backend=https://api.openbrewerydb.org
+inspectr --backend=https://api.openbrewerydb.org
 ```
 
-* Inspectr listens on `:8080`.
+* Inspectr listens default on `:8080` (use `--listen=` to change this).
 * Incoming requests are forwarded to `https://api.openbrewerydb.org`.
 * Request and response details appear in the console and at [http://localhost:4004](http://localhost:4004).
 

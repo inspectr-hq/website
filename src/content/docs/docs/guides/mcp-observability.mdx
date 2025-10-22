@@ -5,6 +5,10 @@ description: Track Model Context Protocol API usage with Inspectr
 
 import { FlowBase } from '../../../../components/DocFlows/FlowMcp.jsx';
 
+import { Image } from 'astro:assets';
+
+import inspectrExpose from '../../../../assets/guides/inspectr-expose.png';
+
 <FlowBase client:only="react" />
 
 AI agents powered by the Model Context Protocol (MCP) can access a growing ecosystem of tools and data sources. As these agents invoke APIs on your behalf, visibility into that traffic becomes essential. This guide explains why API usage observability matters, gives an overview of MCP, and shows how Inspectr can reveal which endpoints an agent calls.
@@ -43,8 +47,10 @@ This standardized approach allows agents to work with real data and perform acti
 [Inspectr](https://inspectr.dev) operates as a transparent proxy. By running Inspectr between the MCP client and server you capture every request and response:
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:3000
+inspectr --backend=http://localhost:3000
 ```
+
+<Image src={inspectrExpose} alt="Inspectr exposing MCP server" />
 
 - The MCP client targets `http://localhost:8080` instead of the server directly.
 - Inspectr forwards traffic to `localhost:3000` and records the exchange.

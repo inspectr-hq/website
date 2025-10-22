@@ -27,10 +27,10 @@ python app.py
 Use the `--backend` flag to forward requests from Inspectr to your backend:
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:3000
+inspectr --backend=http://localhost:3000
 ```
 
-* Inspectr listens on port `8080`.
+* Inspectr listens on the default port `8080` (use `--listen=` to change this).
 * Incoming requests will be forwarded to `localhost:3000`.
 * All requests/responses will be captured and shown in:
 

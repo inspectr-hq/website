@@ -16,7 +16,7 @@ Inspectr simplifies debugging these scenarios by acting as a proxy that automati
 Run Inspectr and point it to your API backend:
 
 ```bash
-inspectr --listen=:8080 --backend=https://api.example.com
+inspectr --backend=https://api.example.com
 ```
 
 Inspectr listens locally on `http://localhost:8080` and forwards requests to your backend. It will respond to preflight `OPTIONS` requests and add `Access-Control-Allow-*` headers so your browser can communicate without CORS errors.
@@ -46,7 +46,7 @@ Open the Inspectr UI at [http://localhost:4004](http://localhost:4004) to see ea
 If you prefer to test your backend's own CORS configuration, disable Inspectr's built-in handling:
 
 ```bash
-inspectr --listen=:8080 --backend=https://api.example.com --backend-cors=true
+inspectr --backend=https://api.example.com --backend-cors=true
 ```
 
 This forwards the browser's CORS preflight directly to your backend.

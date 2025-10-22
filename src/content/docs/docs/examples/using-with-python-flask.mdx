@@ -53,7 +53,7 @@ python app.py
 ## Step 2: Run Inspectr as a Proxy
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:5000
+inspectr --backend=http://localhost:5000
 ```
 
 Make a request via Inspectr:
@@ -75,7 +75,6 @@ Inspectr will forward the request to Flask, capture the response, and show it in
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:5000 \
   --expose \
   --channel=flask-demo \

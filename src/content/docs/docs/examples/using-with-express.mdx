@@ -38,7 +38,7 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 ### 2. Start Inspectr in Front of Your App
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:3000
+inspectr --backend=http://localhost:3000
 ```
 
 Now, make requests to `http://localhost:8080/api/data`. Inspectr will:
@@ -57,7 +57,6 @@ You can expose your local Express server with Inspectr Ingress:
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:3000 \
   --expose \
   --channel=express-demo \

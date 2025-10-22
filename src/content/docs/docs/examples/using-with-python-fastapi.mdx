@@ -54,7 +54,7 @@ uvicorn main:app --port 5001
 ## Step 2: Start Inspectr to Forward Traffic
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:5001
+inspectr --backend=http://localhost:5001
 ```
 
 Make a request via Inspectr:
@@ -75,7 +75,6 @@ curl http://localhost:8080/hello
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:5001 \
   --expose \
   --channel=fastapi-demo \

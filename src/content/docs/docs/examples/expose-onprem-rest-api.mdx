@@ -44,7 +44,6 @@ After the installation, start Inspectr and configure it to point to your interna
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://intranet.local:5000 \
   --expose \
   --channel=internal-api \
@@ -59,10 +58,10 @@ https://internal-api.in-spectr.dev
 
 Share this URL with partners or tools that must access your on-prem service.
 
-* Starts Inspectr locally on port `8080`
+* Starts Inspectr locally on the default port `8080` (use `--listen=` to change this)
 * Forwards incoming requests to your internal API
 * Access the internal setup over a public URL
-* View captured traffic at [http://localhost:4004](http://localhost:4004).
+* View captured traffic at [http://localhost:4004](http://localhost:4004)
 
 You can now share the public Inspectr URL with external stakeholders or services that need temporary access to your on-prem system.
 

@@ -45,13 +45,13 @@ You can provide the OpenAPI documents as a **local file** or as a **public URL**
 Local File:
 
 ```bash
-inspectr --listen=:8080 --mock-backend=./openapi.yaml
+inspectr --mock-backend=./openapi.yaml
 ```
 
 Public URL:
 
 ```bash
-inspectr --listen=:8080 --mock-backend=https://inspectr.dev/demo/hello.openapi.yaml
+inspectr --mock-backend=https://inspectr.dev/demo/hello.openapi.yaml
 ```
 
 ## Quick Launch OpenAPI mock
@@ -191,7 +191,7 @@ Save it as `openapi.yaml`.
 ### Step 2: Start Inspectr in Static Mock Mode
 
 ```bash
-inspectr --listen=:8080 --mock-backend=./openapi.yaml
+inspectr --mock-backend=./openapi.yaml
 ```
 
 - Returns mock responses based on OpenAPI examples

@@ -36,7 +36,7 @@ Inspectr fits into each stage, providing tooling that saves time and reduces fri
 Before any code is written, you can use Inspectr’s **Mocking with OpenAPI** feature to validate your API design. With the [`--mock-backend`](../../configuration/cli-options/#mocking-with-openapi) flag, Inspectr serves responses directly from your specification, even when no backend exists.
 
 ```bash
-inspectr --listen=:8080 --mock-backend=./openapi.yaml
+inspectr --mock-backend=./openapi.yaml
 ```
 
 Dynamic mocks are also available via `--mock-dynamic=true`, letting frontend and SDK teams iterate immediately.

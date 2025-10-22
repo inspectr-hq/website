@@ -42,7 +42,7 @@ By default, this runs on `http://localhost:5000`.
 Run Inspectr and forward traffic to your running .NET backend:
 
 ```bash
-inspectr --listen=:8080 --backend=http://localhost:5000
+inspectr --backend=http://localhost:5000
 ```
 
 Now, any requests made to `http://localhost:8080` will be:
@@ -67,7 +67,6 @@ You can expose your .NET API to the internet via Inspectr’s Ingress relay:
 
 ```bash
 inspectr \
-  --listen=:8080 \
   --backend=http://localhost:5000 \
   --expose \
   --channel=dotnet-app \
