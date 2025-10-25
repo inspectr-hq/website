@@ -56,6 +56,7 @@ export default defineConfig({
           items: [
             { label: 'Rules Engine', slug: 'docs/features/inspectr-rules-engine' },
             { label: 'Statistics', slug: 'docs/features/inspectr-statistics' },
+            { label: 'Tracing', slug: 'docs/features/inspectr-tracing-insights' },
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' }

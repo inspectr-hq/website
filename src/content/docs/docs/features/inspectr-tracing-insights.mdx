@@ -1,0 +1,106 @@
+---
+title: "Tracing Insights"
+description: "Follow every request across the conversation — from first hit to final response"
+excerpt: "Inspectr Tracing connects the dots between related API calls. Visualize complete request flows, latency per step, and contextual metadata — helping you debug distributed or chained API interactions with precision."
+---
+import { Aside, Badge } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import tracingDetails from '../../../../assets/features/tracing/tracing-insights.png';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="Upcoming feature" variant="default" />
+  Use Inspectr’s new **Tracing** view to understand the full flow of your API interactions.
+</Aside>
+
+The **Tracing & Insights** view reveals how requests are connected across sessions, tools, or backends.
+Each trace groups related requests by their **correlation ID** and **trace ID**, letting you see the full conversation timeline in one place.
+
+Inspectr automatically correlates events as they flow through your local proxy, remote ingress, and backends — showing when, where, and how each call occurred.
+
+---
+
+## Tracing feature
+
+
+### Trace Timeline
+Inspectr displays every related request in a **nested timeline**:
+- Visualize the order and duration of each request
+- See parent-child spans for chained or recursive calls
+- Review total trace duration and time between events
+
+This makes it easy to understand how an incoming webhook triggered a downstream API, or how multiple tools interacted in a workflow.
+
+### Correlation Context
+Each trace includes the following identifiers:
+- **Operation ID** — the captured OpenAPI operation
+- **Correlation ID** — the shared ID linking related requests
+- **Trace ID** — the unique identifier for each timeline
+- **Trace Source** — where the event originated (e.g. proxy, ingress, MCP client)
+
+Use these fields to pinpoint where a problem starts or to track flow consistency across environments.
+
+### Metadata & Payloads
+Inspectr keeps context close to the data:
+- **Metadata** sections show proxy origin, client instance, and URL
+- **Response Body** provides a direct view of the payload exchanged
+- All contextual information is available side-by-side — no need to jump between logs
+
+### Duration & Latency
+Each request node includes precise timing information:
+- Request start time
+- Duration in milliseconds
+- Aggregated total span time
+
+Combined, they help you spot bottlenecks, repeated retries, or slow upstream dependencies.
+
+### Tags & Filters
+Attach and filter traces using tags such as:
+- `mcp`
+- `performance:fast`
+- `proxy`
+
+Tags make it simple to isolate behavior related to a specific tool, environment, or rule set.
+
+---
+
+## Typical Use Cases
+
+- **Debugging Webhook Chains** — Understand what happens after your app receives a webhook.
+- **Inspecting Local-to-Remote Flows** — Follow traffic from your local Inspectr proxy to a remote ingress.
+- **Performance Profiling** — Identify which step in a multi-call sequence adds latency.
+- **Validation Testing** — Confirm that automation rules triggered expected downstream calls.
+
+---
+
+## Example
+
+<Image src={tracingDetails} alt="Tracing Overview" />
+
+In the example above:
+- The trace **`mcp-session-42`** shows two `POST /api/mcp/tools` requests
+- Both complete successfully (`200 OK`) with durations of `44 ms` and `9 ms`
+- Metadata reveals the proxy instance (`localhost:8080`) and full call path
+- Response body displays the echoed payload for quick debugging
+
+---
+
+## Why It Matters
+
+APIs rarely operate in isolation.
+A single trigger often cascades into multiple requests — through integrations, middleware, or AI agent calls.
+
+Inspectr’s tracing insights give you **end-to-end visibility** into those conversations.
+You can follow the full path, measure each span, and confidently explain what happened and why.
+
+---
+
+[//]: # (## Next Steps)
+[//]: # ()
+[//]: # (- [Explore Statistics →]&#40;/features/statistics&#41;)
+[//]: # (- [Learn about Rules Engine →]&#40;/features/rules-engine&#41;)
+[//]: # (- [Discover Insights Overview →]&#40;/features/insights&#41;)
+
+---
+
+**Inspectr Tracing & Insights** — because understanding flow is the first step to mastering observability.
