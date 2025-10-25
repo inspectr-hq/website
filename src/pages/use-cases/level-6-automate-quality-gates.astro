@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-6-automate-quality-gates',
+  level: 6,
+  title: 'Automate Quality Gates & Test Scenarios',
+  headline: 'Encode the checks, chaos, and validations you repeat by hand into live traffic rules.',
+  excerpt: 'Apply repeatable rules during capture to validate headers, simulate failures, and tag flows.',
+  // summary: {
+  //   problem: 'Manual verification and tribal rules let regressions slip into production.',
+  //   outcome:
+  //     'Inspectr applies reusable rules to every request so teams automate the painful parts of QA.',
+  // },
+  problem:
+    'You keep retesting the same edge cases by hand. Environments drift. Simple standards like timeouts, headers, and delays are enforced inconsistently.',
+  solution:
+    'With Inspectr, encode repeatable rules that apply during traffic capture: inject delays, simulate failures, tag requests, validate headers, or block patterns. Turn tribal knowledge into checks you can rely on.',
+  helps: [
+    'QA building repeatable scenarios',
+    'Backend teams enforcing contracts and headers',
+    'SREs simulating chaos in lower environments',
+  ],
+  outcomes: [
+    'Consistent, automated pre-prod gauntlet',
+    'Faster feedback loops for risky changes',
+    'Less manual verification and more confidence',
+  ],
+  relatedSlug: 'level-2-test-webhooks',
+  worksWellWith: [
+    'level-2-test-webhooks',
+    'level-5-share-live-docs',
+    'level-8-ask-ai-assistant',
+  ],
+  tryIt: {
+    label: 'Enable rules with the automation guide',
+    href: '/docs/features/inspectr-rules-engine/',
+  },
+  nextSlug: 'level-7-endpoint-insights',
+};
+
+const modules = await Astro.glob('./level-*.astro');
+const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

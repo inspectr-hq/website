@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-8-ask-ai-assistant',
+  level: 8,
+  title: 'Ask an AI Assistant (MCP) for Answers & Actions',
+  headline: 'Use an MCP-compatible assistant to summarize, explain, and act on everything Inspectr observes.',
+  excerpt: 'Let AI connect raw traffic to next steps, from rule suggestions to docs and deployment notes.',
+  // summary: {
+  //   problem: 'You have the data but translating it into action eats cycles across the team.',
+  //   outcome:
+  //     'Inspectr provides an MCP assistant that synthesizes traffic into summaries, rules, and docs grounded in reality.',
+  // },
+  problem:
+    'You have the data, countless requests, failures, and timings, but making sense of it is slow, and translating findings into rules, docs, or test steps takes even longer.',
+  solution:
+    'Inspectr exposes an MCP-compatible AI assistant that can summarize sessions, explain failures, propose rules, and generate documentation from observed behavior, all grounded in your traffic.',
+  helps: [
+    'Leads who need quick, defensible summaries',
+    'QA and devs who want suggested tests and rules',
+    'Writers and advocates seeding docs from reality',
+  ],
+  outcomes: [
+    'Faster, higher-quality decisions',
+    'Less manual synthesis and more shipping',
+    'A connective tissue between what happened and what to do',
+  ],
+  relatedSlug: 'level-0-catch-requests',
+  worksWellWith: ['level-6-automate-quality-gates', 'level-7-endpoint-insights'],
+  tryIt: {
+    label: 'Explore MCP observability',
+    href: '/docs/guides/mcp-observability/',
+  },
+  nextSlug: 'level-0-catch-requests',
+};
+
+const modules = await Astro.glob('./level-*.astro');
+const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

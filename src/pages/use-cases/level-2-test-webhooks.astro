@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-2-test-webhooks',
+  level: 2,
+  title: 'Test Webhooks from Real Providers, Safely',
+  headline: 'Receive real Stripe, GitHub, or Shopify events locally without risking production credentials.',
+  excerpt: 'Expose controlled URLs for providers, capture every delivery, and replay edge cases on demand.',
+  // summary: {
+  //   problem: 'Local webhook testing is brittle, risky, and often blocked on staging deployments.',
+  //   outcome: 'Inspectr gives you secure ingress with history and replay so you can test providers confidently.',
+  // },
+  problem:
+    'You need to receive Stripe, GitHub, or Shopify webhooks on your laptop, but exposing localhost is risky and fiddly. Staging deploys just to test a single event slow you down.',
+  solution:
+    'Inspectr gives you a public, access-controlled URL that forwards events to your local service. Trigger real provider webhooks with confidence, record each delivery, and replay as needed without spinning up infrastructure.',
+  helps: [
+    'Engineers integrating third-party webhooks',
+    'Partners and solutions teams running client demos',
+    'QA verifying edge cases and retries',
+  ],
+  outcomes: [
+    'Safe, fast end-to-end webhook testing',
+    'Full delivery history and payload visibility',
+    'No throwaway staging just for a callback URL',
+  ],
+  relatedSlug: 'level-6-automate-quality-gates',
+  worksWellWith: ['level-6-automate-quality-gates', 'level-5-share-live-docs'],
+  tryIt: {
+    label: 'Follow the webhook debugging guide',
+    href: '/docs/guides/webhook-debugging/',
+  },
+  nextSlug: 'level-3-mock-apis',
+};
+
+const modules = await Astro.glob('./level-*.astro');
+const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

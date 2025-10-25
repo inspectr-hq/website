@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import LevelsDiagram from '../../components/levelsDiagram';
+
+const useCaseModules = await Astro.glob('./level-*.astro');
+const useCases = useCaseModules
+  .map(({ meta }) => meta)
+  .sort((a, b) => a.level - b.level);
+---
+
+<Layout>
+  <Navigation client:load />
+  <main class="mt-20">
+    <section class="bg-gradient-to-b from-brand-dark/80 to-black pt-24 pb-16">
+      <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+        <p class="uppercase tracking-[0.3em] text-xs text-brand-secondary/70">
+          From First Request to Full Observability
+        </p>
+        <h1 class="text-4xl sm:text-5xl font-bold text-balance">
+          Inspectr helps teams move from "I just need to see what's hitting my service" to "we operate
+          our APIs with confidence."
+        </h1>
+        <p class="text-lg text-gray-300">
+          Explore the use cases below, each solving a concrete developer pain, and each one can be
+          adopted on its own.
+        </p>
+      </div>
+    </section>
+
+    <LevelsDiagram />
+
+    <section class="py-20 bg-black/60">
+      <div class="max-w-6xl mx-auto px-4 space-y-12">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {useCases.map((useCase) => (
+            <a
+              href={`/use-cases/${useCase.slug}/`}
+              class="group flex flex-col justify-between rounded-2xl border border-gray-800 bg-black/70 p-6 transition-transform transition-colors hover:-translate-y-1 hover:border-brand-primary/70 hover:bg-black"
+            >
+              <div class="space-y-4">
+                <span class="inline-flex items-center gap-2 rounded-full border border-brand-primary/40 bg-brand-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-primary">
+                  Level {useCase.level}
+                </span>
+                <h2 class="text-2xl font-semibold leading-tight text-white group-hover:text-brand-primary">
+                  {useCase.title}
+                </h2>
+                <p class="text-sm text-gray-400">{useCase.excerpt}</p>
+              </div>
+              <div class="mt-6 flex items-center justify-between text-sm font-semibold text-brand-secondary">
+                <span>Explore level</span>
+                <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

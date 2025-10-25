@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-0-catch-requests',
+  level: 0,
+  title: "Catch Requests When Your Backend Isn't Ready",
+  headline: 'Accept traffic on day one, even if the backend is missing or unstable.',
+  excerpt: 'Keep development moving by capturing and shaping real requests before the backend exists.',
+  // summary: {
+  //   problem: 'Incoming traffic with no stable backend blocks teams and testing.',
+  //   outcome: 'Inspectr catches every call so you can validate payloads and iterate immediately.',
+  // },
+  problem:
+    'Your frontend or a third-party service is already sending requests, but your backend is not built yet, is unstable, or is down. You need to accept and inspect traffic now, not "after the sprint."',
+  solution:
+    "Inspectr's Catch mode accepts incoming requests even without a live backend. You can validate payloads, explore headers, and design the response shape your service will eventually provide. Teams do not stall; they iterate with real inputs on day one.",
+  helps: [
+    'Frontend devs and QA blocked by unavailable APIs',
+    'Backend devs designing request and response shapes with real samples',
+    'Product teams demoing flows before the backend lands',
+  ],
+  outcomes: [
+    'Faster UI prototyping and contract alignment',
+    'Earlier feedback on payloads and auth flows',
+    'Fewer "it worked on my machine" moments',
+  ],
+  relatedSlug: 'level-1-see-and-understand',
+  worksWellWith: ['level-1-see-and-understand', 'level-3-mock-apis'],
+  tryIt: {
+    label: 'Follow the Quick Start guide',
+    href: '/docs/getting-started/quick-start/',
+  },
+  nextSlug: 'level-1-see-and-understand',
+};
+
+const modules = await Astro.glob('./level-*.astro');
+const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-5-share-live-docs',
+  level: 5,
+  title: 'Share Live Docs & Collections People Actually Use',
+  headline: 'Publish collections and docs that mirror real traffic so teams copy what already works.',
+  excerpt: 'Generate docs from observed requests or your spec to keep consumers unblocked and in sync.',
+  // summary: {
+  //   problem: 'Docs and samples drift from reality, leaving consumers guessing about what works.',
+  //   outcome: 'Inspectr turns proven traffic and specs into living docs, reducing onboarding friction.',
+  // },
+  problem:
+    'Your API works, but nobody is sure which endpoints exist, what payloads look like, or how to try them. Docs lag behind reality and sample requests are stale.',
+  solution:
+    'Inspectr can generate human-friendly docs and collections from either your OpenAPI or observed traffic. What people copy and paste mirrors what actually worked, giving the shortest path from curiosity to a successful request.',
+  helps: [
+    'Partners and internal consumers onboarding fast',
+    'Support and Solutions who need shareable examples',
+    'Tech writers who want to start from what is real',
+  ],
+  outcomes: [
+    'Lower time-to-first-success for new users',
+    'Fewer integration tickets and back-and-forth',
+    'Docs that reflect production usage, not wishful thinking',
+  ],
+  relatedSlug: 'level-6-automate-quality-gates',
+  worksWellWith: ['level-3-mock-apis', 'level-6-automate-quality-gates'],
+  tryIt: {
+    label: 'Publish collections from observed traffic',
+    href: '/docs/guides/exposing-publicly/',
+  },
+  nextSlug: 'level-6-automate-quality-gates',
+};
+
+const modules = await Astro.glob('./level-*.astro');
+const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

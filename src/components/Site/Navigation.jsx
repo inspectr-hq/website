@@ -24,7 +24,13 @@ export default function Navigation() {
               Features
             </a>
             <a
-              href="/#use-cases"
+              href="/#solutions"
+              className="text-gray-300 hover:text-brand-primary transition-colors"
+            >
+              Solutions
+            </a>
+            <a
+              href="/use-cases/"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Use Cases
@@ -80,10 +86,10 @@ export default function Navigation() {
               Features
             </a>
             <a
-              href="/#use-cases"
+              href="/use-cases/"
               className="block text-gray-300 hover:text-brand-primary transition-colors"
             >
-              Use Cases
+              Use Case Levels
             </a>
             <a
               href="/docs/"

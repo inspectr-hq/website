@@ -12,7 +12,7 @@ import IconCode from '../assets/icon_code.svg?react';
 
 export default function UseCasesSection() {
   return (
-    <div id="use-cases" className="py-24 bg-gradient-to-b from-brand-dark to-black">
+    <div id="solutions" className="py-24 bg-gradient-to-b from-brand-dark to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-16">
           Simple for every Development Workflow

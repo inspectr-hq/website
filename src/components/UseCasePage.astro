@@ -1,0 +1,196 @@
+---
+export interface UseCaseMeta {
+  slug: string;
+  level: number;
+  title: string;
+  headline: string;
+  excerpt: string;
+  summary?: {
+    problem?: string;
+    outcome?: string;
+  };
+  problem: string;
+  solution: string;
+  helps: string[];
+  outcomes: string[];
+  relatedSlug: string;
+  worksWellWith: string[];
+  tryIt: {
+    label: string;
+    href: string;
+  };
+  nextSlug: string;
+}
+
+interface Props {
+  meta: UseCaseMeta;
+  related?: UseCaseMeta | null;
+  worksWith?: UseCaseMeta[];
+  next: UseCaseMeta;
+}
+
+const { meta, related = null, worksWith = [], next } = Astro.props as Props;
+---
+
+<main class="mt-20">
+  <section class="bg-gradient-to-b from-brand-dark/90 to-black pt-24 pb-16">
+    <div class="mx-auto flex max-w-4xl flex-col gap-6 px-4">
+      <a
+        href="/use-cases/"
+        class="inline-flex w-fit items-center gap-2 text-sm font-medium text-brand-secondary/80 transition-colors hover:text-brand-primary"
+      >
+        ← All use cases
+      </a>
+      <div class="space-y-4">
+        <span class="inline-flex items-center gap-2 rounded-full border border-brand-primary/50 bg-brand-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.27em] text-brand-primary">
+          Level {meta.level}
+        </span>
+        <h1 class="text-balance text-4xl font-bold leading-tight sm:text-5xl">{meta.title}</h1>
+        <p class="text-lg text-gray-300">{meta.headline}</p>
+      </div>
+    </div>
+  </section>
+  { (meta.summary?.problem || meta.summary?.outcome) && (
+  <section class="bg-black/70 py-12">
+    <div class="mx-auto max-w-4xl px-4">
+      <div class="grid gap-4 rounded-2xl border border-gray-800 bg-black/60 p-6 sm:grid-cols-2 sm:p-8">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+            Problem
+          </p>
+          <p class="text-sm text-gray-300">{meta.summary.problem}</p>
+        </div>
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+            What you get
+          </p>
+          <p class="text-sm text-gray-300">{meta.summary.outcome}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <section class="py-16">
+    <div class="mx-auto grid max-w-6xl gap-12 px-4 lg:grid-cols-[minmax(0,1fr)_320px]">
+      <article class="space-y-12">
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-white">The problem</h2>
+          <p class="text-lg leading-relaxed text-gray-300">{meta.problem}</p>
+        </div>
+
+        <div class="space-y-4">
+          <h2 class="text-2xl font-semibold text-white">The solution</h2>
+          <p class="text-lg leading-relaxed text-gray-300">{meta.solution}</p>
+        </div>
+
+        <slot />
+
+        <div class="grid gap-8 md:grid-cols-2">
+          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <h3 class="text-lg font-semibold text-white">Who it helps</h3>
+            <ul class="space-y-3 text-sm text-gray-300">
+              {meta.helps.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-brand-secondary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <h3 class="text-lg font-semibold text-white">Outcomes</h3>
+            <ul class="space-y-3 text-sm text-gray-300">
+              {meta.outcomes.map((item) => (
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 inline-block h-2 w-2 flex-shrink-0 rounded-full bg-brand-primary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {related && (
+          <div class="rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm uppercase tracking-[0.28em] text-brand-secondary/70">
+              Related capability
+            </p>
+            <div class="mt-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p class="text-lg font-semibold text-white">{related.title}</p>
+                <p class="text-sm text-gray-400">Level {related.level}</p>
+              </div>
+              <a
+                href={`/use-cases/${related.slug}/`}
+                class="inline-flex items-center gap-2 text-sm font-semibold text-brand-primary transition-transform hover:translate-x-1"
+              >
+                Explore capability →
+              </a>
+            </div>
+          </div>
+        )}
+
+        <div class="flex flex-col gap-4 rounded-2xl border border-gray-800 bg-black/70 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div class="space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+              Ready to dive in?
+            </p>
+            <p class="text-base text-gray-200">Choose how you want to level up next.</p>
+            <p class="text-xs text-gray-400">{meta.tryIt.label}</p>
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={meta.tryIt.href}
+              aria-label={`Try it now: ${meta.tryIt.label}`}
+              title={meta.tryIt.label}
+              class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
+            >
+              Try it now
+            </a>
+            <a
+              href={`/use-cases/${next.slug}/`}
+              aria-label={`Level up next: ${next.title} (Level ${next.level})`}
+              class="inline-flex items-center justify-center rounded-xl border border-brand-primary/60 px-5 py-3 text-sm font-semibold text-brand-primary transition-transform hover:-translate-y-0.5 hover:border-brand-primary hover:text-brand-secondary"
+            >
+              Level up next
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="space-y-6 lg:sticky lg:top-28">
+        {worksWith.length > 0 && (
+          <div class="rounded-2xl border border-gray-800 bg-black/70 p-6">
+            <h2 class="text-sm font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+              Works well with
+            </h2>
+            <ul class="mt-4 space-y-4">
+              {worksWith.map((item) => (
+                <li>
+                  <a
+                    href={`/use-cases/${item.slug}/`}
+                    class="group flex flex-col gap-1 rounded-xl border border-transparent bg-black/40 p-4 transition-all hover:border-brand-primary/50 hover:bg-black/70"
+                  >
+                    <span class="text-xs font-semibold uppercase tracking-[0.3em] text-brand-primary/80">
+                      Level {item.level}
+                    </span>
+                    <span class="text-sm font-semibold text-white group-hover:text-brand-primary">
+                      {item.title}
+                    </span>
+                    <span class="text-xs text-gray-400">{item.excerpt}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div class="rounded-2xl border border-gray-800 bg-black/60 p-6 text-sm text-gray-400">
+          <p>
+            Each level stands on its own. Mix and match the capabilities that unlock your next milestone, then come back when you are ready to go further.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
