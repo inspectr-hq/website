@@ -111,6 +111,34 @@ const { meta, related = null, worksWith = [], next } = Astro.props as Props;
           </div>
         </div>
 
+        <div class="flex flex-col gap-4 rounded-2xl border border-gray-800 bg-black/70 p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div class="space-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+              Ready to dive in?
+            </p>
+            <p class="text-base text-gray-200">{meta.tryIt.label}</p>
+            <!--<p class="text-base text-gray-200">Choose how you want to level up next.</p>-->
+            <!--<p class="text-xs text-gray-400">{meta.tryIt.label}</p>-->
+          </div>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a
+              href={meta.tryIt.href}
+              aria-label={`Try it now: ${meta.tryIt.label}`}
+              title={meta.tryIt.label}
+              class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
+            >
+              Try it now
+            </a>
+            <a
+              href={`/use-cases/${next.slug}/`}
+              aria-label={`Next Level: ${next.title} (Level ${next.level})`}
+              class="inline-flex items-center justify-center rounded-xl border border-brand-primary/60 px-5 py-3 text-sm font-semibold text-brand-primary transition-transform hover:-translate-y-0.5 hover:border-brand-primary hover:text-brand-secondary"
+            >
+              Next Level
+            </a>
+          </div>
+        </div>
+
         {related && (
           <div class="rounded-2xl border border-gray-800 bg-black/60 p-6">
             <p class="text-sm uppercase tracking-[0.28em] text-brand-secondary/70">
@@ -131,32 +159,6 @@ const { meta, related = null, worksWith = [], next } = Astro.props as Props;
           </div>
         )}
 
-        <div class="flex flex-col gap-4 rounded-2xl border border-gray-800 bg-black/70 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div class="space-y-1">
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
-              Ready to dive in?
-            </p>
-            <p class="text-base text-gray-200">Choose how you want to level up next.</p>
-            <p class="text-xs text-gray-400">{meta.tryIt.label}</p>
-          </div>
-          <div class="flex flex-col gap-3 sm:flex-row">
-            <a
-              href={meta.tryIt.href}
-              aria-label={`Try it now: ${meta.tryIt.label}`}
-              title={meta.tryIt.label}
-              class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
-            >
-              Try it now
-            </a>
-            <a
-              href={`/use-cases/${next.slug}/`}
-              aria-label={`Level up next: ${next.title} (Level ${next.level})`}
-              class="inline-flex items-center justify-center rounded-xl border border-brand-primary/60 px-5 py-3 text-sm font-semibold text-brand-primary transition-transform hover:-translate-y-0.5 hover:border-brand-primary hover:text-brand-secondary"
-            >
-              Level up next
-            </a>
-          </div>
-        </div>
       </article>
 
       <aside class="space-y-6 lg:sticky lg:top-28">

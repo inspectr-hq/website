@@ -15,9 +15,9 @@ export const meta = {
   //   outcome: 'Inspectr turns your OpenAPI into a living mock so every team iterates against the contract.',
   // },
   problem:
-    "Frontend work, partner integrations, or QA are blocked because the backend is not ready, or an upstream vendor is rate-limited or flaky.",
+    "Frontend work, partner integrations, or QA are blocked because the backend is not ready yet, or an upstream API is not available for development testing.",
   solution:
-    "Point Inspectr to your OpenAPI and serve realistic mocks that follow your actual schema: examples when you have them, smart fakes when you do not. Keep development moving while the real backend catches up.",
+    "Launch Inspectr with your OpenAPI and serve realistic mocks that follow your API endpoints: returns examples when they are set in the schema or return fake value when you do not. Keep development moving while the real backend catches up.",
   helps: [
     'Frontend and mobile teams parallelizing work',
     'QA building predictable test data',
@@ -26,7 +26,7 @@ export const meta = {
   outcomes: [
     'Parallel tracks: UI and integration work proceed',
     'Contract-first development becomes real',
-    'Lower cost and risk versus calling unstable externals',
+    'Lower cost and risk versus calling unstable externals', // Not really applicable for Inspectr, since we are a local development tool.
   ],
   relatedSlug: 'level-5-share-live-docs',
   worksWellWith: ['level-0-catch-requests', 'level-5-share-live-docs'],
