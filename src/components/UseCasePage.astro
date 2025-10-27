@@ -17,7 +17,7 @@ export interface UseCaseMeta {
   worksWellWith: string[];
   tryIt: {
     label: string;
-    href: string;
+    href?: string;
   };
   nextSlug: string;
 }
@@ -114,21 +114,30 @@ const { meta, related = null, worksWith = [], next } = Astro.props as Props;
         <div class="flex flex-col gap-4 rounded-2xl border border-gray-800 bg-black/70 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div class="space-y-1">
             <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
-              Ready to dive in?
+              {meta.tryIt?.href ? 'Ready to dive in?' : 'Coming soon to Inspectr'}
             </p>
-            <p class="text-base text-gray-200">{meta.tryIt.label}</p>
+            <p class="text-base text-gray-200">{meta.tryIt?.label ?? 'Coming soon'}</p>
             <!--<p class="text-base text-gray-200">Choose how you want to level up next.</p>-->
             <!--<p class="text-xs text-gray-400">{meta.tryIt.label}</p>-->
           </div>
           <div class="flex flex-col gap-3 sm:flex-row">
-            <a
-              href={meta.tryIt.href}
-              aria-label={`Try it now: ${meta.tryIt.label}`}
-              title={meta.tryIt.label}
-              class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
-            >
-              Try it now
-            </a>
+            {meta.tryIt?.href ? (
+              <a
+                href={meta.tryIt.href}
+                aria-label={`Try it now: ${meta.tryIt.label}`}
+                title={meta.tryIt.label}
+                class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
+              >
+                Try it now
+              </a>
+            ) : (
+              <span
+                aria-disabled="true"
+                class="inline-flex items-center justify-center rounded-xl bg-gray-700/60 px-5 py-3 text-sm font-semibold text-gray-300 cursor-not-allowed"
+              >
+                Coming soon
+              </span>
+            )}
             <a
               href={`/use-cases/${next.slug}/`}
               aria-label={`Next Level: ${next.title} (Level ${next.level})`}

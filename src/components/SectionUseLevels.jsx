@@ -3,8 +3,8 @@ import React from 'react';
 export default function UseCaseLevels({ useCases = [] }) {
   const featuredSlugs = [
     'level-0-catch-requests',
+    'level-1-see-and-understand',
     'level-2-test-webhooks',
-    'level-5-share-live-docs',
   ];
   const featuredLevels = useCases
     .filter((useCase) => featuredSlugs.includes(useCase.slug))
@@ -14,14 +14,14 @@ export default function UseCaseLevels({ useCases = [] }) {
     <div id="use-cases" className="py-24 bg-gradient-to-b from-brand-dark to-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-3xl space-y-4 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-brand-secondary/70">
+          <p className="text-m uppercase tracking-[0.3em] text-brand-secondary/70">
             From first request to full observability
           </p>
-          <h2 className="text-balance text-3xl font-bold sm:text-4xl">
+          <h2 className="text-balance text-3xl font-bold sm:text-3xl">
             Build your path through Inspectr's use case levels
           </h2>
           <p className="text-sm text-gray-300 sm:text-base">
-            Each level solves a concrete developer pain. Adopt the capabilities you need today and come
+            Each level solves a concrete developer pain. Use the capabilities you need today and come
             back for the rest when you are ready.
           </p>
         </div>

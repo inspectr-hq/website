@@ -23,6 +23,9 @@ export const meta = {
     'Full-stack devs tracing client to server round trips',
     'QA verifying what was actually sent and returned',
     'Support engineers triaging incidents', // this is not a good use-case, since Inspectr is not a support tool but a developer tool
+    'Full-stack devs tracing client→server round trips',
+    +     'Backend devs validating payloads and headers',
+    +     'QA verifying what was actually sent and returned',
   ],
   outcomes: [
     'Inspect every request and response',
@@ -42,8 +45,8 @@ export const meta = {
   nextSlug: 'level-2-test-webhooks',
 };
 
-const modules = await Astro.glob('./level-*.astro');
-const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
 const related = metaBySlug.get(meta.relatedSlug) ?? null;
 const worksWith = meta.worksWellWith
   .map((slug) => metaBySlug.get(slug))

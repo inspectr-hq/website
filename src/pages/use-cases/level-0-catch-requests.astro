@@ -37,8 +37,8 @@ export const meta = {
   nextSlug: 'level-1-see-and-understand',
 };
 
-const modules = await Astro.glob('./level-*.astro');
-const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
 const related = metaBySlug.get(meta.relatedSlug) ?? null;
 const worksWith = meta.worksWellWith
   .map((slug) => metaBySlug.get(slug))

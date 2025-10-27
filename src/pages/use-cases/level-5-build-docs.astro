@@ -5,11 +5,11 @@ import Footer from '../../components/Site/Footer';
 import UseCasePage from '../../components/UseCasePage.astro';
 
 export const meta = {
-  slug: 'level-5-share-live-docs',
+  slug: 'level-5-build-docs',
   level: 5,
-  title: 'Share Live Docs & Collections People Actually Use',
-  headline: 'Publish collections and docs that mirror real traffic so teams copy what already works.',
-  excerpt: 'Generate docs from observed requests or your spec to keep consumers unblocked and in sync.',
+  title: 'Generate API Docs & Collections from traffic',
+  headline: 'Build documentation and Postman collections that mirror real traffic so teams can starts from what already works.',
+  excerpt: 'Transforms captured requests into OpenAPI docs and ready‑to‑use Postman collections, based on what’s actually happening.',
   // summary: {
   //   problem: 'Docs and samples drift from reality, leaving consumers guessing about what works.',
   //   outcome: 'Inspectr turns proven traffic and specs into living docs, reducing onboarding friction.',
@@ -17,28 +17,28 @@ export const meta = {
   problem:
     'Your API works, but nobody is sure which endpoints exist, what payloads look like, or how to try them. Docs lag behind reality and sample requests are stale.',
   solution:
-    'Inspectr can generate human-friendly docs and collections from either your OpenAPI or observed traffic. What people copy and paste mirrors what actually worked, giving the shortest path from curiosity to a successful request.',
+    'Inspectr helps to build up your documentation based on the past requests. It can even generate an OpenAPI document and Postman collection from the observed traffic.',
   helps: [
-    'Partners and internal consumers onboarding fast',
-    'Support and Solutions who need shareable examples',
-    'Tech writers who want to start from what is real',
+    'Developers documenting real endpoints after testing',
+    'QA and backend teams aligning examples with live traffic',
+    'Teams can start from a working Postman collection',
   ],
   outcomes: [
-    'Lower time-to-first-success for new users',
-    'Fewer integration tickets and back-and-forth',
-    'Docs that reflect production usage, not wishful thinking',
+    'Build up documentation faster with real-examples',
+    'Faster to reach a successful first API call',
+    "Spend less time on writing documentation",
   ],
   relatedSlug: 'level-6-automate-quality-gates',
   worksWellWith: ['level-3-mock-apis', 'level-6-automate-quality-gates'],
   tryIt: {
-    label: 'Publish collections from observed traffic',
-    href: '/docs/guides/exposing-publicly/',
+    label: 'Create documentation from observed traffic',
+  //   href: '/docs/guides/exposing-publicly/',
   },
   nextSlug: 'level-6-automate-quality-gates',
 };
 
-const modules = await Astro.glob('./level-*.astro');
-const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
 const related = metaBySlug.get(meta.relatedSlug) ?? null;
 const worksWith = meta.worksWellWith
   .map((slug) => metaBySlug.get(slug))

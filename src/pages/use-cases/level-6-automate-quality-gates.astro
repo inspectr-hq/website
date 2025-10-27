@@ -7,43 +7,54 @@ import UseCasePage from '../../components/UseCasePage.astro';
 export const meta = {
   slug: 'level-6-automate-quality-gates',
   level: 6,
-  title: 'Automate Quality Gates & Test Scenarios',
-  headline: 'Encode the checks, chaos, and validations you repeat by hand into live traffic rules.',
-  excerpt: 'Apply repeatable rules during capture to validate headers, simulate failures, and tag flows.',
+  title: 'Automation & Smart Tagging',
+  headline: 'Move from passive logging to automated, smart tagging.',
+  excerpt: 'Apply rules to tag requests and responses; plug connectors to enrich data or trigger workflows.',
   // summary: {
+  //   problem:
+  //     'Manual labeling and ad‑hoc notes don’t survive across sessions. Important context like env, version, test run, or scenario gets lost.',
+  //   outcome:
+  //     'Inspectr adds consistent, queryable context with tag rules today, and optional connectors next—so traffic is enriched and usable beyond Inspectr without code changes.'
   //   problem: 'Manual verification and tribal rules let regressions slip into production.',
   //   outcome:
   //     'Inspectr applies reusable rules to every request so teams automate the painful parts of QA.',
   // },
   problem:
-    'You keep retesting the same edge cases by hand. Environments drift. Simple standards like timeouts, headers, and delays are enforced inconsistently.',
+    'You keep retesting edge cases by hand and losing the context that explains behavior. Environments drift, and it’s hard to compare by version, feature flag, or test run.',
   solution:
-    'With Inspectr, encode repeatable rules that apply during traffic capture: inject delays, simulate failures, tag requests, validate headers, or block patterns. Turn tribal knowledge into checks you can rely on.',
+    // 'With Inspectr, encode repeatable rules that apply during traffic capture: inject delays, simulate failures, tag requests, validate headers, or block patterns. Turn tribal knowledge into checks you can rely on.',
+    'Define tag rules that apply during capture. Use tags to label environment, version, scenario, or test run. With the upcoming connectors feature, you can further enrich requests/responses or emit events to external systems (like Slack, data warehouse or custom webhooks).',
   helps: [
-    'QA building repeatable scenarios',
-    'Backend teams enforcing contracts and headers',
-    'SREs simulating chaos in lower environments',
+    'QA labeling scenarios and test runs for consistent comparisons',
+    'Developers adding env/version/feature context to traffic',
+    'Integrations with exporting enriched data to other tools'
+    // 'QA building repeatable scenarios',
+    // 'Backend devs enforcing contracts and headers',
+    // 'Developers simulating failures in the API',
   ],
   outcomes: [
-    'Consistent, automated pre-prod gauntlet',
-    'Faster feedback loops for risky changes',
-    'Less manual verification and more confidence',
+    'Consistent, queryable context across request, events and sessions',
+    'Faster triage with tags for version, environment, and scenario',
+    'Zero‑code enrichment via optional connectors (upcoming)'
+    // 'Consistent, automated checks before merge',
+    // 'Faster feedback loops for risky changes',
+    // 'Less manual verification and more confidence',
   ],
   relatedSlug: 'level-2-test-webhooks',
   worksWellWith: [
     'level-2-test-webhooks',
-    'level-5-share-live-docs',
+    'level-4-performance-stability',
     'level-8-ask-ai-assistant',
   ],
   tryIt: {
-    label: 'Enable rules with the automation guide',
+    label: 'Explore the Rules Engine',
     href: '/docs/features/inspectr-rules-engine/',
   },
-  nextSlug: 'level-7-endpoint-insights',
+  nextSlug: 'level-7-endpoint-insights'
 };
 
-const modules = await Astro.glob('./level-*.astro');
-const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
 const related = metaBySlug.get(meta.relatedSlug) ?? null;
 const worksWith = meta.worksWellWith
   .map((slug) => metaBySlug.get(slug))

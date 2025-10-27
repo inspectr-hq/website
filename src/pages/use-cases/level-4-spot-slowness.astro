@@ -32,14 +32,14 @@ export const meta = {
   relatedSlug: 'level-7-endpoint-insights',
   worksWellWith: ['level-1-see-and-understand', 'level-7-endpoint-insights'],
   tryIt: {
-    label: 'Review performance guardrails',
-    href: '/docs/concepts/performance-privacy/',
+    label: 'Explore the statistics to visually review performance',
+    href: '/docs/features/inspectr-statistics/',
   },
-  nextSlug: 'level-5-share-live-docs',
+  nextSlug: 'level-5-build-docs',
 };
 
-const modules = await Astro.glob('./level-*.astro');
-const metaBySlug = new Map(modules.map((mod) => [mod.meta.slug, mod.meta]));
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
 const related = metaBySlug.get(meta.relatedSlug) ?? null;
 const worksWith = meta.worksWellWith
   .map((slug) => metaBySlug.get(slug))

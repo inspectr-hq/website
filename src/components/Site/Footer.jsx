@@ -57,7 +57,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#use-cases" className="hover:text-brand-primary">
+                <a href="/#solutions" className="hover:text-brand-primary">
+                  Solutions
+                </a>
+              </li>
+              <li>
+                <a href="/use-cases/" className="hover:text-brand-primary">
                   Use Cases
                 </a>
               </li>
@@ -67,7 +72,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/pricing" className="hover:text-brand-primary">
+                <a href="/pricing/" className="hover:text-brand-primary">
                   Pricing
                 </a>
               </li>
