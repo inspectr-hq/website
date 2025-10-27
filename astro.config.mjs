@@ -55,6 +55,8 @@ export default defineConfig({
           // autogenerate: { directory: 'docs/features' }
           items: [
             { label: 'Rules Engine', slug: 'docs/features/inspectr-rules-engine' },
+            { label: 'Statistics Dashboard', slug: 'docs/features/inspectr-statistics' },
+            { label: 'Tracing Groups', slug: 'docs/features/inspectr-tracing-insights' },
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' }

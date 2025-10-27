@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-3-mock-apis',
+  level: 3,
+  title: 'Unblock Teams with Mock APIs from Your Spec',
+  headline: 'Serve realistic mocks from your OpenAPI so development never waits on the backend.',
+  excerpt: 'Use OpenAPI-driven mocks to parallelize frontend, QA, and partner integration work.',
+  // summary: {
+  //   problem: 'Teams stall when upstream APIs are unfinished, unstable, or rate limited.',
+  //   outcome: 'Inspectr turns your OpenAPI into a living mock so every team iterates against the contract.',
+  // },
+  problem:
+    "Frontend work, partner integrations, or QA are blocked because the backend is not ready yet, or an upstream API is not available for development testing.",
+  solution:
+    "Launch Inspectr with your OpenAPI and serve realistic mocks that follow your API endpoints: returns examples when they are set in the schema or return fake value when you do not. Keep development moving while the real backend catches up.",
+  helps: [
+    'Frontend and mobile teams parallelizing work',
+    'QA building predictable test data',
+    'Integrators working against your contract',
+  ],
+  outcomes: [
+    'Parallel tracks: UI and integration work proceed',
+    'Contract-first development becomes real',
+    'Develop against a fake server, if there is no API sandbox available.', // Not really applicable for Inspectr, since we are a local development tool.
+  ],
+  relatedSlug: 'level-5-build-docs',
+  worksWellWith: ['level-0-catch-requests', 'level-5-build-docs'],
+  tryIt: {
+    label: 'Spin up mocks with the OpenAPI guide',
+    href: '/docs/features/mocking/',
+  },
+  nextSlug: 'level-4-spot-slowness',
+};
+
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-4-spot-slowness',
+  level: 4,
+  title: 'Spot Slowness & Flakiness Early',
+  headline: 'Transform captured traffic into per-endpoint metrics before issues hit production users.',
+  excerpt: 'Observe latency, errors, and volume trends in lower environments to catch regression early.',
+  // summary: {
+  //   problem: 'Intermittent errors and slowdowns hide in lower environments until it is too late.',
+  //   outcome:
+  //     'Inspectr surfaces per-endpoint latency and error trends so teams act on regressions within hours.',
+  // },
+  problem:
+    'Intermittent 500s, "it is slow sometimes," and "works in isolation" are hard to solve when your logs do not show the whole picture and you lack per-endpoint trends during active development.',
+  solution:
+    'Inspectr turns observed traffic into actionable metrics: request counts, latency distributions, and error rates per endpoint, method, and tag. See regressions within minutes, not after a release.',
+  helps: [
+    'Engineers hunting bottlenecks and timeouts',
+    'QA watching stability across test runs',
+    'Team leads tracking release risk',
+  ],
+  outcomes: [
+    'Data-driven triage and rollback decisions',
+    'Early detection of flaky dependencies',
+    'Shared performance baseline before prod',
+  ],
+  relatedSlug: 'level-7-endpoint-insights',
+  worksWellWith: ['level-1-see-and-understand', 'level-7-endpoint-insights'],
+  tryIt: {
+    label: 'Explore the statistics to visually review performance',
+    href: '/docs/features/inspectr-statistics/',
+  },
+  nextSlug: 'level-5-build-docs',
+};
+
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

@@ -1,14 +1,15 @@
 ---
-
 title: Exposing Services Publicly
 description: Expose your local service to the public internet with Inspectr Ingress.
 ---
 
+import RelatedLink from '../../../../components/RelatedLink.jsx';
 import FlowIngress from '../../../../components/DocFlows/FlowIngress.jsx';
 
 [//]: # (# Exposing Services Publicly with Inspectr Ingress)
 
-Sometimes you need your local service to be accessible from the outside world—for testing webhooks, collaborating on demos, or integrating with external systems. Inspectr makes this easy with **Ingress Mode**.
+Sometimes you need your local service to be accessible from the outside world — for testing webhooks, collaborating on demos, or integrating with external systems.
+Inspectr makes this easy with **Expose Mode**, providing a lightweight, secure **local tunnel** similar to tools like **ngrok** or **localtunnel**, but integrated directly with your API inspection flow.
 
 ---
 
@@ -16,7 +17,7 @@ Sometimes you need your local service to be accessible from the outside world—
 
 <FlowIngress client:only="react" />
 
-Inspectr Ingress is a hosted relay that securely exposes your locally running Inspectr proxy to the public internet via a temporary subdomain on `in-spectr.dev`.
+Inspectr Ingress is a **secure tunneling relay**, exposing your local API service through Inspectr proxy to the public internet via a temporary subdomain on `in-spectr.dev`.
 
 Example:
 
@@ -24,14 +25,20 @@ Example:
 https://my-api.in-spectr.dev → http://localhost:8080
 ```
 
+This works just like creating an **HTTP tunnel**, where Inspectr safely forwards external requests to your local machine; without manual port forwarding or complex setup.
+
 ---
 
 ## Use Cases
 
-* Testing third-party webhooks (Stripe, GitHub, Zapier...)
+* Testing third-party webhooks (Stripe, GitHub, Zapier…)
 * Sharing live demos without deployment
 * Allowing remote teammates to test your local service
-* Forwarding traffic to local AI models (e.g. Ollama)
+* Connecting an LLM ([ChatGPT](/docs/examples/expose-mcp-server/), CoPilot, [Claude](/docs/examples/expose-mcp-server/)) to a local MCP Server
+* Forwarding traffic to local AI models (e.g. [Ollama](/docs/examples/expose-ollama/))
+* Acting as a secure **tunnel** for developers working with local APIs
+
+<RelatedLink href="/docs/guides/webhook-debugging" title="Looking for capturing real Webhook events? Have a look at ">Webhook Debugging</RelatedLink>
 
 ---
 
@@ -42,7 +49,7 @@ inspectr --backend=http://localhost:3000 --expose --channel=my-api --channel-cod
 ```
 
 * `--channel` sets your subdomain (e.g., `my-api.in-spectr.dev`)
-* If omitted, a random channel is assigned
+* The `channel` is optional. If not set, a random channel is assigned
 * The terminal will display the public URL after launch
 
 ---
@@ -61,13 +68,13 @@ curl https://my-api.in-spectr.dev/api/hello
 
 ---
 
-## Channel Lifetime
+## Public URL's Lifetime
 
-* Channels exist only while your Inspectr session is active
+* The public URL exists only while your Inspectr session is active
 * Once Inspectr stops, the public subdomain is released
-* No data is persisted on the ingress server—only forwarded
+* No data is persisted on Inspectr ingress; it only forwards the traffic.
+* You can use channels with a channel code to temporary reserve your public URL's.
 
----
 
 [//]: # (## Best Practices)
 [//]: # ()

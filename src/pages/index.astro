@@ -1,22 +1,32 @@
 ---
 import Layout from '../layouts/Layout.astro';
 // import App from '../App.tsx';
-import Navigation   from '../components/Site/Navigation'
-import Hero         from '../components/Site/Hero'
-import Features     from '../components/SectionFeatures'
-import GettingStarted from '../components/SectionGettingStarted'
-import TechStacks   from '../components/SectionTechStacks'
-import UseCases     from '../components/SectionUseCases'
-import Footer       from '../components/Site/Footer'
+import Navigation from '../components/Site/Navigation';
+import Hero from '../components/Site/Hero';
+import Features from '../components/SectionFeatures';
+import GettingStarted from '../components/SectionGettingStarted';
+import TechStacks from '../components/SectionTechStacks';
+import UseCases from '../components/SectionUseCases';
+import Footer from '../components/Site/Footer';
+import UseCaseLevels from '../components/SectionUseLevels';
+
+const useCaseModules = await Astro.glob('./use-cases/level-*.astro');
+const useCases = useCaseModules
+	.map(({ meta }) => ({
+		slug: meta.slug,
+		level: meta.level,
+		title: meta.title,
+		excerpt: meta.excerpt,
+	}))
 ---
 
 <Layout>
-        <Navigation client:load />
-        <Hero />
-        <Features />
-        <GettingStarted />
-        <TechStacks />
-        <UseCases />
-        <Footer />
+  <Navigation client:load />
+  <Hero />
+  <Features />
+  <GettingStarted />
+  <TechStacks />
+  <UseCases />
+  <UseCaseLevels useCases={useCases} />
+  <Footer />
 </Layout>
-

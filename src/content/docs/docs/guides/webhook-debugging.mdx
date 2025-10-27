@@ -1,14 +1,15 @@
-
 ---
 title: Capturing Webhooks
 description: Webhooks debugging can be difficult. Inspectr makes it easy.
 ---
-
+import RelatedLink from '../../../../components/RelatedLink.jsx';
 import FlowIngressWebhook from '../../../../components/DocFlows/FlowIngressWebhook.jsx';
 
 <FlowIngressWebhook client:only="react" />
 
 Webhooks are crucial for integrating third-party systems—but they can be hard to debug. Inspectr makes it easy to capture, inspect, and replay webhook events locally or remotely.
+
+<RelatedLink href="/docs/guides/api-traffic-debugging" title="Looking for tunneling your local API? See ">API Traffic Debugging</RelatedLink>
 
 ---
 
@@ -79,9 +80,10 @@ Inside the Inspectr App, select any captured request and **Replay** it to:
 
 ## Best Practices
 
-* Use catch mode when testing webhooks without needing a backend
+* Use `--catch` mode when testing webhooks without needing a backend
 * Secure your exposed channel using `--channel-code`
 * Use Inspectr’s **Replay** feature for iterative development and debugging
+* For handling certain types of events, use [Mocking APIs](/docs/features/mocking/)
 
 [//]: # (---)
 

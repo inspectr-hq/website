@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-1-see-and-understand',
+  level: 1,
+  title: 'See & Understand Every Request/Response',
+  headline: 'Turn blackbox requests & responses into actionable insights with full visibility across the exchange.',
+  excerpt: 'Inspect every request and response for visibility and reproduce issues instantly.',
+  // summary: {
+  //   problem: 'APIs fail silently, forcing guesswork across logs, Slack, and tribal knowledge.',
+  //   outcome:
+  //     'Inspectr captures each request and response so teams debug with a shared, replayable source of truth.',
+  // },
+  problem:
+    'APIs fail silently. Was it a malformed header, a body mismatch, or a downstream timeout? Without visibility, debugging becomes guesswork and struggle with log files.',
+  solution:
+    'Inspectr sits transparently in the middle, logging every incoming request and outgoing response. You get an explorable history, detailed payloads, and replay so you can reproduce request or events instantly.',
+  helps: [
+    'Full-stack devs tracing client to server round trips',
+    'QA verifying what was actually sent and returned',
+    'Support engineers triaging incidents', // this is not a good use-case, since Inspectr is not a support tool but a developer tool
+    'Full-stack devs tracing client→server round trips',
+    +     'Backend devs validating payloads and headers',
+    +     'QA verifying what was actually sent and returned',
+  ],
+  outcomes: [
+    'Inspect every request and response',
+    'Cut time-to-fix on API issues',
+    'Confident reproduction via replay',
+  ],
+  relatedSlug: 'level-4-spot-slowness',
+  worksWellWith: [
+    'level-0-catch-requests',
+    'level-4-spot-slowness',
+    'level-7-endpoint-insights',
+  ],
+  tryIt: {
+    label: 'Inspect live traffic with the debugging guide',
+    href: '/docs/guides/api-traffic-debugging/',
+  },
+  nextSlug: 'level-2-test-webhooks',
+};
+
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>

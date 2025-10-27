@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Site/Navigation';
+import Footer from '../../components/Site/Footer';
+import UseCasePage from '../../components/UseCasePage.astro';
+
+export const meta = {
+  slug: 'level-7-endpoint-insights',
+  level: 7,
+  title: 'Get Per-Endpoint Insights & Traces',
+  headline: 'Trace high-impact paths, error clusters, and latency outliers without leaving your traffic timeline.', // Too much marketing wording
+  excerpt: 'Roll up observed traffic into explainable trends, then drill down to the exact requests involved.',
+  // summary: {
+  //   problem: 'You see symptoms like spikes and retries but lack the context to act quickly.',
+  //   outcome: 'Inspectr connects trends to individual requests so teams move from what happened to why.',
+  // },
+  problem:
+    'You see symptoms like timeouts and spikes but not the shape of the system: which endpoints trend slower, which payloads lead to failures.',
+  solution:
+    'Inspectr aggregates traffic into endpoint rollups and trace views. Browse hot paths, error clusters, latency histograms, and outliers, then click through to the exact requests that explain the pattern.',
+  helps: [
+    'Engineers doing root-cause and capacity planning',
+    'Product managers prioritizing fixes by impact',
+    'Developers get behaviour insights per endpoint',
+  ],
+  outcomes: [
+    'Clarity about where to optimize',
+    'Less time jumping between tools to build a picture',
+    'Insight that is explainable to non-experts',
+  ],
+  relatedSlug: 'level-4-spot-slowness',
+  worksWellWith: ['level-4-spot-slowness', 'level-8-ask-ai-assistant'],
+  tryIt: {
+    label: 'Map trends with per endpoint',
+    // label: 'Map trends with the observability overview',
+    // href: '/docs/concepts/api-lifecycle/',
+  },
+  nextSlug: 'level-8-ask-ai-assistant',
+};
+
+const modules = import.meta.glob('./level-*.astro', { eager: true });
+const metaBySlug = new Map(Object.values(modules).map((mod) => [mod.meta.slug, mod.meta]));
+const related = metaBySlug.get(meta.relatedSlug) ?? null;
+const worksWith = meta.worksWellWith
+  .map((slug) => metaBySlug.get(slug))
+  .filter(Boolean);
+const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
+---
+
+<Layout>
+  <Navigation client:load />
+  <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
+  <Footer />
+</Layout>
