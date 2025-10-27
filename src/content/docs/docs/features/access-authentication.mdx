@@ -5,6 +5,7 @@ description: Protect backend or mock services with Inspectr's guard authenticati
 import { Image } from 'astro:assets';
 import inspectrGuard from '../../../../assets/guides/settings-guard.png';
 import inspectrGuardMenu from '../../../../assets/guides/settings-guard-menu.png';
+import inspectrGuardConfig from '../../../../assets/guides/settings-guard-config.png';
 
 import { FlowIngress } from '../../../../components/DocFlows/FlowGuard.jsx';
 
@@ -54,13 +55,13 @@ Requests lacking a valid key or token get `401 Unauthorized`.
 
 ## Token TTL
 
-Customize token lifetime (default `24h`) when starting Inspectr:
+Customize token lifetime (default `24` hours) when starting Inspectr:
 
 ```bash
 inspectr --auth-enabled=true --auth-secret=mysecret --auth-token-ttl=2
 ```
 
-A fresh token is generated every run and expires after the TTL.
+A fresh token is generated every run and expires after the time-to-live (TTL) you set.
 
 ---
 
@@ -83,7 +84,7 @@ curl http://localhost:8080/api \
 Tokens and keys appear each time Inspectr starts. Use this feature whenever you need lightweight protection without modifying your backend.
 
 - **When to use the key:** handy for local development and CI where the secret needs to be private but can be reused without limits.
-- **When to use the token:** safer for public or shared channels because it expires per the TTL. $
+- **When to use the token:** safer for public or shared channels because it expires per the time-to-live (TTL) you set.
 
 Restart Inspectr to rotate the token or set/renew the token and secret from the "Inspectr App" > "Settings".
 
@@ -94,7 +95,7 @@ Restart Inspectr to rotate the token or set/renew the token and secret from the 
 Enable the guard with CLI flags:
 
 ```bash
-inspectr --auth-enabled=true --auth-secret=mysecret --auth-token-ttl=1h
+inspectr --auth-enabled=true --auth-secret=mysecret --auth-token-ttl=24
 ```
 
 Or in `.inspectr.yaml`:
@@ -102,9 +103,11 @@ Or in `.inspectr.yaml`:
 ```yaml
 authEnabled: true
 authSecret: mysecret
-authTokenTtl: 1
+authTokenTtl: 24
 ```
 
 or via the settings in the Inspectr App
 
-<Image src={inspectrGuardMenu} alt="Inspectr - Guard Settings" />
+<Image src={inspectrGuardConfig} alt="Inspectr - Guard Configuration" />
+
+<Image src={inspectrGuard} alt="Inspectr - Guard tokens" />
