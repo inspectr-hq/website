@@ -1,0 +1,132 @@
+---
+title: Using Newman, Bruno & Postman
+description: Get better visibility into your API requests and responses during test runs with Newman, Bruno, and Postman.
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowNode.jsx';
+
+import { Image } from 'astro:assets';
+import brunoRun from '../../../../assets/guides/bruno/bruno-run.png';
+import newmanRun from '../../../../assets/guides/newman/newman-run.png';
+
+[//]: # (## **Lost Visibility During Test Runs**)
+
+When you’re testing APIs using tools like **[Newman](https://www.npmjs.com/package/newman)**, **[Bruno](https://www.usebruno.com/)**, or **[Postman](https://www.postman.com/product/what-is-postman/)**, you can easily run dozens, even hundreds, of requests in a single collection.
+
+But once those requests start flying, **visibility quickly disappears**:
+
+- **Newman’s** **--verbose** mode floods the console with raw data. Gives you a details of the requests made, but unreadable at scale.
+- **Bruno’s CLI output** is clean and compact, yet lacks a way to drill into each request and response once the run is complete.
+- **Postman’s GUI** shows individual results but makes it diffucult to compare or trace changes across multiple calls.
+
+As a result, debugging test failures or investigating API behavior means **rerunning collections**, manually logging payloads, or digging through partial console output  instead of simply *seeing* what happened.
+
+## Use Inspectr for a better visibility
+
+**Inspectr** sits between your API client and your backend.
+
+<FlowBase client:only="react" />
+
+You point your requests to Inspectr (the proxy), and it transparently forwards them to your real API, capturing everything along the way.
+
+This gives you a live, navigable view of all requests and responses:
+
+- Explore headers, body, status, and latency.
+- Filter by method, endpoint, or status code.
+- Compare calls side-by-side and replay them instantly.
+- Keep using your existing tools — no test script changes required.
+
+### **One-time setup**
+
+Start Inspectr and forward to your backend (example backend on port 3000):
+
+```bash
+inspectr --backend=http://localhost:3000
+# Proxy listens on http://localhost:8080 (default)
+# Open the Inspectr UI at http://localhost:4004 to browse captured traffic
+```
+
+From here, just point your API tool to http://localhost:8080 instead of your backend, that’s it!
+
+---
+
+## Newman
+
+[Newman](https://learning.postman.com/docs/collections/using-newman-cli/command-line-integration-with-newman/) is the command-line companion to Postman. It runs Postman Collections locally or in CI/CD pipelines, executing tests and reporting results.
+
+**The typical problem:**
+
+While Newman supports `--verbose` logging, it still produces a **flat stream of request details** that’s difficult to navigate. When a run fails, it’s hard to inspect individual request bodies or correlate them with their responses.
+
+**How to use Inspectr with Newman:**
+
+1. Ensure your requests use a `{{baseUrl}}` variable in the collection.
+
+2. Run your collection ([CLI options](https://learning.postman.com/docs/collections/using-newman-cli/newman-options/)), pointing it to Inspectr:
+
+```bash
+newman run ./collection.json --env-var "baseUrl=http://localhost:8080"
+```
+
+<Image src={newmanRun} alt="Run Newman" />
+
+3. Open **http://localhost:4004** in your browser to explore each captured call in detail.
+
+---
+
+## Bruno
+
+[Bruno](https://docs.usebruno.com/) is a modern, open-source graphical API client that stores requests as plain files, with a user-friendly UI, which runs collections through its fast CLI. It’s designed for speed, simplicity, and version control.
+
+**The typical problem:**
+
+While Bruno’s CLI output is concise, it’s **not built for easy debugging**. Once a run completes, you can’t easily inspect request/response details or compare calls between iterations.
+
+**How to use Inspectr with Bruno:**
+
+1. Reference a base variable (e.g., `{{baseUrl}}`) in your .bru requests.
+
+2. Run Bruno ([CLI options](https://docs.usebruno.com/bru-cli/commandOptions)), overriding the variable to Inspectr :
+
+```bash
+bru run ./apis --env dev --env-var "baseUrl=http://localhost:8080"
+```
+<Image src={brunoRun} alt="Run Bruno" />
+
+or for a single request:
+
+```bash
+bru run ./apis/users/get-users.bru --env dev --env-var baseUrl=http://localhost:8080
+```
+
+3. Open **http://localhost:4004** to browse and analyze all captured requests and responses.
+
+---
+
+## Postman
+
+[Postman](https://learning.postman.com/docs/sending-requests/requests/) is a graphical API client, probably the most commonly known API client, that lets you build, send, and test requests interactively; complete with collections, scripts, and environments.
+
+**The typical problem:**
+
+Postman’s History tab shows what you’ve sent, but navigating across similar calls or comparing payloads and responses can be **tedious and manual**. It’s especially tricky during multi-step workflows or debugging complex APIs.
+
+**How to use Inspectr with Postman:**
+
+1. Define a baseUrl variable (at collection or global scope).
+
+2. Set it to http://localhost:8080.
+
+3. Update your request URLs to use `{{baseUrl}}/path`.
+
+4. Send requests as usual — Inspectr will capture and display them automatically.
+
+----
+
+### Summary
+
+Newman, Bruno, and Postman are excellent to easily **build** & **run** your requests.
+
+Inspectr completes the picture by letting you **see** requests & responses - clearly, visually, and interactively.
+
+Instead of guessing what happened during a test run, you can open Inspectr and immediately explore, search, compare, and replay every call that went through.
