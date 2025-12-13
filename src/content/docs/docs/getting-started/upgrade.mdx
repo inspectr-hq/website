@@ -1,0 +1,129 @@
+---
+title: Upgrade
+description: Upgrade Inspectr via npx, Homebrew, npm, binaries, or Docker
+---
+
+import { Image } from 'astro:assets';
+import dockerTerminal from '../../../../assets/docs/docker-terminal.png';
+
+[//]: # (# Upgrade Inspectr)
+
+Upgrading **Inspectr** is usually a one-liner. Choose the method you originally used to install/run Inspectr.
+
+| Method you use | How upgrades work                                        |
+|----------------|----------------------------------------------------------|
+| npx            | Always runs the latest version                           |
+| Homebrew       | `brew upgrade inspectr`                                  |
+| npm            | `npm update -g @inspectr/inspectr`                       |
+| Binary         | Download a newer release and replace the existing binary |
+| Docker         | Pull the newest image and restart the container          |
+
+---
+
+## Upgrade when you run with npx
+
+If you run Inspectr via `npx`, you don’t need to upgrade. Every run downloads and executes the latest published version:
+
+```bash
+npx @inspectr/inspectr --backend=http://localhost:3000
+```
+
+If you want to ensure you’re not using a cached copy, clear the npx cache (optional) and run again.
+
+---
+
+## Upgrade a full installation
+
+### Homebrew (macOS)
+
+Upgrade Inspectr via Homebrew:
+
+```bash
+brew update
+brew upgrade inspectr
+```
+
+Verify:
+
+```bash
+inspectr --version
+```
+
+### npm
+
+Upgrade a global npm install:
+
+```bash
+npm update -g @inspectr/inspectr
+```
+
+If you want to force a clean reinstall:
+
+```bash
+npm uninstall -g @inspectr/inspectr
+npm install -g @inspectr/inspectr
+```
+
+Verify:
+
+```bash
+inspectr --version
+```
+
+---
+
+### Binary
+
+1. Download the newest binary for your platform from [GitHub Releases](https://github.com/inspectr-hq/inspectr/releases).
+2. Replace your existing `inspectr` binary with the new one.
+
+If needed, make it executable:
+
+```bash
+chmod +x ./inspectr
+```
+
+Verify:
+
+```bash
+./inspectr --version
+```
+
+---
+
+### Docker
+
+Pull the latest image:
+
+```bash
+docker pull ghcr.io/inspectr-hq/inspectr:latest
+```
+
+If you run Inspectr with `docker run`, stop/remove the old container and start a new one using the updated image:
+
+```bash
+docker run --rm -p 4004:4004 -p 8080:8080 ghcr.io/inspectr-hq/inspectr:latest
+```
+
+#### Docker Compose
+
+If you use Docker Compose, pull and restart:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+To verify the running container is updated:
+
+```bash
+docker compose ps
+```
+
+---
+
+## Next step
+
+Explore the [configuration options](/docs/configuration/cli-options/) to tailor Inspectr to your workflow.
+
+If something looks off after upgrading, check the release notes on GitHub and compare your current flags/config with the latest CLI docs.
