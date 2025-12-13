@@ -37,8 +37,8 @@ export default defineConfig({
           items: [
             { label: 'Quick start', slug: 'docs/getting-started/quick-start' },
             { label: 'Installation', slug: 'docs/getting-started/installation' },
+            { label: 'Quick OpenAPI Mocking', slug: 'docs/getting-started/mocking-quick-start' },
             { label: 'Upgrade', slug: 'docs/getting-started/upgrade' },
-            { label: 'Quick OpenAPI Mocking', slug: 'docs/getting-started/mocking-quick-start' }
           ]
         },
         {
