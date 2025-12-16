@@ -11,15 +11,15 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.0",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
-    "@astrojs/starlight": "^0.36.1",
-    "@astrojs/starlight-tailwind": "^4.0.1",
-    "@tailwindcss/vite": "^4.1.6",
+    "@astrojs/starlight": "^0.37.1",
+    "@astrojs/starlight-tailwind": "^4.0.2",
+    "@tailwindcss/vite": "^4.1.18",
     "@xyflow/react": "^12.6.0",
-    "astro": "^5.15.1",
+    "astro": "5.16.5",
     "sharp": "^0.34.1",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "vite-plugin-svgr": "^4.3.0"
