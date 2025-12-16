@@ -12,32 +12,33 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 ## Basic Options
 
 | Flag             | Type    | Default | Description                                           |
-| ---------------- | ------- | ------- | ----------------------------------------------------- |
+|------------------|---------|---------|-------------------------------------------------------|
 | `--listen`       | string  | `:8080` | Address where Inspectr listens for HTTP requests      |
 | `--backend`      | string  | (none)  | Forward requests to this backend service              |
 | `--mock-backend` | string  | (none)  | Serve mock responses from OpenAPI spec                |
 | `--mock-dynamic` | boolean | `false` | Generate dynamic mock data instead of static examples |
-| `--catch`        | boolean | `true`  | Accept and log requests without forwarding            |
+| `--mirror`       | boolean | `false` | Immediately echo the original request back            |
+| `--catch`        | boolean | `false` | Accept and log requests without forwarding            |
 
 ---
 
 ## App and Logging
 
-| Flag         | Type    | Default | Description                                  |
-| ------------ | ------- | ------- | -------------------------------------------- |
-| `--app`      | boolean | `true`  | Enable embedded Inspectr App UI              |
-| `--app-port` | string  | `4004`  | Port to serve the UI app                     |
-| `--print`    | boolean | `true`  | Print color-coded log output to the terminal |
+| Flag            | Type    | Default  | Description                                          |
+| --------------- | ------- | -------- | ---------------------------------------------------- |
+| `--app`         | boolean | `true`   | Enable embedded Inspectr App UI & API                |
+| `--app-port`    | string  | `4004`   | Port to serve the UI app                             |
+| `--print`       | boolean | `true`   | Print color-coded log output to the terminal         |
 
 ---
 
-## Public Exposure
+## Public Exposure/Tunneling
 
-| Flag             | Type    | Default | Description                                                       |
-| ---------------- | ------- | ------- | ----------------------------------------------------------------- |
-| `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress service                      |
-| `--channel`      | string  |         | Subdomain to use on `in-spectr.dev` (e.g. `my-api.in-spectr.dev`) |
-| `--channel-code` | string  |         | Secret code required for remote access to the channel             |
+| Flag             | Type    | Default | Description                                                                              |
+| ---------------- | ------- | ------- | ---------------------------------------------------------------------------------------- |
+| `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress                                                     |
+| `--channel`      | string  | (none)  | Subdomain to use (e.g. `my-api.in-spectr.dev`)                                           |
+| `--channel-code` | string  | (none)  | Secret code required for remote access to the channel                                    |
 
 ---
 
@@ -53,27 +54,44 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ## Security and Storage
 
-| Flag                | Type    | Default        | Description                                           |
-| ------------------- | ------- | -------------- | ----------------------------------------------------- |
-| `--apiSecret`       | string  | (none)         | Protect access to Inspectr's admin API                |
-| `--store-path`      | string  | `.inspectr.db` | Path to store request/response history                |
-| `--store-in-memory` | boolean | `false`        | Use in-memory storage instead of persistent disk file |
+| Flag                | Type    | Default                  | Description                                               |
+|---------------------|---------|--------------------------|-----------------------------------------------------------|
+| `--api-secret`      | string  | (none)                   | Protect access to Inspectr's admin API                    |
+| `--backend-cors`    | boolean | `false`                  | Let the backend handle CORS preflight instead of Inspectr |
+| `--data-dir`        | string  | `.inspectr/`             | Base directory for Inspectr data (DBs, logs)              |
+| `--store-path`      | string  | `.inspectr/.inspectr.db` | Path to store request/response history                    |
+| `--store-in-memory` | boolean | `false`                  | Use in-memory storage instead of persistent disk file     |
 
 ---
 
 ## Configuration & Version
 
-| Flag        | Type   | Default          | Description                                    |
-| ----------- | ------ | ---------------- | ---------------------------------------------- |
-| `--config`  | string | `.inspectr.yaml` | Path to YAML config file (overrides CLI flags) |
-| `--version` |        |                  | Print Inspectr version and exit                |
+| Flag        | Type   | Default          | Description                                                        |
+|-------------|--------|------------------|--------------------------------------------------------------------|
+| `--config`  | string | `.inspectr.yaml` | Path to YAML config file. Auto-detect `.inspectr.yaml` if present. |
+| `--version` |        |                  | Print Inspectr version and exit                                    |
 
-## Advanced
+---
 
-| Flag             | Type    | Default | Description                                       |
-| ---------------- | ------- | ------- | ------------------------------------------------- |
-| `--log-level`    | string  | `none`  | Set log verbosity (`debug`, `info`, `warn`, etc.) |
-| `--http-timeout` | integer | `30`    | HTTP timeout in seconds for backend requests      |
+## Start-up Options
+
+| Flag                 | Type   | Default                         | Description                                                                             |
+|----------------------|--------|---------------------------------|-----------------------------------------------------------------------------------------|
+| `--rules-config`     | string | (none)                          | Path to a rules YAML file to load at startup                                            |
+| `--command`          | string | (none)                          | Launch a command when Inspectr boots                                                    |
+| `--command-log-file` | string | `.inspectr-command-process.log` | Log file for the managed command. Defaults to `.inspectr/.inspectr-command-process.log` |
+
+---
+
+## Advanced Settings
+
+| Flag                   | Type    | Default | Description                                                                                                                |
+|------------------------|---------|---------|----------------------------------------------------------------------------------------------------------------------------|
+| `--log-file`           | string  | (none)  | Write logs to this file instead of `.inspectr/inspectr.log`                                                                |
+| `--log-level`          | string  | `none`  | Set log verbosity (`debug`, `info`, `warn`, etc.)                                                                          |
+| `--http-timeout`       | integer | `30`    | HTTP timeout in seconds for backend requests. Expose has a maxmium http-timeout of 30 seconds for non-streaming responses. |
+| `--session-expiration` | integer | `24`    | Session expiration time in hours                                                                                           |
+| `--grace-period`       | integer | `30`    | Grace period for session cleanup in seconds                                                                                |
 
 ---
 
@@ -96,6 +114,34 @@ inspectr --catch=true --expose --channel=webhook-test --channel-code=secure123
 ```bash
 inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
 ```
+
+### Inspectr with config file
+
+By default, Inspectr looks for a `.inspectr.yaml` file in the current directory, so you can run
+
+```bash
+inspectr
+```
+
+which will load the default configuration.
+
+If you prefer to use a different config file, you can specify it with the `--config` flag:
+
+```bash
+inspectr --config=./inspectr-webhook.yaml
+```
+
+### Start Inspectr and run a command
+
+Inspectr can also be used to trigger a command when it starts. This can be any command to start a program or a shell script.
+Common use cases include running a development server or running a test suite, launch a Inspectr Connector, or run a custom script.
+
+```bash
+inspectr --command="npm run dev"
+```
+
+Inspectr will run the command in the background and log its output to `.inspectr/inspectr-command-process.log`.
+When Inspectr exits, the command will be terminated.
 
 ---
 
