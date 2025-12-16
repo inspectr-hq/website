@@ -13,7 +13,9 @@ const PricingSection = () => {
         'Public expose with preferred URLs',
         'Request inspection & replay',
         'Smart rule-based tagging - 10 rules',
-        'Inspectr AI MCP Server - 300 requests/months',
+        'Inspectr AI MCP Server - 300 reqs/month',
+        'Tracing view',
+        'MCP Insights',
         'Basic statistics',
         'OpenAPI Mocking',
         'SSL/TLS Encryption',
@@ -34,8 +36,9 @@ const PricingSection = () => {
         'Custom domains',
         'Reserved subdomains',
         'Smart rule-based tagging - 50 rules',
-        'Inspectr AI MCP Server - 1000 requests/months',
+        'Inspectr AI MCP Server - 3000 reqs/month',
         'Advanced insights (coming soon)',
+        'Connectors (coming soon)',
         'Priority support (email)'
       ],
       isPopular: true,
@@ -118,7 +121,7 @@ const PricingSection = () => {
               </h4>
               <p className="text-white/70 text-sm">
                 No signup or account is required. You can start using Inspectr right away while
-                keeping your data private.
+                <a href="/docs/concepts/performance-privacy/#keeping-it-local" className="text-brand-primary" target="_blank"> keeping your data private</a>.
               </p>
             </div>
             {/*<div className="text-left">*/}
@@ -130,7 +133,7 @@ const PricingSection = () => {
               <h4 className="font-semibold text-white mb-3">What payment methods do you accept?</h4>
               <p className="text-white/70 text-sm">
                 We accept all major credit cards and invoice payments.{' '}
-                <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank">
+                <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank" className="text-brand-primary" >
                   Contact us
                 </a>{' '}
                 for more details.
