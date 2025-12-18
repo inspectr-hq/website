@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import starlightImageZoom from 'starlight-image-zoom';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -19,6 +20,7 @@ export default defineConfig({
   integrations: [
     react(),
     starlight({
+      plugins: [starlightImageZoom()],
       title: 'Documentation',
       description: 'Simplifying API and Webhook debugging for developers.',
       // logo: { src: './src/assets/brand_logo_color.svg', alt: 'Inspectr - Logo', replacesTitle: true },
