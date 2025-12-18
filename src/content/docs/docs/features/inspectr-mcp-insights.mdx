@@ -1,0 +1,78 @@
+---
+title: MCP Insights
+description: See how Inspectr classifies Model Context Protocol traffic, tracks tool/resource/prompt usage, and measures tokens.
+---
+
+import { Aside, Badge } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import mcpInfoPrimary from '../../../../assets/features/mcp/mcp-info-01.png';
+import mcpInfoSecondary from '../../../../assets/features/mcp/mcp-info-02.png';
+import mcpInfoDetails from '../../../../assets/features/mcp/mcp-details.png';
+import mcpTrace from '../../../../assets/features/mcp/mcp-trace-01.png';
+import mcpTokens from '../../../../assets/features/mcp/mcp-tokens.png';
+import mcpContent from '../../../../assets/features/mcp/mcp-content-items.png';
+
+<Badge text="New in 1.5.0" variant="success" />
+
+Inspectr introduces first-class **Model Context Protocol (MCP) insights**. MCP requests are auto-detected, categorized, and enriched so you can see which tools, resources, and prompts are being exercised—and how many tokens each call costs.
+
+<Image src={mcpInfoPrimary} alt="Inspectr showing MCP request details and MCP tags" />
+
+## What you get
+
+- **Auto-detection of MCP traffic** operations are marked with the `mcp` protocol.
+- **Classification by category and type**: Inspectr parses `method` + params to tag calls as **tool**, **resource**, **prompt**, or **system** (e.g., `tools/call`, `resources/read`, `prompts/get`, `initialize`, notifications).
+- **Name extraction**: pulls the tool/resource/prompt identifier (`search_tool`, resource URI, prompt name) into the operation metadata and tags.
+- **Token accounting**: Estimate request + response tokens usage and stores request/response/total per operation.
+- **MCP-specific metrics**: tracks totals and errors for MCP requests, plus counts per tool/resource/prompt.
+- **Trace-friendly IDs**: captures MCP session/request IDs from headers to correlate chat flows and SSE streams.
+
+## MCP details per operation
+
+<Image src={mcpInfoDetails} alt="Inspectr rendering MCP tools list response with MCP tags" />
+
+The details panel shows MCP information for each operation:
+- **Classification info**:
+  - Tool/Resource/Prompt name (e.g.`get_trace`)
+  - The method (e.g. `tools/call`)
+  - The category (tool, resource, prompt, system) (e.g. `tool`)
+- **Token counts** (request, response, total) are attached to each MCP operation.
+- **Input**
+  - The parameters passed to the MCP method (referenced in the MCP spec as the `params` field).
+- **Output**
+  - The structured response content (referenced in the MCP spec as the `structuredContent` field)
+  - The content response (referenced in the MCP spec as the `content` field)
+  - The raw response body, containing both structured and content items.
+
+<Image src={mcpContent} alt="Inspectr showing MCP structured content items for responses" />
+
+## Trace View - Usage insights and token estimates
+
+Inspectr aggregates MCP activity per session so you can get insights:
+
+- About the sequence of the MCP interactions
+- Which **tools** are called most often? Which **resources** are read? Which **prompts** are popular?
+- How many **tokens** are burned by MCP traffic over a window?
+- How often do MCP calls error (HTTP or JSON-RPC)?
+
+<Image src={mcpTokens} alt="Inspectr showing MCP token totals and breakdown" />
+
+Per operation, you can see all the details, like mentioned above.
+
+## How classification works
+
+- Methods with `tools/*` become **tool** calls; `resources/*` → **resource**; `prompts/*` → **prompt**; notifications/roots/tasks/logging fall under **system**.
+- Names are pulled from params:
+  - `tools/call` → `params.name`
+  - `resources/read` → `params.uri` / first entry in `params.uris`
+  - `prompts/get` / `prompts/call` → `params.name`
+- Unknown/other MCP methods still attach protocol and token counts, defaulting category to `system`.
+
+<Image src={mcpTrace} alt="Inspectr tracing view showing MCP method classification" />
+
+## See MCP in action with LLMs
+
+- Connect with LLMs like [ChatGPT](/docs/examples/expose-mcp-server-openai/), [Claude](/docs/examples/expose-mcp-server/), or any MCP client to your MCP server.
+- [Watch each MCP call in **Request History**](/docs/guides/mcp-observability/), including the tool/resource/prompt invoked and its token cost.
+- Use the built-in Inspectr MCP server (tools + resources + prompts) to query your own traffic from inside a chat.

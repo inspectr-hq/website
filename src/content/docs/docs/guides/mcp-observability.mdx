@@ -8,6 +8,8 @@ import { FlowBase } from '../../../../components/DocFlows/FlowMcp.jsx';
 import { Image } from 'astro:assets';
 
 import inspectrExpose from '../../../../assets/guides/inspectr-expose.png';
+import mcpTracingToolList from '../../../../assets/features/mcp/mcp-tracing-toollist.png';
+import mcpTracingInfo from '../../../../assets/features/mcp/mcp-info-02.png';
 
 <FlowBase client:only="react" />
 
@@ -61,6 +63,8 @@ Each entry in the UI shows the HTTP method, path, headers, body, and response. F
 ---
 
 ## Understanding Agent Behavior
+
+<Image src={mcpTracingToolList} alt="Inspectr Tracing MCP server" />
 
 With traffic flowing through Inspectr you gain insight into how the agent uses your API surface:
 
