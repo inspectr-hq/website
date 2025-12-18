@@ -47,9 +47,21 @@ Before you begin, ensure you have:
 
 ## Step 1: Install FastMCP
 
-Install FastMCP via pip:
+We recommend using [uv](https://docs.astral.sh/uv/getting-started/installation/) to install and manage FastMCP.
+
+If you plan to use FastMCP in your project, add it as a dependency:
 
 ```bash
+uv add fastmcp
+```
+
+Alternatively, install it directly with uv or pip:
+
+```bash
+# Using uv
+uv pip install fastmcp
+
+# Using pip
 pip install fastmcp
 ```
 
@@ -204,12 +216,8 @@ Edit your Claude Desktop config (`~/.claude/claude_desktop_config.json`):
 }
 ```
 
-Claude can now invoke your FastMCP tools through the Inspectr tunnel, and you'll see every request in the UI.
-
-**Security notes:**
-- Use strong `--channel-code` values (e.g., `openssl rand -hex 16`)
-- Add rate limiting via [Rules Engine →](/docs/features/inspectr-rules-engine)
-- See [Exposing Publicly →](/docs/guides/exposing-publicly) for authentication options
+Claude can now invoke your FastMCP server tools through the Inspectr tunnel, and you'll see every MCP request, allowing you to debug and optimize your server.
+It gives a great insight into how LLMs like Claude or ChatGPT use your tools,prompt and resources.
 
 ---
 
