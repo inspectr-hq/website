@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import starlight from '@astrojs/starlight';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import starlightImageZoom from 'starlight-image-zoom';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -19,6 +20,7 @@ export default defineConfig({
   integrations: [
     react(),
     starlight({
+      plugins: [starlightImageZoom()],
       title: 'Documentation',
       description: 'Simplifying API and Webhook debugging for developers.',
       // logo: { src: './src/assets/brand_logo_color.svg', alt: 'Inspectr - Logo', replacesTitle: true },
@@ -58,6 +60,7 @@ export default defineConfig({
             { label: 'Rules Engine', slug: 'docs/features/inspectr-rules-engine' },
             { label: 'Statistics Dashboard', slug: 'docs/features/inspectr-statistics' },
             { label: 'Tracing Groups', slug: 'docs/features/inspectr-tracing-insights' },
+            { label: 'MCP Insights', slug: 'docs/features/inspectr-mcp-insights' },
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' }
@@ -123,7 +126,7 @@ export default defineConfig({
             }
             if (fs.existsSync(filePath)) {
               const stat = fs.statSync(filePath);
-              return { ...item, lastmod: new Date(stat.mtimeMs) };
+              return { ...item, lastmod: new Date(stat.mtimeMs).toISOString() };
             }
           }
 
@@ -138,7 +141,7 @@ export default defineConfig({
             const filePath = path.resolve(astroFile);
             if (fs.existsSync(filePath)) {
               const stat = fs.statSync(filePath);
-              return { ...item, lastmod: new Date(stat.mtimeMs) };
+              return { ...item, lastmod: new Date(stat.mtimeMs).toISOString() };
             }
           }
         } catch {
@@ -161,7 +164,7 @@ export default defineConfig({
               logger.info('Copied sitemap-index.xml -> sitemap.xml');
             }
           } catch (e) {
-            console.warn('sitemap postprocess failed:', e?.message || e);
+            console.warn('sitemap postprocess failed:', e instanceof Error ? e.message : e);
           }
         }
       }
@@ -170,12 +173,8 @@ export default defineConfig({
 
   vite: {
     plugins: [
-      tailwindcss({
-        config: './tailwind.config.js'
-      }),
-      svgr({
-        exportAsDefault: false
-      })
+      tailwindcss(),
+      svgr()
     ]
   }
 });

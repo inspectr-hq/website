@@ -7,18 +7,21 @@ import { Aside, Badge } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
 import tracingDetails from '../../../../assets/features/tracing/tracing-insights.png';
+import tracingList from '../../../../assets/features/tracing/tracing-list.png';
 
 <Aside type="note" title="Feature" icon="rocket">
-  <Badge text="Upcoming feature" variant="default" />
+  <Badge text="New in 1.5.0" variant="success" />
   Use Inspectr’s new **Tracing** view to understand the full flow of your API interactions.
 </Aside>
 
-> **Inspectr Tracing & Insights** — because understanding flow is the first step to mastering observability.
+> **Inspectr Tracing & Insights** because understanding flow is the first step to mastering observability.
 
 The **Tracing & Insights** view reveals how requests are connected across sessions, tools, or backends.
 Each trace groups related requests by their **correlation ID** and **trace ID**, letting you see the full conversation timeline in one place.
 
 Inspectr automatically correlates events as they flow through your local proxy, remote ingress, and backends — showing when, where, and how each call occurred.
+
+<img src="/features/tracing/tracing-navigation.gif" alt="Tracing Overview" />
 
 ---
 
@@ -27,6 +30,9 @@ Inspectr automatically correlates events as they flow through your local proxy, 
 
 ### Trace Timeline
 Inspectr displays every related request in a **nested timeline**:
+
+<Image src={tracingList} alt="Tracing Timeline" />
+
 - Visualize the order and duration of each request
 - See parent-child spans for chained or recursive calls
 - Review total trace duration and time between events
