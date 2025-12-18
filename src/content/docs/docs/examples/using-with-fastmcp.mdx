@@ -12,9 +12,14 @@ import mcpTracingInfo from '../../../../assets/features/mcp/mcp-info-02.png';
 
 <FlowIngress client:only="react" />
 
-[FastMCP](https://gofastmcp.com) is the fast, Pythonic way to build Model Context Protocol (MCP) servers. Write simple Python functions with decorators, and FastMCP handles the protocol complexity.
+[FastMCP](https://gofastmcp.com) is the Python framework to build [Model Context Protocol(MCP)](https://modelcontextprotocol.io/docs/learn/server-concepts) servers. Write simple Python functions with decorators, and FastMCP handles the protocol complexity.
 
-This example shows how to use Inspectr alongside FastMCP to capture and inspect every MCP operation—without modifying your code. Inspectr tunnels traffic between your FastMCP server and MCP clients, providing visibility into tools, resources, prompts, token usage, and errors.
+FastMCP is great for building MCP servers, that follow-up the [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25) without having to know all the implementation details, and comes with built-in features and extensibility to support advanced use cases.
+Ranging from storage for resources, advanced authentication handling, and even integrations with public authentication & authorization services.
+
+It speeds up the development process of MCP servers by eliminating boilerplate code and providing a simple framework for building tools, resources, and prompts.
+
+This guide shows how to use Inspectr alongside FastMCP to capture and inspect every MCP operation, without modifying your code PLUS Inspectr tunnels traffic between your local FastMCP server and MCP clients, providing visibility into tools, resources, prompts, token usage, and errors.
 
 ---
 
