@@ -3,33 +3,30 @@ title: Using Inspectr with FastMCP
 description: Build MCP servers with FastMCP and debug them with Inspectr for complete tool, resource, and prompt visibility
 ---
 
-import { FlowBase } from '../../../../components/DocFlows/FlowFastMcp.jsx';
+import { FlowIngress } from '../../../../components/DocFlows/FlowFastMcp.jsx';
 import { Image } from 'astro:assets';
 
 import inspectrExpose from '../../../../assets/guides/inspectr-expose.png';
 import mcpTracingToolList from '../../../../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTracingInfo from '../../../../assets/features/mcp/mcp-info-02.png';
 
-<FlowBase client:only="react" />
+<FlowIngress client:only="react" />
 
-[FastMCP](https://gofastmcp.com) is the fast, Pythonic way to build Model Context Protocol (MCP) servers. With minimal boilerplate—just decorate your Python functions—FastMCP handles all the protocol complexity so you can focus on building tools, resources, and prompts.
+[FastMCP](https://gofastmcp.com) is the fast, Pythonic way to build Model Context Protocol (MCP) servers. Write simple Python functions with decorators, and FastMCP handles the protocol complexity.
 
-But shipping an MCP server is only half the story. You need visibility into which tools agents actually invoke, how they're used, what tokens they consume, and where failures occur. This guide shows how to combine FastMCP's rapid development with Inspectr's zero-configuration observability for a complete MCP workflow.
-
-Inspectr acts as a transparent tunnel between your FastMCP server and any MCP client (Claude Desktop, ChatGPT, Cursor, Windsurf), capturing every request and providing detailed insights—without touching your code.
+This example shows how to use Inspectr alongside FastMCP to capture and inspect every MCP operation—without modifying your code. Inspectr tunnels traffic between your FastMCP server and MCP clients, providing visibility into tools, resources, prompts, token usage, and errors.
 
 ---
 
-## Why Combine FastMCP with Inspectr
+## What You'll Learn
 
-When building MCP servers with FastMCP, Inspectr provides immediate value:
+This example demonstrates:
 
-- **Transparent observability** – See every MCP operation without modifying your FastMCP code
-- **Auto-classification** – Inspectr automatically categorizes traffic as tools, resources, prompts, or system calls
-- **Token tracking** – Monitor request and response token usage per operation to optimize costs
-- **Multi-client testing** – Test your FastMCP server against Claude, ChatGPT, Cursor, and other clients simultaneously
-- **Session correlation** – Follow complete conversation flows with trace IDs and correlation context
-- **Error debugging** – Inspect failures with full request/response payloads and JSON-RPC error details
+- Creating a minimal FastMCP server with a single tool
+- Running Inspectr as a transparent proxy to capture MCP traffic
+- Exposing your local FastMCP server publicly via Inspectr tunneling
+- Inspecting tool calls, token usage, and errors in the Inspectr UI
+- Connecting MCP clients (Claude Desktop, ChatGPT, Cursor) to your tunneled server
 
 ---
 
@@ -57,7 +54,7 @@ For additional FastMCP features and documentation, visit [gofastmcp.com](https:/
 
 ## Step 2: Create a FastMCP Server
 
-Create a simple MCP server with a single tool (`weather.py`):
+Create `weather.py`:
 
 ```python
 from fastmcp import FastMCP
@@ -73,31 +70,29 @@ if __name__ == "__main__":
     mcp.run()
 ```
 
-FastMCP automatically:
-- Handles the MCP protocol handshake
-- Exposes your decorated functions as discoverable tools
-- Serializes Python types to MCP response format
+The `@mcp.tool()` decorator exposes your function as an MCP tool. FastMCP handles the protocol handshake and response serialization automatically.
 
-For more complex examples including resources and prompts, see the [FastMCP documentation](https://gofastmcp.com/quickstart).
+For resources, prompts, and advanced patterns, see the [FastMCP quickstart](https://gofastmcp.com/quickstart).
 
 ---
 
-## Step 3: Proxy with Inspectr
+## Step 3: Run Inspectr as a Proxy
 
-Start Inspectr to tunnel traffic between your FastMCP server and clients:
+Start your FastMCP server, then run Inspectr:
 
 ```bash
+# Terminal 1: Start FastMCP server
+python weather.py
+
+# Terminal 2: Start Inspectr proxy
 inspectr --backend=http://localhost:8000 --listen=:8080
 ```
 
-**What this does:**
-- `--backend`: Points to your FastMCP server endpoint
-- `--listen`: Inspectr listens on port 8080 for incoming MCP requests
-- Inspectr UI is available at `http://localhost:4004`
+Inspectr now listens on port 8080 and forwards traffic to your FastMCP server on port 8000. The Inspectr UI runs at `http://localhost:4004`.
 
-<Image src={inspectrExpose} alt="Inspectr exposing FastMCP server" />
+<Image src={inspectrExpose} alt="Inspectr proxying FastMCP server" />
 
-Now configure your MCP client to connect to `http://localhost:8080` instead of directly to your FastMCP server. All traffic flows through Inspectr and appears in the UI.
+Point MCP clients to `http://localhost:8080` instead of directly to your FastMCP server. All traffic flows through Inspectr and appears in the UI.
 
 ---
 
@@ -146,63 +141,84 @@ Visit the Inspectr UI at `http://localhost:4004` to see the captured request.
 
 ## What Inspectr Captures
 
-Once traffic flows through Inspectr, you gain visibility into:
-
-- **Auto-detection** – All MCP traffic is automatically tagged with the `mcp` protocol
-- **Classification** – Operations are categorized as tools (`tools/call`), resources (`resources/read`), prompts (`prompts/get`), or system calls
-- **Tool names** – Extracted and displayed as tags (e.g., `get_weather`)
-- **Token counts** – Request, response, and total tokens per operation
-- **Session correlation** – MCP session IDs and request IDs link related calls
-- **Error tracking** – HTTP and JSON-RPC errors are highlighted with full error details
-- **Latency metrics** – Execution time per operation for performance tuning
-
 <Image src={mcpTracingInfo} alt="Detailed MCP request inspection" />
 
-This observability helps you:
-- Understand which tools agents invoke most frequently
-- Optimize high-token operations before production
-- Debug failures with complete request/response context
-- Measure latency and identify slow dependencies
+Inspectr automatically extracts MCP-specific metadata from every request:
+
+- **Operation type** – Tools, resources, prompts, or system calls
+- **Operation name** – Extracted from params (e.g., `get_weather`)
+- **Token usage** – Request, response, and total token counts
+- **Session tracking** – Correlates related calls via MCP session IDs
+- **Timing** – Latency per operation for performance analysis
+- **Errors** – JSON-RPC error codes and messages with full context
+
+Use this data to identify frequently-called tools, optimize token-heavy operations, and debug failures with complete request/response payloads.
 
 ---
 
-## Production Setup
+## Exposing Your Server via Tunneling
 
-To expose your FastMCP server publicly for remote clients or team collaboration:
+Inspectr can expose your local FastMCP server publicly using the `--expose` flag. This creates a secure tunnel, giving you a public URL that MCP clients anywhere can connect to.
+
+Start Inspectr with tunneling enabled:
 
 ```bash
 inspectr \
   --backend=http://localhost:8000 \
   --expose \
-  --channel=fastmcp-prod \
+  --channel=my-fastmcp \
   --channel-code=secure-token-123
 ```
 
-Your public endpoint:
+You'll see output like:
 
 ```
-https://fastmcp-prod.in-spectr.dev
+Inspectr tunnel active at: https://my-fastmcp.in-spectr.dev
+UI available at: http://localhost:4004
 ```
 
-**Security best practices:**
-- Use strong `--channel-code` values (generate with `openssl rand -hex 16`)
-- Enable rate limiting via Inspectr [Rules Engine →](/docs/features/inspectr-rules-engine)
-- Validate inputs in your FastMCP tools
-- Review the [Exposing Publicly guide →](/docs/guides/exposing-publicly) for additional configuration
+**What this enables:**
+
+- **Remote access** – Share the public URL with teammates or clients without deploying infrastructure
+- **MCP client testing** – Configure Claude Desktop, ChatGPT, or Cursor to use `https://my-fastmcp.in-spectr.dev`
+- **No firewall config** – Tunnel handles NAT traversal and works from anywhere
+- **Full observability** – All tunneled traffic appears in the Inspectr UI
+
+### Connecting Claude Desktop
+
+Edit your Claude Desktop config (`~/.claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "weather-tools": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://my-fastmcp.in-spectr.dev"]
+    }
+  }
+}
+```
+
+Claude can now invoke your FastMCP tools through the Inspectr tunnel, and you'll see every request in the UI.
+
+**Security notes:**
+- Use strong `--channel-code` values (e.g., `openssl rand -hex 16`)
+- Add rate limiting via [Rules Engine →](/docs/features/inspectr-rules-engine)
+- See [Exposing Publicly →](/docs/guides/exposing-publicly) for authentication options
 
 ---
 
 ## Summary
 
-Combining FastMCP with Inspectr gives you:
+FastMCP lets you build MCP servers with minimal code. Inspectr adds zero-config observability and tunneling:
 
-- **Rapid MCP development** – FastMCP reduces server code to simple Python decorators
-- **Zero-config observability** – Inspectr captures all traffic without code changes
-- **Production-ready insights** – Token tracking, error rates, and performance metrics
-- **Multi-client compatibility** – Test against Claude, ChatGPT, Cursor, and more
-- **Complete debugging** – Full request/response inspection with MCP protocol understanding
+- **Transparent capture** – See every tool call, resource read, and prompt invocation
+- **Token tracking** – Monitor usage and optimize costs
+- **Secure tunneling** – Expose local servers publicly without deployment
+- **Multi-client testing** – Connect Claude Desktop, ChatGPT, Cursor, and more
+- **Full inspection** – Request/response payloads, errors, and latency metrics
 
-Build fast with FastMCP. Debug visually with Inspectr. Optimize with data.
+Build fast. Debug visually. Ship confidently.
 
 ---
 
