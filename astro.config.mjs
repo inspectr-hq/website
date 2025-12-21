@@ -63,7 +63,8 @@ export default defineConfig({
             { label: 'MCP Insights', slug: 'docs/features/inspectr-mcp-insights' },
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
-            { label: 'Access Authentication', slug: 'docs/features/access-authentication' }
+            { label: 'Access Authentication', slug: 'docs/features/access-authentication' },
+            { label: 'Inspectr MCP Server', slug: 'docs/features/inspectr-mcp-server' }
           ]
         },
         {
