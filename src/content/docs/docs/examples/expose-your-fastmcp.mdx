@@ -1,0 +1,245 @@
+---
+title: Exposing a FastMCP server
+description: Build MCP servers with FastMCP and tunnel them with Inspectr for complete tool, resource, and prompt visibility
+---
+
+import { FlowIngress } from '../../../../components/DocFlows/FlowFastMcp.jsx';
+import { Image } from 'astro:assets';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+import fastMcpTerminal from '../../../../assets/guides/fastmcp/terminal-fastmcp.png';
+import inspectrTerminal from '../../../../assets/guides/fastmcp/terminal-inspectr.png';
+import inspectrExpose from '../../../../assets/guides/fastmcp/terminal-inspectr-expose.png';
+import inspectrResponse from '../../../../assets/guides/fastmcp/inspectr-response.png';
+import inspectrMcp from '../../../../assets/guides/fastmcp/inspectr-mcp.png';
+import mcpTracingToolList from '../../../../assets/guides//fastmcp/inspectr-tracing.png';
+import fastMcpClaude from '../../../../assets/guides/fastmcp/claude-weather.png';
+import fastMcpLogo from '../../../../assets/brands/fastmcp.png';
+
+[FastMCP](https://gofastmcp.com) is a powerfull Python framework to build [Model Context Protocol(MCP)](https://modelcontextprotocol.io/docs/learn/server-concepts) servers. Write simple Python functions with decorators, and FastMCP handles the protocol complexity.
+
+<Image src={fastMcpLogo} alt="FastMCP" />
+
+[FastMCP](https://gofastmcp.com/servers/server) is great for building MCP servers, that follow the [MCP specification](https://modelcontextprotocol.io/specification/2025-11-25) without having to know all the implementation details, and comes with built-in features and extensibility to support advanced use cases.
+Ranging from storage for resources, advanced authentication handling (like OAuth) and even integrations with public authentication & authorization services.
+
+It speeds up the development process of MCP servers by eliminating boilerplate code and providing a simple but advanced framework for building tools, resources, and prompts.
+
+---
+
+## What You'll Learn
+
+This guide shows how to use Inspectr alongside FastMCP to capture and inspect every MCP operation, without modifying your code PLUS Inspectr tunnels traffic between your local FastMCP server and MCP clients, providing visibility into tools, resources, prompts, token usage, and errors.
+
+<FlowIngress client:only="react" />
+
+This example demonstrates:
+
+- Creating a minimal FastMCP server with a single tool
+- Running Inspectr as a transparent proxy to capture MCP traffic
+- Exposing your local FastMCP server publicly via Inspectr tunneling
+- Inspecting tool calls, token usage, and errors in the Inspectr UI
+- Connecting MCP clients (Claude Desktop, ChatGPT, Cursor) to your tunneled server
+
+---
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- **Python 3.9+** installed
+- **pip** for package management
+- **Inspectr** installed ([Installation guide →](/docs/getting-started/installation))
+
+---
+
+## Step 1: Install FastMCP
+
+We recommend using [uv](https://docs.astral.sh/uv/getting-started/installation/) to install and manage FastMCP.
+
+If you plan to use FastMCP in your project, add it as a dependency:
+
+```bash
+uv add fastmcp
+```
+
+Alternatively, install it directly with uv or pip:
+
+```bash
+# Using uv
+uv pip install fastmcp
+
+# Using pip
+pip install fastmcp
+```
+
+For additional FastMCP features and documentation, visit [gofastmcp.com](https://gofastmcp.com).
+
+---
+
+## Step 2: Create a FastMCP Server
+
+Create `weather.py`:
+
+```python
+from fastmcp import FastMCP
+
+mcp = FastMCP("weather-tools")
+
+@mcp.tool()
+def get_weather(location: str) -> str:
+    """Get current weather for a location"""
+    return f"Sunny, 72°F in {location}"
+
+if __name__ == "__main__":
+    mcp.run(transport="http", host="127.0.0.1", port=8000)
+```
+
+The `@mcp.tool()` decorator exposes your function as an MCP tool. FastMCP handles the protocol handshake and response serialization automatically.
+
+For resources, prompts, and advanced patterns, see the [FastMCP quickstart](https://gofastmcp.com/quickstart).
+
+---
+
+## Step 3: Run Inspectr as a Proxy
+
+Start your FastMCP server, then run Inspectr:
+
+<Tabs>
+  <TabItem label="Using UV">
+
+```bash
+# Terminal 1: Start FastMCP server
+uv run python weather.py
+
+# Terminal 2: Start Inspectr proxy
+inspectr --backend=http://localhost:8000
+```
+
+  </TabItem>
+  <TabItem label="Using Python">
+
+```bash
+# Terminal 1: Start FastMCP server
+python weather.py
+
+# Terminal 2: Start Inspectr proxy
+inspectr --backend=http://localhost:8000
+```
+
+  </TabItem>
+</Tabs>
+
+The FastMCP server runs on port 8000.
+
+<Image src={fastMcpTerminal} alt="Running FastMCP server" />
+
+Inspectr now listens on port 8080 and forwards traffic to your FastMCP server on port 8000. The Inspectr UI runs at `http://localhost:4004`.
+
+<Image src={inspectrTerminal} alt="Inspectr proxying FastMCP server" />
+
+Point MCP clients to `http://localhost:8080` instead of directly to your FastMCP server. All traffic flows through Inspectr and appears in the UI.
+
+## Step 4: Tunnel Your FastMCP server
+
+Inspectr can expose your local FastMCP server publicly using the `--expose` flag. This creates a secure tunnel, giving you a public URL that MCP clients anywhere can connect to.
+
+Start Inspectr with tunneling enabled:
+
+```bash
+inspectr \
+  --backend=http://localhost:8000 \
+  --expose \
+  --channel=my-fastmcp \
+  --channel-code=secure-token-123
+```
+
+You'll see output like:
+
+<Image src={inspectrExpose} alt="Inspectr expose/tunnel FastMCP server" />
+
+**What this enables:**
+
+- **Remote access** – Share the public URL with teammates or clients without deploying infrastructure
+- **MCP client testing** – Configure Claude Desktop, ChatGPT, or Cursor to use `https://my-fastmcp.in-spectr.dev`
+- **No firewall config** – Tunnel handles NAT traversal and works from anywhere
+- **Full observability** – All tunneled traffic appears in the Inspectr UI
+
+## Step 5: Connecting Claude Desktop
+
+Edit your Claude Desktop config (`~/.claude/claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "weather-tools": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://my-fastmcp.in-spectr.dev"]
+    }
+  }
+}
+```
+
+Claude can now invoke your FastMCP server tools through the Inspectr tunnel, and you'll see every MCP request, allowing you to debug and optimize your server.
+It gives a great insight into how LLMs like Claude or ChatGPT use your tools,prompt and resources.
+
+<Image src={fastMcpClaude} alt="Claude using FastMCP server" />
+
+---
+
+## Step 6: Review MCP Operations
+
+Call your FastMCP tool via Inspectr using Claude, ChatGPT, ... or any MCP client
+
+Visit the Inspectr UI at `http://localhost:4004` to see the captured MCP interactions.
+
+<Image src={inspectrResponse} alt="Inspectr capturing MCP tools" />
+
+
+## MCP Insights
+
+Next to the request and response payloads, Inspectr also captures detailed metadata about every MCP operation.
+
+<Image src={inspectrMcp} alt="Detailed MCP request inspection" />
+
+Inspectr automatically extracts MCP-specific metadata from every request:
+
+- **Operation type** – Tools, resources, prompts, or system calls
+- **Operation name** – Extracted from params (e.g., `get_weather`)
+- **Token usage** – Request, response, and total token counts
+- **Session tracking** – Correlates related calls via MCP session IDs
+- **Timing** – Latency per operation for performance analysis
+- **Errors** – JSON-RPC error codes and messages with full context
+
+Use this data to identify frequently-called tools, optimize token-heavy operations, and debug failures with complete request/response payloads.
+
+LLM's like Claude and ChatGPT will trigger a number of MCP operations, in a sequence that it uses to answer questions.
+Inspectr helps you understand how the LLMs uses the tools, prompts and resources, and how they interact with each other, using the MCP tracing view.
+
+<Image src={mcpTracingToolList} alt="MCP tracing tool list" />
+
+## Summary
+
+FastMCP lets you build MCP servers with minimal code. Inspectr adds zero-config observability and tunneling:
+
+- **Transparent capture** – See every tool call, resource read, and prompt invocation
+- **Token tracking** – Monitor usage and optimize costs
+- **Secure tunneling** – Expose local servers publicly without deployment
+- **Multi-client testing** – Connect Claude Desktop, ChatGPT, Cursor, and more
+- **Full inspection** – Request/response payloads, errors, and latency metrics
+
+Build fast. Debug visually. Ship confidently.
+
+---
+
+### Related Links
+
+**Inspectr Documentation:**
+- [MCP Observability guide →](/docs/guides/mcp-observability)
+- [MCP Insights feature →](/docs/features/inspectr-mcp-insights)
+- [Exposing Services Publicly →](/docs/guides/exposing-publicly)
+
+**FastMCP Resources:**
+- [FastMCP Documentation](https://gofastmcp.com) – Complete FastMCP guide
+- [FastMCP GitHub](https://github.com/jlowin/fastmcp) – Source code and examples
+- [FastMCP Quickstart](https://gofastmcp.com/quickstart) – Getting started tutorial
