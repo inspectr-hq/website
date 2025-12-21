@@ -8,6 +8,7 @@ import { Image } from 'astro:assets';
 
 import mcpInfoPrimary from '../../../../assets/features/mcp/mcp-info-01.png';
 import mcpInfoSecondary from '../../../../assets/features/mcp/mcp-info-02.png';
+import mcpTracingToolList from '../../../../assets/guides//fastmcp/inspectr-tracing.png';
 import mcpInfoDetails from '../../../../assets/features/mcp/mcp-details.png';
 import mcpTrace from '../../../../assets/features/mcp/mcp-trace-01.png';
 import mcpTokens from '../../../../assets/features/mcp/mcp-tokens.png';
@@ -60,6 +61,8 @@ Inspectr aggregates MCP activity per session so you can get insights:
 
 Per operation, you can see all the details, like mentioned above.
 
+<Image src={mcpTracingToolList} alt="MCP tracing tool list" />
+
 ## How classification works
 
 - Methods with `tools/*` become **tool** calls; `resources/*` → **resource**; `prompts/*` → **prompt**; notifications/roots/tasks/logging fall under **system**.
@@ -73,6 +76,7 @@ Per operation, you can see all the details, like mentioned above.
 
 ## See MCP in action with LLMs
 
-- Connect with LLMs like [ChatGPT](/docs/examples/expose-mcp-server-openai/), [Claude](/docs/examples/expose-mcp-server/), or any MCP client to your MCP server.
+- Connect with LLMs like [ChatGPT](/docs/examples/expose-mcp-server-openai/), [Claude](/docs/examples/expose-mcp-server/), or any MCP client to connect to your MCP server.
 - [Watch each MCP call in **Request History**](/docs/guides/mcp-observability/), including the tool/resource/prompt invoked and its token cost.
 - Use the built-in Inspectr MCP server (tools + resources + prompts) to query your own traffic from inside a chat.
+- [Build your own MCP server using FastMCP](/docs/examples/expose-your-fastmcp/) and connect to it with Inspectr.
