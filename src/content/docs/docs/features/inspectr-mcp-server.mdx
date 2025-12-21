@@ -1,0 +1,145 @@
+---
+title: Inspectr MCP Server
+description: Talk to your Inspectr traffic from ChatGPT, Claude, Copilot, and any MCP client.
+excerpt: Inspectr exposes an MCP server that turns real traffic into tools, resources, and prompts your AI assistants can use for debugging, reporting, and rule drafting.
+---
+
+import { Aside, Badge } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import mcpInspectr from '../../../../assets/guides/mcp-inspectr.png';
+import mcpServerLocal from '../../../../assets/features/mcp-server/setting-mcp-server-local.png';
+import mcpServerExpose from '../../../../assets/features/mcp-server/setting-mcp-server-expose.png';
+import mcpClaudeChatResultsGraph from '../../../../assets/guides/mcp-claude-chat-results-graph.png';
+import mcpClaudeResults from '../../../../assets/guides/mcp-claude-results.png';
+import mcpClaudeChatActivate from '../../../../assets/guides/mcp-claude-chat-activate.png';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.4.0" variant="success" />
+  The Inspectr MCP Server lets AI assistants query and reason over API & Webhooks history, traces, and statistics.
+</Aside>
+
+Inspectr ships with a **built-in MCP server** that turns your request history, traces, and statistics into tools, resources, and prompts.
+That means you can plug Inspectr into **ChatGPT, Claude, Copilot**, or any MCP-compatible client and **have a conversation with your operations** in real time.
+
+It is observability you can talk to.
+
+
+[//]: # (TODO: add a settings screenshot of the MCP server panel)
+[//]: # (TODO: add a screenshot of a chat client using Inspectr MCP)
+
+---
+
+## How the Inspectr MCP Server works
+
+- **Runs alongside the Inspectr App API** and uses the same local data store.
+- **Exposes traffic as structured MCP resources** so assistants can fetch exact request/response details, traces, and statistics.
+- **Presents Inspectr actions as tools and prompts** to summarize, compare, and explain behavior.
+- **Every MCP call is visible in Inspectr** so you can audit what the assistant asked for and what it saw.
+
+The result is a feedback loop: the assistant asks Inspectr questions, Inspectr returns grounded answers, and you can verify every step.
+
+---
+
+## Configuration
+
+1. **Start Inspectr with the app enabled** (default):
+
+```bash
+inspectr --backend=http://localhost:3000
+```
+
+2. **Open the MCP Server settings** in the Inspectr UI: `http://localhost:4004/#settings/mcp-server`
+
+<Image src={mcpServerLocal} alt="Inspectr MCP server settings" />
+
+You will see the MCP Server URL, which defaults to: `http://localhost:4004/mcp`
+
+3. **Make the Inspect MCP Server public** by toggling the exposure in the same settings page.
+
+<Image src={mcpServerExpose} alt="Public Inspectr MCP server settings" />
+
+The public URL will be visible in the UI: `https://app-hello.in-spectr.dev/mcp`
+
+4. **Connect an MCP client** (ChatGPT, Claude, Copilot, or any MCP client) using that URL.
+
+See the [Expose MCP Server guide](http://localhost:4321/docs/examples/expose-mcp-server/#step-4-connect-to-claude-desktop) for more details on how to do this for Claude Desktop.
+If you are using OpenAI ChatGPT, you can use the [OpenAI MCP integration](/docs/examples/expose-mcp-server-openai/) guide instead.
+
+---
+
+## Use Inspectr in Claude Desktop
+
+Once your MCP server is exposed through Inspectr, you can interact with it directly inside **Claude Desktop**.
+
+<Image src={mcpClaudeChatActivate} alt="Claude Desktop connectors details" />
+
+This lets you test how Claude queries your MCP server in a natural conversation flow, with results displayed as structured data or even visualizations.
+
+For example, let’s run a prompt that searches for the most used API endpoints:
+
+<Image src={mcpClaudeResults} alt="Claude Desktop results" />
+
+Next we want Claude to show how the response times visually look like:
+
+<Image src={mcpClaudeChatResultsGraph} alt="Claude chat graphing results" />
+
+---
+
+
+---
+
+## Example conversations
+
+### Debug assistance
+
+Ask your assistant to drill into failures and reproduce what happened:
+
+- "Show me the last 20 failing webhook deliveries and summarize the common error response."
+- "Explain why `/api/invoices` is spiking in latency this morning and point to the slowest trace."
+- "List the MCP tools that returned errors and show the payloads."
+
+### Reporting
+
+Turn real traffic into human-friendly summaries:
+
+- "Create a weekly report of the top 10 endpoints by volume and include error rates."
+- "Summarize new endpoints that appeared since the last deploy."
+- "Give me a status update I can paste into a Slack channel."
+
+### SLO and reliability
+
+Use Inspectr as a living SLO data source:
+
+- "Calculate the p95 latency for `payments.create` in the last 24h and compare it to last week."
+- "Report current error budget burn for the `checkout` tag."
+- "Flag endpoints that violated a 99.9% success target."
+
+### Rules and automation
+
+Ask the assistant to help craft rules grounded in actual traffic:
+
+- "Draft a rule that tags any 5xx on `/api/webhooks/*` as `ERROR:webhook`."
+- "Suggest a rule that highlights requests over 800ms for `ENV:staging`."
+- "Generate a template rule for MCP tool failures grouped by tool name."
+
+---
+
+## Why this matters
+
+The Inspectr MCP Server bridges **observability and action**. Instead of manually filtering charts and logs, you can ask for:
+
+- Answers grounded in real traffic
+- Explanations of failures and timing outliers
+- SLO summaries and trend reporting
+- Rule drafts you can apply in the Rules Engine
+
+It is the fastest path from "What happened?" to "Here is the fix."
+
+---
+
+## Related guides
+
+- [Use Inspectr with Claude via MCP →](/docs/examples/expose-mcp-server/)
+- [Connect ChatGPT with your MCP server →](/docs/examples/expose-mcp-server-openai/)
+- [Why MCP observability matters →](/docs/guides/mcp-observability/)
