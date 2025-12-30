@@ -50,7 +50,7 @@ const features = [
   },
   {
     icon: <IconGlobe className="w-6 h-6" />,
-    title: 'Public Exposure',
+    title: 'Public Tunnel',
     description: 'Expose local services with secure, custom subdomains for testing and demos.'
   }
 ];

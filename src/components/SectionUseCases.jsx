@@ -78,7 +78,7 @@ export default function UseCasesSection() {
           <div className="space-y-8">
             <section className="p-6 rounded-lg bg-black/30 border border-gray-800">
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">
-                Local Service Exposure
+                Tunnel Local Service
               </h3>
               <ul className="space-y-3 text-gray-400">
                 <li className="flex items-start gap-2">
