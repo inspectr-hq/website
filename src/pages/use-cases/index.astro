@@ -4,6 +4,8 @@ import Navigation from '../../components/Site/Navigation';
 import Footer from '../../components/Site/Footer';
 import LevelsDiagram from '../../components/levelsDiagram';
 import React from 'react';
+import { Image } from 'astro:assets';
+import inspectrLevels from '../../assets/inspectr-levels.png';
 
 const useCaseModules = await Astro.glob('./level-*.astro');
 const useCases = useCaseModules
@@ -14,7 +16,7 @@ const useCases = useCaseModules
 <Layout>
   <Navigation client:load />
   <main class="mt-20">
-    <section class="bg-gradient-to-b from-brand-dark/80 to-black pt-24 pb-16">
+    <section class="bg-gradient-to-b from-brand-dark/80 to-black pt-24 pb-8">
       <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
         <!--<p class="uppercase tracking-[0.3em] text-xs text-brand-secondary/70">-->
         <!--  From First Request to Full Observability-->
@@ -35,7 +37,29 @@ const useCases = useCaseModules
       </div>
     </section>
 
-    <!--<LevelsDiagram />-->
+    <section class="bg-black/60">
+      <div class="mx-auto max-w-6xl px-4">
+        <div
+          class="
+            relative
+            rounded-3xl
+            bg-gradient-to-br
+            from-white
+            via-white/95
+            to-white/90
+            shadow-2xl
+            ring-1 ring-white/10
+          "
+        >
+          <Image
+            src={inspectrLevels}
+            alt="The 9 Levels of API & Webhook Observability with Inspectr"
+            class="w-full h-auto rounded-xl"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
 
     <section class="py-10 bg-black/60">
       <div class="max-w-6xl mx-auto px-4 space-y-12">
