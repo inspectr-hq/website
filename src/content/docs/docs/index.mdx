@@ -1,13 +1,29 @@
 ---
 title: Inspectr
-description: Lightweight API and webhook inspector
+description: Simplifying API and Webhook debugging
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import inspectrInfo from '../../../assets/docs/inspectr-infographic.png';
+import inspectrLogo from '../../../assets/inspectr_brand_logo.png';
 
-> Simplifying API and Webhook debugging
+<div className="not-content mb-0 grid grid-cols-[10%_1fr] items-center gap-2">
+  {/* Left column — logo */}
+  <div className="flex justify-start">
+    <Image
+      src={inspectrLogo}
+      alt="Inspectr"
+      class="h-12 w-auto sm:h-14"
+    />
+  </div>
 
-*Inspectr* is a real-time HTTP traffic inspection and mocking tool that lets you debug, capture, expose, and replay API requests and webhook events effortlessly, complete with a built-in tunnel/expose option for sharing local services.
+  {/* Right column — blockquote-style text */}
+  <blockquote className="m-0 border-l-4 border-gray-300 pl-4 text-lg font-semibold leading-tight text-gray-600 sm:text-xl">
+    Simplifying API and Webhook debugging
+  </blockquote>
+</div>
+
+**Inspectr** is a real-time HTTP traffic inspection and mocking tool that lets you debug, capture, expose, and replay API requests and webhook events effortlessly, complete with a built-in tunnel/expose option for sharing local services.
 
 ![Inspectr App UI](https://raw.githubusercontent.com/inspectr-hq/inspectr/main/assets/inspectr-app.png)
 
@@ -19,11 +35,14 @@ It’s the perfect tool to inspect requests, expose local services, and test int
 
 ## ✨ Key Features
 
+<Image src={inspectrInfo} alt="Inspectr" class="border rounded-2xl" />
+
 * **Real-Time Proxying** – Forward traffic to your backend and inspect every request/response
 * **Catch Mode** – Accept any request without forwarding for quick inspection
 * **Mocking with OpenAPI** – Serve dynamic or static mock responses without a backend
 * **Replay Requests** – Repeat captured requests to test endpoints under different conditions
 * **Secure Public Exposure** – Safely expose local services to the internet via temporary URLs
+* **Full Data Privacy & Control** - Requests and responses are only processed & stored locally
 * **UI Dashboard** – Live view of all traffic, searchable and replayable
 
 ---
@@ -31,10 +50,11 @@ It’s the perfect tool to inspect requests, expose local services, and test int
 ## 🚀 What Can You Do With Inspectr?
 
 * Debug local or remote APIs in real-time
-* Expose localhost for testing webhooks (Stripe, GitHub, etc.)
+* Expose/tunnel localhost for testing webhooks (Stripe, GitHub, etc.)
 * Mock APIs based on OpenAPI specs
 * Replay real traffic during development or QA
 * Share temporary, secure endpoints for collaboration
+* Get insights into how your API/Webhook/MCP server are being used
 
 ---
 
