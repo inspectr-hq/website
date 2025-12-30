@@ -6,6 +6,7 @@ description: Simplifying API and Webhook debugging
 import { Image } from 'astro:assets';
 import inspectrInfo from '../../../assets/docs/inspectr-infographic.png';
 import inspectrLogo from '../../../assets/inspectr_brand_logo.png';
+import inspectrApp from '../../../assets/docs/inspectr-app-v150.png';
 
 <div className="not-content mb-0 grid grid-cols-[10%_1fr] items-center gap-2">
   {/* Left column — logo */}
@@ -25,7 +26,7 @@ import inspectrLogo from '../../../assets/inspectr_brand_logo.png';
 
 **Inspectr** is a real-time HTTP traffic inspection and mocking tool that lets you debug, capture, expose, and replay API requests and webhook events effortlessly, complete with a built-in tunnel/expose option for sharing local services.
 
-![Inspectr App UI](https://raw.githubusercontent.com/inspectr-hq/inspectr/main/assets/inspectr-app.png)
+<Image src={inspectrApp} alt="Inspectr App UI" />
 
 Whether you're testing APIs, working with webhooks, or building integrations—Inspectr gives you a transparent view of the traffic flowing between clients and services.
 

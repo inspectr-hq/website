@@ -1,15 +1,20 @@
 // FeaturesCard.jsx
 import React from 'react';
 
-export function FeatureCard({ icon, title, description }) {
+export function FeatureCard({ icon, title, description, href }) {
+  const Wrapper = href ? 'a' : 'div';
+
   return (
-    <div className="p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+    <Wrapper
+      {...(href ? { href } : {})}
+      className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+    >
       <div className="w-12 h-12 rounded-lg bg-brand-primary/10 flex items-center justify-center mb-4 text-brand-primary">
         {icon}
       </div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-gray-400">{description}</p>
-    </div>
+    </Wrapper>
   );
 }
 

@@ -4,6 +4,11 @@ description: Install Inspectr via NPM, Homebrew, or binaries
 ---
 import FlowLocalDebug from '../../../../components/DocFlows/FlowLocalDebug.jsx';
 
+import { Image } from 'astro:assets';
+
+import inspectrApp from '../../../../assets/docs/inspectr-app-v150.png';
+
+
 <FlowLocalDebug client:only="react" />
 
 Inspectr helps you inspect, trace, and debug API requests and responses in real time. Whether you're working on a backend service or testing an integration, Inspectr gives you the visibility you need.
@@ -59,6 +64,8 @@ Visit [http://localhost:4004](http://localhost:4004) to:
 * View the forwarded backend response
 * Filter by status code, method, endpoint
 * Replay past requests for regression testing
+
+<Image src={inspectrApp} alt="Inspectr showing request details" />
 
 ---
 

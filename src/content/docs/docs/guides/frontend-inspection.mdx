@@ -2,7 +2,9 @@
 title: Inspecting Frontend API Requests
 description: Install Inspectr via NPM, Homebrew, or binaries
 ---
+import { Image } from 'astro:assets';
 
+import inspectrApp from '../../../../assets/docs/inspectr-app-v150.png';
 import FlowLocalBrowser from '../../../../components/DocFlows/FlowLocalBrowser.jsx';
 
 <FlowLocalBrowser client:only="react" />
@@ -65,6 +67,8 @@ Visit [http://localhost:4004](http://localhost:4004) to:
 * View requests and responses
 * Monitor headers, bodies, and status codes
 * Replay requests during development
+
+<Image src={inspectrApp} alt="Inspectr App" />
 
 ---
 
