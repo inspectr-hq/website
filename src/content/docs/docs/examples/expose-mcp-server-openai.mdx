@@ -14,8 +14,11 @@ import mcpOpenAIConnectorNew from '../../../../assets/guides/mcp-openai-connecto
 import mcpOpenAIConnector from '../../../../assets/guides/mcp-openai-connector.png';
 import mcpOpenAIConnectorConnected from '../../../../assets/guides/mcp-openai-connector-connected.png';
 import mcpOpenAIDevMode from '../../../../assets/guides/mcp-openai-dev-mode.png';
-import mcpInspectrRequest from '../../../../assets/guides/mcp-openai-inspectr-request.png';
-import mcpInspectrResponse from '../../../../assets/guides/mcp-openai-inspectr-response.png';
+//import mcpInspectrRequest from '../../../../assets/guides/mcp-openai-inspectr-request.png';
+import mcpInspectrRequest from '../../../../assets/features/mcp/mcp-request.png';
+import mcpInspectrToolList from '../../../../assets/features/mcp/mcp-tool-list-openai.png';
+//import mcpInspectrResponse from '../../../../assets/guides/mcp-openai-inspectr-response.png';
+import mcpInspectrResponse from '../../../../assets/features/mcp/mcp-tool-fetch.png';
 import mcpOpenAI from '../../../../assets/guides/mcp-openai.png';
 import mcpOpenAICreate from '../../../../assets/guides/mcp-openai-create.png';
 
@@ -166,12 +169,14 @@ Next we want see how the response times behaves:
 
 To view how ChatGPT interacts with your MCP server; including tools, prompts, and resources — go to [http://localhost:4004](http://localhost:4004), where you’ll find a history of requests and responses.
 
-_Requests made by ChatGPT_
-<Image src={mcpInspectrRequest} alt="Inspectr request view" />
+_Request made by ChatGPT_
+<Image src={mcpInspectrRequest} alt="Inspectr MCP request view" />
 
 _Responses from the MCP server_
 
-<Image src={mcpInspectrResponse} alt="Inspectr response view" />
+<Image src={mcpInspectrResponse} alt="Inspectr MCP insights view" />
+
+<Image src={mcpInspectrToolList} alt="Inspectr MCP Tools view" />
 
 ---
 
