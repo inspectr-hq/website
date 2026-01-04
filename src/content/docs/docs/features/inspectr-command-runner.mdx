@@ -1,0 +1,43 @@
+---
+title: Run a Command on Startup
+description: Start Inspectr and launch a companion process alongside it.
+---
+
+import { Aside, Badge } from '@astrojs/starlight/components';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.6.0" variant="success" />
+  Inspectr can trigger a command, script, ... on start up.
+</Aside>
+
+
+Inspectr can start a local command when it boots, run it in the background, and capture the output in a log file. This is handy when you want your API or Webhook Backend Service and Inspectr Proxy to be started together.
+
+---
+
+## Use Cases
+
+- Launch a local dev server alongside Inspectr
+- Start a backend service together with Inspectr
+- Trigger setup scripts in one command for teammates
+
+---
+
+## Example
+
+Start Inspectr and run a local dev server:
+
+```bash
+inspectr --command=npm --command-arg=run --command-arg=dev
+```
+
+Inspectr logs command output to `.inspectr/.inspectr-command-process.log` by default and stops the command when Inspectr exits.
+
+You can also configure this in `.inspectr.yaml`:
+
+```yaml
+# Command
+command: node
+commandArgs:
+  - demo.js
+```

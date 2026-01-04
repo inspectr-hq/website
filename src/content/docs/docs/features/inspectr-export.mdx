@@ -1,0 +1,90 @@
+---
+title: Export Operations on Shutdown
+description: Save captured operations to a JSON file when Inspectr stops.
+---
+
+import { Aside, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import actions from '../../../../assets/features/export-import/export-import.png';
+import importOps from '../../../../assets/features/export-import/import.png';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.6.0" variant="success" />
+  Inspectr Export lets you save and re-import sessions as JSON for sharing and review.
+</Aside>
+
+
+Inspectr can export the operations it captured into a timestamped JSON file when it shuts down. This is useful for sharing a session, archiving a CI/CD run, or replaying data later.
+
+---
+
+## Use Cases
+
+- Share a proxy session with teammates or support
+- Archive a test run for later analysis
+- Store captured traffic as a build artifact in CI
+
+---
+
+## Example
+
+Export operations on exit:
+
+```bash
+inspectr --export
+```
+
+Exported files are written to the `exports` directory by default. You can change the target directory using `exportDir` in `.inspectr.yaml`.
+
+<Tabs>
+  <TabItem label="Configure Export">
+```yaml
+export: true
+```
+  </TabItem>
+  <TabItem label="Configure Export with custom export folder">
+```yaml
+export: true
+exportDir: archive/sessions
+```
+  </TabItem>
+</Tabs>
+
+---
+
+## Import an Export in the UI
+
+After exporting, open the Inspectr UI.
+
+<Image src={actions} alt="Inspectr Import/Export actions" />
+
+Click on the import option in the top navigation, to load the JSON file from your `exports` folder.
+
+<Image src={importOps} alt="Inspectr Import" width="400px" />
+
+This lets you review the captured operations in the UI as a separate session.
+
+---
+
+## Export File Format
+
+Example:
+
+```
+📦 Exported operations: exports/inspectr_operations_2026-01-04-142843_inst_1757169902.json
+```
+
+The filename is built as:
+
+```
+inspectr_operations_<timestamp>_<instance_id>.json
+```
+
+For the example above:
+
+- `inspectr_operations` is a fixed prefix
+- `2026-01-04-142843` is the export time in UTC (`YYYY-MM-DD-HHMMSS`)
+- `inst_1757169902293373000` is a stable instance id for that machine (stored in the local metrics DB so it stays consistent across runs)
+
+So it's a timestamped export tagged with the machine's instance id.
