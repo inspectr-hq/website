@@ -21,8 +21,8 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">Docs</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="/docs/concepts/performance/" className="hover:text-brand-primary">
-                  Performance Principles
+                <a href="/docs/concepts/performance-privacy/" className="hover:text-brand-primary">
+                  Performance & Privacy Principles
                 </a>
               </li>
               <li>
