@@ -55,7 +55,8 @@ export default function Hero() {
           </div>
         </div>
         <div>
-          <img src="/screens/inspectr-new.png" alt="Inspectr App" className="w-full" />
+          {/*<img src="/screens/inspectr-new.png" alt="Inspectr App" className="w-full" />*/}
+          <img src="/screens/inspectr-app-v150.png" alt="Inspectr App" className="w-full" />
         </div>
       </div>
     </div>
