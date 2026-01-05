@@ -98,7 +98,7 @@ export default function LaunchCards() {
                 href={launchUrl}
                 className="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-100 dark:hover:bg-neutral-800"
                 target="_blank"
-                rel="noreferrer"
+                rel="nofollow noreferrer"
               >
                 Launch in Inspectr
                 <svg viewBox="0 0 24 24" className="ml-1.5 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
@@ -110,7 +110,7 @@ export default function LaunchCards() {
                 href={launchUrl}
                 className="text-sm text-gray-500 underline-offset-4 hover:underline dark:text-gray-400"
                 target="_blank"
-                rel="noreferrer"
+                rel="nofollow noreferrer"
               >
                 Visit the Direct URL
               </a>

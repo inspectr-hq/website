@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /launch
 
 Sitemap: https://inspectr.dev/sitemap.xml

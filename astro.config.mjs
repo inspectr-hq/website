@@ -113,6 +113,7 @@ export default defineConfig({
       priority: 0.7,
       // Ensure standard filename and enable per-URL lastmod via serialize
       filenameBase: 'sitemap',
+      filter: (page) => !page.includes('/launch'),
       serialize: (item) => {
         try {
           const url = new URL(item.url);
@@ -137,7 +138,6 @@ export default defineConfig({
           // Set lastmod for key non-docs static pages from their .astro files
           const staticPageFileByPath = new Map([
             ['/', 'src/pages/index.astro'],
-            ['/launch/', 'src/pages/launch.astro'],
             ['/pricing/', 'src/pages/pricing.astro']
           ]);
           const astroFile = staticPageFileByPath.get(p);
