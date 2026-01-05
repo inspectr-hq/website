@@ -4,7 +4,7 @@ export default function UseCaseLevels({ useCases = [] }) {
   const featuredSlugs = [
     'level-0-catch-requests',
     'level-1-see-and-understand',
-    'level-2-test-webhooks',
+    'level-2-test-webhooks'
   ];
   const featuredLevels = useCases
     .filter((useCase) => featuredSlugs.includes(useCase.slug))
@@ -21,8 +21,8 @@ export default function UseCaseLevels({ useCases = [] }) {
             Build your path through Inspectr's use case levels
           </h2>
           <p className="text-sm text-gray-300 sm:text-base">
-            Each level solves a concrete developer pain. Use the capabilities you need today and come
-            back for the rest when you are ready.
+            Each level solves a concrete developer pain. Use the capabilities you need today and
+            come back for the rest when you are ready.
           </p>
         </div>
 

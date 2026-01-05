@@ -37,8 +37,7 @@ const items = [
     name: 'Museum API',
     brand: 'Redocly',
     docsUrl: 'https://redocly.com/demo/openapi/museum-api',
-    launchUrl:
-      'https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/museum.openapi.yaml',
+    launchUrl: 'https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/museum.openapi.yaml',
     // PNG icon
     icon: <PngIcon src="/icons/redocly.png" alt="Redocly" className="rounded-md" />
   },
@@ -55,8 +54,7 @@ const items = [
     name: 'Galaxy API',
     brand: 'Scalar',
     docsUrl: 'https://galaxy.scalar.com/',
-    launchUrl:
-      'https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/galaxy.openapi.yaml',
+    launchUrl: 'https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/galaxy.openapi.yaml',
     // SVG icon with tailwind color
     // icon: <ScalarIcon className="text-indigo-600" />,
     icon: <ScalarIcon />
@@ -75,8 +73,7 @@ export default function LaunchCards() {
           <div className="flex h-full flex-col">
             <div className="flex items-center gap-3">
               {/* Fixed-size icon box for consistent alignment */}
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 p-1.5 dark:bg-neutral-800">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 p-1.5 dark:bg-neutral-800">
                 {icon}
               </div>
               <div>
@@ -101,7 +98,13 @@ export default function LaunchCards() {
                 rel="nofollow noreferrer"
               >
                 Launch in Inspectr
-                <svg viewBox="0 0 24 24" className="ml-1.5 h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="ml-1.5 h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M7 17 17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>

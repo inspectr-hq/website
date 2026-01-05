@@ -121,7 +121,15 @@ const PricingSection = () => {
               </h4>
               <p className="text-white/70 text-sm">
                 No signup or account is required. You can start using Inspectr right away while
-                <a href="/docs/concepts/performance-privacy/#keeping-it-local" className="text-brand-primary" target="_blank"> keeping your data private</a>.
+                <a
+                  href="/docs/concepts/performance-privacy/#keeping-it-local"
+                  className="text-brand-primary"
+                  target="_blank"
+                >
+                  {' '}
+                  keeping your data private
+                </a>
+                .
               </p>
             </div>
             {/*<div className="text-left">*/}
@@ -133,7 +141,11 @@ const PricingSection = () => {
               <h4 className="font-semibold text-white mb-3">What payment methods do you accept?</h4>
               <p className="text-white/70 text-sm">
                 We accept all major credit cards and invoice payments.{' '}
-                <a href="https://forms.gle/httYMeu7arsfpeuZA" target="_blank" className="text-brand-primary" >
+                <a
+                  href="https://forms.gle/httYMeu7arsfpeuZA"
+                  target="_blank"
+                  className="text-brand-primary"
+                >
                   Contact us
                 </a>{' '}
                 for more details.

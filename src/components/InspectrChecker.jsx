@@ -116,7 +116,11 @@ export default function InspectrChecker() {
               <h3 className="text-xl font-semibold text-white">Inspect &amp; Iterate</h3>
               <p className="max-w-l mx-auto">
                 Open the UI at{' '}
-                <a href="http://localhost:4004" className="text-brand-primary hover:underline" rel="nofollow noopener noreferrer">
+                <a
+                  href="http://localhost:4004"
+                  className="text-brand-primary hover:underline"
+                  rel="nofollow noopener noreferrer"
+                >
                   http://localhost:4004
                 </a>{' '}
                 to watch requests live, replay history, and refine your spec.

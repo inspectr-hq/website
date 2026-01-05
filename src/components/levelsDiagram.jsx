@@ -7,7 +7,9 @@ function LevelsDiagram() {
         <div className="mx-auto max-w-7xl">
           <header className="mb-8">
             <h2 className="text-3xl font-bold text-gradient">Inspectr Capability Flow</h2>
-            <p className="mt-2 text-white/70">Each level adds capability — adopt one, or climb progressively.</p>
+            <p className="mt-2 text-white/70">
+              Each level adds capability — adopt one, or climb progressively.
+            </p>
           </header>
 
           {/* Rail */}

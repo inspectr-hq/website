@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "build:check": "npm run build && npm run check:links",
+    "check:links": "node scripts/check-trailing-slashes.mjs",
     "preview": "astro preview",
     "format": "npx prettier --write src//**/*.{jsx,css} --config ./.prettierrc",
     "astro": "astro"
@@ -23,6 +25,7 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "glob": "^11.0.0",
     "vite-plugin-svgr": "^4.3.0"
   },
   "engines": {
