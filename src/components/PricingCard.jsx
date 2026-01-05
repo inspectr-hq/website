@@ -1,7 +1,7 @@
 // src/components/PricingCard.jsx
 
 import React from 'react';
-import Check from '../assets/icon_check.svg?react';
+import Check from '../assets/icons/icon_check.svg?react';
 import Button from './Buttons.jsx';
 import Badge from './Badge.jsx';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Terminal from './Terminal.jsx';
 
-import IconArrowRight from '../assets/icon_arrow_right.svg?react';
+import IconArrowRight from '../assets/icons/icon_arrow_right.svg?react';
 
 export default function GettingStartedSection() {
   return (

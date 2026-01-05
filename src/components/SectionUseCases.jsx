@@ -1,14 +1,14 @@
 import React from 'react';
-import IconZap from '../assets/icon_zap.svg?react';
-import IconSearch from '../assets/icon_search.svg?react';
-import IconAlert from '../assets/icon_octagon-alert.svg?react';
-import IconWebhook from '../assets/icon_webhook.svg?react';
-import IconOpenApi from '../assets/icon_openapi_mono.svg?react';
-import IconGlobe from '../assets/icon_globe.svg?react';
-import IconHistory from '../assets/icon_history.svg?react';
-import IconShield from '../assets/icon_shield.svg?react';
-import IconBot from '../assets/icon_bot.svg?react';
-import IconCode from '../assets/icon_code.svg?react';
+import IconZap from '../assets/icons/icon_zap.svg?react';
+import IconSearch from '../assets/icons/icon_search.svg?react';
+import IconAlert from '../assets/icons/icon_octagon-alert.svg?react';
+import IconWebhook from '../assets/icons/icon_webhook.svg?react';
+import IconOpenApi from '../assets/icons/icon_openapi_mono.svg?react';
+import IconGlobe from '../assets/icons/icon_globe.svg?react';
+import IconHistory from '../assets/icons/icon_history.svg?react';
+import IconShield from '../assets/icons/icon_shield.svg?react';
+import IconBot from '../assets/icons/icon_bot.svg?react';
+import IconCode from '../assets/icons/icon_code.svg?react';
 
 export default function UseCasesSection() {
   return (

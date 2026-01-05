@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import IconMenu from '../../assets/icon_menu.svg?react';
-import IconClose from '../../assets/icon_close.svg?react';
-import IconGithub from '../../assets/icon_github.svg?react';
-import IconDiscord from '../../assets/icon_discord.svg?react';
+import IconMenu from '../../assets/icons/icon_menu.svg?react';
+import IconClose from '../../assets/icons/icon_close.svg?react';
+import IconGithub from '../../assets/icons/icon_github.svg?react';
+import IconDiscord from '../../assets/icons/icon_discord.svg?react';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

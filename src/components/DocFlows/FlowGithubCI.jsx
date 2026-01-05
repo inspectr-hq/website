@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import FlowVisualizer from '../Flow/FlowVisualizer.jsx';
 import { buildBaseFlow, buildIngressFlow } from '../Flow/FlowBuilder.jsx';
 
-import clientIcon from '../../assets/icon_github.svg?react';
+import clientIcon from '../../assets/icons/icon_github.svg?react';
 import serviceIcon from '../../assets/icons/stack.svg?react';
 
 

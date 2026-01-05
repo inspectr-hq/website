@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import Terminal from '../components/Terminal.jsx';
 import { FeaturesList } from './FeaturesCard.jsx';
 
-import IconLogging from '../assets/icon_logging.svg?react';
-import IconGlobe from '../assets/icon_globe.svg?react';
-import IconZap from '../assets/icon_zap.svg?react';
-import IconGithub from '../assets/icon_github.svg?react';
+import IconLogging from '../assets/icons/icon_logging.svg?react';
+import IconGlobe from '../assets/icons/icon_globe.svg?react';
+import IconZap from '../assets/icons/icon_zap.svg?react';
+import IconGithub from '../assets/icons/icon_github.svg?react';
 
 export default function InspectrChecker() {
   const [status, setStatus] = useState('checking');

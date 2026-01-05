@@ -1,8 +1,8 @@
 import React from 'react';
 
-import IconArrowRight from '../../assets/icon_arrow_right.svg?react';
-import IconGithub from '../../assets/icon_github.svg?react';
-import IconBook from '../../assets/icon_book.svg?react';
+import IconArrowRight from '../../assets/icons/icon_arrow_right.svg?react';
+import IconGithub from '../../assets/icons/icon_github.svg?react';
+import IconBook from '../../assets/icons/icon_book.svg?react';
 
 export default function Hero() {
   return (
