@@ -67,7 +67,7 @@ const stacks = [
   },
   {
     name: 'Ollama',
-    href: '/docs/examples/examples/expose-ollama/',
+    href: '/docs/examples/expose-ollama/',
     Icon: IconOllama
   },
   {
