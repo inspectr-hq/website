@@ -27,7 +27,7 @@ When debugging APIs or webhooks, context is everything, but that context is ofte
 - Reproducing issues requires replaying entire request histories
 - Sharing “what actually happened” is harder than sharing logs or screenshots
 
-Inspectr allows you to **export all captured operations** — requests, responses, metadata, and context — into a structured **JSON file**.
+Inspectr allows you to **export all captured operations** — requests, responses, metadata, and context into a structured **JSON file**.
 
 That file can then be:
 - Stored outside Inspectr
@@ -35,7 +35,9 @@ That file can then be:
 - Imported into another Inspectr instance
 - Reviewed for debugging or investigations
 
-This turns Inspectr into more than a live debugger, it becomes a **portable traffic archive**.
+This turns Inspectr into more than a live debugger; it becomes a **portable traffic archive**.
+
+If you want to automate exports (for example, export on shutdown), jump to [Automation: CLI & YAML](#automation-cli-yaml).
 
 ---
 
@@ -72,7 +74,7 @@ This is ideal for **quick exports** based on logical time periods.
 #### Custom Range
 Define an explicit **start and end time** to export only the relevant slice of traffic.
 
-<Image src={exportCustom} alt="Export  Operations modal - custom range" width="500px" />
+<Image src={exportCustom} alt="Export Operations modal - custom range" width="500px" />
 
 This is ideal when:
 - Investigating a specific incident
@@ -146,20 +148,48 @@ Think of it as a **session recorder for API traffic**.
 
 ## Typical Use Cases
 
-### Sharing Issues with Teammates
+- **Sharing Issues with Teammates**
 Export the exact traffic that caused a bug and let others inspect it locally — no backend access required.
-
-### Test & QA Reviews
-Capture requests during a test run, export them, and review behavior offline or in CI-adjacent workflows.
-
-### Archiving & Auditing
+- **Test & QA Reviews**
+Capture requests during a test run, export them, and review behavior offline or in CI/CD workflows.
+- **Archiving & Auditing**
 Store request histories outside Inspectr for compliance, audits, or long-term reference.
-
-### Cross-Environment Debugging
+- **Cross-Environment Debugging**
 Capture traffic locally, import it on another machine, or replay analysis without re-triggering systems.
-
-### Documentation
+- **Documentation**
 Use real request data when documenting APIs or explaining flows to new team members.
+
+---
+
+## Automated exports
+
+For automated workflows, you can export operations on shutdown using the CLI or `.inspectr.yaml`.
+
+<Tabs>
+  <TabItem label="Export on exit via CLI">
+    ```bash
+    inspectr --export
+    ```
+  </TabItem>
+  <TabItem label="Export when running via YAML">
+    ```yaml
+    export: true
+    ```
+  </TabItem>
+</Tabs>
+
+This is powered by Inspectr’s **export-on-exit** option, which writes a timestamped **JSON export** containing the operations captured during the run. It’s a simple way to turn “what happened” into a portable artifact you can archive, share, or attach to a ticket.
+
+For full details (including export folder and filename format), see: **[Export Operations on Shutdown →](/docs/features/inspectr-export/)**
+
+### Automated exports use-cases
+
+- **CI / test runs as artifacts**
+Capture traffic during an end-to-end run and publish the exported JSON as a build artifact.
+- **Repro packs for bugs & analysis**
+Export the exact requests/responses that triggered a problem and import them into another Inspectr instance for review.
+- **Short-lived sessions with a trail**
+Keep staging smoke tests, nightly checks or load-test sessions without running Inspectr permanently.
 
 ---
 
