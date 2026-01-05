@@ -1,0 +1,171 @@
+---
+title: "Export/Import & Record Traffic"
+description: "Capture, export, and share API requests and webhook events across Inspectr instances"
+excerpt: "Inspectr Export & Import lets you safely dump captured operations to JSON and reload them anywhere. Perfect for debugging, sharing, audits and analysis."
+---
+
+import { Aside, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import exportModal from '../../../../assets/features/export-import/export-modal.png';
+import exportPresetModal from '../../../../assets/features/export-import/export-modal-presets.png';
+import exportCustom from '../../../../assets/features/export-import/export-custom-modal.png';
+import exportRecordMode from '../../../../assets/features/export-import/export-record-mode.png';
+import exportRecording from '../../../../assets/features/export-import/export-recording.png';
+import importOps from '../../../../assets/features/export-import/import.png';
+import importExportButtons from '../../../../assets/features/export-import/export-import.png';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.2.0" variant="success" />
+  Export and import captured operations using a JSON format.
+</Aside>
+
+When debugging APIs or webhooks, context is everything, but that context is often **temporary and short-lived**.
+
+- Requests disappear once they are processed
+- Debugging happens across machines, teams, or time zones
+- Reproducing issues requires replaying entire request histories
+- Sharing “what actually happened” is harder than sharing logs or screenshots
+
+Inspectr allows you to **export all captured operations** — requests, responses, metadata, and context — into a structured **JSON file**.
+
+That file can then be:
+- Stored outside Inspectr
+- Shared with teammates
+- Imported into another Inspectr instance
+- Reviewed for debugging or investigations
+
+This turns Inspectr into more than a live debugger, it becomes a **portable traffic archive**.
+
+---
+
+## Exporting Operations
+
+You can export operations at any time from the **Request History** view.
+
+<Image src={importExportButtons} alt="Export/Import/Record Traffic" />
+
+In the top navigation bar, you can find the buttons: **Export**, **Import** and the **Recording** toggle.
+
+To export operations, click the **Export** button, which opens a modal.
+
+<Image src={exportPresetModal} alt="Export Operations modal" width="500px" />
+
+### Time Range Options
+
+Inspectr supports two export modes:
+
+#### Preset Range
+
+<Image src={exportModal} alt="Export Operations modal - Presets" width="500px" />
+
+Export everything captured since:
+- Last hour
+- Last 24 hours
+- Last 7 days
+- Last 30 days
+- Since start Inspectr
+- Since first operation
+
+This is ideal for **quick exports** based on logical time periods.
+
+#### Custom Range
+Define an explicit **start and end time** to export only the relevant slice of traffic.
+
+<Image src={exportCustom} alt="Export  Operations modal - custom range" width="500px" />
+
+This is ideal when:
+- Investigating a specific incident
+- Exporting traffic from a test run
+- Sharing only the minimal reproduction set
+
+---
+
+### Export Format
+
+The export format **JSON**, is a portable, Inspectr-native structure containing:
+- Request & response data
+- Headers and payloads
+- Timing & metadata
+- Correlation context
+
+The exported file is fully compatible with Inspectr’s import feature.
+
+---
+
+## Importing Operations
+
+Exported files can be loaded into **any Inspectr instance**.
+
+<Image src={importOps} alt="Import operations modal" width="500px" />
+
+Once imported:
+- All operations appear in **Request History**
+- Tracing, filtering, and inspection behave exactly the same
+- No live traffic or backend is required
+
+This makes Inspectr a powerful **review and analysis tool**, not just a proxy.
+
+---
+
+## Record Mode
+
+Export becomes even more powerful when combined with **Record Mode**.
+
+<Image src={exportRecordMode} alt="Record mode enabled" />
+
+### What Is Record Mode?
+
+Record Mode allows you to:
+- Explicitly **start capturing** incoming traffic
+- Clearly define when recording begins and ends
+- Export only what was recorded during that session
+
+<Image src={exportRecording} alt="Export recording summary" width="500px" />
+
+This is especially useful when:
+- Running automated test suites
+- Capturing webhook deliveries
+- Debugging transient production issues
+- Collecting traffic for later analysis or sharing
+
+Think of it as a **session recorder for API traffic**.
+
+---
+
+## Example Workflow
+
+1. Enable **Record Mode**
+2. Trigger webhooks or API calls
+3. Stop recording once the scenario completes
+4. Export recorded operations as JSON
+5. Import them into another Inspectr instance
+6. Inspect, trace, and analyze — without touching the original system
+
+---
+
+## Typical Use Cases
+
+### Sharing Issues with Teammates
+Export the exact traffic that caused a bug and let others inspect it locally — no backend access required.
+
+### Test & QA Reviews
+Capture requests during a test run, export them, and review behavior offline or in CI-adjacent workflows.
+
+### Archiving & Auditing
+Store request histories outside Inspectr for compliance, audits, or long-term reference.
+
+### Cross-Environment Debugging
+Capture traffic locally, import it on another machine, or replay analysis without re-triggering systems.
+
+### Documentation
+Use real request data when documenting APIs or explaining flows to new team members.
+
+---
+
+## Summary
+
+Inspectr’s Export & Import feature lets you:
+- Capture real traffic
+- Preserve full context
+- Share and replay API behavior anywhere

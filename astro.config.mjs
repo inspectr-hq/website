@@ -64,6 +64,7 @@ export default defineConfig({
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' },
+            { label: 'Export/Import & Record Traffic', slug: 'docs/features/inspectr-import-export' },
             { label: 'Run a Command on Startup', slug: 'docs/features/inspectr-command-runner' },
             { label: 'Export on Shutdown', slug: 'docs/features/inspectr-export' },
             { label: 'Inspectr MCP Server', slug: 'docs/features/inspectr-mcp-server' }
