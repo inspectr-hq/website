@@ -3,7 +3,7 @@ title: Run a Command on Startup
 description: Start Inspectr and launch a companion process alongside it.
 ---
 
-import { Aside, Badge } from '@astrojs/starlight/components';
+import { Aside, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
 
 <Aside type="note" title="Feature" icon="rocket">
   <Badge text="New in 1.6.0" variant="success" />
@@ -33,11 +33,26 @@ inspectr --command=npm --command-arg=run --command-arg=dev
 
 Inspectr logs command output to `.inspectr/.inspectr-command-process.log` by default and stops the command when Inspectr exits.
 
-You can also configure this in `.inspectr.yaml`:
+You can also configure this in `.inspectr.yaml`, like in the example below:
 
+This triggers `node demo.js` when Inspectr starts.
+
+<Tabs>
+  <TabItem label="Configure Command">
 ```yaml
 # Command
 command: node
 commandArgs:
   - demo.js
 ```
+  </TabItem>
+  <TabItem label="Configure Command Log File (optional)">
+```yaml
+# Command
+command: node
+commandArgs:
+  - demo.js
+commandLogFile: demo-process.log
+```
+  </TabItem>
+</Tabs>
