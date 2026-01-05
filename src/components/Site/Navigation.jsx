@@ -42,7 +42,7 @@ export default function Navigation() {
               Documentation
             </a>
             <a
-              href="/pricing"
+              href="/pricing/"
               className="text-gray-300 hover:text-brand-primary transition-colors"
             >
               Pricing
@@ -104,7 +104,7 @@ export default function Navigation() {
               Documentation
             </a>
             <a
-              href="/pricing"
+              href="/pricing/"
               className="block text-gray-300 hover:text-brand-primary transition-colors"
             >
               Pricing

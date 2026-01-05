@@ -34,7 +34,7 @@ export default function Hero() {
               </button>
             </a>
             <a
-              href="/docs"
+              href="/docs/"
               // href="https://github.com/inspectr-hq/inspectr"
               // target="_blank"
               // rel="noopener noreferrer"

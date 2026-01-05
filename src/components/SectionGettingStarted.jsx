@@ -55,7 +55,7 @@ export default function GettingStartedSection() {
           </div>
           <div className="text-center mt-12">
             <a
-              href="/docs"
+              href="/docs/"
               // target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-brand-primary hover:underline font-medium"
