@@ -12,6 +12,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 import svgr from 'vite-plugin-svgr';
 
+import { sitemapConfig } from './sitemap.config.js';
+
 // https://astro.build/config
 export default defineConfig({
   // base: '/docs/',
@@ -108,51 +110,7 @@ export default defineConfig({
         './src/styles/starlight-theme.css'
       ]
     }),
-    sitemap({
-      changefreq: 'weekly',
-      priority: 0.7,
-      // Ensure standard filename and enable per-URL lastmod via serialize
-      filenameBase: 'sitemap',
-      filter: (page) => !page.includes('/launch'),
-      serialize: (item) => {
-        try {
-          const url = new URL(item.url);
-          const p = url.pathname;
-          // Only set lastmod for docs pages based on MD/MDX mtimes
-          if (p.startsWith('/docs')) {
-            // Map '/docs/.../' -> src/content/docs/docs/... .mdx (index.mdx for '/docs/')
-            let rel = p.slice('/docs'.length); // e.g. '/getting-started/installation/'
-            let filePath;
-            if (rel === '' || rel === '/') {
-              filePath = path.resolve('src/content/docs/docs/index.mdx');
-            } else {
-              if (rel.endsWith('/')) rel = rel.slice(0, -1);
-              filePath = path.resolve('src/content/docs/docs' + rel + '.mdx');
-            }
-            if (fs.existsSync(filePath)) {
-              const stat = fs.statSync(filePath);
-              return { ...item, lastmod: new Date(stat.mtimeMs).toISOString() };
-            }
-          }
-
-          // Set lastmod for key non-docs static pages from their .astro files
-          const staticPageFileByPath = new Map([
-            ['/', 'src/pages/index.astro'],
-            ['/pricing/', 'src/pages/pricing.astro']
-          ]);
-          const astroFile = staticPageFileByPath.get(p);
-          if (astroFile) {
-            const filePath = path.resolve(astroFile);
-            if (fs.existsSync(filePath)) {
-              const stat = fs.statSync(filePath);
-              return { ...item, lastmod: new Date(stat.mtimeMs).toISOString() };
-            }
-          }
-        } catch {
-        }
-        return item;
-      }
-    })
+    sitemap(sitemapConfig)
     ,
     {
       name: 'sitemap-postprocess',
