@@ -10,13 +10,13 @@ import UseCases from '../components/SectionUseCases';
 import Footer from '../components/Site/Footer';
 import UseCaseLevels from '../components/SectionUseLevels';
 
-const useCaseModules = await Astro.glob('./use-cases/level-*.astro');
-const useCases = useCaseModules
-	.map(({ meta }) => ({
-		slug: meta.slug,
-		level: meta.level,
-		title: meta.title,
-		excerpt: meta.excerpt,
+const useCaseModules = import.meta.glob('./use-cases/level-*.astro', { eager: true });
+const useCases = Object.values(useCaseModules)
+	.map((module) => ({
+		slug: module.meta.slug,
+		level: module.meta.level,
+		title: module.meta.title,
+		excerpt: module.meta.excerpt,
 	}))
 ---
 

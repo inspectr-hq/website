@@ -7,9 +7,9 @@ import React from 'react';
 import { Image } from 'astro:assets';
 import inspectrLevels from '../../assets/inspectr-levels.png';
 
-const useCaseModules = await Astro.glob('./level-*.astro');
-const useCases = useCaseModules
-  .map(({ meta }) => meta)
+const useCaseModules = import.meta.glob('./level-*.astro', { eager: true });
+const useCases = Object.values(useCaseModules)
+  .map((module) => module.meta)
   .sort((a, b) => a.level - b.level);
 ---
 
