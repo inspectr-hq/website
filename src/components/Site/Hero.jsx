@@ -8,8 +8,8 @@ export default function Hero() {
   return (
     <div className="relative overflow-hidden pt-16">
       <div className="absolute inset-0 pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
-        <div className="text-center mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-4">
+        <div className="text-center mb-12">
           <div className="flex justify-center mb-6">
             <img src="/brand/brand_logo_name.png" alt="Inspectr Logo" className="h-20 w-auto" />
           </div>
