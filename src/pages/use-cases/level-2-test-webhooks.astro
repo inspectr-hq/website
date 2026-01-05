@@ -48,7 +48,14 @@ const worksWith = meta.worksWellWith
 const next = metaBySlug.get(meta.nextSlug) ?? related ?? meta;
 ---
 
-<Layout>
+<Layout
+  title={`${meta.title} | Inspectr Use Case`}
+  description={meta.excerpt}
+  keywords={`Inspectr, API debugging, webhook debugging, ${meta.title}, API observability`}
+  ogTitle={`${meta.title} | Inspectr Use Case`}
+  ogDescription={meta.excerpt}
+  ogType="article"
+>
   <Navigation client:load />
   <UseCasePage meta={meta} related={related} worksWith={worksWith} next={next} />
   <Footer />

@@ -21,8 +21,8 @@ export default defineConfig({
     react(),
     starlight({
       plugins: [starlightImageZoom()],
-      title: 'Documentation',
-      description: 'Simplifying API and Webhook debugging for developers.',
+      title: 'Inspectr',
+      description: 'Inspectr - Simplifying API and Webhook debugging for developers.',
       // logo: { src: './src/assets/brand_logo_color.svg', alt: 'Inspectr - Logo', replacesTitle: true },
       logo: { src: './src/assets/brand_logo_name_blue.png', alt: 'Inspectr - Logo', replacesTitle: true },
       favicon: '/favicon_blue.png',
