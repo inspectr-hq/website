@@ -9,10 +9,14 @@
     /* increase the width of the main pane */
     --sl-content-width: 70rem;
   }
-  .main-pane .sl-container {
-    margin-inline: unset;
-    margin-left: 14%;
-    margin-right: 14%;
+
+  /* Only apply wider margins on desktop screens */
+  @media (min-width: 1024px) {
+    .main-pane .sl-container {
+      margin-inline: unset;
+      margin-left: 14%;
+      margin-right: 14%;
+    }
   }
 }
 
