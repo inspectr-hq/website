@@ -162,13 +162,24 @@ Why this matters:
 
 ## Step 2 — Setup MCPJam CLI
 
-MCPJam CLI installed:
+Install or run the MCPJam CLI:
 ```bash
-npx @mcpjam/cli
-  ```
+# One-off usage
+npx @mcpjam/cli --help
 
-for more details have a look https://docs.mcpjam.com/evals/overview and the starter https://github.com/MCPJam/evals-cli-starter
+# Or install globally to get the `mcpjam` command
+npm install -g @mcpjam/cli
+```
 
+Want a working example to copy from? The starter repo includes a small, runnable eval setup:
+```bash
+git clone https://github.com/MCPJam/evals-cli-starter.git
+cd evals-cli-starter
+```
+
+Use the starter repo as a reference for eval definitions and environment config, then copy those patterns into your own project.
+
+More details: https://docs.mcpjam.com/evals/overview and https://github.com/MCPJam/evals-cli-starter
 
 ## Step 3 — Configure MCPJam to Inspectr
 
