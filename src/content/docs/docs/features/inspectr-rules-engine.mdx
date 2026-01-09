@@ -178,3 +178,59 @@ Adopt consistent namespaces so you can filter quickly:
 - `ERROR: 4xx|5xx|405|timeout`
 - `LATENCY: p95>200ms`
 - `MCP_TOOL:<tool>`, `MCP_PROMPT:<prompt>`, `RESOURCE:<id>`
+
+---
+
+### Value notation + decoders
+
+Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace assignment). You can also **decode** values inline using a decoder chain.
+
+**Notation overview**
+
+- `source_path` points to a value in the operation (headers, body, response, etc.).
+- `json_path` (optional) navigates inside that extracted value.
+- Decoder syntax is `:decoder` and applies **left to right** on the value so far.
+
+**Decoder examples**
+
+```yaml
+actions:
+  - type: trace_assign
+    params:
+      source_path: "$.request.headers[?(@.name==\"Authorization\")].value"
+      json_path: ":jwt.payload.sid"
+      prefix: "session-"
+```
+
+```yaml
+actions:
+  - type: tag_dynamic
+    params:
+      source_path: "$.request.body.token"
+      json_path: ":jwt.payload.sub"
+      key: "user"
+```
+
+```yaml
+actions:
+  - type: tag_dynamic
+    params:
+      source_path: "$.request.body"
+      json_path: "data:base64:jwt.payload.jti"
+      key: "token"
+```
+
+**Supported decoders**
+
+- `:jwt` → base64url decode header/payload (decode‑only, no signature verification).
+- `:base64` → base64/base64url decode a string.
+
+This same notation works in **rule conditions**:
+
+```yaml
+expression:
+\top: "=="
+\tleft:
+\t\tpath: "$.request.headers[?(@.name==\"Authorization\")].value:jwt.payload.sub"
+\tright: "user-123"
+```
