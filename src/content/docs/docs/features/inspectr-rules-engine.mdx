@@ -1,4 +1,3 @@
-
 ---
 title: Rules Engine
 description: Classify, enrich, and analyze API requests and webhook events
@@ -108,11 +107,11 @@ This produces tags that will appear on each matching operation.
 1. **Rules → Start from template**.
 
 2. Pick a template, e.g.:
-   
+
       - **Tag 5xx responses** (monitors 5xx patterns)
-   
+
       - **Surface auth failures** (flags 4xx on auth endpoints)
-   
+
       - **MCP Visibility** templates (classify MCP traffic by tool/prompt/resource)
 
 3. Click **Use template**, tweak conditions/actions, save.
@@ -181,7 +180,7 @@ Adopt consistent namespaces so you can filter quickly:
 
 ---
 
-### Value notation + decoders
+## Value notation + decoders
 
 Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace assignment). You can also **decode** values inline using a decoder chain.
 
@@ -191,7 +190,18 @@ Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace 
 - `json_path` (optional) navigates inside that extracted value.
 - Decoder syntax is `:decoder` and applies **left to right** on the value so far.
 
-**Simple examples**
+**Supported decoders**
+
+- `:jwt` → base64url decode header/payload (decode‑only, no signature verification).
+- `:base64` → base64/base64url decode a string.
+
+---
+
+### Simple examples
+
+### Rule Example - Header tag
+
+Extract a tag from a request header (`X-Env`):
 
 ```yaml
 actions:
@@ -201,16 +211,115 @@ actions:
       key: "env"
 ```
 
+**Use case:**
+Tag requests by environment (dev, staging, prod) when clients or gateways forward environment context via headers.
+
+### Rule Example - Response body user id
+
+Extract a tag from a nested field inside a JSON response body (`data.user.id`):
+
 ```yaml
 actions:
   - type: tag_dynamic
     params:
-    source_path: "$.response.body"
-    json_path: "data.user.id"
-    key: "user"
+      source_path: "$.response.body"
+      json_path: "data.user.id"
+      key: "user"
 ```
 
-**Decoder examples**
+**Use case:**
+Correlate requests and responses with domain identifiers such as user ids, order ids, or tenant ids.
+
+### Rule Example - Trace id header
+
+Assign a trace id directly from a request header (`X-Trace-Id`):
+
+```yaml
+actions:
+  - type: trace_assign
+    params:
+      source_path: "$.request.headers[?(@.name==\"X-Trace-Id\")].value"
+```
+
+**Use case:**
+Propagate an external trace or correlation id so all downstream activity appears under a single trace in Inspectr.
+
+---
+
+### Condition examples
+
+### Rule Example - JWT subject match
+
+Match requests from a specific authenticated user (JWT subject)
+
+Check whether the authenticated user (from a JWT in the `Authorization` header) matches a known user id.
+
+```yaml
+expression:
+  op: "=="
+  left:
+    path: "$.request.headers[?(@.name==\"Authorization\")].value:jwt.payload.sub"
+  right: "user-123"
+```
+
+**Use case:**
+Trace or tag traffic for a specific user, service account, or automated client during debugging or audits.
+
+### Rule Example - Login POST endpoint
+
+Match requests to a specific endpoint and HTTP method
+
+Only match `POST` requests sent to the `/api/login` endpoint.
+
+```yaml
+expression:
+  op: "and"
+  left:
+    op: "=="
+    left:
+      path: "$.request.method"
+    right: "POST"
+  right:
+    op: "=="
+    left:
+      path: "$.request.path"
+    right: "/api/login"
+```
+
+**Use case:**
+Group, monitor, or secure sensitive endpoints such as authentication, checkout, or write operations.
+
+### Rule Example - Slow or 5xx
+
+Match slow or failing responses (status + latency)
+
+Trigger when a request fails with a `5xx` status **or** takes longer than 500 ms.
+
+```yaml
+expression:
+  op: "or"
+  left:
+    op: ">="
+    left:
+      path: "$.response.status"
+    right: 500
+  right:
+    op: ">"
+    left:
+      path: "$.timing.duration_ms"
+    right: 500
+```
+
+**Use case:**
+Automatically flag performance issues and backend failures with tags like `ERROR: 5xx` or `LATENCY: slow`.
+
+---
+
+### Decoder examples
+
+### Rule Example - JWT session trace
+
+Decode a JWT from the Authorization header and use `payload.sid`:
 
 ```yaml
 actions:
@@ -221,6 +330,13 @@ actions:
       prefix: "session-"
 ```
 
+**Use case:**
+Tie requests to authenticated sessions or users without requiring application-level logging changes.
+
+### Rule Example - Body token user
+
+Decode a JWT from a token field in the request body and use `payload.sub`:
+
 ```yaml
 actions:
   - type: tag_dynamic
@@ -229,6 +345,13 @@ actions:
       json_path: ":jwt.payload.sub"
       key: "user"
 ```
+
+**Use case:**
+Handle APIs that pass identity or session context inside request payloads instead of headers.
+
+### Rule Example - Base64 JWT token id
+
+Decode a base64 field, then decode its JWT and use `payload.jti`:
 
 ```yaml
 actions:
@@ -239,17 +362,5 @@ actions:
       key: "token"
 ```
 
-**Supported decoders**
-
-- `:jwt` → base64url decode header/payload (decode‑only, no signature verification).
-- `:base64` → base64/base64url decode a string.
-
-This same notation works in **rule conditions**:
-
-```yaml
-expression:
-\top: "=="
-\tleft:
-\t\tpath: "$.request.headers[?(@.name==\"Authorization\")].value:jwt.payload.sub"
-\tright: "user-123"
-```
+**Use case:**
+Decode nested or encoded tokens commonly found in webhook payloads or third-party callbacks.
