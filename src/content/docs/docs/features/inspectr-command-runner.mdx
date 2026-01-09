@@ -32,6 +32,7 @@ inspectr --command=npm --command-arg=run --command-arg=dev
 ```
 
 Inspectr logs command output to `.inspectr/.inspectr-command-process.log` by default and stops the command when Inspectr exits.
+By default, Inspectr will exit if the managed command fails (non-zero exit). Set `--command-stop-on-failure=false` or `commandStopOnFailure: false` to keep Inspectr running.
 
 You can also configure this in `.inspectr.yaml`, like in the example below:
 

@@ -97,6 +97,7 @@ apiSecret: 'changeme'
 | `command`         | string | (none)                          | Launch a command when Inspectr boots                                                    |
 | `commandArgs`     | string |                                 | Arguments to pass to the managed command; repeatable                                    |
 | `commandLogFile`  | string | `.inspectr-command-process.log` | Log file for the managed command. Defaults to `.inspectr/.inspectr-command-process.log` |
+| `commandStopOnFailure` | boolean | `true` | Exit Inspectr when the managed command exits with a non-zero status                |
 
 ---
 

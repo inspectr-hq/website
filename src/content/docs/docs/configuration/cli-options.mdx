@@ -81,6 +81,7 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 | `--command`          | string | (none)                          | Launch a command when Inspectr boots                                                    |
 | `--command-arg`      | string |                                 | Argument to pass to the managed command; repeatable                                     |
 | `--command-log-file` | string | `.inspectr-command-process.log` | Log file for the managed command. Defaults to `.inspectr/.inspectr-command-process.log` |
+| `--command-stop-on-failure` | boolean | `true` | Exit Inspectr when the managed command exits with a non-zero status                     |
 
 ---
 
@@ -146,7 +147,7 @@ Inspectr can also be used to trigger a command when it starts. This can be any c
 Common use cases include running a development server or running a test suite, launch a Inspectr Connector, or run a custom script.
 
 ```bash
-inspectr --command="npm run dev"
+inspectr --command=npm --command-arg=run --command-arg=dev
 ```
 
 Inspectr will run the command in the background and log its output to `.inspectr/inspectr-command-process.log`.
