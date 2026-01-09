@@ -191,6 +191,25 @@ Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace 
 - `json_path` (optional) navigates inside that extracted value.
 - Decoder syntax is `:decoder` and applies **left to right** on the value so far.
 
+**Simple examples**
+
+```yaml
+actions:
+  - type: tag_dynamic
+    params:
+      source_path: "$.request.headers[?(@.name==\"X-Env\")].value"
+      key: "env"
+```
+
+```yaml
+actions:
+  - type: tag_dynamic
+    params:
+    source_path: "$.response.body"
+    json_path: "data.user.id"
+    key: "user"
+```
+
 **Decoder examples**
 
 ```yaml
