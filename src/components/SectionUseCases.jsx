@@ -19,7 +19,10 @@ export default function UseCasesSection() {
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div className="space-y-8">
-            <a href="/docs/guides/api-traffic-debugging/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/guides/api-traffic-debugging/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">
                 Debugging During Development
               </h3>
@@ -39,7 +42,10 @@ export default function UseCasesSection() {
               </ul>
             </a>
 
-            <a href="/docs/guides/webhook-debugging/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/guides/webhook-debugging/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">Webhook Testing</h3>
               <ul className="space-y-3 text-gray-400">
                 <li className="flex items-start gap-2">
@@ -56,7 +62,10 @@ export default function UseCasesSection() {
                 </li>
               </ul>
             </a>
-            <a href="/docs/features/mocking/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/features/mocking/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">OpenAPI Mocking</h3>
               <ul className="space-y-3 text-gray-400">
                 <li className="flex items-start gap-2">
@@ -76,7 +85,10 @@ export default function UseCasesSection() {
           </div>
 
           <div className="space-y-8">
-            <a href="/docs/guides/exposing-publicly/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/guides/exposing-publicly/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">
                 Tunnel Local Service
               </h3>
@@ -96,7 +108,10 @@ export default function UseCasesSection() {
               </ul>
             </a>
 
-            <a href="/docs/guides/frontend-inspection/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/guides/frontend-inspection/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">
                 Frontend Development
               </h3>
@@ -116,7 +131,10 @@ export default function UseCasesSection() {
               </ul>
             </a>
 
-            <a href="/docs/features/response-override/" className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all">
+            <a
+              href="/docs/features/response-override/"
+              className="block p-6 rounded-lg bg-black/30 border border-gray-800 hover:border-brand-primary transition-all"
+            >
               <h3 className="text-xl font-semibold mb-4 text-brand-primary">Response Simulation</h3>
               <ul className="space-y-3 text-gray-400">
                 <li className="flex items-start gap-2">

@@ -43,7 +43,7 @@ export default function InspectrChecker() {
     {
       icon: <IconGithub className="w-6 h-6" />,
       title: 'Open Source',
-      description: 'Install the OSS Inspectr binary — no signup or trial needed.'
+      description: 'Install the OSS Inspectr binary - no signup or trial needed.'
     },
     {
       icon: <IconZap className="w-6 h-6" />,

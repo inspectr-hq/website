@@ -9,7 +9,7 @@
     "build:check": "npm run build && npm run check:links && npm run check:deadlinks",
     "check:links": "node scripts/check-trailing-slashes.mjs",
     "check:deadlinks": "node scripts/check-dead-links.mjs",
-    "check:all": "npm run check:links && npm run check:deadlinks",
+    "check:all": "npm run build && npm run check:links && npm run check:deadlinks",
     "preview": "astro preview",
     "format": "npx prettier --write src//**/*.{jsx,css} --config ./.prettierrc",
     "astro": "astro"
