@@ -77,14 +77,14 @@ This section explains how Inspectr automatically detects and derives trace ident
 
 Inspectr looks for trace identifiers in your incoming requests and uses the first match it can decode. If nothing is found, the trace view still groups by correlation ID, but it will not show a trace ID.
 
-** Common tracing headers **
+**Common tracing headers**
 
 These are the easiest manual headers to set and are always recognized:
 
 - `x-request-id`
 - `x-correlation-id`
 
-** Manual override (Inspectr directive)**
+**Manual override (Inspectr directive)**
 
 If you want full control, you can send a dedicated override header:
 
@@ -92,7 +92,7 @@ If you want full control, you can send a dedicated override header:
 
 This is useful when you want to carry a custom trace id across systems that do not share a tracing standard.
 
-** Standard tracing headers**
+**Standard tracing headers**
 
 Inspectr also auto-detects common tracing formats:
 
@@ -129,9 +129,10 @@ Tracing is most valuable when requests form a **chain or conversation**, rather 
 
 When your system receives a webhook that triggers multiple downstream API calls, tracing lets you follow the entire flow. From the initial webhook to the final response; in a single timeline.
 
-**Inspecting local-to-remote development flows**
+**Tracing MCP workflows**
 
-Use tracing to understand how requests move from your local Inspectr proxy to a remote ingress or shared backend. This is especially useful when debugging issues that only occur in integrated environments.
+Inspectr automatically detects MCP traffic and traces how tools, prompts, and resources are used across a session. The trace view lets you follow an entire MCP-driven flow, from the initial prompt to each tool invocation; making it easy to understand behavior, ordering, and token usage in complex agent workflows.
+Learn more in the [MCP Insights](/docs/features/inspectr-mcp-insights/) documentation￼.
 
 **Performance profiling across multiple steps**
 
