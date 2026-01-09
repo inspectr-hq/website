@@ -27,6 +27,39 @@ Inspectr automatically correlates events as they flow through your local proxy, 
 
 ## Tracing feature
 
+### How trace IDs are detected
+
+Inspectr looks for trace identifiers in your incoming requests and uses the first match it can decode. If nothing is found, the trace view still groups by correlation ID, but it will not show a trace ID.
+
+**1) Simple, generic headers (quick start)**
+
+These are the easiest manual headers to set and are always recognized:
+
+- `x-request-id`
+- `x-correlation-id`
+- `cf-ray`
+
+**2) Manual override (Inspectr directive)**
+
+If you want full control, you can send a dedicated override header:
+
+- `inspectr-trace-id` → forces the trace id for the operation
+
+This is useful when you want to carry a custom trace id across systems that do not share a tracing standard.
+
+**3) Standard tracing headers**
+
+Inspectr also auto-detects common tracing formats:
+
+- **W3C Trace Context**: `traceparent`, `tracestate`, `baggage`
+- **B3 (multi-header)**: `x-b3-traceid`, `x-b3-spanid`, `x-b3-parentspanid`, `x-b3-sampled`, `x-b3-flags`
+- **B3 (single-header)**: `b3`
+- **Jaeger**: `uber-trace-id`
+- **AWS X-Ray**: `x-amzn-trace-id`
+- **GCP**: `x-cloud-trace-context`
+- **Datadog**: `x-datadog-trace-id`, `x-datadog-parent-id`, `x-datadog-sampling-priority`, `x-datadog-origin`
+- **Azure**: `request-id`, `correlation-context`
+
 
 ### Trace Timeline
 Inspectr displays every related request in a **nested timeline**:
