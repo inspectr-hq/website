@@ -25,14 +25,6 @@ Inspectr automatically correlates events as they flow through your local proxy, 
 
 <img src="/features/tracing/tracing-navigation.gif" alt="Tracing Overview" />
 
-Tracing also integrates tightly with the **Rules Engine**.
-Rules can assign or override **trace IDs** dynamically, allowing you to group requests by test run, workflow, MCP session, or any custom identifier derived from the request or response.
-
-<RelatedLink href="/docs/features/rules-engine">
-  Learn how Rules can assign trace IDs
-</RelatedLink>
-
-
 ---
 
 ## What Inspectr Tracing shows
@@ -85,15 +77,14 @@ This section explains how Inspectr automatically detects and derives trace ident
 
 Inspectr looks for trace identifiers in your incoming requests and uses the first match it can decode. If nothing is found, the trace view still groups by correlation ID, but it will not show a trace ID.
 
-**1) Simple, generic headers (quick start)**
+** Common tracing headers **
 
 These are the easiest manual headers to set and are always recognized:
 
 - `x-request-id`
 - `x-correlation-id`
-- `cf-ray`
 
-**2) Manual override (Inspectr directive)**
+** Manual override (Inspectr directive)**
 
 If you want full control, you can send a dedicated override header:
 
@@ -101,30 +92,32 @@ If you want full control, you can send a dedicated override header:
 
 This is useful when you want to carry a custom trace id across systems that do not share a tracing standard.
 
-**3) Standard tracing headers**
+** Standard tracing headers**
 
 Inspectr also auto-detects common tracing formats:
 
 - **W3C Trace Context**: `traceparent`, `tracestate`, `baggage`
 - **B3 (multi-header)**: `x-b3-traceid`, `x-b3-spanid`, `x-b3-parentspanid`, `x-b3-sampled`, `x-b3-flags`
 - **B3 (single-header)**: `b3`
+- **CloudFlare**: `cf-ray`
 - **Jaeger**: `uber-trace-id`
 - **AWS X-Ray**: `x-amzn-trace-id`
 - **GCP**: `x-cloud-trace-context`
 - **Datadog**: `x-datadog-trace-id`, `x-datadog-parent-id`, `x-datadog-sampling-priority`, `x-datadog-origin`
 - **Azure**: `request-id`, `correlation-context`
 
-<Aside type="note" title="When should I set my own trace ID?">
-You usually **do not need to set a trace ID manually** — Inspectr automatically detects common tracing headers and correlation IDs.
+**When should I set my own trace ID?**
 
-Consider assigning your own trace ID when:
-- You want to group requests by a **logical concept** (test run, eval execution, workflow id)
-- Your system does not propagate tracing headers consistently
-- You are correlating traffic across **tools or environments** that don’t share a tracing standard
-- You want full control over trace boundaries in CI or automation scenarios
+In most cases, Inspectr detects trace identifiers automatically and no manual setup is required.
 
-In these cases, assigning a trace ID via the **Rules Engine** is often the simplest approach.
-</Aside>
+You may want to assign your own trace ID when you need to group requests by a **logical concept** (such as a test run, workflow, or CI execution), when tracing headers are not propagated consistently, or when you want explicit control over trace boundaries.
+
+Tracing also integrates tightly with the **Rules Engine**.
+Rules can assign or override **trace IDs** dynamically, allowing you to group requests by test run, workflow, MCP session, or any custom identifier derived from the request or response.
+
+<RelatedLink href="/docs/features/rules-engine">
+  Assign trace IDs dynamically using Rules
+</RelatedLink>
 
 ---
 
@@ -132,17 +125,21 @@ In these cases, assigning a trace ID via the **Rules Engine** is often the simpl
 
 Tracing is most valuable when requests form a **chain or conversation**, rather than isolated calls.
 
-### Debugging webhook-driven workflows
-When your system receives a webhook that triggers multiple downstream API calls, tracing lets you follow the entire flow — from the initial webhook to the final response — in a single timeline.
+**Debugging webhook-driven workflows**
 
-### Inspecting local-to-remote development flows
+When your system receives a webhook that triggers multiple downstream API calls, tracing lets you follow the entire flow. From the initial webhook to the final response; in a single timeline.
+
+**Inspecting local-to-remote development flows**
+
 Use tracing to understand how requests move from your local Inspectr proxy to a remote ingress or shared backend. This is especially useful when debugging issues that only occur in integrated environments.
 
-### Performance profiling across multiple steps
+**Performance profiling across multiple steps**
+
 Tracing highlights where time is spent in multi-call sequences. You can quickly see which step introduces latency, retries, or blocking behavior.
 
-### Validating automation and rules
-Confirm that automation rules, MCP tools, or integrations triggered the expected downstream calls — and in the correct order.
+**Validating automation and rules**
+
+Confirm that automation rules, MCP tools, or integrations triggered the expected downstream calls and in the correct order.
 
 By focusing on **flows instead of individual requests**, tracing turns raw traffic into an understandable execution story.
 
