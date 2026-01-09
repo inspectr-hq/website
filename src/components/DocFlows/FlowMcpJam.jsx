@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import FlowVisualizer from '../Flow/FlowVisualizer.jsx';
 import { buildBaseFlow, buildIngressFlow } from '../Flow/FlowBuilder.jsx';
 
-import clientIcon from '../../assets/icons/claude-color.svg?react';
+import clientIcon from '../../assets/icons/zap.svg?react';
 import serviceIcon from '../../assets/icons/mcp.svg?react';
 
 export function FlowBase() {
   const { nodes, edges } = useMemo(
     () =>
       buildBaseFlow({
-        start: { label: 'MCP Jam', icon: clientIcon },
+        start: { label: 'MCPJam', icon: clientIcon },
         end: { label: 'MCP Server', icon: serviceIcon, width: 140 }
       }),
     []
