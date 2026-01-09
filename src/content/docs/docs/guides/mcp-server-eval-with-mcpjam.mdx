@@ -1,11 +1,11 @@
----
-title: Eval MCP Servers with MCPJam
-description: Use MCPJam with Inspectr to get run MCP evals for better visibility into your MCP server's.
----
 
-import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcpJam.jsx';
+---
+title: MCP Server Evals with MCPJam
+description: Use MCPJam with Inspectr to get run MCP evals for better visibility into your MCP servers.
+---
+import RelatedLink from '../../../../components/RelatedLink.jsx';
+import { FlowBase } from '../../../../components/DocFlows/FlowMcpJam.jsx';
 
-import { Image } from 'astro:assets';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 
@@ -13,7 +13,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## Introduction
 
-As [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) servers become the backbone for agent tooling, prompts, and resources, testing them is no longer a simple unit-testing exercise.
+As [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) become the backbone for agent tooling, prompts, and resources, testing them is no longer a simple unit-testing exercise.
 
 Your MCP server is used:
 - by different clients (Claude Desktop, Cursor, IDE agents, internal tools)
@@ -188,9 +188,9 @@ cd evals-cli-starter
 
 Use the starter repo as a reference for eval definitions and environment config, then copy those patterns into your own project.
 
-More details: https://docs.mcpjam.com/evals/overview and https://github.com/MCPJam/evals-cli-starter
+For deeper context, see the [MCPJam evals overview](https://docs.mcpjam.com/evals/overview) and the [evals CLI starter repo](https://github.com/MCPJam/evals-cli-starter).
 
-## Step 3 — Configure MCPJam use Inspectr
+## Step 3 — Configure MCPJam to use Inspectr
 
 Update your MCPJam environment configuration to target Inspectr instead of your MCP server directly:
 
@@ -239,14 +239,14 @@ Each eval becomes a **durable, inspectable record**.
 
 ---
 
-## OPTIONAL - Add a run-level tracing header
+## Optional — Add a run-level tracing header
 
 To correlate all requests belonging to a single eval run, add a tracing header:
 
 ```json
 "headers": {
   "Authorization": "Bearer ${API_TOKEN}",
-  "X-Eval-Run-Id": "${EVAL_RUN_ID}"
+  "x-correlation-id": "${EVAL_RUN_ID}"
 }
 ```
 
@@ -254,10 +254,15 @@ Run your eval with a unique identifier:
 
 ```bash
 EVAL_RUN_ID="mcpjam-$(date +%Y%m%d-%H%M%S)" \
-mcpjam evals run -t weather-tests.json -e local-dev.json
+npx @mcpjam/cli evals run -t weather-tests.json -e local-dev.json
 ```
 
 This makes it easy to filter and compare runs later.
+
+<RelatedLink href="/docs/features/inspectr-tracing-insights">
+  Learn more about Tracing Insights
+</RelatedLink>
+
 
 ---
 
