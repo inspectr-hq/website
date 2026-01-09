@@ -180,13 +180,27 @@ Adopt consistent namespaces so you can filter quickly:
 
 ---
 
-## Value notation + decoders
+## How to extract and decode values in rules
+
+Rules often need to read values from incoming requests or outgoing responses in order to make decisions or attach context.
+
+Typical questions rules answer are:
+•	Which environment did this request come from?
+•	Which user or session triggered this call?
+•	Which endpoint or tool was invoked?
+•	Was this request slow or failing?
+•	Which eval run or CI job does this belong to?
+
+To answer those questions, Inspectr rules use a value extraction system that works consistently across:
+•	Conditions (when should this rule match?)
+•	Actions (what value should be tagged or assigned?)
 
 Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace assignment). You can also **decode** values inline using a decoder chain.
+JSONPath always starts from the Inspectr operation object, which includes request, response, and timing data.
 
 **Notation overview**
 
-- `source_path` points to a value in the operation (headers, body, response, etc.).
+- `source_path` selects where the value comes from (request headers, body, response, timing, …).
 - `json_path` (optional) navigates inside that extracted value.
 - Decoder syntax is `:decoder` and applies **left to right** on the value so far.
 
@@ -195,11 +209,13 @@ Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace 
 - `:jwt` → base64url decode header/payload (decode‑only, no signature verification).
 - `:base64` → base64/base64url decode a string.
 
+Value extraction lets rules read, decode, and reuse data that already exists in your requests and responses, without changing your application code.
+
 ---
 
 ### Simple examples
 
-### Rule Example - Header tag
+### Example - Header tag
 
 Extract a tag from a request header (`X-Env`):
 
@@ -214,7 +230,7 @@ actions:
 **Use case:**
 Tag requests by environment (dev, staging, prod) when clients or gateways forward environment context via headers.
 
-### Rule Example - Response body user id
+### Example - Response body user id
 
 Extract a tag from a nested field inside a JSON response body (`data.user.id`):
 
@@ -230,7 +246,7 @@ actions:
 **Use case:**
 Correlate requests and responses with domain identifiers such as user ids, order ids, or tenant ids.
 
-### Rule Example - Trace id header
+### Example - Trace id header
 
 Assign a trace id directly from a request header (`X-Trace-Id`):
 
@@ -248,7 +264,7 @@ Propagate an external trace or correlation id so all downstream activity appears
 
 ### Condition examples
 
-### Rule Example - JWT subject match
+### Example - JWT subject match
 
 Match requests from a specific authenticated user (JWT subject)
 
@@ -265,7 +281,7 @@ expression:
 **Use case:**
 Trace or tag traffic for a specific user, service account, or automated client during debugging or audits.
 
-### Rule Example - Login POST endpoint
+### Example - Login POST endpoint
 
 Match requests to a specific endpoint and HTTP method
 
@@ -289,7 +305,7 @@ expression:
 **Use case:**
 Group, monitor, or secure sensitive endpoints such as authentication, checkout, or write operations.
 
-### Rule Example - Slow or 5xx
+### Example - Slow or 5xx
 
 Match slow or failing responses (status + latency)
 
@@ -317,7 +333,7 @@ Automatically flag performance issues and backend failures with tags like `ERROR
 
 ### Decoder examples
 
-### Rule Example - JWT session trace
+### Example - JWT session trace
 
 Decode a JWT from the Authorization header and use `payload.sid`:
 
@@ -333,7 +349,7 @@ actions:
 **Use case:**
 Tie requests to authenticated sessions or users without requiring application-level logging changes.
 
-### Rule Example - Body token user
+### Example - Body token user
 
 Decode a JWT from a token field in the request body and use `payload.sub`:
 
@@ -349,7 +365,7 @@ actions:
 **Use case:**
 Handle APIs that pass identity or session context inside request payloads instead of headers.
 
-### Rule Example - Base64 JWT token id
+### Example - Base64 JWT token id
 
 Decode a base64 field, then decode its JWT and use `payload.jti`:
 
