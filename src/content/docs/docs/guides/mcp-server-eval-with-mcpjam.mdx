@@ -263,6 +263,40 @@ This makes it easy to filter and compare runs later.
   Learn more about Tracing Insights
 </RelatedLink>
 
+---
+
+## Optional — Run MCP evals with Inspectr Command Runner
+
+When running MCP evals locally or in CI, you may want Inspectr to **start, run, and stop automatically** as part of a single command.
+
+Inspectr’s **Command Runner** launches Inspectr, starts your eval command as a managed process, and shuts everything down when the command completes — while still capturing MCP traffic, tracing, and exports.
+
+### Example: Run MCPJam evals via Inspectr
+
+```bash
+inspectr \
+  --backend http://localhost:3000 \
+  --export \
+  --command npx \
+  --command-arg @mcpjam/cli \
+  --command-arg evals \
+  --command-arg run \
+  --command-arg -t \
+  --command-arg weather-tests.json \
+  --command-arg -e \
+  --command-arg local-dev.json
+```
+
+In this setup:
+•	Inspectr starts automatically
+•	MCPJam is launched by Inspectr using --command and --command-arg
+•	all MCP traffic is captured and traced
+•	a JSON export is written when the command completes
+
+<RelatedLink href="/docs/features/inspectr-command-runner/">
+  Learn more about the Inspectr Command Runner
+</RelatedLink>
+```
 
 ---
 
