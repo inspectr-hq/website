@@ -3,26 +3,25 @@ title: Eval MCP Servers with MCPJam
 description: Use MCPJam with Inspectr to get run MCP evals for better visibility into your MCP server's.
 ---
 
-import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowNode.jsx';
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcpJam.jsx';
 
 import { Image } from 'astro:assets';
-import brunoRun from '../../../../assets/guides/bruno/bruno-run.png';
-import newmanRun from '../../../../assets/guides/newman/newman-run.png';
+
 
 [//]: # (# Track MCPJam Eval Runs with Inspectr Exports & Tracing)
 
 ## Introduction
 
-As MCP (Model Context Protocol) servers become the backbone for agent tooling, prompts, and resources, testing them is no longer a simple unit-testing exercise.
+As [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) servers become the backbone for agent tooling, prompts, and resources, testing them is no longer a simple unit-testing exercise.
 
 Your MCP server is used:
 - by different clients (Claude Desktop, Cursor, IDE agents, internal tools)
-- with different LLMs (Anthropic, OpenAI, local models)
+- with different LLMs (Anthropic, OpenAI, Copilot, local models)
 - across different environments (local, CI, staging, production)
 
 To ship reliable MCP servers, you need confidence that **tools, prompts, and resources behave consistently across all of these dimensions**.
 
-This guide shows how to combine **MCPJam** and **Inspectr** to achieve exactly that.
+This guide shows how to combine **[MCPJam](https://docs.mcpjam.com/)** and **[Inspectr](https://inspectr.dev)** to achieve exactly that.
 
 ---
 
@@ -36,12 +35,12 @@ Even if your MCP server works in development, real-world usage introduces variab
 - Some failures only surface in specific environments or clients
 
 Traditional tests don’t answer questions like:
-- Which tools were actually used?
+- Which tools were actually used by the LLMs?
 - How many tokens were consumed, and where?
 - Why did an eval fail only for one model?
-- Did a recent change silently alter runtime behavior?
+- Did a recent change silently alter the LLM behavior?
 
-To answer these questions, you need **end-to-end testing and runtime visibility**.
+To answer these questions, you need **end-to-end testing and MCP visibility**.
 
 ---
 
@@ -120,7 +119,7 @@ MCPJam and Inspectr solve complementary parts of the same problem.
 
 Inspectr runs transparently as a proxy between MCPJam and your MCP server:
 
-**MCPJam → Inspectr → MCP server**
+<FlowBase client:only="react" />
 
 Inspectr provides:
 - full capture of MCP HTTP requests and responses
