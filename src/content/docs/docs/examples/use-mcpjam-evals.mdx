@@ -1,0 +1,261 @@
+---
+title: Eval MCP Servers with MCPJam
+description: Use MCPJam with Inspectr to get run MCP evals for better visibility into your MCP server's.
+---
+
+import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowNode.jsx';
+
+import { Image } from 'astro:assets';
+import brunoRun from '../../../../assets/guides/bruno/bruno-run.png';
+import newmanRun from '../../../../assets/guides/newman/newman-run.png';
+
+[//]: # (# Track MCPJam Eval Runs with Inspectr Exports & Tracing)
+
+## Introduction
+
+As MCP (Model Context Protocol) servers become the backbone for agent tooling, prompts, and resources, testing them is no longer a simple unit-testing exercise.
+
+Your MCP server is used:
+- by different clients (Claude Desktop, Cursor, IDE agents, internal tools)
+- with different LLMs (Anthropic, OpenAI, local models)
+- across different environments (local, CI, staging, production)
+
+To ship reliable MCP servers, you need confidence that **tools, prompts, and resources behave consistently across all of these dimensions**.
+
+This guide shows how to combine **MCPJam** and **Inspectr** to achieve exactly that.
+
+---
+
+## The Problem: Testing MCP Servers
+
+Even if your MCP server works in development, real-world usage introduces variability:
+
+- Tools may be triggered differently depending on the model
+- Prompts may be interpreted differently by different LLMs
+- Token usage can change drastically between flows
+- Some failures only surface in specific environments or clients
+
+Traditional tests don’t answer questions like:
+- Which tools were actually used?
+- How many tokens were consumed, and where?
+- Why did an eval fail only for one model?
+- Did a recent change silently alter runtime behavior?
+
+To answer these questions, you need **end-to-end testing and runtime visibility**.
+
+---
+
+## MCP Evals with MCPJam
+
+**[MCPJam](https://docs.mcpjam.com/evals/overview)** is a developer-focused toolchain for **evaluating MCP (Model Context Protocol) servers**.
+It lets you define eval scenarios, run them against MCP servers, and measure correctness and behavior across tools, prompts, and resources.
+
+With MCPJam, you define **eval scenarios** that simulate real user interactions:
+- tool calls
+- prompt exchanges
+- resource access
+- multi-step flows
+
+These evals validate that your MCP server behaves correctly across:
+- different models
+- different environments
+- different user flows
+
+### End-to-End (E2E) testing by design
+
+The MCPJam CLI performs full E2E testing:
+- it simulates a real MCP client
+- it communicates with your MCP server over HTTP
+- it executes popular and critical user journeys
+
+MCPJam answers the question:
+**“Does my MCP server still work?”**
+
+---
+
+## MCP Tool Usage Visibility
+
+What MCPJam intentionally does *not* do is MCP usage inspection. It focuses on *evaluation outcomes*, not *actual usage observability*.
+
+Eval results alone don’t explain *why* something worked—or didn’t.
+
+After a test run, you often still need to know:
+- which tools were invoked
+- how prompts were processed
+- where tokens were spent
+- how behavior differed between runs
+
+This is where runtime inspection becomes essential.
+
+That’s where **Inspectr** fits in.
+
+Inspectr is a local-first inspection and proxy tool for APIs, webhooks, and MCP traffic. It captures requests and responses in real time, enriches them with protocol-aware insights, and allows exporting full sessions as JSON for later analysis.
+
+Used together, MCPJam + Inspectr give you both:
+- **eval results**
+- **deep visibility into how your MCP server behaved during those evals**
+
+---
+
+## The Problem
+
+When running MCP evals—locally or in CI—teams often hit the same limitations:
+
+- No visibility into which MCP calls were actually made
+- No clear breakdown of tool usage or token cost per eval run
+- Logs spread across MCP servers, test runners, and CI output
+- No portable artifact that represents a specific eval execution
+
+MCPJam tells you *whether* an eval passed.
+It doesn’t tell you *what actually happened on the wire*.
+
+---
+
+## The Solution: MCPJam + Inspectr
+
+MCPJam and Inspectr solve complementary parts of the same problem.
+
+- **MCPJam** performs deterministic MCP evals and E2E testing
+- **Inspectr** observes and analyzes MCP traffic in real time
+
+Inspectr runs transparently as a proxy between MCPJam and your MCP server:
+
+**MCPJam → Inspectr → MCP server**
+
+Inspectr provides:
+- full capture of MCP HTTP requests and responses
+- understands MCP traffic patterns
+- classification of MCP calls (tools, prompts, resources)
+- token usage estimates per operation
+- exportable JSON artifacts for every eval run
+
+Together, they give you **confidence and visibility**.
+
+---
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- A reachable MCP server (HTTP or streamable HTTP)
+- Inspectr installed
+- Your MCP server URL (for example `http://localhost:3000/mcp`)
+
+---
+
+## Step 1 — Start Inspectr in front of your MCP server
+
+Run Inspectr as a local proxy with export enabled:
+
+```bash
+inspectr \
+  --backend http://localhost:3000 \
+  --export
+```
+
+Why this matters:
+- Inspectr captures all MCP traffic
+- `--export` automatically writes a JSON file when Inspectr stops
+- Ideal for CI/CD and reproducible eval runs
+
+---
+
+## Step 2 — Setup MCPJam CLI
+
+MCPJam CLI installed:
+```bash
+npx @mcpjam/cli
+  ```
+
+for more details have a look https://docs.mcpjam.com/evals/overview and the starter https://github.com/MCPJam/evals-cli-starter
+
+
+## Step 3 — Configure MCPJam to Inspectr
+
+Update your MCPJam environment configuration to target Inspectr instead of your MCP server directly:
+
+```json
+{
+  "mcpServers": {
+    "my-server": {
+      "url": "http://localhost:8080/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+No changes are required on your MCP server.
+
+---
+
+## Step 4 — Add a run-level tracing header
+
+To correlate all requests belonging to a single eval run, add a tracing header:
+
+```json
+"headers": {
+  "Authorization": "Bearer ${API_TOKEN}",
+  "X-Eval-Run-Id": "${EVAL_RUN_ID}"
+}
+```
+
+Run your eval with a unique identifier:
+
+```bash
+EVAL_RUN_ID="mcpjam-$(date +%Y%m%d-%H%M%S)" \
+mcpjam evals run -t weather-tests.json -e local-dev.json
+```
+
+This makes it easy to filter and compare runs later.
+
+---
+
+## Step 5 — Run MCPJam evals
+
+Run your evals as usual:
+
+```bash
+npx @mcpjam/cli evals run -t weather-tests.json -e local-dev.json
+```
+
+While the eval runs:
+- Inspectr shows MCP traffic live
+- tools, prompts, and resources are classified
+- token usage is estimated per operation
+
+---
+
+## Step 5 — Export and analyze the run
+
+When the eval completes, stop Inspectr.
+
+Because export mode was enabled:
+- Inspectr writes a JSON export automatically
+- the export can be archived as a CI artifact
+- the run can be re-imported later for inspection or comparison
+
+Each eval becomes a **durable, inspectable record**.
+
+---
+
+## Summary
+
+Testing MCP servers across models, clients, and environments requires more than pass/fail checks.
+
+By combining:
+- **MCPJam** for E2E MCP evals
+- **Inspectr** for runtime visibility and exports
+
+you get:
+- confidence that your MCP server works the same with the different models
+- visibility into MCP runtime behavior
+- token and call-level insights per eval run
+- portable, re-importable eval artifacts
+- zero changes to your MCP server
+
+This setup scales cleanly from local development to CI-based MCP regression testing.
+
+Together, MCPJam and Inspectr form a complete MCP testing and observability workflow.
