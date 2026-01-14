@@ -48,7 +48,7 @@ export default function Hero() {
             </span>{' '}
             Debugging
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-4">
             Inspect API requests, webhook events and MCP traffic in real-time.
           </p>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-4">
