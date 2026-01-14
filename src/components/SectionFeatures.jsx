@@ -107,7 +107,7 @@ const features = [
 export default function FeaturesSection() {
   return (
     <div>
-      <FeaturesList heading="Everything you need for API & Webhook debugging" features={features} />
+      <FeaturesList heading="Everything you need for API, MCP & Webhook debugging" features={features} />
     </div>
   );
 }
