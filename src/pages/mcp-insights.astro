@@ -10,10 +10,14 @@ import Terminal from '../components/Terminal.jsx';
 // import mcpHero from '../assets/features/mcp/mcp-info-01.png';
 // import mcpHero from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpHero from '../assets/features/mcp/mcp-trace-01.png';
-import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
+// import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
+import mcpToolList from '../assets/features/mcp/mcp-tracing-example.png';
 import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
-import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
-import mcpDetails from '../assets/features/mcp/mcp-details.png';
+import mcpTokens from '../assets/features/mcp/mcp-token-tracing.png';
+// import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
+// import mcpDetails from '../assets/features/mcp/mcp-details.png';
+import mcpDetails from '../assets/features/mcp/mcp-content-items.png';
+import mcpCompact from '../assets/features/mcp/mcp-fetch-tool-compact.png';
 import mcpIcon from '../assets/icons/mcp.svg';
 import React from 'react';
 ---
@@ -61,7 +65,7 @@ import React from 'react';
           No more scrolling through logs to reconstruct MCP usage.
         </p>
         <p class="text-lg text-gray-300 sm:text-xl max-w-2xl">
-          Inspectr makes tool calls, prompts, resources, and tokens observable across Claude and OpenAI, with a single command.
+          Inspectr makes tool calls, prompts, resources, and tokens observable across Claude, OpenAI, ... with a single command.
         </p>
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
           <a
@@ -186,6 +190,11 @@ import React from 'react';
                 src: mcpTracing,
                 alt: 'Inspectr tracing view showing MCP flow and tool calls',
                 label: 'MCP tracing flow',
+              },
+              {
+                src: mcpCompact,
+                alt: 'Inspectr showing MCP call details',
+                label: 'MCP Tool call',
               },
               {
                 src: mcpTokens,
