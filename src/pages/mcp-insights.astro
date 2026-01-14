@@ -33,8 +33,9 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
           Stop guessing how LLMs use your MCP server.
         </h1>
         <p class="text-base text-gray-300 sm:text-lg">
-          Real MCP usage varies by model, client, and environment, and the gaps only show up after
-          you ship.
+          Once your MCP server is used by Claude, ChatGPT, ..., understanding what actually happened often
+          means scrolling through logs and trying to reconstruct tool calls, prompts, and execution
+          flows after the fact.
         </p>
         <p class="text-lg text-gray-300 sm:text-xl">
           Inspectr is an open-source, transparent MCP proxy that lets you see tool calls, prompts,
@@ -243,40 +244,6 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
       </div>
     </section>
 
-    <section class="py-16">
-      <div class="mx-auto max-w-6xl px-4">
-        <div class="max-w-3xl space-y-4">
-          <h2 class="text-2xl font-semibold text-white">Trust built for MCP</h2>
-          <p class="text-base text-gray-300 sm:text-lg">
-            Inspectr does not simulate MCP behavior. It shows you what actually happened.
-          </p>
-        </div>
-        <div class="mt-10 grid gap-6 md:grid-cols-2">
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Open-source by default</p>
-            <p class="text-sm text-gray-400">Use Inspectr locally with full control and privacy.</p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Transparent proxy</p>
-            <p class="text-sm text-gray-400">
-              Observe MCP traffic without altering tool or prompt behavior.
-            </p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Built for MCP traffic</p>
-            <p class="text-sm text-gray-400">
-              Purpose-built parsing for tools, prompts, resources, and token usage.
-            </p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Real-world LLM variability</p>
-            <p class="text-sm text-gray-400">
-              Diagnose cross-model, cross-client, and cross-environment differences.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="bg-gradient-to-b from-brand-dark/90 to-black py-16">
       <div class="mx-auto max-w-4xl px-4 text-center">
