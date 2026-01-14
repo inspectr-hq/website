@@ -12,6 +12,7 @@ import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
 import mcpDetails from '../assets/features/mcp/mcp-details.png';
+import mcpIcon from '../assets/icons/mcp.svg';
 import React from 'react';
 ---
 
@@ -87,12 +88,15 @@ import React from 'react';
       <div class="mx-auto max-w-6xl px-4">
         <div class="mx-auto max-w-3xl">
           <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
-            <img
-              src="/mcp.svg"
-              alt="MCP"
-              class="h-12 w-12 shrink-0 opacity-90"
-              loading="lazy"
-            />
+            <div class="shrink-0 rounded-2xl border border-gray-800 bg-black/60 p-3 shadow-[0_0_50px_rgba(0,229,255,0.22)]">
+              <Image
+                src={mcpIcon}
+                alt="MCP"
+                class="h-12 w-12 opacity-90"
+                style="filter: brightness(0) invert(1);"
+                loading="lazy"
+              />
+            </div>
             <div class="space-y-4">
               <h2 class="text-2xl font-semibold text-white">
                 Understanding real MCP usage is harder than it looks
