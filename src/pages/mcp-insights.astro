@@ -88,7 +88,7 @@ import React from 'react';
 
     <section class="py-16 bg-black/20">
       <div class="mx-auto max-w-6xl px-4">
-        <div class="max-w-3xl space-y-4">
+        <div class="mx-auto max-w-3xl space-y-4">
           <h2 class="text-2xl font-semibold text-white">
             <!--Understanding how your MCP server is used, is important-->
             Understanding real MCP usage is harder than it looks
@@ -101,7 +101,7 @@ import React from 'react';
           </p>
         </div>
 
-        <div class="mt-10 max-w-3xl">
+        <div class="mt-4 mx-auto max-w-3xl">
           <p class="text-base text-gray-300 sm:text-lg">
             Questions like these are difficult to answer from logs alone:
           </p>
@@ -125,7 +125,7 @@ import React from 'react';
           </ul>
         </div>
 
-        <div class="mt-10 max-w-3xl">
+        <div class="mt-4 mx-auto max-w-3xl">
           <p class="text-base text-gray-300 sm:text-lg">
             The challenge is no longer if the MCP server works; but understanding what the LLM actually did.
           </p>
@@ -188,10 +188,10 @@ import React from 'react';
     </section>
 
     <section class="py-16 bg-black/70 border-t border-gray-800" id="mcp-get-started">
-      <div class="mx-auto max-w-6xl px-4">
+      <div class="mx-auto max-w-2xl px-4">
         <div class="space-y-6">
-          <h2 class="text-2xl font-semibold text-white">Get MCP visibility in seconds</h2>
-          <p class="text-base text-gray-300 sm:text-lg">
+          <h2 class="text-2xl font-semibold text-white text-center">Get MCP visibility in seconds</h2>
+          <p class="text-base text-gray-300 sm:text-lg text-center">
             Works with Claude, OpenAI, and other MCP-compatible clients. No SDKs, no
             instrumentation, and no server changes.
           </p>
@@ -200,21 +200,21 @@ import React from 'react';
             prompt="$"
             showCopyButton
           />
-          <p class="text-sm text-gray-400">
+          <p class="text-sm text-gray-400 text-center">
             Drop-in for local development or remote testing with a single command.
           </p>
-          <div class="flex flex-wrap gap-3 text-sm font-semibold">
+          <div class="flex w-full flex-wrap justify-center gap-3 text-sm font-semibold">
             <a
               href="/docs/examples/expose-mcp-server/"
               class="inline-flex items-center justify-center rounded-lg border border-gray-800 px-4 py-2 text-brand-primary transition-colors hover:border-brand-primary hover:text-brand-secondary"
             >
-              Setup for Claude
+              Use with Claude
             </a>
             <a
               href="/docs/examples/expose-mcp-server-openai/"
               class="inline-flex items-center justify-center rounded-lg border border-gray-800 px-4 py-2 text-brand-primary transition-colors hover:border-brand-primary hover:text-brand-secondary"
             >
-              Setup for OpenAI
+              Use with OpenAI
             </a>
           </div>
         </div>
@@ -261,7 +261,7 @@ import React from 'react';
 
     <section class="bg-gradient-to-b from-brand-dark/90 to-black py-16 ">
       <div class="mx-auto max-w-4xl px-4 text-center">
-        <div className="flex justify-center mb-6">
+        <div class="mb-6 flex justify-center">
           <img src="/brand/brand_logo_name.png" alt="Inspectr Logo" class="h-20 w-auto" />
         </div>
         <h2 class="text-3xl font-semibold text-white">Build MCP servers with confidence</h2>
