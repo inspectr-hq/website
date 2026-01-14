@@ -7,7 +7,9 @@ import McpInsightsCarousel from '../components/McpInsightsCarousel.astro';
 import McpSolutionFeatures from '../components/McpSolutionFeatures.jsx';
 import { FlowSimple } from '../components/DocFlows/FlowMcp.jsx';
 import Terminal from '../components/Terminal.jsx';
-import mcpHero from '../assets/features/mcp/mcp-info-01.png';
+// import mcpHero from '../assets/features/mcp/mcp-info-01.png';
+// import mcpHero from '../assets/features/mcp/mcp-tool-list-openai.png';
+import mcpHero from '../assets/features/mcp/mcp-trace-01.png';
 import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
@@ -107,38 +109,32 @@ import React from 'react';
               <p class="text-base text-gray-300 sm:text-lg">
                 In practice, teams rely on logs to understand what happened; but logs make it hard to reconstruct actual LLM behavior.
               </p>
+              <p class="pt-2 text-base text-gray-300 sm:text-lg">
+                Questions like these are difficult to answer from logs alone:
+              </p>
+              <ul class="mt-2 space-y-3 text-base text-gray-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                  <span>Which MCP calls are actually made by the LLM/Agents?</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                  <span>What MCP tools, prompts, or resources were requested, and what output were returned?</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                  <span>Which flow or sequence of tool calls did the model follow?</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                  <span>How many tokens were consumed during a conversation?</span>
+                </li>
+              </ul>
+              <p class="pt-2 text-base text-gray-300 sm:text-lg">
+                The challenge is no longer if the MCP server works; but understanding what the LLM actually did.
+              </p>
             </div>
           </div>
-        </div>
-
-        <div class="mt-4 mx-auto max-w-3xl">
-          <p class="text-base text-gray-300 sm:text-lg">
-            Questions like these are difficult to answer from logs alone:
-          </p>
-          <ul class="mt-4 space-y-3 text-base text-gray-300">
-            <li class="flex items-start gap-3">
-              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>Which MCP calls are actually made by the LLM/Agents?</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>What MCP tools, prompts, or resources were requested, and what output were returned?</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>Which flow or sequence of tool calls did the model follow?</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>How many tokens were consumed during a conversation?</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="mt-4 mx-auto max-w-3xl">
-          <p class="text-base text-gray-300 sm:text-lg">
-            The challenge is no longer if the MCP server works; but understanding what the LLM actually did.
-          </p>
         </div>
       </div>
     </section>
