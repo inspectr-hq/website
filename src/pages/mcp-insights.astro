@@ -223,6 +223,17 @@ import React from 'react';
       <div class="mx-auto max-w-2xl px-4 py-16">
         <div class="space-y-6">
           <h2 class="text-2xl font-semibold text-white text-center">Get MCP visibility in seconds</h2>
+          <div class="flex items-center justify-center gap-3">
+            <Image
+              src={mcpIcon}
+              alt="MCP"
+              class="h-8 w-8"
+              style="filter: brightness(0) invert(1);"
+              loading="lazy"
+            />
+            <span class="h-8 w-px bg-gray-700" aria-hidden="true"></span>
+            <IconInspectr width={32} height={32} />
+          </div>
           <!--<p class="mx-auto max-w-xl rounded-2xl border border-gray-800 bg-black/60 px-4 py-3 mt-4 text-sm text-gray-300">-->
           <!--  No code changes required. Works with existing MCP servers and clients.-->
           <!--</p>-->
