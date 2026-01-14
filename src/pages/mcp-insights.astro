@@ -85,17 +85,26 @@ import React from 'react';
 
     <section class="py-16 bg-black/20">
       <div class="mx-auto max-w-6xl px-4">
-        <div class="mx-auto max-w-3xl space-y-4">
-          <h2 class="text-2xl font-semibold text-white">
-            <!--Understanding how your MCP server is used, is important-->
-            Understanding real MCP usage is harder than it looks
-          </h2>
-          <p class="text-base text-gray-300 sm:text-lg">
-            An MCP server can work functionally correct during development and still be difficult to understand once it’s used by real LLM clients.
-          </p>
-          <p class="text-base text-gray-300 sm:text-lg">
-            In practice, teams rely on logs to understand what happened; but logs make it hard to reconstruct actual LLM behavior.
-          </p>
+        <div class="mx-auto max-w-3xl">
+          <div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+            <img
+              src="/mcp.svg"
+              alt="MCP"
+              class="h-12 w-12 shrink-0 opacity-90"
+              loading="lazy"
+            />
+            <div class="space-y-4">
+              <h2 class="text-2xl font-semibold text-white">
+                Understanding real MCP usage is harder than it looks
+              </h2>
+              <p class="text-base text-gray-300 sm:text-lg">
+                An MCP server can work functionally correct during development and still be difficult to understand once it’s used by real LLM clients.
+              </p>
+              <p class="text-base text-gray-300 sm:text-lg">
+                In practice, teams rely on logs to understand what happened; but logs make it hard to reconstruct actual LLM behavior.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div class="mt-4 mx-auto max-w-3xl">
