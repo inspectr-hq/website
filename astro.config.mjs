@@ -87,7 +87,7 @@ export default defineConfig({
             { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
             { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' },
             // { label: 'MCP Server Evals with MCPJam', slug: 'docs/guides/mcp-server-eval-with-mcpjam' },
-            { label: 'Observability for MCP Agents', slug: 'docs/guides/mcp-observability' }
+            { label: 'Observability for MCP Servers', slug: 'docs/guides/mcp-observability' }
           ]
         },
         {
