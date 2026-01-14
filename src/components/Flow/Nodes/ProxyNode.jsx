@@ -29,7 +29,8 @@ export default function ProxyNode({ data }) {
     showRight = true,
     showBottom = false,
     badge,
-    width= 165
+    width= 165,
+    theme
   } = data;
 
   const BadgeIcon = badge ? BADGE_ICONS[badge] : null;
@@ -37,10 +38,27 @@ export default function ProxyNode({ data }) {
   const badgeClass = 'absolute -right-3 -top-4'
   const guardClass = 'absolute -left-3'
 
+  const containerClass =
+    theme === 'dark'
+      ? 'border-gray-700 bg-gray-800'
+      : theme === 'light'
+        ? 'border-gray-200 bg-gray-100'
+        : 'border-gray-200 dark:border-gray-700 dark:bg-gray-800';
+  const labelClass =
+    theme === 'dark' ? 'text-gray-200' : theme === 'light' ? 'text-gray-700' : 'dark:text-gray-200';
+  const nodeStyle = { width };
+  if (theme === 'dark') {
+    nodeStyle.backgroundColor = '#1f2937';
+    nodeStyle.borderColor = '#374151';
+  } else if (theme === 'light') {
+    nodeStyle.backgroundColor = '#f3f4f6';
+    nodeStyle.borderColor = '#e5e7eb';
+  }
+
   return (
     <div
-      className="react-flow__node-default flex flex-col items-center border-2 border-gray-200 dark:border-gray-700 rounded-lg shadow-lg dark:shadow-gray-800 dark:bg-gray-800"
-      style={{ width: width }}
+      className={`react-flow__node-default flex flex-col items-center border-2 rounded-lg shadow-lg ${containerClass}`}
+      style={nodeStyle}
     >
 
       {/* MODE BADGE */}
@@ -111,7 +129,7 @@ export default function ProxyNode({ data }) {
           </div>
         )}
 
-        <div className="leading-tight text-sm font-medium text-left dark:text-gray-200">
+        <div className={`leading-tight text-sm font-medium text-left ${labelClass}`}>
           {label}
         </div>
       </div>

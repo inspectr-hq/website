@@ -1,9 +1,10 @@
 ---
-title: Observability for MCP Agents
-description: Track Model Context Protocol API usage with Inspectr
+title: Observability for MCP Servers
+description: Track Model Context Protocol usage with Inspectr
 ---
 
 import { FlowBase } from '../../../../components/DocFlows/FlowMcp.jsx';
+import RelatedLink from '../../../../components/RelatedLink.jsx';
 
 import { Image } from 'astro:assets';
 
@@ -27,6 +28,10 @@ Modern AI systems frequently chain together multiple HTTP requests to deliver a 
 - Optimize prompts, tool definitions, or infrastructure
 
 Observability provides the feedback loop required to design a stable and efficient MCP deployment.
+
+<RelatedLink href="/mcp-insights/" title="Want to learn more about MCP insights? See our product page:">
+  MCP Insights →
+</RelatedLink>
 
 ---
 
@@ -75,6 +80,21 @@ With traffic flowing through Inspectr you gain insight into how the agent uses y
 - **Security reviews** – Audit headers and payloads to ensure agents only access permitted data.
 
 This observability helps refine MCP tool definitions, allocate resources, and craft an API strategy that anticipates agent workloads.
+
+<div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+  <a
+    href="/docs/examples/expose-mcp-server/"
+    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+  >
+    Expose an MCP server to Claude →
+  </a>
+  <a
+    href="/docs/examples/expose-mcp-server-openai/"
+    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+  >
+    Expose an MCP server to OpenAI →
+  </a>
+</div>
 
 ---
 
