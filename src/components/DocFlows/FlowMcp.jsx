@@ -52,19 +52,19 @@ export function FlowSimple() {
       {
         id: '0',
         type: 'proxy',
-        data: { label: 'Claude', icon: clientIcon, showLeft: false, width: 120 },
+        data: { label: 'Claude', icon: clientIcon, showLeft: false, width: 120, theme: 'dark' },
         position: { x: 0, y: 30 }
       },
       {
         id: '1',
         type: 'proxy',
-        data: { label: 'Inspectr', showBottom: false },
+        data: { label: 'Inspectr', showBottom: false, theme: 'dark' },
         position: { x: 260, y: 30 }
       },
       {
         id: '2',
         type: 'proxy',
-        data: { label: 'MCP Server', icon: serviceIcon, showRight: false, width: 150 },
+        data: { label: 'MCP Server', icon: serviceIcon, showRight: false, width: 150, theme: 'dark' },
         position: { x: 520, y: 30 }
       }
     ];
@@ -76,7 +76,7 @@ export function FlowSimple() {
         sourceHandle: 'outRight',
         target: '1',
         targetHandle: 'inLeft',
-        label: 'Request',
+        // label: 'Request',
         markerEnd: bigArrow(MarkerType.ArrowClosed)
       },
       {
@@ -85,7 +85,7 @@ export function FlowSimple() {
         sourceHandle: 'outLeft',
         target: '0',
         targetHandle: 'inRight',
-        label: 'Response',
+        // label: 'Response',
         markerEnd: bigArrow(MarkerType.ArrowClosed)
       },
       {
@@ -94,7 +94,7 @@ export function FlowSimple() {
         sourceHandle: 'outRight',
         target: '2',
         targetHandle: 'inLeft',
-        label: 'Request',
+        // label: 'Request',
         markerEnd: bigArrow(MarkerType.ArrowClosed)
       },
       {
@@ -103,7 +103,7 @@ export function FlowSimple() {
         sourceHandle: 'outLeft',
         target: '1',
         targetHandle: 'inRight',
-        label: 'Response',
+        // label: 'Response',
         markerEnd: bigArrow(MarkerType.ArrowClosed)
       }
     ];
@@ -112,6 +112,10 @@ export function FlowSimple() {
   }, []);
 
   return (
-    <FlowVisualizer nodeData={nodes} edgeData={edges} style={{ width: '100%', height: '180px' }} />
+    <FlowVisualizer
+      nodeData={nodes}
+      edgeData={edges}
+      style={{ width: '100%', height: '180px', theme: 'dark' }}
+    />
   );
 }

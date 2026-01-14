@@ -52,21 +52,27 @@ export default function FlowVisualizer({ nodeData, edgeData, style }) {
       setEdges(edgeData);
   }, [nodeData,edgeData]);
 
+  const isDark = style && style.theme === 'dark';
+  const containerClass = isDark ? 'flow-theme-dark' : '';
+  const edgeDefaults = {
+    animated: true,
+    labelBgPadding: [8, 4],
+    labelBgBorderRadius: 4,
+    zIndex: 10,
+    labelBgStyle: { fill: isDark ? '#1f2937' : '#fff' },
+    labelStyle: { fontWeight: 600, fill: isDark ? '#e5e7eb' : '#000' },
+    style: { stroke: isDark ? '#9ca3af' : '#1f2937' }
+  };
+
   return (
-    <div className="w-full h-full flow-container" style={style}>
+    <div className={`w-full h-full flow-container ${containerClass}`} style={style}>
       <ReactFlowProvider>
         <ReactFlow
+          className={isDark ? 'flow-theme-dark' : undefined}
           nodeTypes={nodeTypes}
           nodes={nodes}
           edges={edges}
-          defaultEdgeOptions={{
-            animated: true,
-            labelBgPadding: [8, 4],
-            labelBgBorderRadius: 4,
-            zIndex: 10,
-            labelBgStyle: { fill: 'var(--label-bg-color, #fff)' },
-            labelStyle: { fontWeight: 600, fill: 'var(--label-text-color, #000)' }
-          }}
+          defaultEdgeOptions={edgeDefaults}
 
           fitView
           // fitBounds

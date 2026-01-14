@@ -175,15 +175,15 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
           <div class="flex flex-wrap gap-3 text-sm font-semibold">
             <a
               href="/docs/examples/expose-mcp-server/"
-              class="inline-flex items-center gap-2 text-brand-primary transition-colors hover:text-brand-secondary"
+              class="inline-flex items-center justify-center rounded-lg border border-gray-800 px-4 py-2 text-brand-primary transition-colors hover:border-brand-primary hover:text-brand-secondary"
             >
-              Setup for Claude →
+              Setup for Claude
             </a>
             <a
               href="/docs/examples/expose-mcp-server-openai/"
-              class="inline-flex items-center gap-2 text-brand-primary transition-colors hover:text-brand-secondary"
+              class="inline-flex items-center justify-center rounded-lg border border-gray-800 px-4 py-2 text-brand-primary transition-colors hover:border-brand-primary hover:text-brand-secondary"
             >
-              Setup for OpenAI →
+              Setup for OpenAI
             </a>
           </div>
           <div class="rounded-2xl border border-gray-800 bg-black/60 p-6">
@@ -191,26 +191,6 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
               Flow
             </p>
             <FlowSimple client:load />
-            <p class="font-mono text-sm text-gray-300">Claude -&gt; Inspectr -&gt; MCP server</p>
-            <div class="mt-4 space-y-4">
-              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
-                Why it works
-              </p>
-              <ul class="space-y-3 text-sm text-gray-300">
-                <li class="flex items-start gap-3">
-                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                  <span>Transparent proxy that preserves MCP behavior.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                  <span>Consistent visibility across models, clients, and environments.</span>
-                </li>
-                <li class="flex items-start gap-3">
-                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                  <span>Use the same command locally, in CI, or during remote testing.</span>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>

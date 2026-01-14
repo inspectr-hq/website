@@ -11,33 +11,33 @@ const features = [
   {
     icon: <IconArrows className="h-6 w-6" />,
     title: 'Full capture of MCP requests',
-    description: 'See exactly what was sent and returned across every MCP operation.',
+    description: 'See exactly what was sent and returned across every MCP operation.'
   },
   {
     icon: <IconTrace className="h-6 w-6" />,
     title: 'MCP flow visibility',
-    description: 'Follow the real execution flow, not fragmented log lines.',
+    description: 'Follow the real execution flow, not fragmented log lines.'
   },
   {
     icon: <IconBookmark className="h-6 w-6" />,
     title: 'Call classification',
-    description: 'Know whether tools, prompts, or resources were invoked.',
+    description: 'Know whether tools, prompts, or resources were invoked.'
   },
   {
     icon: <IconMcp className="h-6 w-6" />,
     title: 'Token usage estimates',
-    description: 'Identify expensive flows and unexpected token spikes.',
+    description: 'Identify expensive flows and unexpected token spikes.'
   },
   {
     icon: <IconFolderArrow className="h-6 w-6" />,
     title: 'Exportable JSON sessions',
-    description: 'Share, review, or investigate MCP sessions offline.',
+    description: 'Share, review, or investigate MCP sessions offline.'
   },
   {
     icon: <IconBot className="h-6 w-6" />,
     title: 'Guided MCP analysis',
-    description: 'Surface patterns, anomalies, and behavior changes fast.',
-  },
+    description: 'Surface patterns, anomalies, and behavior changes fast.'
+  }
 ];
 
 export default function McpSolutionFeatures() {
