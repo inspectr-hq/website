@@ -4,11 +4,51 @@ import Navigation from '../components/Site/Navigation';
 import Footer from '../components/Site/Footer';
 import { Image } from 'astro:assets';
 import McpInsightsCarousel from '../components/McpInsightsCarousel.astro';
+import { FeatureCard } from '../components/FeaturesCard.jsx';
+import IconLogging from '../assets/icons/icon_logging.svg?react';
+import IconTrace from '../assets/icons/chart-gantt.svg?react';
+import IconMcp from '../assets/icons/mcp.svg?react';
+import IconGraph from '../assets/icons/chart-pie.svg?react';
+import IconCode from '../assets/icons/icon_code.svg?react';
+import IconSearch from '../assets/icons/icon_search.svg?react';
 import mcpHero from '../assets/features/mcp/mcp-info-01.png';
 import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
 import mcpDetails from '../assets/features/mcp/mcp-details.png';
+
+const solutionFeatures = [
+  {
+    Icon: IconLogging,
+    title: 'Full capture of MCP requests',
+    description: 'See exactly what was sent and returned across every MCP operation.',
+  },
+  {
+    Icon: IconTrace,
+    title: 'MCP flow visibility',
+    description: 'Follow the real execution flow, not fragmented log lines.',
+  },
+  {
+    Icon: IconMcp,
+    title: 'Call classification',
+    description: 'Know whether tools, prompts, or resources were invoked.',
+  },
+  {
+    Icon: IconGraph,
+    title: 'Token usage estimates',
+    description: 'Identify expensive flows and unexpected token spikes.',
+  },
+  {
+    Icon: IconCode,
+    title: 'Exportable JSON sessions',
+    description: 'Share, review, or investigate MCP sessions offline.',
+  },
+  {
+    Icon: IconSearch,
+    title: 'Guided MCP analysis',
+    description: 'Surface patterns, anomalies, and behavior changes fast.',
+  },
+];
 ---
 
 <Layout
@@ -70,65 +110,37 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
       <div class="mx-auto max-w-6xl px-4">
         <div class="max-w-3xl space-y-4">
           <h2 class="text-2xl font-semibold text-white">
-            MCP works in development - until real usage begins
+            MCP is hard to reason about - even in development
           </h2>
           <p class="text-base text-gray-300 sm:text-lg">
-            Even if your MCP server behaves correctly in development, real-world usage introduces
-            variability that is hard to reason about with logs and tests alone.
+            The same uncertainty shows up locally and in production. Until now, most teams are left
+            to read log lines and guess what the LLM actually did.
           </p>
         </div>
 
-        <div class="mt-10 grid gap-8 md:grid-cols-2">
-          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary/70">
-              Real-world variability
-            </h3>
-            <ul class="space-y-3 text-sm text-gray-300">
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Tools may be triggered differently depending on the model.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Prompts may be interpreted differently by different LLMs.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Token usage can change drastically between flows.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Some failures only surface in specific environments or clients.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary/70">
-              What traditional tests miss
-            </h3>
-            <p class="text-sm text-gray-300">
-              Traditional tests do not answer the questions that actually matter in MCP.
-            </p>
-            <ul class="space-y-3 text-sm text-gray-300">
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Which tools were actually used by the LLMs?</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>How many tokens were consumed, and where?</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Why did an eval fail only for one model?</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-                <span>Did a recent change silently alter LLM behavior?</span>
-              </li>
-            </ul>
-          </div>
+        <div class="mt-10 max-w-3xl">
+          <p class="text-base text-gray-300 sm:text-lg">
+            The hardest part is not whether the MCP server responds - it is understanding how LLMs
+            actually use it.
+          </p>
+          <ul class="mt-4 space-y-3 text-sm text-gray-300">
+            <li class="flex items-start gap-3">
+              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+              <span>Which MCP calls are actually made by the LLM?</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+              <span>What inputs were sent, and what outputs were returned?</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+              <span>Which flow or sequence did the model follow?</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+              <span>How many estimated tokens were consumed per operation?</span>
+            </li>
+          </ul>
         </div>
 
         <div class="mt-8 rounded-2xl border border-brand-primary/40 bg-brand-primary/10 p-6 text-center">
@@ -149,41 +161,10 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
           </p>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2">
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">
-              Full capture of MCP HTTP requests and responses
-            </p>
-            <p class="text-sm text-gray-400">See exactly what was sent and returned.</p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Understanding of MCP traffic patterns</p>
-            <p class="text-sm text-gray-400">Follow the actual execution flow, not log fragments.</p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Classification of MCP calls</p>
-            <p class="text-sm text-gray-400">
-              Instantly understand whether tools, prompts, or resources were invoked.
-            </p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Token usage estimates per operation</p>
-            <p class="text-sm text-gray-400">
-              Identify expensive flows and unexpected token spikes.
-            </p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Exportable JSON session artifacts</p>
-            <p class="text-sm text-gray-400">
-              Share, review, or investigate MCP sessions offline or with teammates.
-            </p>
-          </div>
-          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
-            <p class="text-sm font-semibold text-white">Guided analysis in the Inspectr UI</p>
-            <p class="text-sm text-gray-400">
-              Surface patterns, anomalies, and behavior changes with MCP-aware context.
-            </p>
-          </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {solutionFeatures.map(({ Icon, ...feature }) => (
+            <FeatureCard icon={Icon} {...feature} />
+          ))}
         </div>
 
         <div class="mt-10">
