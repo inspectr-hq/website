@@ -25,7 +25,7 @@ import React from 'react';
   <Navigation client:load />
 
   <main class="mt-20">
-    <section class="bg-gradient-to-b from-brand-dark/90 to-black pt-24 pb-16">
+    <section class="bg-gradient-to-b from-brand-dark/90 to-black pt-24 pb-12">
       <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
         <span class="inline-flex items-center gap-2 rounded-full border border-brand-primary/50 bg-brand-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.27em] text-brand-primary">
           MCP Insights
@@ -72,16 +72,13 @@ import React from 'react';
             Setup with ChatGTP
           </a>
         </div>
-        <div class="mt-4 w-full overflow-hidden">
+        <div class="w-full overflow-hidden">
           <Image
             src={mcpHero}
             alt="Inspectr MCP insights view showing MCP request details"
             class="w-full rounded-xl object-cover"
             loading="eager"
           />
-        </div>
-        <div class="rounded-2xl border border-gray-800 bg-black/60 px-4 py-3 text-sm text-gray-300">
-          No code changes required. Works with existing MCP servers and clients.
         </div>
       </div>
     </section>
@@ -148,7 +145,7 @@ import React from 'react';
             <FlowSimple client:load />
           </div>
 
-          <p class="text-base text-gray-300 sm:text-lg">
+          <p class="text-base mx-auto max-w-3xl text-gray-300 sm:text-lg">
             Inspectr runs as a transparent, pluggable proxy in front of your MCP server. It captures
             and understands MCP traffic in real time without requiring any code changes.
           </p>
@@ -191,9 +188,12 @@ import React from 'react';
       <div class="mx-auto max-w-2xl px-4">
         <div class="space-y-6">
           <h2 class="text-2xl font-semibold text-white text-center">Get MCP visibility in seconds</h2>
+          <!--<p class="mx-auto max-w-xl rounded-2xl border border-gray-800 bg-black/60 px-4 py-3 mt-4 text-sm text-gray-300">-->
+          <!--  No code changes required. Works with existing MCP servers and clients.-->
+          <!--</p>-->
           <p class="text-base text-gray-300 sm:text-lg text-center">
-            Works with Claude, OpenAI, and other MCP-compatible clients. No SDKs, no
-            instrumentation, and no server changes.
+            Works with Claude, OpenAI, and other MCP clients.
+            No SDKs, no instrumentation, and no server changes.
           </p>
           <Terminal
             command="npx @inspectr/inspectr --backend=<https://your-mcp-server:3000>"
