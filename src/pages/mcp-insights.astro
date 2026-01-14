@@ -73,18 +73,16 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
       <div class="mx-auto max-w-6xl px-4">
         <div class="max-w-3xl space-y-4">
           <h2 class="text-2xl font-semibold text-white">
-            MCP is hard to reason about - even in development
+            Understanding how your MCP server is used, is important
           </h2>
           <p class="text-base text-gray-300 sm:text-lg">
-            The same uncertainty shows up locally and in production. Until now, most teams are left
-            to read log lines and guess what the LLM actually did.
+            An MCP server can work functionally correctly in local development and still be difficult to understand once it’s used by real LLM clients.
           </p>
         </div>
 
         <div class="mt-10 max-w-3xl">
           <p class="text-base text-gray-300 sm:text-lg">
-            The hardest part is not whether the MCP server responds - it is understanding how LLMs
-            actually use it.
+            Understanding how LLMs interacts and uses your MCP server are hard to reconstruct from logs alone:
           </p>
           <ul class="mt-4 space-y-3 text-sm text-gray-300">
             <li class="flex items-start gap-3">
@@ -93,15 +91,15 @@ import mcpDetails from '../assets/features/mcp/mcp-details.png';
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>What inputs were sent, and what outputs were returned?</span>
+              <span>What MCP tools, prompts or resoiurces were requests, and what outputs were returned?</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>Which flow or sequence did the model follow?</span>
+              <span>Which flow or sequence of tool calls did the model follow?</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>How many estimated tokens were consumed per operation?</span>
+              <span>How many estimated tokens were consumed per conversation?</span>
             </li>
           </ul>
         </div>
