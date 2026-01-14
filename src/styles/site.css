@@ -78,6 +78,39 @@
            bg-clip-text
            text-transparent;
   }
+
+  .word-rotator {
+    display: inline-flex;
+    align-items: baseline;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding: 0 0.1em;
+  }
+
+  .word-rotator__word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .word-rotator__cursor {
+    display: inline-block;
+    width: 0.08em;
+    height: 1em;
+    margin-left: 0.08em;
+    background: currentColor;
+    animation: word-rotator-caret 900ms steps(1) infinite;
+  }
+}
+
+@keyframes word-rotator-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* Marquee animation */
