@@ -88,7 +88,7 @@ const features = [
     icon: <IconMcp className="w-6 h-6" />,
     title: 'MCP Insights',
     description: 'Track tool, resource, and prompt usage plus token count.',
-    href: '/docs/features/inspectr-mcp-insights/'
+    href: '/mcp-insights/'
   },
   {
     icon: <IconGraph className="w-6 h-6" />,
