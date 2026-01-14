@@ -7,6 +7,7 @@ import McpInsightsCarousel from '../components/McpInsightsCarousel.astro';
 import McpSolutionFeatures from '../components/McpSolutionFeatures.jsx';
 import { FlowSimple } from '../components/DocFlows/FlowMcp.jsx';
 import Terminal from '../components/Terminal.jsx';
+import IconInspectr from '../components/Flow/IconInspectr.jsx';
 // import mcpHero from '../assets/features/mcp/mcp-info-01.png';
 // import mcpHero from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpHero from '../assets/features/mcp/mcp-trace-01.png';
@@ -31,9 +32,12 @@ import React from 'react';
 >
   <Navigation client:load />
 
-  <main class="mt-20">
+  <main class="mt-16">
     <section class="bg-gradient-to-b from-brand-dark/90 to-black pt-24 pb-12">
       <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
+        <div class="flex justify-center">
+          <img src="/brand/brand_logo_name.png" alt="Inspectr Logo" class="h-16 w-auto" />
+        </div>
         <span class="inline-flex items-center gap-2 rounded-full border border-brand-primary/50 bg-brand-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.27em] text-brand-primary">
           MCP Insights
         </span>
@@ -158,7 +162,10 @@ import React from 'react';
       <div class="mx-auto max-w-6xl px-4">
         <!--<div class="max-w-3xl space-y-4">-->
         <div class="space-y-4">
-          <h2 class="text-2xl font-semibold text-white">Inspectr provides MCP insights</h2>
+          <h2 class="flex items-center gap-3 text-2xl font-semibold text-white">
+            <IconInspectr width={24} height={24} />
+            Inspectr provides MCP insights
+          </h2>
 
 
           <div class="rounded-2xl border border-gray-800 bg-black/60 p-6">
@@ -212,8 +219,8 @@ import React from 'react';
       </div>
     </section>
 
-    <section class="py-16 bg-black/70 border-t border-gray-800" id="mcp-get-started">
-      <div class="mx-auto max-w-2xl px-4">
+    <section class=" bg-black/70 border-t border-gray-800" id="mcp-get-started">
+      <div class="mx-auto max-w-2xl px-4 py-16">
         <div class="space-y-6">
           <h2 class="text-2xl font-semibold text-white text-center">Get MCP visibility in seconds</h2>
           <!--<p class="mx-auto max-w-xl rounded-2xl border border-gray-800 bg-black/60 px-4 py-3 mt-4 text-sm text-gray-300">-->
@@ -290,7 +297,7 @@ import React from 'react';
     <section class="bg-gradient-to-b from-brand-dark/90 to-black py-16 ">
       <div class="mx-auto max-w-4xl px-4 text-center">
         <div class="mb-6 flex justify-center">
-          <img src="/brand/brand_logo_name.png" alt="Inspectr Logo" class="h-20 w-auto" />
+          <img src="/brand/brand_logo_name.png" alt="Inspectr Logo" class="h-12 w-auto" />
         </div>
         <h2 class="text-3xl font-semibold text-white">Build MCP servers with confidence</h2>
         <p class="mt-4 text-base text-gray-300 sm:text-lg">
