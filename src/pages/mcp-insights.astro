@@ -45,10 +45,10 @@ import React from 'react';
         <!--  single command.-->
         <!--</p>-->
         <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
-          Stop reconstructing MCP behavior from logs.
+          No more scrolling through logs to reconstruct MCP usage.
         </p>
-        <p class="text-lg text-gray-300 sm:text-xl">
-          Inspectr makes tool calls, prompts, resources, and tokens observable across Claude and OpenAI, using just one command.
+        <p class="text-lg text-gray-300 sm:text-xl max-w-2xl">
+          Inspectr makes tool calls, prompts, resources, and tokens observable across Claude and OpenAI, with a single command.
         </p>
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
           <a
@@ -90,25 +90,29 @@ import React from 'react';
       <div class="mx-auto max-w-6xl px-4">
         <div class="max-w-3xl space-y-4">
           <h2 class="text-2xl font-semibold text-white">
-            Understanding how your MCP server is used, is important
+            <!--Understanding how your MCP server is used, is important-->
+            Understanding real MCP usage is harder than it looks
           </h2>
           <p class="text-base text-gray-300 sm:text-lg">
-            An MCP server can work functionally correctly in local development and still be difficult to understand once it’s used by real LLM clients.
+            An MCP server can work functionally correct during development and still be difficult to understand once it’s used by real LLM clients.
+          </p>
+          <p class="text-base text-gray-300 sm:text-lg">
+            In practice, teams rely on logs to understand what happened; but logs make it hard to reconstruct actual LLM behavior.
           </p>
         </div>
 
         <div class="mt-10 max-w-3xl">
           <p class="text-base text-gray-300 sm:text-lg">
-            Understanding how LLMs interact and use your MCP server is hard to reconstruct from logs alone:
+            Questions like these are difficult to answer from logs alone:
           </p>
-          <ul class="mt-4 space-y-3 text-sm text-gray-300">
+          <ul class="mt-4 space-y-3 text-base text-gray-300">
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>Which MCP calls are actually made by the LLM?</span>
+              <span>Which MCP calls are actually made by the LLM/Agents?</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>What MCP tools, prompts, or resources were requested, and what outputs were returned?</span>
+              <span>What MCP tools, prompts, or resources were requested, and what output were returned?</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
@@ -116,14 +120,14 @@ import React from 'react';
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
-              <span>How many estimated tokens were consumed per conversation?</span>
+              <span>How many tokens were consumed during a conversation?</span>
             </li>
           </ul>
         </div>
 
-        <div class="mt-8 rounded-2xl border border-brand-primary/40 bg-brand-primary/10 p-6 text-center">
-          <p class="text-base font-semibold text-brand-primary sm:text-lg">
-            To answer these questions, you need MCP visibility.
+        <div class="mt-10 max-w-3xl">
+          <p class="text-base text-gray-300 sm:text-lg">
+            The challenge is no longer if the MCP server works; but understanding what the LLM actually did.
           </p>
         </div>
       </div>
@@ -192,7 +196,7 @@ import React from 'react';
             instrumentation, and no server changes.
           </p>
           <Terminal
-            command="npx @inspectr/inspectr --listen=<port-of-your-mcp-server>"
+            command="npx @inspectr/inspectr --backend=<https://your-mcp-server:3000>"
             prompt="$"
             showCopyButton
           />
@@ -262,7 +266,7 @@ import React from 'react';
         </div>
         <h2 class="text-3xl font-semibold text-white">Build MCP servers with confidence</h2>
         <p class="mt-4 text-base text-gray-300 sm:text-lg">
-          Understand real MCP usage before it reaches production and keep LLM behavior observable.
+          Understand real MCP usage before it reaches production and gains insights in LLM behavior.
         </p>
         <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
           <a
