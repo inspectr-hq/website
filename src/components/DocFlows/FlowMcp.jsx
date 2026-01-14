@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import FlowVisualizer from '../Flow/FlowVisualizer.jsx';
+import { MarkerType } from '@xyflow/react';
+import FlowVisualizer, { bigArrow } from '../Flow/FlowVisualizer.jsx';
 import { buildBaseFlow, buildIngressFlow } from '../Flow/FlowBuilder.jsx';
 
 import clientIcon from '../../assets/icons/claude-color.svg?react';
@@ -42,5 +43,75 @@ export function FlowIngress() {
       edgeData={edges}
       style={{ width: '100%', height: '210px' }}
     />
+  );
+}
+
+export function FlowSimple() {
+  const { nodes, edges } = useMemo(() => {
+    const nodes = [
+      {
+        id: '0',
+        type: 'proxy',
+        data: { label: 'Claude', icon: clientIcon, showLeft: false, width: 120 },
+        position: { x: 0, y: 30 }
+      },
+      {
+        id: '1',
+        type: 'proxy',
+        data: { label: 'Inspectr', showBottom: false },
+        position: { x: 260, y: 30 }
+      },
+      {
+        id: '2',
+        type: 'proxy',
+        data: { label: 'MCP Server', icon: serviceIcon, showRight: false, width: 150 },
+        position: { x: 520, y: 30 }
+      }
+    ];
+
+    const edges = [
+      {
+        id: 'e-0-1',
+        source: '0',
+        sourceHandle: 'outRight',
+        target: '1',
+        targetHandle: 'inLeft',
+        label: 'Request',
+        markerEnd: bigArrow(MarkerType.ArrowClosed)
+      },
+      {
+        id: 'e-1-0',
+        source: '1',
+        sourceHandle: 'outLeft',
+        target: '0',
+        targetHandle: 'inRight',
+        label: 'Response',
+        markerEnd: bigArrow(MarkerType.ArrowClosed)
+      },
+      {
+        id: 'e-1-2',
+        source: '1',
+        sourceHandle: 'outRight',
+        target: '2',
+        targetHandle: 'inLeft',
+        label: 'Request',
+        markerEnd: bigArrow(MarkerType.ArrowClosed)
+      },
+      {
+        id: 'e-2-1',
+        source: '2',
+        sourceHandle: 'outLeft',
+        target: '1',
+        targetHandle: 'inRight',
+        label: 'Response',
+        markerEnd: bigArrow(MarkerType.ArrowClosed)
+      }
+    ];
+
+    return { nodes, edges };
+  }, []);
+
+  return (
+    <FlowVisualizer nodeData={nodes} edgeData={edges} style={{ width: '100%', height: '180px' }} />
   );
 }

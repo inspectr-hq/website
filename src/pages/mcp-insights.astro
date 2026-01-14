@@ -4,51 +4,14 @@ import Navigation from '../components/Site/Navigation';
 import Footer from '../components/Site/Footer';
 import { Image } from 'astro:assets';
 import McpInsightsCarousel from '../components/McpInsightsCarousel.astro';
-import { FeatureCard } from '../components/FeaturesCard.jsx';
-import IconLogging from '../assets/icons/icon_logging.svg?react';
-import IconTrace from '../assets/icons/chart-gantt.svg?react';
-import IconMcp from '../assets/icons/mcp.svg?react';
-import IconGraph from '../assets/icons/chart-pie.svg?react';
-import IconCode from '../assets/icons/icon_code.svg?react';
-import IconSearch from '../assets/icons/icon_search.svg?react';
+import McpSolutionFeatures from '../components/McpSolutionFeatures.jsx';
+import { FlowSimple } from '../components/DocFlows/FlowMcp.jsx';
+import Terminal from '../components/Terminal.jsx';
 import mcpHero from '../assets/features/mcp/mcp-info-01.png';
 import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
 import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
 import mcpDetails from '../assets/features/mcp/mcp-details.png';
-
-const solutionFeatures = [
-  {
-    Icon: IconLogging,
-    title: 'Full capture of MCP requests',
-    description: 'See exactly what was sent and returned across every MCP operation.',
-  },
-  {
-    Icon: IconTrace,
-    title: 'MCP flow visibility',
-    description: 'Follow the real execution flow, not fragmented log lines.',
-  },
-  {
-    Icon: IconMcp,
-    title: 'Call classification',
-    description: 'Know whether tools, prompts, or resources were invoked.',
-  },
-  {
-    Icon: IconGraph,
-    title: 'Token usage estimates',
-    description: 'Identify expensive flows and unexpected token spikes.',
-  },
-  {
-    Icon: IconCode,
-    title: 'Exportable JSON sessions',
-    description: 'Share, review, or investigate MCP sessions offline.',
-  },
-  {
-    Icon: IconSearch,
-    title: 'Guided MCP analysis',
-    description: 'Surface patterns, anomalies, and behavior changes fast.',
-  },
-];
 ---
 
 <Layout
@@ -161,11 +124,7 @@ const solutionFeatures = [
           </p>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {solutionFeatures.map(({ Icon, ...feature }) => (
-            <FeatureCard icon={Icon} {...feature} />
-          ))}
-        </div>
+        <McpSolutionFeatures />
 
         <div class="mt-10">
           <McpInsightsCarousel
@@ -199,42 +158,62 @@ const solutionFeatures = [
 
     <section class="py-16">
       <div class="mx-auto max-w-6xl px-4">
-        <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-          <div class="space-y-6">
-            <h2 class="text-2xl font-semibold text-white">Get MCP visibility in seconds</h2>
-            <p class="text-base text-gray-300 sm:text-lg">
-              Works with Claude, OpenAI, and other MCP-compatible clients. No SDKs, no
-              instrumentation, and no server changes.
-            </p>
-            <div class="rounded-2xl border border-gray-800 bg-black/60 p-5">
-              <pre class="overflow-x-auto text-sm text-brand-primary">
-<code>npx @inspectr/inspectr --listen=&lt;port-of-your-mcp-server&gt;</code>
-              </pre>
-            </div>
-            <p class="text-sm text-gray-400">
-              Drop-in for local development or remote testing with a single command.
-            </p>
+        <div class="space-y-6">
+          <h2 class="text-2xl font-semibold text-white">Get MCP visibility in seconds</h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Works with Claude, OpenAI, and other MCP-compatible clients. No SDKs, no
+            instrumentation, and no server changes.
+          </p>
+          <Terminal
+            command="npx @inspectr/inspectr --listen=<port-of-your-mcp-server>"
+            prompt="$"
+            showCopyButton
+          />
+          <p class="text-sm text-gray-400">
+            Drop-in for local development or remote testing with a single command.
+          </p>
+          <div class="flex flex-wrap gap-3 text-sm font-semibold">
+            <a
+              href="/docs/examples/expose-mcp-server/"
+              class="inline-flex items-center gap-2 text-brand-primary transition-colors hover:text-brand-secondary"
+            >
+              Setup for Claude →
+            </a>
+            <a
+              href="/docs/examples/expose-mcp-server-openai/"
+              class="inline-flex items-center gap-2 text-brand-primary transition-colors hover:text-brand-secondary"
+            >
+              Setup for OpenAI →
+            </a>
           </div>
-
-          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+          <div
+            class="rounded-2xl border border-gray-800 bg-black/60 p-6"
+            style="--label-bg-color:#0b0f12;--label-text-color:#e5e7eb;--background-dot-color:rgba(255,255,255,0.08);"
+          >
             <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
               Flow
             </p>
-            <p class="font-mono text-sm text-gray-300">LLM client -&gt; Inspectr -&gt; MCP server</p>
-            <ul class="space-y-3 text-sm text-gray-300">
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                <span>Transparent proxy that preserves MCP behavior.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                <span>Consistent visibility across models, clients, and environments.</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
-                <span>Use the same command locally, in CI, or during remote testing.</span>
-              </li>
-            </ul>
+            <FlowSimple client:load />
+            <p class="font-mono text-sm text-gray-300">Claude -&gt; Inspectr -&gt; MCP server</p>
+            <div class="mt-4 space-y-4">
+              <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+                Why it works
+              </p>
+              <ul class="space-y-3 text-sm text-gray-300">
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                  <span>Transparent proxy that preserves MCP behavior.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                  <span>Consistent visibility across models, clients, and environments.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                  <span>Use the same command locally, in CI, or during remote testing.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
