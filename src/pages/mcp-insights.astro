@@ -1,0 +1,371 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Site/Navigation';
+import Footer from '../components/Site/Footer';
+import { Image } from 'astro:assets';
+import McpInsightsCarousel from '../components/McpInsightsCarousel.astro';
+import mcpHero from '../assets/features/mcp/mcp-info-01.png';
+import mcpToolList from '../assets/features/mcp/mcp-tool-list-openai.png';
+import mcpTracing from '../assets/features/mcp/mcp-tracing-toollist.png';
+import mcpTokens from '../assets/features/mcp/mcp-tokens.png';
+import mcpDetails from '../assets/features/mcp/mcp-details.png';
+---
+
+<Layout
+  title="MCP Insights and Visibility | Inspectr"
+  description="Stop guessing how LLMs use your MCP server. Inspectr provides MCP visibility across tools, prompts, resources, and token usage."
+  keywords="Inspectr, MCP insights, MCP visibility, Model Context Protocol, MCP server observability, LLM tool usage"
+  ogTitle="MCP Insights and Visibility | Inspectr"
+  ogDescription="Understand how LLMs use your MCP server across models, clients, and environments with Inspectr."
+>
+  <Navigation client:load />
+
+  <main class="mt-20">
+    <section class="bg-gradient-to-b from-brand-dark/90 to-black pt-24 pb-16">
+      <div class="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4 text-center">
+        <span class="inline-flex items-center gap-2 rounded-full border border-brand-primary/50 bg-brand-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.27em] text-brand-primary">
+          MCP Insights
+        </span>
+        <h1 class="text-balance text-4xl font-bold leading-tight sm:text-5xl">
+          Stop guessing how LLMs use your MCP server.
+        </h1>
+        <p class="text-base text-gray-300 sm:text-lg">
+          Real MCP usage varies by model, client, and environment, and the gaps only show up after
+          you ship.
+        </p>
+        <p class="text-lg text-gray-300 sm:text-xl">
+          Inspectr is an open-source, transparent MCP proxy that lets you see tool calls, prompts,
+          resources, and token usage across Claude, OpenAI, and more without browsing logs, using a
+          single command.
+        </p>
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+          <a
+            href="/docs/getting-started/quick-start/"
+            class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-6 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
+          >
+            Get Started
+          </a>
+          <a
+            href="/docs/features/inspectr-mcp-insights/"
+            class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:border-brand-primary hover:text-brand-primary"
+          >
+            See MCP insights
+          </a>
+        </div>
+        <div class="rounded-2xl border border-gray-800 bg-black/60 px-4 py-3 text-sm text-gray-300">
+          No code changes required. Works with existing MCP servers and clients.
+        </div>
+        <div class="mt-6 w-full overflow-hidden rounded-2xl border border-gray-800 bg-black/70 p-4">
+          <Image
+            src={mcpHero}
+            alt="Inspectr MCP insights view showing MCP request details"
+            class="w-full rounded-xl object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="max-w-3xl space-y-4">
+          <h2 class="text-2xl font-semibold text-white">
+            MCP works in development - until real usage begins
+          </h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Even if your MCP server behaves correctly in development, real-world usage introduces
+            variability that is hard to reason about with logs and tests alone.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-8 md:grid-cols-2">
+          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary/70">
+              Real-world variability
+            </h3>
+            <ul class="space-y-3 text-sm text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Tools may be triggered differently depending on the model.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Prompts may be interpreted differently by different LLMs.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Token usage can change drastically between flows.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Some failures only surface in specific environments or clients.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary/70">
+              What traditional tests miss
+            </h3>
+            <p class="text-sm text-gray-300">
+              Traditional tests do not answer the questions that actually matter in MCP.
+            </p>
+            <ul class="space-y-3 text-sm text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Which tools were actually used by the LLMs?</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>How many tokens were consumed, and where?</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Why did an eval fail only for one model?</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-secondary" />
+                <span>Did a recent change silently alter LLM behavior?</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-brand-primary/40 bg-brand-primary/10 p-6 text-center">
+          <p class="text-base font-semibold text-brand-primary sm:text-lg">
+            To answer these questions, you need MCP visibility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-black/70 py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="max-w-3xl space-y-4">
+          <h2 class="text-2xl font-semibold text-white">Inspectr makes MCP behavior observable</h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Inspectr runs as a transparent, pluggable proxy in front of your MCP server. It captures
+            and understands MCP traffic in real time without requiring any code changes.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">
+              Full capture of MCP HTTP requests and responses
+            </p>
+            <p class="text-sm text-gray-400">See exactly what was sent and returned.</p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Understanding of MCP traffic patterns</p>
+            <p class="text-sm text-gray-400">Follow the actual execution flow, not log fragments.</p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Classification of MCP calls</p>
+            <p class="text-sm text-gray-400">
+              Instantly understand whether tools, prompts, or resources were invoked.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Token usage estimates per operation</p>
+            <p class="text-sm text-gray-400">
+              Identify expensive flows and unexpected token spikes.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Exportable JSON session artifacts</p>
+            <p class="text-sm text-gray-400">
+              Share, review, or investigate MCP sessions offline or with teammates.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Guided analysis in the Inspectr UI</p>
+            <p class="text-sm text-gray-400">
+              Surface patterns, anomalies, and behavior changes with MCP-aware context.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <McpInsightsCarousel
+            title="MCP insights in practice"
+            slides={[
+              {
+                src: mcpToolList,
+                alt: 'Inspectr showing MCP tool list from an OpenAI MCP client',
+                label: 'MCP tool list',
+              },
+              {
+                src: mcpTracing,
+                alt: 'Inspectr tracing view showing MCP flow and tool calls',
+                label: 'MCP tracing flow',
+              },
+              {
+                src: mcpTokens,
+                alt: 'Inspectr showing MCP token usage totals and breakdown',
+                label: 'Token usage',
+              },
+              {
+                src: mcpDetails,
+                alt: 'Inspectr showing MCP request details with tool metadata',
+                label: 'MCP request details',
+              },
+            ]}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+          <div class="space-y-6">
+            <h2 class="text-2xl font-semibold text-white">Get MCP visibility in seconds</h2>
+            <p class="text-base text-gray-300 sm:text-lg">
+              Works with Claude, OpenAI, and other MCP-compatible clients. No SDKs, no
+              instrumentation, and no server changes.
+            </p>
+            <div class="rounded-2xl border border-gray-800 bg-black/60 p-5">
+              <pre class="overflow-x-auto text-sm text-brand-primary">
+<code>npx @inspectr/inspectr --listen=&lt;port-of-your-mcp-server&gt;</code>
+              </pre>
+            </div>
+            <p class="text-sm text-gray-400">
+              Drop-in for local development or remote testing with a single command.
+            </p>
+          </div>
+
+          <div class="space-y-4 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-brand-secondary/70">
+              Flow
+            </p>
+            <p class="font-mono text-sm text-gray-300">LLM client -&gt; Inspectr -&gt; MCP server</p>
+            <ul class="space-y-3 text-sm text-gray-300">
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                <span>Transparent proxy that preserves MCP behavior.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                <span>Consistent visibility across models, clients, and environments.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 inline-block h-2 w-2 rounded-full bg-brand-primary" />
+                <span>Use the same command locally, in CI, or during remote testing.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-black/70 py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="max-w-3xl space-y-4">
+          <h2 class="text-2xl font-semibold text-white">
+            Common MCP debugging scenarios Inspectr solves
+          </h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Stop guessing which MCP operations ran and why. Inspectr shows the exact flow so you
+            can debug across models, environments, and clients.
+          </p>
+        </div>
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Why was my tool not called?</p>
+            <p class="text-sm text-gray-400">
+              See which tools were considered, triggered, or skipped in the flow.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">
+              Why does this work on Claude but not OpenAI?
+            </p>
+            <p class="text-sm text-gray-400">
+              Compare tool usage, prompts, and token consumption per model.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Why did this eval suddenly fail?</p>
+            <p class="text-sm text-gray-400">
+              Inspect behavior changes after schema or prompt updates.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Why did token usage spike?</p>
+            <p class="text-sm text-gray-400">
+              Break down token estimates per MCP operation to find expensive steps.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Why does this only fail in one client?</p>
+            <p class="text-sm text-gray-400">
+              Inspect environment-specific MCP behavior and client differences.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <div class="max-w-3xl space-y-4">
+          <h2 class="text-2xl font-semibold text-white">Trust built for MCP</h2>
+          <p class="text-base text-gray-300 sm:text-lg">
+            Inspectr does not simulate MCP behavior. It shows you what actually happened.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-2">
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Open-source by default</p>
+            <p class="text-sm text-gray-400">Use Inspectr locally with full control and privacy.</p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Transparent proxy</p>
+            <p class="text-sm text-gray-400">
+              Observe MCP traffic without altering tool or prompt behavior.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Built for MCP traffic</p>
+            <p class="text-sm text-gray-400">
+              Purpose-built parsing for tools, prompts, resources, and token usage.
+            </p>
+          </div>
+          <div class="space-y-2 rounded-2xl border border-gray-800 bg-black/60 p-6">
+            <p class="text-sm font-semibold text-white">Real-world LLM variability</p>
+            <p class="text-sm text-gray-400">
+              Diagnose cross-model, cross-client, and cross-environment differences.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-b from-brand-dark/90 to-black py-16">
+      <div class="mx-auto max-w-4xl px-4 text-center">
+        <h2 class="text-3xl font-semibold text-white">Build MCP servers with confidence</h2>
+        <p class="mt-4 text-base text-gray-300 sm:text-lg">
+          Understand real MCP usage before it reaches production and keep LLM behavior observable.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center">
+          <a
+            href="/docs/getting-started/quick-start/"
+            class="inline-flex items-center justify-center rounded-xl bg-brand-primary px-6 py-3 text-sm font-semibold text-brand-dark transition-transform hover:-translate-y-0.5 hover:bg-brand-secondary"
+          >
+            Get Started
+          </a>
+          <a
+            href="/docs/guides/mcp-observability/"
+            class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:border-brand-primary hover:text-brand-primary"
+          >
+            Explore MCP documentation
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

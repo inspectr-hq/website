@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+
+const { slides = [], title = 'MCP insight snapshots' } = Astro.props;
+---
+
+<div class="rounded-2xl border border-gray-800 bg-black/60 p-6">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-secondary/70">
+      {title}
+    </h3>
+  </div>
+
+  <div
+    class="mt-6 relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+  >
+    <div class="animate-marquee will-change-transform inline-flex w-max gap-6">
+      {slides.map((slide, index) => (
+        <div
+          class="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-black/80 p-4"
+          aria-label={`${index + 1} of ${slides.length}`}
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            class="h-56 w-auto rounded-xl object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+          <p class="text-center text-xs font-semibold uppercase tracking-[0.24em] text-gray-400">
+            {slide.label}
+          </p>
+        </div>
+      ))}
+      {slides.map((slide, index) => (
+        <div
+          class="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-black/80 p-4"
+          aria-label={`${index + 1} of ${slides.length}`}
+          aria-hidden="true"
+        >
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            class="h-56 w-auto rounded-xl object-cover"
+            loading="lazy"
+          />
+          <p class="text-center text-xs font-semibold uppercase tracking-[0.24em] text-gray-400">
+            {slide.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

@@ -57,6 +57,11 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/mcp-insights/" className="hover:text-brand-primary">
+                  MCP Insights
+                </a>
+              </li>
+              <li>
                 <a href="/#solutions" className="hover:text-brand-primary">
                   Solutions
                 </a>
