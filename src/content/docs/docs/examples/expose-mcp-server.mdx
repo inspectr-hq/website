@@ -1,3 +1,4 @@
+
 ---
 title: Exposing a MCP Server
 description: Expose a local MCP server with Inspectr.
@@ -19,6 +20,7 @@ import mcpClaudeConfigured from '../../../../assets/guides/mcp-claude-configured
 
 
 import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcp.jsx';
+import RelatedLink from '../../../../components/RelatedLink.jsx';
 
 <FlowBase client:only="react" />
 
@@ -28,8 +30,7 @@ import { FlowBase, FlowIngress } from '../../../../components/DocFlows/FlowMcp.j
 
 Inspectr makes it easy to run and test your local MCP servers by exposing them via a streamable HTTP transport. This allows you to connect MCP servers to a wide range of MCP clients without worrying about WebSocket bindings or specialized transports.
 
-If you haven’t built an MCP server yet, start with the Build a Local MCP Server guide ↗
-before continuing here.
+If you haven’t built an MCP server yet, start with the [Build a Local MCP Server guide ↗](https://modelcontextprotocol.io/docs/develop/build-server) before continuing here.
 
 ---
 
@@ -248,4 +249,6 @@ Inspectr makes it easy to:
 - Connect it to MCP clients like Claude Desktop, Cursor, or Windsurf.
 - Monitor every MCP interaction in real time via the Inspectr dashboard.
 
----
+<RelatedLink href="/mcp-insights/" title="Want to learn more about MCP insights? See our product page:">
+  MCP Insights →
+</RelatedLink>
