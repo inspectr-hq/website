@@ -97,7 +97,7 @@
     width: 0.08em;
     height: 1em;
     margin-left: 0.08em;
-    background: currentColor;
+    background: #00e5ff;
     animation: word-rotator-caret 900ms steps(1) infinite;
   }
 }

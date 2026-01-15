@@ -6,11 +6,18 @@ import IconBook from '../../assets/icons/icon_book.svg?react';
 
 export default function Hero() {
   const words = ['API', 'Webhook', 'MCP Server'];
+  const isSmallScreen =
+    typeof window !== 'undefined' &&
+    window.matchMedia &&
+    window.matchMedia('(max-width: 639px)').matches;
   const [wordIndex, setWordIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(words[0].length);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    // On small screens: do nothing (leave the fallback text in the JSX)
+    if (isSmallScreen) return;
+
     const current = words[wordIndex];
     let timeoutId;
 
@@ -28,7 +35,7 @@ export default function Hero() {
     }
 
     return () => window.clearTimeout(timeoutId);
-  }, [charIndex, isDeleting, wordIndex, words]);
+  }, [charIndex, isDeleting, wordIndex, words, isSmallScreen]);
 
   const displayWord = words[wordIndex].slice(0, charIndex) || '\u00a0';
 
@@ -42,10 +49,14 @@ export default function Hero() {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.2]">
             Simplifying{' '}
-            <span className="word-rotator" aria-live="polite">
-              <span className="word-rotator__word">{displayWord}</span>
-              <span className="word-rotator__cursor" aria-hidden="true"></span>
-            </span>{' '}
+            {isSmallScreen ? (
+              <span>LLMs</span>
+            ) : (
+              <span className="word-rotator" aria-live="polite">
+                <span className="word-rotator__word">{displayWord}</span>
+                {/*<span className="word-rotator__cursor" aria-hidden="true"></span>*/}
+              </span>
+            )}{' '}
             Debugging
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-4">

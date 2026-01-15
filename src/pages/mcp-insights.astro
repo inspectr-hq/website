@@ -354,7 +354,7 @@ import React from 'react';
     width: 0.08em;
     height: 1em;
     margin-left: 0.08em;
-    background: currentColor;
+    background: #00e5ff;
     animation: llm-caret 900ms steps(1) infinite;
   }
 
@@ -374,39 +374,48 @@ import React from 'react';
   const wordEl = document.querySelector('.llm-rotator__word');
   if (wordEl) {
     const words = JSON.parse(wordEl.dataset.words || '[]');
-    let wordIndex = 0;
-    let charIndex = words[0]?.length || 0;
-    let isDeleting = false;
 
-    const typeNext = () => {
-      if (!words.length) return;
-      const current = words[wordIndex];
-      const visible = current.slice(0, charIndex);
-      wordEl.textContent = visible || '\u00a0';
+    // Disable rotation on small screens (e.g. < 640px)
+    const isSmallScreen = window.matchMedia('(max-width: 639px)').matches;
 
-      if (!isDeleting && charIndex < current.length) {
-        charIndex += 1;
-        window.setTimeout(typeNext, 85);
-        return;
-      }
+    if (isSmallScreen) {
+      // Just show the first word and stop
+      wordEl.textContent = words[0] || '';
+    } else {
+      let wordIndex = 0;
+      let charIndex = words[0]?.length || 0;
+      let isDeleting = false;
 
-      if (!isDeleting && charIndex === current.length) {
-        isDeleting = true;
-        window.setTimeout(typeNext, 1200);
-        return;
-      }
+      const typeNext = () => {
+        if (!words.length) return;
+        const current = words[wordIndex];
+        const visible = current.slice(0, charIndex);
+        wordEl.textContent = visible || '\u00a0';
 
-      if (isDeleting && charIndex > 0) {
-        charIndex -= 1;
-        window.setTimeout(typeNext, 45);
-        return;
-      }
+        if (!isDeleting && charIndex < current.length) {
+          charIndex += 1;
+          window.setTimeout(typeNext, 85);
+          return;
+        }
 
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      window.setTimeout(typeNext, 250);
-    };
+        if (!isDeleting && charIndex === current.length) {
+          isDeleting = true;
+          window.setTimeout(typeNext, 1200);
+          return;
+        }
 
-    window.setTimeout(typeNext, 800);
+        if (isDeleting && charIndex > 0) {
+          charIndex -= 1;
+          window.setTimeout(typeNext, 45);
+          return;
+        }
+
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        window.setTimeout(typeNext, 250);
+      };
+
+      window.setTimeout(typeNext, 800);
+    }
   }
 </script>
