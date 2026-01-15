@@ -69,6 +69,7 @@ export default defineConfig({
             { label: 'Run a Command on Startup', slug: 'docs/features/inspectr-command-runner' },
             { label: 'Export/Import & Record Traffic', slug: 'docs/features/inspectr-import-export' },
             { label: 'Export on Shutdown', slug: 'docs/features/inspectr-export' },
+            { label: 'Catch/Mock/Mirror mode', slug: 'docs/features/inspectr-operation-modes' },
             { label: 'Inspectr MCP Server', slug: 'docs/features/inspectr-mcp-server' }
           ]
         },
