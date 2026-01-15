@@ -358,6 +358,13 @@ import React from 'react';
     animation: llm-caret 900ms steps(1) infinite;
   }
 
+  @media (max-width: 639px) {
+    .llm-rotator__cursor {
+      display: none;
+      animation: none;
+    }
+  }
+
   @keyframes llm-caret {
     0%,
     49% {
@@ -379,8 +386,8 @@ import React from 'react';
     const isSmallScreen = window.matchMedia('(max-width: 639px)').matches;
 
     if (isSmallScreen) {
-      // Just show the first word and stop
-      wordEl.textContent = words[0] || '';
+      // On mobile: keep the original HTML fallback text and do not run the rotator.
+      return;
     } else {
       let wordIndex = 0;
       let charIndex = words[0]?.length || 0;

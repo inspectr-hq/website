@@ -50,7 +50,7 @@ export default function Hero() {
           <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-6 md:leading-[1.2]">
             Simplifying{' '}
             {isSmallScreen ? (
-              <span>LLMs</span>
+              <span>API</span>
             ) : (
               <span className="word-rotator" aria-live="polite">
                 <span className="word-rotator__word">{displayWord}</span>
