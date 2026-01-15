@@ -1,0 +1,286 @@
+---
+title: Operation Modes
+description: Learn how Inspectr routes requests in backend, catch, mock, and mirror mode — with copy/paste configs and example responses.
+---
+
+Inspectr can operate in four simple routing modes depending on what you’re trying to do:
+
+- **Backend** – forward traffic to a real backend
+- **Catch** – accept and capture requests without forwarding
+- **Mock** – respond using OpenAPI-based mock responses
+- **Mirror** – instantly echo requests back to the caller
+
+Each mode solves a different problem, but all of them give you the same thing: **full visibility into real HTTP traffic without reconstructing behavior from logs**.
+
+This guide explains each mode with:
+- a minimal `.inspectr.yaml`
+- a runnable `curl` example
+- an example HTTP response
+- what you’ll see inside Inspectr
+
+---
+
+## How Inspectr decides what to do
+
+When a request arrives, Inspectr chooses a response strategy based on your configuration:
+
+- If a **backend** is configured, requests are forwarded
+- If **mockBackend** is configured, Inspectr generates a response from OpenAPI
+- If **mirror** is enabled, Inspectr echoes the request back immediately
+- If **catch** is enabled (or no backend is configured), Inspectr returns `200 OK`
+
+You can always keep the UI enabled (`app: true`) to inspect traffic in real time.
+
+---
+
+## Backend mode
+
+Backend mode is the default Inspectr workflow when you need full visibility into a real API.
+
+Inspectr sits transparently between your client and backend:
+1. The client sends requests to Inspectr
+2. Inspectr forwards them to your backend
+3. The backend response is returned unchanged
+4. Inspectr captures the full exchange for inspection
+
+### When to use backend mode
+
+Use backend mode when you want to:
+- debug real backend behavior without changing client code
+- inspect headers, payloads, status codes, and errors
+- analyze latency and response timing
+- observe production-like traffic locally or in CI
+- troubleshoot issues that only show up at runtime
+
+Backend mode is ideal when your backend already exists and you need visibility, not simulation.
+
+---
+
+### Config
+
+```yaml
+# .inspectr.yaml
+listen: ":8080"
+backend: "http://localhost:3000"
+
+app: true
+appPort: "4004"
+print: true
+```
+
+### Example request
+```bash
+curl -i http://localhost:8080/hello
+```
+
+### Example response (from backend)
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"message":"hello from backend"}
+```
+
+### What you’ll see in Inspectr
+
+- Captured operation: GET /hello
+- Full request & response (headers + body)
+- Status code and timing information
+
+---
+
+## Catch mode
+
+Catch mode accepts requests and captures them — without forwarding them anywhere.
+
+Inspectr always responds with a default 200 OK, making it safe to expose as a temporary or exploratory endpoint.
+
+### When to use catch mode
+
+Catch mode is ideal when you:
+- need an instant webhook endpoint
+- want to inspect payloads from third-party systems
+- are exploring an undocumented or evolving integration
+- don’t want to block senders with failures
+- need a safe place to capture traffic before building logic
+
+Catch mode is about receiving first, deciding later.
+
+### Config
+```yaml
+# .inspectr.yaml
+listen: ":8080"
+catch: true
+
+app: true
+appPort: "4004"
+print: true
+```
+
+### Example request
+```bash
+curl -i -X POST http://localhost:8080/webhook \
+-H "content-type: application/json" \
+-d '{"type":"ping","id":"evt_123"}'
+```
+
+### Example response
+```http request
+HTTP/1.1 200 OK
+Content-Length: 0
+```
+
+### What you’ll see in Inspectr
+
+- Captured operation: POST /webhook
+- Full payload for inspection and replay
+- A clean baseline for overrides (status codes, delays, failures)
+
+---
+
+## Mock mode
+
+Mock mode lets Inspectr respond without a backend, using an OpenAPI document as the source of truth.
+
+Responses can be static examples from your spec or dynamically generated based on schemas.
+
+### When to use mock mode
+
+Use mock mode when:
+- the backend doesn’t exist yet
+- you’re developing frontend or client code first
+- you want deterministic responses for testing
+- you’re validating client behavior against an API contract
+- you want to test error cases without backend changes
+
+Mock mode is ideal for contract-first development and fast iteration.
+
+### Config (static mocking)
+```yaml
+# .inspectr.yaml
+listen: ":8080"
+mockBackend: "./openapi.yaml"
+mockDynamic: false
+
+app: true
+appPort: "4004"
+print: true
+```
+
+### Example OpenAPI snippet
+```yaml
+paths:
+  /items:
+    get:
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              examples:
+                default:
+                  value:
+                    items: ["A", "B", "C"]
+```
+
+### Example request
+```bash
+curl -i http://localhost:8080/items
+```
+
+### Example response (static)
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"items":["A","B","C"]}
+```
+
+### Config (dynamic mocking)
+```yaml
+# .inspectr.yaml
+listen: ":8080"
+mockBackend: "./openapi.yaml"
+mockDynamic: true
+```
+
+### Example response (dynamic)
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"items":["KqTzL","p9aV2","mR1xQ"]}
+```
+
+### What you’ll see in Inspectr
+
+- Operation matched to OpenAPI path & method
+- Generated response (static or dynamic)
+- A clear link between spec and runtime behavior
+
+## Mirror mode
+
+Mirror mode turns Inspectr into a request reflection endpoint.
+
+Every incoming request is captured and immediately echoed back as the response — no backend involved.
+
+### When to use mirror mode
+
+Mirror mode is perfect when you want to:
+- see exactly what a client or webhook sender is transmitting
+- debug headers, encoding, auth, and payload shape
+- verify SDK or client behavior
+- test connectivity from third-party systems
+- remove backend behavior from the equation entirely
+
+Unlike simple request mirrors, Inspectr also stores, replays, and exports every request.
+
+### Config
+```yaml
+# .inspectr.yaml
+listen: ":8080"
+mirror: true
+
+app: true
+appPort: "4004"
+print: true
+```
+
+### Example request
+```bash
+curl -i -X POST http://localhost:8080/webhook/test \
+  -H "content-type: application/json" \
+  -H "x-source: stripe" \
+  -d '{
+    "event": "payment.succeeded",
+    "id": "evt_123",
+    "amount": 4200
+  }'
+```
+
+### Example response (mirrored)
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+"event": "payment.succeeded",
+"id": "evt_123",
+"amount": 4200
+}
+```
+
+### What you’ll see in Inspectr
+
+- Captured operation: POST /webhook/test
+- Request headers and payload
+- Immediate feedback loop for client debugging
+
+## Mode summary
+
+| Mode    | Behavior                       | Best used for |
+|---------|--------------------------------|---------------|
+| Backend | Forward to backend and inspect | Debugging real APIs and responses |
+| Catch   | Accept and store requests only | Webhooks and payload exploration |
+| Mock    | Respond from OpenAPI spec      | Contract-first development and testing |
+| Mirror  | Echo request back immediately  | Client, SDK, and webhook debugging |
