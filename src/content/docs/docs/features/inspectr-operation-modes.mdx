@@ -117,12 +117,96 @@ Inspectr always responds with a default 200 OK, making it safe to expose as a te
 
 Catch mode is ideal when you:
 - need an instant webhook endpoint
-- want to inspect payloads from third-party systems
+- want to inspect real payloads from third-party systems
 - are exploring an undocumented or evolving integration
-- don’t want to block senders with failures
-- need a safe place to capture traffic before building logic
+- need to test how senders/clients behave when responses vary (status codes, content types)
+- want to capture traffic before implementing backend logic
 
-Catch mode is about receiving first, deciding later.
+Catch mode captures incoming requests and returns a configurable response without forwarding them to a backend.
+
+### Testing error and edge cases in catch mode
+
+Catch mode is not limited to returning a simple `200 OK`. You can control how Inspectr responds on a per-request basis using Inspectr-specific directives.
+
+This makes catch mode extremely useful for testing **unhappy paths** and **client-side error handling**, without changing your backend or writing custom mocks.
+
+Inspectr supports the following response directives:
+
+- `inspectr-response-status` – override the HTTP status code
+- `inspectr-response-content-type` – override the `Content-Type` header
+
+These directives can be sent as headers or embedded as metadata, depending on your setup.
+
+#### Example: Simulating client error handling
+
+Force a client-side validation error:
+
+```bash
+curl -i -X POST http://localhost:8080/webhook \
+  -H "inspectr-response-status: 400" \
+  -H "content-type: application/json" \
+  -d '{"invalid":true}'
+```
+
+Response:
+
+```http
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+{"status":"Bad Request"}
+```
+
+#### Example: Testing retry and backoff logic
+
+Simulate rate limiting or temporary failures:
+
+```bash
+curl -i -X POST http://localhost:8080/webhook \
+  -H "inspectr-response-status: 429" \
+  -H "inspectr-response-content-type: application/json"
+```
+
+Response:
+
+```http
+HTTP/1.1 429 Too Many Requests
+Retry-After: 5
+Content-Type: application/json
+
+{"status":"Too Many Requests"}
+```
+
+This allows you to validate:
+- retry behavior
+- backoff strategies
+- error parsing and surfacing in the UI
+
+#### Example: Verifying content-type handling
+
+Test how your client behaves with unexpected or legacy content types:
+
+```bash
+curl -i -X POST http://localhost:8080/webhook \
+  -H "inspectr-response-status: 500" \
+  -H "inspectr-response-content-type: text/plain"
+```
+
+Response:
+
+```http
+HTTP/1.1 500 Internal Server Error
+Content-Type: text/plain
+
+Internal Server Error
+```
+
+This is useful when validating:
+- strict JSON parsers
+- fallback logic
+- error rendering for non-JSON responses
+
+By combining request capture with controlled responses, catch mode becomes a powerful tool for exercising edge cases and validating client robustness.
 
 <RelatedLink href="/docs/guides/webhook-debugging/" title="See how Inspectr simplifies webhook debugging.">
   Explore the how-to →
