@@ -1,0 +1,122 @@
+<ul class="top-level website-group">
+  <li>
+    <details open>
+      <summary>
+        <span class="group-label">
+          <span class="large">Website</span>
+        </span>
+        <svg aria-hidden="true" class="caret" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"></path></svg>
+      </summary>
+      <sl-sidebar-restore data-index="0"></sl-sidebar-restore>
+      <ul>
+        <li><a href="/"><span>Home</span></a></li>
+        <li><a href="/#features"><span>Features</span></a></li>
+        <li><a href="/#solutions"><span>Solutions</span></a></li>
+        <li><a href="/use-cases/"><span>User-cases</span></a></li>
+        <li><a href="/mcp-insights/"><span>MCP Server Insights</span></a></li>
+      </ul>
+    </details>
+  </li>
+</ul>
+
+<style>
+  @layer starlight.core {
+    .website-group {
+      --sl-sidebar-item-padding-inline: 0.5rem;
+      list-style: none;
+      padding: 0 0 0;
+      /* margin: 0 0 1rem; */
+      /* border-bottom: 1px solid var(--sl-color-gray-6); */
+    }
+
+    .website-group ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .website-group li {
+      overflow-wrap: anywhere;
+    }
+
+    .website-group ul li {
+      margin-inline-start: var(--sl-sidebar-item-padding-inline);
+      border-inline-start: 1px solid var(--sl-color-hairline-light);
+      padding-inline-start: var(--sl-sidebar-item-padding-inline);
+    }
+
+    .website-group .large {
+      font-size: var(--sl-text-lg);
+      font-weight: 600;
+      color: var(--sl-color-white);
+    }
+
+    .website-group > li + li {
+      margin-top: 0.75rem;
+    }
+
+    .website-group summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.2em var(--sl-sidebar-item-padding-inline);
+      line-height: 1.4;
+      cursor: pointer;
+      user-select: none;
+    }
+    .website-group summary::marker,
+    .website-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .website-group .caret {
+      transition: transform 0.2s ease-in-out;
+      flex-shrink: 0;
+    }
+    :global([dir='rtl']) .website-group .caret {
+      transform: rotateZ(180deg);
+    }
+    .website-group [open] > summary .caret {
+      transform: rotateZ(90deg);
+    }
+
+    .website-group a {
+      display: block;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      color: var(--sl-color-gray-2);
+      padding: 0.3em var(--sl-sidebar-item-padding-inline);
+      line-height: 1.4;
+    }
+
+    .website-group a:hover,
+    .website-group a:focus {
+      color: var(--sl-color-white);
+    }
+
+    .website-group [aria-current='page'],
+    .website-group [aria-current='page']:hover,
+    .website-group [aria-current='page']:focus {
+      font-weight: 600;
+      color: var(--sl-color-text-invert);
+      background-color: var(--sl-color-text-accent);
+    }
+
+    .website-group a > *:not(:last-child),
+    .website-group .group-label > *:not(:last-child) {
+      margin-inline-end: 0.25em;
+    }
+
+    @media (min-width: 50rem) {
+      .website-group > li + li {
+        margin-top: 0.5rem;
+      }
+      .website-group .large {
+        font-size: var(--sl-text-base);
+      }
+      .website-group a {
+        font-size: var(--sl-text-sm);
+      }
+    }
+  }
+</style>
