@@ -59,6 +59,17 @@ import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
       padding-block: 1rem;
     }
 
+    .social-icons {
+      --sl-icon-size: 20px;
+    }
+
+    .social-icons :global(svg) {
+      --sl-icon-size: 24px !important;
+      width: 24px !important;
+      height: 24px !important;
+      font-size: 24px !important;
+    }
+
     .social-icons:empty {
       display: none;
     }
