@@ -9,36 +9,44 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ---
 
-## Basic Options
+## Core Options
 
-| Flag             | Type    | Default | Description                                           |
-|------------------|---------|---------|-------------------------------------------------------|
-| `--listen`       | string  | `:8080` | Address where Inspectr listens for HTTP requests      |
-| `--backend`      | string  | (none)  | Forward requests to this backend service              |
-| `--mock-backend` | string  | (none)  | Serve mock responses from OpenAPI spec                |
-| `--mock-dynamic` | boolean | `false` | Generate dynamic mock data instead of static examples |
-| `--mirror`       | boolean | `false` | Immediately echo the original request back            |
-| `--catch`        | boolean | `false` | Accept and log requests without forwarding            |
+| Flag             | Type    | Default | Description                                                                                                    |
+|------------------|---------|---------|----------------------------------------------------------------------------------------------------------------|
+| `--listen`       | string  | `:8080` | Address where Inspectr listens for HTTP requests                                                               |
+| `--backend`      | string  | (none)  | Forward requests to this backend service (e.g. `http://localhost:3000"`, `https://api.stripe.com`)             |
+| `--mock-backend` | string  | (none)  | Serve mock responses from OpenAPI spec (e.g. `./openapi.yaml`, `https://inspectr.dev/demo/hello.openapi.yaml`) |
+| `--mirror`       | boolean | `false` | Immediately echo the original request back                                                                     |
+| `--catch`        | boolean | `false` | Accept and log requests without forwarding                                                                     |
 
 ---
 
 ## App and Logging
 
-| Flag            | Type    | Default  | Description                                          |
-| --------------- | ------- | -------- | ---------------------------------------------------- |
-| `--app`         | boolean | `true`   | Enable embedded Inspectr App UI & API                |
-| `--app-port`    | string  | `4004`   | Port to serve the UI app                             |
-| `--print`       | boolean | `true`   | Print color-coded log output to the terminal         |
+| Flag         | Type    | Default | Description                                  |
+|--------------|---------|---------|----------------------------------------------|
+| `--app`      | boolean | `true`  | Enable embedded Inspectr App UI & API        |
+| `--app-port` | string  | `4004`  | Port to serve the UI app                     |
+| `--print`    | boolean | `true`  | Print color-coded log output to the terminal |
 
 ---
 
 ## Public Exposure/Tunneling
 
-| Flag             | Type    | Default | Description                                                                              |
-| ---------------- | ------- | ------- | ---------------------------------------------------------------------------------------- |
-| `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress                                                     |
-| `--channel`      | string  | (none)  | Subdomain to use (e.g. `my-api.in-spectr.dev`)                                           |
-| `--channel-code` | string  | (none)  | Secret code required for remote access to the channel                                    |
+| Flag             | Type    | Default | Description                                           |
+|------------------|---------|---------|-------------------------------------------------------|
+| `--expose`       | boolean | `false` | Expose Inspectr publicly via Ingress                  |
+| `--channel`      | string  | (none)  | Subdomain to use (e.g. `my-api.in-spectr.dev`)        |
+| `--channel-code` | string  | (none)  | Secret code required for remote access to the channel |
+
+---
+
+### Mocking Options
+
+| Key              | Type    | Description                                                                                                     |
+|------------------|---------|-----------------------------------------------------------------------------------------------------------------|
+| `--mock-backend` | string  | Path or URL to OpenAPI spec for mocking (e.g. `./openapi.yaml`, `https://inspectr.dev/demo/hello.openapi.yaml`) |
+| `--mock-dynamic` | boolean | Generate dynamic mock data instead of static examples                                                           |
 
 ---
 
@@ -75,13 +83,13 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ## Start-up Options
 
-| Flag                 | Type   | Default                         | Description                                                                             |
-|----------------------|--------|---------------------------------|-----------------------------------------------------------------------------------------|
-| `--rules-config`     | string | (none)                          | Path to a rules YAML file to load at startup                                            |
-| `--command`          | string | (none)                          | Launch a command when Inspectr boots                                                    |
-| `--command-arg`      | string |                                 | Argument to pass to the managed command; repeatable                                     |
-| `--command-log-file` | string | `.inspectr-command-process.log` | Log file for the managed command. Defaults to `.inspectr/.inspectr-command-process.log` |
-| `--command-stop-on-failure` | boolean | `true` | Exit Inspectr when the managed command exits with a non-zero status                     |
+| Flag                        | Type    | Default                         | Description                                                                             |
+|-----------------------------|---------|---------------------------------|-----------------------------------------------------------------------------------------|
+| `--rules-config`            | string  | (none)                          | Path to a rules YAML file to load at startup                                            |
+| `--command`                 | string  | (none)                          | Launch a command when Inspectr boots                                                    |
+| `--command-arg`             | string  |                                 | Argument to pass to the managed command; repeatable                                     |
+| `--command-log-file`        | string  | `.inspectr-command-process.log` | Log file for the managed command. Defaults to `.inspectr/.inspectr-command-process.log` |
+| `--command-stop-on-failure` | boolean | `true`                          | Exit Inspectr when the managed command exits with a non-zero status                     |
 
 ---
 
@@ -150,7 +158,7 @@ Common use cases include running a development server or running a test suite, l
 inspectr --command=npm --command-arg=run --command-arg=dev
 ```
 
-Inspectr will run the command in the background and log its output to `.inspectr/inspectr-command-process.log`.
+Inspectr will run the command `npm run dev` in the background and log its output to `.inspectr/inspectr-command-process.log`.
 When Inspectr exits, the command will be terminated.
 
 ---

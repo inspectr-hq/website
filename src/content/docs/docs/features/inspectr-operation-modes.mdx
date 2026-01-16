@@ -9,7 +9,7 @@ import FlowLocalDebug from '../../../../components/DocFlows/FlowLocalDebug.jsx';
 import FlowLocalMock from '../../../../components/DocFlows/FlowLocalMock.jsx';
 import FlowIngressWebhook from '../../../../components/DocFlows/FlowIngressWebhook.jsx';
 
-Inspectr can operate in four simple routing modes depending on what you’re trying to do:
+Inspectr can operate in four simple modes depending on what you’re trying to do:
 
 - **Backend** – forward traffic to a real backend
 - **Catch** – accept and capture requests without forwarding
@@ -36,6 +36,10 @@ When a request arrives, Inspectr chooses a response strategy based on your confi
 - If **catch** is enabled (or no backend is configured), Inspectr returns `200 OK`
 
 You can always keep the UI enabled (`app: true`) to inspect traffic in real time.
+
+<RelatedLink href="/docs/configuration/yaml-config/#core-settings" >
+  View configuration options →
+</RelatedLink>
 
 ---
 
@@ -72,9 +76,9 @@ Backend mode is ideal when your backend already exists and you need visibility, 
 
 ```yaml
 # .inspectr.yaml
-listen: ":8080"
 backend: "http://localhost:3000"
 
+# Other options as example
 app: true
 appPort: "4004"
 print: true
@@ -127,12 +131,9 @@ Catch mode is about receiving first, deciding later.
 ### Config
 ```yaml
 # .inspectr.yaml
-listen: ":8080"
 catch: true
 
-app: true
-appPort: "4004"
-print: true
+# Other options ...
 ```
 
 ### Example request
@@ -183,13 +184,9 @@ Mock mode is ideal for contract-first development and fast iteration.
 
 ```yaml
 # .inspectr.yaml
-listen: ":8080"
 mockBackend: "./openapi.yaml"
-mockDynamic: false
 
-app: true
-appPort: "4004"
-print: true
+# Other options...
 ```
 
 ### Example OpenAPI snippet
@@ -227,7 +224,6 @@ Content-Type: application/json
 
 ```yaml
 # .inspectr.yaml
-listen: ":8080"
 mockBackend: "./openapi.yaml"
 mockDynamic: true
 ```
@@ -267,12 +263,9 @@ Unlike simple request mirrors, Inspectr also stores, replays, and exports every 
 ### Config
 ```yaml
 # .inspectr.yaml
-listen: ":8080"
 mirror: true
 
-app: true
-appPort: "4004"
-print: true
+# Other options...
 ```
 
 ### Example request
@@ -307,9 +300,9 @@ Content-Type: application/json
 
 ## Mode summary
 
-| Mode    | Behavior                       | Best used for |
-|---------|--------------------------------|---------------|
-| Backend | Forward to backend and inspect | Debugging real APIs and responses |
-| Catch   | Accept and store requests only | Webhooks and payload exploration |
+| Mode    | Behavior                       | Best used for                          |
+|---------|--------------------------------|----------------------------------------|
+| Backend | Forward to backend and inspect | Debugging real APIs and responses      |
 | Mock    | Respond from OpenAPI spec      | Contract-first development and testing |
-| Mirror  | Echo request back immediately  | Client, SDK, and webhook debugging |
+| Catch   | Accept and store requests only | Webhooks and payload exploration       |
+| Mirror  | Echo request back immediately  | Client, SDK, and webhook debugging     |
