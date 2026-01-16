@@ -103,6 +103,7 @@ Even endpoints that require authentication can be mocked with Inspectr.
 Add a `basicAuth` security scheme and apply it to a path:
 
 ```yaml
+# openapi.yaml
 components:
   securitySchemes:
     basicAuth:
@@ -141,6 +142,7 @@ curl -u user:pass http://localhost:8080/basic-auth-protected
 Define an API key scheme that expects a header:
 
 ```yaml
+# openapi.yaml
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -171,7 +173,12 @@ curl http://localhost:8080/api-key-protected -H "X-API-Key: secret"
 
 Try both authentication styles with this ready-to-use spec:
 
-[Launch Authenticated API example](https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/auth-example.openapi.yaml)
+<a
+  href="https://inspectr.dev/launch?openapi=https://inspectr.dev/demo/auth-example.openapi.yaml"
+  class="mb-4 inline-flex items-center justify-center rounded-xl border border-gray-800 px-4 py-2 text-sm font-semibold text-brand-primary transition-colors hover:border-brand-primary hover:text-brand-secondary"
+>
+  Launch Authenticated API example →
+</a>
 
 ---
 
@@ -182,6 +189,7 @@ Static mocking uses predefined examples in your OpenAPI spec to return consisten
 ### Step 1: Prepare Your OpenAPI File
 
 ```yaml
+# openapi.yaml
 paths:
   /items:
     get:
@@ -237,9 +245,10 @@ Dynamic mocking generates data using Faker and JSON Schema Faker based on your O
 ### Step 1: Extend Your OpenAPI with x-faker
 
 ```yaml
+# openapi.yaml
 components:
   schemas:
-    Pet:
+    User:
       type: object
       properties:
         id:

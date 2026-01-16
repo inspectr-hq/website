@@ -1,7 +1,13 @@
+
 ---
 title: Operation Modes
 description: Learn how Inspectr routes requests in backend, catch, mock, and mirror mode — with copy/paste configs and example responses.
 ---
+
+import RelatedLink from '../../../../components/RelatedLink.jsx';
+import FlowLocalDebug from '../../../../components/DocFlows/FlowLocalDebug.jsx';
+import FlowLocalMock from '../../../../components/DocFlows/FlowLocalMock.jsx';
+import FlowIngressWebhook from '../../../../components/DocFlows/FlowIngressWebhook.jsx';
 
 Inspectr can operate in four simple routing modes depending on what you’re trying to do:
 
@@ -37,6 +43,8 @@ You can always keep the UI enabled (`app: true`) to inspect traffic in real time
 
 Backend mode is the default Inspectr workflow when you need full visibility into a real API.
 
+<FlowLocalDebug client:only="react" />
+
 Inspectr sits transparently between your client and backend:
 1. The client sends requests to Inspectr
 2. Inspectr forwards them to your backend
@@ -53,6 +61,10 @@ Use backend mode when you want to:
 - troubleshoot issues that only show up at runtime
 
 Backend mode is ideal when your backend already exists and you need visibility, not simulation.
+
+<RelatedLink href="/docs/guides/api-traffic-debugging/" title="Learn how to debug real API traffic with Inspectr.">
+  Follow the guide →
+</RelatedLink>
 
 ---
 
@@ -91,6 +103,8 @@ Content-Type: application/json
 
 ## Catch mode
 
+<FlowIngressWebhook client:only="react" />
+
 Catch mode accepts requests and captures them — without forwarding them anywhere.
 
 Inspectr always responds with a default 200 OK, making it safe to expose as a temporary or exploratory endpoint.
@@ -105,6 +119,10 @@ Catch mode is ideal when you:
 - need a safe place to capture traffic before building logic
 
 Catch mode is about receiving first, deciding later.
+
+<RelatedLink href="/docs/guides/webhook-debugging/" title="See how Inspectr simplifies webhook debugging.">
+  Explore the how-to →
+</RelatedLink>
 
 ### Config
 ```yaml
@@ -140,6 +158,8 @@ Content-Length: 0
 
 ## Mock mode
 
+<FlowLocalMock client:only="react" />
+
 Mock mode lets Inspectr respond without a backend, using an OpenAPI document as the source of truth.
 
 Responses can be static examples from your spec or dynamically generated based on schemas.
@@ -155,7 +175,12 @@ Use mock mode when:
 
 Mock mode is ideal for contract-first development and fast iteration.
 
+<RelatedLink href="/docs/features/mocking/" title="Learn more about OpenAPI-based mocking in Inspectr.">
+  Read up on all the mocking options →
+</RelatedLink>
+
 ### Config (static mocking)
+
 ```yaml
 # .inspectr.yaml
 listen: ":8080"
@@ -168,7 +193,9 @@ print: true
 ```
 
 ### Example OpenAPI snippet
+
 ```yaml
+# openapi.yaml
 paths:
   /items:
     get:
@@ -189,7 +216,7 @@ curl -i http://localhost:8080/items
 ```
 
 ### Example response (static)
-```
+```http request
 HTTP/1.1 200 OK
 Content-Type: application/json
 
@@ -197,6 +224,7 @@ Content-Type: application/json
 ```
 
 ### Config (dynamic mocking)
+
 ```yaml
 # .inspectr.yaml
 listen: ":8080"
@@ -205,6 +233,7 @@ mockDynamic: true
 ```
 
 ### Example response (dynamic)
+
 ```http request
 HTTP/1.1 200 OK
 Content-Type: application/json

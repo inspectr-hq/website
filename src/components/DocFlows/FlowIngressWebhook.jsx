@@ -8,7 +8,6 @@ import ZapIcon from '../../assets/icons/zap.svg';
 import ServiceIcon from '../../assets/icons/stack.svg';
 import { MarkerType } from '@xyflow/react';
 
-
 export default function FlowIngressStripe() {
   const nodes = [
     // ─────── Group Nodes ───────
