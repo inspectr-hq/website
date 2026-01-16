@@ -103,7 +103,9 @@ export default defineConfig({
       ],
       components: {
         ThemeSelect: './src/components/EmptyThemeSelect.astro', // Path to your empty component
-        Header: './src/components/starlight/Header.astro' // Custom header component
+        Header: './src/components/starlight/Header.astro', // Custom header component
+        MobileMenuFooter: './src/components/starlight/MobileMenuFooter.astro',
+        Sidebar: './src/components/starlight/Sidebar.astro'
       },
       customCss: [
         './src/styles/docs.css',
