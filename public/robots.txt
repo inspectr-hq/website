@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /launch
 Disallow: /demo/*.yaml
 Disallow: /demo/*.yml
 
