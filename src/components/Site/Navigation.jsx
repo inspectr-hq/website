@@ -16,7 +16,7 @@ export default function Navigation() {
             <span className="font-bold text-xl">Inspectr</span>
           </a>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <a
               href="/#features"
               className="text-gray-300 hover:text-brand-primary transition-colors"
@@ -70,14 +70,14 @@ export default function Navigation() {
             </a>
           </div>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <IconClose className="w-6 h-6" /> : <IconMenu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-black/95 border-b border-gray-800">
+        <div className="lg:hidden bg-black/95 border-b border-gray-800">
           <div className="px-4 py-4 space-y-4">
             <a
               href="/#features"
