@@ -9,7 +9,9 @@
     "build:check": "npm run build && npm run check:links && npm run check:deadlinks",
     "check:links": "node scripts/check-trailing-slashes.mjs",
     "check:deadlinks": "node scripts/check-dead-links.mjs",
-    "check:all": "npm run build && npm run check:links && npm run check:deadlinks",
+    "check:sitemap": "node scripts/check-sitemap-status.mjs",
+    "compare:sitemaps": "node scripts/compare-sitemaps.mjs",
+    "check:all": "npm run build && npm run check:links && npm run check:deadlinks && npm run check:sitemap && npm run compare:sitemaps",
     "preview": "astro preview",
     "format": "npx prettier --write src//**/*.{jsx,css} --config ./.prettierrc",
     "astro": "astro"
