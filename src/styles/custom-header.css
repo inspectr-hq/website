@@ -55,6 +55,21 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header .menu-links {
+    display: none !important;
+  }
+
+  .header .hidden.md\:flex {
+    display: none;
+  }
+
+  .header .social-icons,
+  .header .theme-select {
+    display: none;
+  }
+}
+
 /* Brand colors */
 :root {
   --brand-primary: #00e5ff;

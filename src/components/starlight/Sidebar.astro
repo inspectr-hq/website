@@ -7,7 +7,7 @@ import MobileMenuTop from './MobileMenuTop.astro';
 const { sidebar } = Astro.locals.starlightRoute;
 ---
 
-<div class="md:sl-hidden">
+<div class="lg:sl-hidden">
   <MobileMenuTop />
 </div>
 
@@ -15,6 +15,6 @@ const { sidebar } = Astro.locals.starlightRoute;
   <SidebarSublist sublist={sidebar} />
 </SidebarPersister>
 
-<div class="md:sl-hidden">
+<div class="lg:sl-hidden">
   <MobileMenuFooter />
 </div>
