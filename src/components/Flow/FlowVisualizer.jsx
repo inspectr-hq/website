@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ReactFlow,
   ReactFlowProvider,
   Background,
+  BackgroundVariant,
   Controls,
   ConnectionLineType,
   Handle,
@@ -38,6 +39,8 @@ const nodeTypes = { custom: CustomNode, event: EventNode, proxy: ProxyNode, grou
 export default function FlowVisualizer({ nodeData, edgeData, style }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [rfInstance, setRfInstance] = useState(null);
 
   // const onConnect = useCallback(
   //   (params) =>
@@ -52,6 +55,11 @@ export default function FlowVisualizer({ nodeData, edgeData, style }) {
       setEdges(edgeData);
   }, [nodeData,edgeData]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setIsMobile(window.matchMedia('(max-width: 1023px)').matches);
+  }, []);
+
   const isDark = style && style.theme === 'dark';
   const containerClass = isDark ? 'flow-theme-dark' : '';
   const edgeDefaults = {
@@ -64,6 +72,17 @@ export default function FlowVisualizer({ nodeData, edgeData, style }) {
     style: { stroke: isDark ? '#9ca3af' : '#1f2937' }
   };
 
+  const fitViewOptions = {
+    padding: isMobile ? 0.2 : 0.2,
+    minZoom: isMobile ? 0.32 : 0.8,
+    maxZoom: 1.5
+  };
+
+  useEffect(() => {
+    if (!rfInstance) return;
+    rfInstance.fitView(fitViewOptions);
+  }, [rfInstance, fitViewOptions, nodes.length, edges.length]);
+
   return (
     <div className={`w-full h-full flow-container ${containerClass}`} style={style}>
       <ReactFlowProvider>
@@ -75,6 +94,9 @@ export default function FlowVisualizer({ nodeData, edgeData, style }) {
           defaultEdgeOptions={edgeDefaults}
 
           fitView
+          fitViewOptions={fitViewOptions}
+          minZoom={fitViewOptions.minZoom}
+          maxZoom={fitViewOptions.maxZoom}
           // fitBounds
           panOnDrag={false}
           zoomOnScroll={false}
@@ -83,9 +105,11 @@ export default function FlowVisualizer({ nodeData, edgeData, style }) {
           nodesDraggable={false}
           nodesConnectable={false}
           connectionLineType={ConnectionLineType.SmoothStep}
+          onInit={setRfInstance}
         >
           {/*<Background gap={16} size={1} color="#f5f5f5" />*/}
-          <Background gap={16} color="var(--background-dot-color, #f1f1f1)" />
+                    <Background gap={16} color="var(--background-dot-color, #f1f1f1)" />
+
           {/*<Controls showInteractive={true} />*/}
         </ReactFlow>
       </ReactFlowProvider>
