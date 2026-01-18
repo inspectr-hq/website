@@ -185,15 +185,15 @@ Adopt consistent namespaces so you can filter quickly:
 Rules often need to read values from incoming requests or outgoing responses in order to make decisions or attach context.
 
 Typical questions rules answer are:
-•	Which environment did this request come from?
-•	Which user or session triggered this call?
-•	Which endpoint or tool was invoked?
-•	Was this request slow or failing?
-•	Which eval run or CI job does this belong to?
+- Which environment did this request come from?
+- Which user or session triggered this call?
+- Which endpoint or tool was invoked?
+- Was this request slow or failing?
+- Which eval run or CI job does this belong to?
 
 To answer those questions, Inspectr rules use a value extraction system that works consistently across:
-•	Conditions (when should this rule match?)
-•	Actions (what value should be tagged or assigned?)
+- Conditions (when should this rule match?)
+- Actions (what value should be tagged or assigned?)
 
 Rules use JSONPath for both **Conditions** and **Actions** (dynamic tags, trace assignment). You can also **decode** values inline using a decoder chain.
 JSONPath always starts from the Inspectr operation object, which includes request, response, and timing data.
