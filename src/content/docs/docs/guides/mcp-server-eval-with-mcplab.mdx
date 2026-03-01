@@ -45,7 +45,7 @@ To answer these questions, you need **end-to-end testing and MCP visibility**.
 
 **[MCPLab](https://github.com/inspectr-hq/mcplab)** is an evaluation framework for MCP servers. It lets you define scenarios, run them against your MCP server, and compare behavior across agents and models.
 
-With MCPLab, you define eval scenarios that simulate real user interactions:
+With MCPLab, you define evaluation scenarios that simulate real user interactions:
 - tool calls
 - prompt exchanges
 - resource access
@@ -70,9 +70,9 @@ MCPLab answers the question:
 
 ## MCP Tool Usage Visibility
 
-What eval tools intentionally do not provide by default is full traffic observability. They focus on outcomes, not wire-level inspection.
+What eval tools intentionally do not provide by default is full traffic observability. The focus is on outcomes, not usage observability.
 
-Eval results alone do not explain *why* something worked or failed.
+Evaluation results alone do not explain *why* something worked or failed.
 
 After a run, you often still need to know:
 - which tools were invoked
@@ -85,7 +85,7 @@ That is where **Inspectr** fits in.
 Inspectr is a local-first inspection and proxy tool for APIs, webhooks, and MCP traffic. It captures requests and responses in real time, enriches them with protocol-aware insights, and can export full sessions as JSON for later analysis.
 
 Used together, MCPLab + Inspectr give you both:
-- **eval outcomes**
+- **evaluation outcomes**
 - **deep visibility into how your MCP server behaved during those evals**
 
 ---
@@ -105,6 +105,7 @@ Inspectr provides:
 - full capture of MCP HTTP requests and responses
 - MCP-aware call classification (tools, prompts, resources)
 - trace-level visibility for debugging evaluation failures
+- token usage estimates per operation
 - exportable JSON artifacts for each run
 
 ---
@@ -131,13 +132,13 @@ inspectr \
 ```
 
 Why this matters:
-- Inspectr captures MCP traffic during evals
+- Inspectr captures MCP traffic during a scenario run
 - `--export` writes a JSON archive when Inspectr stops
 - this is useful for reproducible local and CI runs
 
 ---
 
-## Step 2 — Install or use MCPLab CLI
+## Step 2 — Install MCPLab CLI
 
 Use MCPLab via `npx` or install it globally:
 
@@ -164,7 +165,7 @@ For more examples and updates, see the [MCPLab repository](https://github.com/in
 
 ---
 
-## Step 3 — Create an eval config that targets Inspectr
+## Step 3 — Create an evaluation config that targets Inspectr
 
 Create a file like `my-eval.yaml` and set your server URL to Inspectr's local endpoint:
 
@@ -212,7 +213,7 @@ While the eval runs:
 
 ## Step 5 — Review exports and run artifacts
 
-When the eval is complete, stop Inspectr.
+When the scenario run is complete, stop Inspectr.
 
 Because export mode was enabled:
 - Inspectr writes a JSON export automatically
@@ -227,9 +228,9 @@ MCPLab also writes run artifacts in its `mcplab/results` output tree, including 
 
 ---
 
-## Optional — Run evals through Inspectr Command Runner
+## Optional — Run MCP evaluations through Inspectr Command Runner
 
-For local automation or CI, you can let Inspectr start and stop the eval command for you.
+For local automation or CI, you can let Inspectr start and stop the MCPLab command for you.
 
 ### Example: Run MCPLab via Inspectr
 
@@ -261,7 +262,7 @@ In this setup:
 Testing MCP servers across models, clients, and environments requires more than pass/fail checks.
 
 By combining:
-- **MCPLab** for E2E MCP evals
+- **MCPLab** for E2E MCP evaluations
 - **Inspectr** for runtime visibility and exports
 
 you get:
@@ -271,3 +272,5 @@ you get:
 - zero changes required to your MCP server implementation
 
 This setup scales from local development to CI-based MCP regression testing.
+
+Together, MCPLab and Inspectr form a complete MCP testing and observability workflow.

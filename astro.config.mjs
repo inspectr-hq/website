@@ -87,7 +87,7 @@ export default defineConfig({
             { label: 'Inspecting Frontend API Requests', slug: 'docs/guides/frontend-inspection' },
             { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
             { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' },
-            // { label: 'MCP Server Evals with MCPJam', slug: 'docs/guides/mcp-server-eval-with-mcpjam' },
+            { label: 'MCP Server Evals with MCPLab', slug: 'docs/guides/mcp-server-eval-with-mcplab' },
             { label: 'Observability for MCP Servers', slug: 'docs/guides/mcp-observability' }
           ]
         },
