@@ -72,14 +72,14 @@ MCPLab answers the question:
 
 ## MCP Tool Usage Visibility
 
-What eval tools intentionally do not provide by default is full traffic observability. The focus is on outcomes, not usage observability.
+What evaluation/testing tools intentionally do not provide by default is full traffic observability. The focus is on outcomes, not usage observability.
 
 Evaluation results alone do not explain *why* something worked or failed.
 
 After a run, you often still need to know:
 - which tools were invoked
 - how prompts were processed
-- where tokens were spent
+- how many tokens were spent
 - how behavior differed between runs
 
 That is where **Inspectr** fits in.
@@ -109,6 +109,8 @@ Inspectr provides:
 - trace-level visibility for debugging evaluation failures
 - token usage estimates per operation
 - exportable JSON artifacts for each run
+
+MCPLab was developed by the **Inspectr** team to close the gap between pass/fail test outcomes and practical debugging insight, and is used intense internally to evaluate the Inspectr MCP server across models.
 
 ---
 
