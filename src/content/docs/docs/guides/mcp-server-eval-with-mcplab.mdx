@@ -1,0 +1,273 @@
+---
+title: MCP Server Evals with MCPLab
+description: Use MCPLab with Inspectr to run MCP evals with full runtime visibility and exportable traces.
+---
+import RelatedLink from '../../../../components/RelatedLink.jsx';
+import { FlowBase } from '../../../../components/DocFlows/FlowMcpLab.jsx';
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Introduction
+
+As [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) becomes the backbone for agent tooling, prompts, and resources, testing is no longer a simple unit-testing exercise.
+
+Your MCP server is used:
+- by different clients (Claude Desktop, Cursor, IDE agents, internal tools)
+- with different LLMs (Anthropic, OpenAI, Azure OpenAI, local models)
+- across different environments (local, CI, staging, production)
+
+To ship reliable MCP servers, you need confidence that **tools, prompts, and resources behave consistently across all of these dimensions**.
+
+This guide shows how to combine **[MCPLab](https://mcplab.inspectr.dev/)** and **[Inspectr](https://inspectr.dev)** for deterministic evals plus deep runtime inspection.
+
+---
+
+## The Problem: Testing MCP Servers
+
+Even if your MCP server works in development, real-world usage introduces variability:
+
+- Tools may be triggered differently depending on the model
+- Prompts may be interpreted differently by different LLMs
+- Token usage can change drastically between flows
+- Some failures only surface in specific environments or clients
+
+Traditional tests do not answer questions like:
+- Which tools were actually used by the LLM?
+- How many tokens were consumed, and where?
+- Why did an eval fail only for one model?
+- Did a recent change silently alter agent behavior?
+
+To answer these questions, you need **end-to-end testing and MCP visibility**.
+
+---
+
+## MCP Evals with MCPLab
+
+**[MCPLab](https://github.com/inspectr-hq/mcplab)** is an evaluation framework for MCP servers. It lets you define scenarios, run them against your MCP server, and compare behavior across agents and models.
+
+With MCPLab, you define eval scenarios that simulate real user interactions:
+- tool calls
+- prompt exchanges
+- resource access
+- multi-step flows
+
+These evals validate that your MCP server behaves correctly across:
+- different models
+- different environments
+- different user flows
+
+### End-to-End (E2E) testing by design
+
+MCPLab performs full E2E testing:
+- it acts as an MCP client during the run
+- it communicates with your MCP server over HTTP
+- it executes representative user journeys and assertions
+
+MCPLab answers the question:
+**"Do agents use my MCP server as expected?"**
+
+---
+
+## MCP Tool Usage Visibility
+
+What eval tools intentionally do not provide by default is full traffic observability. They focus on outcomes, not wire-level inspection.
+
+Eval results alone do not explain *why* something worked or failed.
+
+After a run, you often still need to know:
+- which tools were invoked
+- how prompts were processed
+- where tokens were spent
+- how behavior differed between runs
+
+That is where **Inspectr** fits in.
+
+Inspectr is a local-first inspection and proxy tool for APIs, webhooks, and MCP traffic. It captures requests and responses in real time, enriches them with protocol-aware insights, and can export full sessions as JSON for later analysis.
+
+Used together, MCPLab + Inspectr give you both:
+- **eval outcomes**
+- **deep visibility into how your MCP server behaved during those evals**
+
+---
+
+## The Solution: MCPLab + Inspectr
+
+MCPLab and Inspectr solve complementary parts of the same problem.
+
+- **MCPLab** runs deterministic MCP evals and assertions
+- **Inspectr** observes and analyzes MCP traffic in real time
+
+Inspectr runs transparently as a proxy between MCPLab and your MCP server:
+
+<FlowBase client:only="react" />
+
+Inspectr provides:
+- full capture of MCP HTTP requests and responses
+- MCP-aware call classification (tools, prompts, resources)
+- trace-level visibility for debugging evaluation failures
+- exportable JSON artifacts for each run
+
+---
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- an MCP server running (example: `http://localhost:3000/mcp`)
+- Node.js installed
+- Inspectr installed ([Installation guide →](/docs/getting-started/installation/))
+- at least one LLM API key configured (for example `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`)
+
+---
+
+## Step 1 — Launch Inspectr with your MCP server
+
+Run Inspectr as a local proxy with export enabled:
+
+```bash
+inspectr \
+  --backend http://localhost:3000 \
+  --export
+```
+
+Why this matters:
+- Inspectr captures MCP traffic during evals
+- `--export` writes a JSON archive when Inspectr stops
+- this is useful for reproducible local and CI runs
+
+---
+
+## Step 2 — Install or use MCPLab CLI
+
+Use MCPLab via `npx` or install it globally:
+
+<Tabs>
+  <TabItem label="Using NPX">
+
+```bash
+# One-off usage
+npx @inspectr/mcplab --help
+```
+
+  </TabItem>
+  <TabItem label="Using NPM">
+
+```bash
+# Install globally to get the `mcplab` command
+npm install -g @inspectr/mcplab
+```
+
+  </TabItem>
+</Tabs>
+
+For more examples and updates, see the [MCPLab repository](https://github.com/inspectr-hq/mcplab).
+
+---
+
+## Step 3 — Create an eval config that targets Inspectr
+
+Create a file like `my-eval.yaml` and set your server URL to Inspectr's local endpoint:
+
+```yaml
+servers:
+  my-server:
+    transport: "http"
+    url: "http://localhost:8080/mcp"
+
+agents:
+  claude:
+    provider: "anthropic"
+    model: "claude-sonnet-4-6"
+    temperature: 0
+    max_tokens: 2048
+
+scenarios:
+  - id: "basic-tool-check"
+    agent: "claude"
+    servers: ["my-server"]
+    prompt: "Use the available tools to complete the task."
+    eval:
+      tool_constraints:
+        required_tools: ["my_tool"]
+```
+
+No changes are required on your MCP server itself.
+
+---
+
+## Step 4 — Run MCPLab evals
+
+Run your evals as usual:
+
+```bash
+npx @inspectr/mcplab run -c my-eval.yaml
+```
+
+While the eval runs:
+- Inspectr shows MCP traffic live
+- requests and responses can be inspected per operation
+- failures are easier to debug with trace context
+
+---
+
+## Step 5 — Review exports and run artifacts
+
+When the eval is complete, stop Inspectr.
+
+Because export mode was enabled:
+- Inspectr writes a JSON export automatically
+- the export can be archived as a CI artifact
+- the run can be re-imported later for comparison or investigation
+
+MCPLab also writes run artifacts in its `mcplab/results` output tree, including report files and traces. Together, these outputs create a durable record of each eval execution.
+
+<RelatedLink href="/docs/features/inspectr-tracing-insights/">
+  Learn more about Tracing Insights
+</RelatedLink>
+
+---
+
+## Optional — Run evals through Inspectr Command Runner
+
+For local automation or CI, you can let Inspectr start and stop the eval command for you.
+
+### Example: Run MCPLab via Inspectr
+
+```bash
+inspectr \
+  --backend http://localhost:3000 \
+  --export \
+  --command npx \
+  --command-arg @inspectr/mcplab \
+  --command-arg run \
+  --command-arg -c \
+  --command-arg my-eval.yaml
+```
+
+In this setup:
+- Inspectr starts automatically
+- MCPLab is launched by Inspectr using `--command` and `--command-arg`
+- MCP traffic is captured while the eval runs
+- a JSON export is written when the command completes
+
+<RelatedLink href="/docs/features/inspectr-command-runner/">
+  Learn more about the Inspectr Command Runner
+</RelatedLink>
+
+---
+
+## Summary
+
+Testing MCP servers across models, clients, and environments requires more than pass/fail checks.
+
+By combining:
+- **MCPLab** for E2E MCP evals
+- **Inspectr** for runtime visibility and exports
+
+you get:
+- confidence that your MCP server works consistently across models
+- visibility into MCP runtime behavior during each eval
+- inspectable artifacts you can store and compare over time
+- zero changes required to your MCP server implementation
+
+This setup scales from local development to CI-based MCP regression testing.
