@@ -41,9 +41,11 @@ To answer these questions, you need **end-to-end testing and MCP visibility**.
 
 ---
 
-## MCP Evals with MCPLab
+## MCP evaluation with MCPLab
 
 **[MCPLab](https://github.com/inspectr-hq/mcplab)** is an evaluation framework for MCP servers. It lets you define scenarios, run them against your MCP server, and compare behavior across agents and models.
+
+![MCPLab evaluation results overview](https://mcplab.inspectr.dev/screenshots/evaluation-results-overview.png)
 
 With MCPLab, you define evaluation scenarios that simulate real user interactions:
 - tool calls
@@ -221,6 +223,8 @@ Because export mode was enabled:
 - the run can be re-imported later for comparison or investigation
 
 MCPLab also writes run artifacts in its `mcplab/results` output tree, including report files and traces. Together, these outputs create a durable record of each eval execution.
+
+![MCPLab evaluation results assistance](https://mcplab.inspectr.dev/screenshots/evaluation-results-assistance.png)
 
 <RelatedLink href="/docs/features/inspectr-tracing-insights/">
   Learn more about Tracing Insights

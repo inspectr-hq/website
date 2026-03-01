@@ -46,6 +46,16 @@ export default function Footer() {
                   Exposing a MCP Server
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://mcplab.inspectr.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-primary"
+                >
+                  MCPLab - Test MCP Servers with LLMs
+                </a>
+              </li>
             </ul>
           </div>
 
