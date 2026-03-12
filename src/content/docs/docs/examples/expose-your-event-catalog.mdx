@@ -5,7 +5,7 @@ description: Visualize and document events with EventCatalog.
 
 import { Image } from 'astro:assets';
 
-import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 import eventCatalog from '../../../../assets/guides/eventcatalog.png';
 
@@ -35,7 +35,12 @@ EventCatalog is the perfect tool for event documentation and serves as a central
 
 ## Quickstart: Run & Expose EventCatalog locally
 
-1. **Scaffold a catalog**
+<Steps>
+
+<ol>
+
+<li>
+### Scaffold a catalog
 
 ```bash
 npx @eventcatalog/create-eventcatalog@latest my-catalog
@@ -43,20 +48,24 @@ cd my-catalog
 npm install
 ```
 
-You can scaffold a default or empty catalog; the CLI creates the structure for you.) [More info about setting up EventCatalog](https://eventcatalog.dev/docs/development/getting-started/installation)
+You can scaffold a default or empty catalog; the CLI creates the structure for you. [More info about setting up EventCatalog](https://eventcatalog.dev/docs/development/getting-started/installation)
+</li>
 
-2. **Build the EventCatalog & Preview**
+<li>
+### Build & Preview
 
 ```bash
 npm run build && npm run preview
 ```
 
 By default the EventCatalog preview server runs at `http://localhost:3000`.
+</li>
 
-3. **Expose EventCatalog**
+<li>
+### Expose EventCatalog with Inspectr
 
 <Aside type="tip" icon="approve-check" title="Goal">
-Make `http://localhost:3000` reachable via a secure, shareable URL for a few teammates - without deploying.
+Make `http://localhost:3000` reachable via a secure, shareable URL for a few teammates — without deploying.
 </Aside>
 
 **Concept:** Inspectr can forward a **public URL** to a **local EventCatalog**. You work on documenting your EventCatalog locally; teammates can open the public URL.
@@ -82,10 +91,17 @@ Use your Inspectr CLI to expose the local port where EventCatalog runs (3000). I
 - **Teammates open:** `https://<inspectr-url>`
 - **Open:** `http://localhost:8080`
 - EventCatalog stays at **localhost:3000** on your machine; Inspectr handles the secure relay.
+</li>
 
-4. **Open the Inspectr Dashboard**
+<li>
+### Open the Inspectr Dashboard
 
 Open [http://localhost:4004](http://localhost:4004) to see all traffic flowing through Inspectr in real time. Every request your teammates make via the public URL will appear here.
+</li>
+
+</ol>
+
+</Steps>
 
 ---
 
