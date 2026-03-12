@@ -10,16 +10,47 @@ const CopyButton = ({
 }) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), copiedTimeout);
-      })
-      .catch((err) => {
-        console.error('Failed to copy text:', err);
-      });
+  const copyWithFallback = async (text) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return;
+      } catch {
+        // Continue to fallback for environments where clipboard API is present but blocked.
+      }
+    }
+
+    if (typeof document === 'undefined') {
+      throw new Error('Clipboard not available in this environment.');
+    }
+
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    textarea.setSelectionRange(0, textarea.value.length);
+
+    const copiedSuccessfully = document.execCommand('copy');
+    document.body.removeChild(textarea);
+
+    if (!copiedSuccessfully) {
+      throw new Error('execCommand copy failed.');
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      await copyWithFallback(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), copiedTimeout);
+    } catch (err) {
+      console.error('Failed to copy text:', err);
+    }
   };
 
   // check icon SVG.
@@ -39,6 +70,7 @@ const CopyButton = ({
     <div className="flex items-center rounded px-2 font-sans text-xs text-token-text-secondary">
       <span data-state={copied ? 'copied' : 'closed'}>
         <button
+          type="button"
           onClick={handleCopy}
           className="flex gap-1 items-center select-none py-1 cursor-pointer"
           aria-label="Copy"

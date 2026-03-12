@@ -3,6 +3,7 @@ title: Inspectr Documentation
 description: Simplifying API and Webhook debugging
 ---
 
+import { Aside } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import inspectrInfo from '../../../assets/docs/inspectr-infographic.png';
 import inspectrLogo from '../../../assets/inspectr_brand_logo.png';
@@ -29,6 +30,10 @@ import inspectrApp from '../../../assets/docs/inspectr-app-v150.png';
 <Image src={inspectrApp} alt="Inspectr App UI" />
 
 Whether you're testing APIs, working with webhooks, or building integrations—Inspectr gives you a transparent view of the traffic flowing between clients and services.
+
+<Aside type="tip" title="Installation">
+  Examples in these docs use the `inspectr` command directly. If you haven't installed Inspectr yet, you can prefix any command with `npx @inspectr/inspectr` or [install it](/docs/getting-started/installation/) via Homebrew, npm, or binary.
+</Aside>
 
 It’s the perfect tool to inspect requests, expose local services, and test integrations effortlessly.
 

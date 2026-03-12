@@ -242,9 +242,10 @@ import React from 'react';
             No SDKs, no instrumentation, and no server changes.
           </p>
           <Terminal
-            command="npx @inspectr/inspectr --backend=<https://your-mcp-server:3000>"
+            command="npx @inspectr/inspectr --backend=https://your-mcp-server:3000"
             prompt="$"
             showCopyButton
+            client:load
           />
           <p class="text-sm text-gray-400 text-center">
             Drop-in for local development or remote testing with a single command.
