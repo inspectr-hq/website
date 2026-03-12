@@ -5,7 +5,7 @@ description: Visualize and document events with EventCatalog.
 
 import { Image } from 'astro:assets';
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
 import eventCatalog from '../../../../assets/guides/eventcatalog.png';
 
@@ -38,7 +38,8 @@ EventCatalog is the perfect tool for event documentation and serves as a central
 1. **Scaffold a catalog**
 
 ```bash
-npx @eventcatalog/create-eventcatalog@latest my-catalog cd my-catalog
+npx @eventcatalog/create-eventcatalog@latest my-catalog
+cd my-catalog
 npm install
 ```
 
@@ -55,7 +56,7 @@ By default the EventCatalog preview server runs at `http://localhost:3000`.
 3. **Expose EventCatalog**
 
 <Aside type="tip" icon="approve-check" title="Goal">
-Make `http://localhost:3000` reachable via a secure, shareable URL for a few teammates — without deploying.
+Make `http://localhost:3000` reachable via a secure, shareable URL for a few teammates - without deploying.
 </Aside>
 
 **Concept:** Inspectr can forward a **public URL** to a **local EventCatalog**. You work on documenting your EventCatalog locally; teammates can open the public URL.
@@ -64,9 +65,18 @@ Make `http://localhost:3000` reachable via a secure, shareable URL for a few tea
 
 Use your Inspectr CLI to expose the local port where EventCatalog runs (3000). Include an **access code / channel code** so only invited teammates can open it.
 
-```bash
-npx @inspectr/inspectr --backend=http://localhost:3000 --expose
-```
+<Tabs>
+  <TabItem label="npx">
+  ```bash
+  npx @inspectr/inspectr --backend=http://localhost:3000 --expose
+  ```
+  </TabItem>
+  <TabItem label="Homebrew / npm">
+  ```bash
+  inspectr --backend=http://localhost:3000 --expose
+  ```
+  </TabItem>
+</Tabs>
 
 - **Output:** Inspectr prints a **public URL**.
 - **Teammates open:** `https://<inspectr-url>`
