@@ -23,33 +23,6 @@ Inspectr makes it easy to monitor and debug HTTP traffic with zero-configuration
   <ol>
 
     <li>
-      ### Install Inspectr
-
-      <Tabs>
-        <TabItem label="npx">
-        No installation needed — `npx` runs Inspectr directly:
-
-        ```bash
-        npx @inspectr/inspectr
-        ```
-        </TabItem>
-        <TabItem label="Homebrew">
-        ```bash
-        brew tap inspectr-hq/inspectr
-        brew install inspectr
-        ```
-        </TabItem>
-        <TabItem label="npm">
-        ```bash
-        npm install -g @inspectr/inspectr
-        ```
-        </TabItem>
-      </Tabs>
-
-      See [Installation](/docs/getting-started/installation/) for more options (Docker, binary).
-    </li>
-
-    <li>
       ### Start Your Backend (Optional)
 
       If you’re testing against your own backend, make sure it’s running:
@@ -61,22 +34,32 @@ Inspectr makes it easy to monitor and debug HTTP traffic with zero-configuration
     </li>
 
     <li>
-      ### Start Inspectr
+      ### Install & Start Inspectr
 
-      Run Inspectr and point it to your local backend:
+      Point Inspectr to your local backend:
 
       <Tabs>
-        <TabItem label="npx">
+        <TabItem label="npx (no install)">
         ```bash
         npx @inspectr/inspectr --backend=http://localhost:3000
         ```
         </TabItem>
-        <TabItem label="Homebrew / npm">
+        <TabItem label="Homebrew">
         ```bash
+        brew tap inspectr-hq/inspectr
+        brew install inspectr
+        inspectr --backend=http://localhost:3000
+        ```
+        </TabItem>
+        <TabItem label="npm">
+        ```bash
+        npm install -g @inspectr/inspectr
         inspectr --backend=http://localhost:3000
         ```
         </TabItem>
       </Tabs>
+
+      See [Installation](/docs/getting-started/installation/) for more options (Docker, binary).
 
       * This starts the Inspectr proxy on port `8080`.
       * The Inspectr App UI is available at [http://localhost:4004](http://localhost:4004).
