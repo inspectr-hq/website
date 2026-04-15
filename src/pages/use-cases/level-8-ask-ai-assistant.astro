@@ -8,26 +8,27 @@ export const meta = {
   slug: 'level-8-ask-ai-assistant',
   level: 8,
   title: 'Ask an AI Assistant (MCP) for Insights & Actions',
-  headline: 'Use AI Agents to summarize, explain, and act on everything Inspectr observes.',
-  excerpt: 'Connect AI Agents to raw traffic to answer questions, gain insights and even make rule suggestions.',
+  headline: 'Let AI summarize sessions, explain failures, and draft next steps from captured traffic.',
+  excerpt:
+    'Connect AI Agents & MCP clients to traffic to to answer questions, gain insights and even make rule suggestions.',
   // summary: {
   //   problem: 'You have the data but translating it into action eats cycles across the team.',
   //   outcome:
   //     'Inspectr provides an MCP assistant that synthesizes traffic into summaries, rules, and docs grounded in reality.',
   // },
   problem:
-    'You have the data, countless requests, failures, and timings, but making sense of it is slow, and translating findings into rules, docs, or test steps takes even longer.',
+    'You have the data, but turning raw requests, failures, and timings into something actionable still takes too much manual review.',
   solution:
-    'Inspectr exposes an MCP server that any AI Agent can use to summarize sessions, explain failures, propose rules, and generate documentation from observed behavior, all baeed in your traffic.',
+    'Inspectr exposes an MCP server that AI clients can use to summarize sessions, explain failures, suggest rules, and draft documentation from real traffic.',
   helps: [
     'Leads who need quick, defensible summaries',
-    'QA and devs who want suggested tests and rules',
-    'Writers and advocates seeding docs from reality', // not really targeting writes & advocates
+    'QA and developers who want suggested tests and rules',
+    'Teams turning traffic into docs or follow-up actions',
   ],
   outcomes: [
-    'Faster, higher-quality decisions',
-    'Less manual synthesis and more shipping',
-    'Have assistance with understanding the API traffic, to suggested actions',
+    'Faster decisions grounded in real traffic',
+    'Less manual log digging and more shipping',
+    'Have AI assistance with analysis of the API traffic, to suggested actions',
   ],
   relatedSlug: 'level-0-catch-requests',
   worksWellWith: ['level-6-automate-quality-gates', 'level-7-endpoint-insights'],
