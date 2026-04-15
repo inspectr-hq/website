@@ -2,3 +2,8 @@
 /docs/concepts/performance /docs/concepts/performance-privacy/ 301
 /docs/guides/response-override /docs/features/response-override/ 301
 /docs/guides/mcp-server-eval-with-mcpjam /docs/guides/mcp-server-eval-with-mcplab/ 301
+/core-concepts/architecture /docs/concepts/architecture/ 301
+/core-concepts/how-it-works /docs/concepts/how-it-works/ 301
+/guides/mocking /docs/features/mocking/ 301
+/guides/frontend-inspection /docs/guides/frontend-inspection/ 301
+/exposing/exposing-publicly /docs/guides/exposing-publicly/ 301
