@@ -18,6 +18,7 @@ import { sitemapConfig } from './sitemap.config.js';
 export default defineConfig({
   // base: '/docs/',
   site: 'https://inspectr.dev',
+  trailingSlash: 'always',
 
   integrations: [
     react(),
