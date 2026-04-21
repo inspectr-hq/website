@@ -58,18 +58,55 @@ import Footer from '../components/Site/Footer';
 
         <section>
           <h2 class="text-xl font-semibold text-white">3. Data Roles and Responsibility Allocation</h2>
-          <p class="mt-2">
-            The following role allocation applies:
-          </p>
-          <ul class="mt-2 list-disc pl-6 space-y-1">
-            <li>Website analytics and website operations: Inspectr acts as controller.</li>
-            <li>Support and legal contact emails: Inspectr acts as controller.</li>
-            <li>Inspectr Service ingress/expose payload relay: forwarding-only, non-persistent handling.</li>
-            <li>Inspectr Service abuse prevention and infrastructure security telemetry: Inspectr acts as controller for that limited telemetry.</li>
-            <li>Inspectr Software local capture and storage of request/response traffic: you (the user/customer) act as controller.</li>
-            <li>Self-hosted or enterprise local deployments: the deploying organization acts as controller for locally stored payload data.</li>
-            <li>Billing and payment processing: no billing or payment accounts are currently offered.</li>
-          </ul>
+          <p class="mt-2">Role matrix:</p>
+          <div class="mt-3 overflow-x-auto">
+            <table class="min-w-full border border-gray-700 text-sm">
+              <thead class="bg-gray-900/70 text-white">
+                <tr>
+                  <th class="border border-gray-700 px-3 py-2 text-left">Processing Activity</th>
+                  <th class="border border-gray-700 px-3 py-2 text-left">Inspectr Role</th>
+                  <th class="border border-gray-700 px-3 py-2 text-left">Notes</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-200">
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Website analytics and operations</td>
+                  <td class="border border-gray-700 px-3 py-2">Controller</td>
+                  <td class="border border-gray-700 px-3 py-2">Website-level technical analytics only.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Support and legal communications</td>
+                  <td class="border border-gray-700 px-3 py-2">Controller</td>
+                  <td class="border border-gray-700 px-3 py-2">Email/contact data voluntarily provided by users.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Billing/payment processing</td>
+                  <td class="border border-gray-700 px-3 py-2">Controller (where applicable)</td>
+                  <td class="border border-gray-700 px-3 py-2">Simple commercial plan exists; payment/account processing is limited.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Inspectr Service anti-abuse and security telemetry</td>
+                  <td class="border border-gray-700 px-3 py-2">Controller</td>
+                  <td class="border border-gray-700 px-3 py-2">Limited operational telemetry for abuse prevention and service security.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Inspectr Service ingress relay metadata</td>
+                  <td class="border border-gray-700 px-3 py-2">Controller for limited metadata</td>
+                  <td class="border border-gray-700 px-3 py-2">Forwarding-only; no persistent storage of proxied payload content.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Inspectr Software local traffic capture/storage</td>
+                  <td class="border border-gray-700 px-3 py-2">User/Customer is controller</td>
+                  <td class="border border-gray-700 px-3 py-2">Local request/response data remains under customer control.</td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-700 px-3 py-2">Self-hosted or enterprise local deployments</td>
+                  <td class="border border-gray-700 px-3 py-2">Deploying organization is controller</td>
+                  <td class="border border-gray-700 px-3 py-2">Inspectr does not control local payload retention in customer environments.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section>
@@ -93,23 +130,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">5. Local Software and Ingress Data Handling</h2>
-          <p class="mt-2">
-            Inspectr Software is local-first. Request and response data are handled and stored in your own
-            environment under your control.
-          </p>
-          <p class="mt-2">
-            Inspectr Service is forwarding-only and does not store request details or sensitive information
-            from proxied traffic on the ingress side, including request bodies, query parameters, headers,
-            endpoint URLs, and response payload content.
-          </p>
-          <p class="mt-2">
-            Any processing needed to relay live traffic is transient and non-persistent.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-xl font-semibold text-white">6. Categories of Data</h2>
+          <h2 class="text-xl font-semibold text-white">5. Categories of Data</h2>
           <p class="mt-2">Depending on usage, categories may include:</p>
           <ul class="mt-2 list-disc pl-6 space-y-1">
             <li>Contact data you voluntarily provide (for communication and support)</li>
@@ -123,7 +144,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">7. Purposes and Legal Bases</h2>
+          <h2 class="text-xl font-semibold text-white">6. Purposes and Legal Bases</h2>
           <p class="mt-2">
             Personal data is processed to operate and secure the website and Inspectr Service, respond to
             support/legal requests, prevent abuse, and comply with legal obligations. Where GDPR applies, the
@@ -132,7 +153,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">8. Website Analytics and Technical Data</h2>
+          <h2 class="text-xl font-semibold text-white">7. Website Analytics and Technical Data</h2>
           <p class="mt-2">
             The website does not use cookies.
           </p>
@@ -143,7 +164,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">9. Retention</h2>
+          <h2 class="text-xl font-semibold text-white">8. Retention</h2>
           <ul class="mt-2 list-disc pl-6 space-y-1">
             <li>Website analytics events: up to 12 months.</li>
             <li>Support communications: up to 24 months after the last interaction.</li>
@@ -155,7 +176,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">10. Sub-processors</h2>
+          <h2 class="text-xl font-semibold text-white">9. Sub-processors</h2>
           <p class="mt-2">
             For Inspectr Service, sub-processors include Cloudflare (DNS management) and Delta.blue
             (European cloud hosting). Sub-processors are used only for service infrastructure and operations.
@@ -163,7 +184,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">11. International Transfers</h2>
+          <h2 class="text-xl font-semibold text-white">10. International Transfers</h2>
           <p class="mt-2">
             For Inspectr Service, hosting is in Europe and transfers outside the European Economic Area are
             not part of normal operations.
@@ -175,7 +196,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">12. Disclosure of Personal Data</h2>
+          <h2 class="text-xl font-semibold text-white">11. Disclosure of Personal Data</h2>
           <p class="mt-2">
             Personal data may be disclosed where required by law, to protect rights and security, or in
             connection with a merger, acquisition, or asset transfer.
@@ -183,7 +204,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">13. Security Measures</h2>
+          <h2 class="text-xl font-semibold text-white">12. Security Measures</h2>
           <p class="mt-2">
             We apply technical and organizational measures appropriate to risk, including transport
             encryption, access controls, and operational safeguards.
@@ -191,7 +212,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">14. Your GDPR Rights</h2>
+          <h2 class="text-xl font-semibold text-white">13. Your GDPR Rights</h2>
           <p class="mt-2">
             If GDPR applies, you may request access, rectification, erasure, restriction, objection, and
             data portability. You can also lodge a complaint with the competent data protection authority.
@@ -206,15 +227,15 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">15. Children's Privacy</h2>
+          <h2 class="text-xl font-semibold text-white">14. Service Audience</h2>
           <p class="mt-2">
-            The Service is not directed to children under 13, and we do not knowingly collect personal data
-            from children under 13.
+            Inspectr is intended for professional and business use by developers, engineering teams, and
+            organizations. It is not designed or marketed for children.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">16. Third-Party Links</h2>
+          <h2 class="text-xl font-semibold text-white">15. Third-Party Links</h2>
           <p class="mt-2">
             The website may link to third-party websites. Their privacy practices are governed by their own
             policies.
@@ -222,7 +243,7 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">17. Changes to This Policy</h2>
+          <h2 class="text-xl font-semibold text-white">16. Changes to This Policy</h2>
           <p class="mt-2">
             We may update this Privacy Policy from time to time. Material updates are reflected on this page
             with a revised "Last updated" date.
