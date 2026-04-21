@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Site/Navigation';
+import Footer from '../components/Site/Footer';
+---
+
+<Layout
+  title="Terms and Conditions | Inspectr"
+  description="Terms and Conditions for Inspectr, including service usage terms for local deployments and Inspectr Expose remote ingress."
+  keywords="Inspectr terms, terms and conditions, inspectr expose terms, legal"
+  ogTitle="Terms and Conditions | Inspectr"
+  ogDescription="Read the Terms and Conditions for using Inspectr local deployments and Inspectr Expose remote ingress."
+  canonical="https://inspectr.dev/terms/"
+>
+  <Navigation client:load />
+
+  <main class="bg-brand-dark text-white">
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Terms and Conditions</h1>
+      <p class="mt-3 text-sm text-gray-400">Last updated: April 21, 2026</p>
+
+      <div class="mt-10 space-y-8 text-gray-200 leading-7">
+        <section>
+          <h2 class="text-xl font-semibold text-white">1. Acceptance of Terms</h2>
+          <p class="mt-2">
+            By accessing or using Inspectr, you agree to these Terms and Conditions. If you do not agree,
+            you must not use Inspectr services.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">2. Service Description</h2>
+          <p class="mt-2">
+            Inspectr provides API, webhook, and MCP traffic inspection tooling across two distinct offerings:
+            (a) the local Inspectr software you install and operate in your own environment ("Inspectr
+            Software"), and (b) the Inspectr ingress/expose offering used to forward public traffic to your
+            local environment ("Inspectr Service").
+          </p>
+          <p class="mt-2">
+            Inspectr services are operated from Belgium, with DNS managed by Cloudflare and hosting
+            provided by Delta.blue infrastructure in Europe.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">3. Service Modes: Local and Expose</h2>
+          <p class="mt-2">
+            For Inspectr Software (local installation), request and response data processing and storage
+            occur in your own environment under your control. For Inspectr Service (ingress/expose), ingress
+            infrastructure is used only to accept and forward encrypted traffic to your local Inspectr
+            instance.
+          </p>
+          <p class="mt-2">
+            Inspectr Service (ingress/expose) is forwarding-only and does not store request details or
+            sensitive information from proxied traffic on the ingress side, including request bodies, query
+            parameters, headers, and response payload content.
+          </p>
+          <p class="mt-2">
+            Any traffic handling required to route a live connection is transient and non-persistent. This
+            forwarding-only, non-storage commitment is a material term of these Terms and Conditions.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">4. Acceptable Use</h2>
+          <p class="mt-2">
+            You agree not to use Inspectr to violate applicable law, interfere with service operations,
+            transmit malicious payloads, or process data without an appropriate legal basis.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">5. User Responsibilities</h2>
+          <p class="mt-2">
+            You are responsible for configuration choices, security controls in your own environment, and
+            ensuring that your use of Inspectr is compliant with data protection and sector-specific
+            obligations.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">6. Intellectual Property</h2>
+          <p class="mt-2">
+            Inspectr branding, hosted service features, and related materials remain the intellectual
+            property of Inspectr and its licensors. Open-source components are governed by their respective
+            licenses.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">7. Disclaimer of Warranties</h2>
+          <p class="mt-2">
+            Inspectr services are provided "as is" and "as available" without warranties of any kind,
+            express or implied, including merchantability, fitness for a particular purpose, and
+            non-infringement.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">8. Limitation of Liability</h2>
+          <p class="mt-2">
+            To the maximum extent permitted by law, Inspectr is not liable for indirect, incidental,
+            special, consequential, or punitive damages, or for loss of profits, revenue, data, or use.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">9. Suspension and Termination</h2>
+          <p class="mt-2">
+            We may suspend or terminate access where required to protect service integrity, address abuse,
+            or comply with legal obligations. You may stop using Inspectr at any time.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">10. Governing Law and Jurisdiction</h2>
+          <p class="mt-2">
+            These Terms are governed by the laws of Belgium, excluding conflict of laws rules. Disputes
+            are subject to the exclusive jurisdiction of the competent courts in Brussels, Belgium.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">11. Changes to These Terms</h2>
+          <p class="mt-2">
+            We may update these Terms from time to time. Material updates are effective when posted on this
+            page with a revised "Last updated" date.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">12. Contact</h2>
+          <p class="mt-2">
+            Questions about these Terms can be sent to
+            <a class="text-brand-primary hover:underline ml-1" href="mailto:legal@inspectr.dev">
+              legal@inspectr.dev
+            </a>.
+          </p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

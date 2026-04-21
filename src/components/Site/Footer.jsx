@@ -123,6 +123,14 @@ export default function Footer() {
         <div
           className="mt-12 pt-8 border-t text-sm border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400">© 2026 Inspectr. Built with ❤️. All rights reserved. ️</p>
+          <div className="flex items-center gap-5 text-gray-400">
+            <a href="/terms/" className="hover:text-brand-primary">
+              Terms and Conditions
+            </a>
+            <a href="/privacy-policy/" className="hover:text-brand-primary">
+              Privacy Policy
+            </a>
+          </div>
         </div>
       </div>
     </footer>
