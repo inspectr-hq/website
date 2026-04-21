@@ -27,23 +27,53 @@ import Footer from '../components/Site/Footer';
             website, local Inspectr usage, and Inspectr Expose remote ingress.
           </p>
           <p class="mt-2">
-            Inspectr is operated from Belgium. DNS is managed by Cloudflare, and hosted infrastructure is
-            provided by Delta.blue in Europe.
+            Inspectr is currently operated by an individual operator based in Belgium.
+          </p>
+          <p class="mt-2">
+            DNS for Inspectr Service is managed by Cloudflare, and hosted infrastructure is provided by
+            Delta.blue in Europe.
+          </p>
+          <p class="mt-2">
+            Privacy and GDPR inquiries can be sent to
+            <a class="text-brand-primary hover:underline ml-1" href="mailto:privacy@inspectr.dev">
+              privacy@inspectr.dev
+            </a>
+            . Legal questions can be sent to
+            <a class="text-brand-primary hover:underline ml-1" href="mailto:legal@inspectr.dev">
+              legal@inspectr.dev
+            </a>
+            .
           </p>
         </section>
 
         <section>
           <h2 class="text-xl font-semibold text-white">2. Interpretation and Definitions</h2>
           <p class="mt-2">
-            In this policy, "Inspectr Software" means the local Inspectr installation operated by you,
-            "Inspectr Service" means the ingress/expose forwarding service, "Personal Data" means
-            information relating to an identified or identifiable person, and "Processing" means any
-            operation performed on data (such as collection, use, disclosure, or deletion).
+            "Inspectr Software" means the local Inspectr installation operated by you. "Inspectr Service"
+            means the ingress/expose forwarding service. "Personal Data" means information relating to an
+            identified or identifiable person. "Processing" means any operation on data, such as collection,
+            use, disclosure, or deletion.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">3. Local vs Expose Data Handling</h2>
+          <h2 class="text-xl font-semibold text-white">3. Data Roles and Responsibility Allocation</h2>
+          <p class="mt-2">
+            The following role allocation applies:
+          </p>
+          <ul class="mt-2 list-disc pl-6 space-y-1">
+            <li>Website analytics and website operations: Inspectr acts as controller.</li>
+            <li>Support and legal contact emails: Inspectr acts as controller.</li>
+            <li>Inspectr Service ingress/expose payload relay: forwarding-only, non-persistent handling.</li>
+            <li>Inspectr Service abuse prevention and infrastructure security telemetry: Inspectr acts as controller for that limited telemetry.</li>
+            <li>Inspectr Software local capture and storage of request/response traffic: you (the user/customer) act as controller.</li>
+            <li>Self-hosted or enterprise local deployments: the deploying organization acts as controller for locally stored payload data.</li>
+            <li>Billing and payment processing: no billing or payment accounts are currently offered.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">4. Local vs Expose Data Handling</h2>
           <p class="mt-2">
             Inspectr Software usage is local-first. Request and response data are handled and stored in your
             own environment under your control.
@@ -63,8 +93,24 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">4. Categories of Data</h2>
-          <p class="mt-2">Depending on usage, data categories can include:</p>
+          <h2 class="text-xl font-semibold text-white">5. Local Software and Ingress Data Handling</h2>
+          <p class="mt-2">
+            Inspectr Software is local-first. Request and response data are handled and stored in your own
+            environment under your control.
+          </p>
+          <p class="mt-2">
+            Inspectr Service is forwarding-only and does not store request details or sensitive information
+            from proxied traffic on the ingress side, including request bodies, query parameters, headers,
+            endpoint URLs, and response payload content.
+          </p>
+          <p class="mt-2">
+            Any processing needed to relay live traffic is transient and non-persistent.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">6. Categories of Data</h2>
+          <p class="mt-2">Depending on usage, categories may include:</p>
           <ul class="mt-2 list-disc pl-6 space-y-1">
             <li>Contact data you voluntarily provide (for communication and support)</li>
             <li>Technical and telemetry data required for reliability and abuse prevention</li>
@@ -77,97 +123,90 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">5. Purposes of Processing</h2>
-          <p class="mt-2">We process data to:</p>
-          <ul class="mt-2 list-disc pl-6 space-y-1">
-            <li>Provide, secure, and maintain Inspectr services</li>
-            <li>Support troubleshooting and service operations</li>
-            <li>Comply with legal obligations and enforce our terms</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 class="text-xl font-semibold text-white">6. GDPR Lawful Bases</h2>
+          <h2 class="text-xl font-semibold text-white">7. Purposes and Legal Bases</h2>
           <p class="mt-2">
-            Where GDPR applies, lawful bases may include performance of a contract, legitimate interests,
-            legal obligations, and consent where required.
+            Personal data is processed to operate and secure the website and Inspectr Service, respond to
+            support/legal requests, prevent abuse, and comply with legal obligations. Where GDPR applies, the
+            legal basis is legitimate interests, legal obligations, and consent where consent is required.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">7. Website Analytics and Technical Data</h2>
+          <h2 class="text-xl font-semibold text-white">8. Website Analytics and Technical Data</h2>
           <p class="mt-2">
             The website does not use cookies.
           </p>
           <p class="mt-2">
             We process limited technical usage data through analytics tooling such as PostHog (EU region)
-            and first-party traffic measurement scripts to understand service usage and improve reliability.
-            We collect only limited analytics data and process it in anonymous or anonymized form.
+            and first-party traffic measurement scripts to improve reliability and usability.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">8. Retention</h2>
+          <h2 class="text-xl font-semibold text-white">9. Retention</h2>
+          <ul class="mt-2 list-disc pl-6 space-y-1">
+            <li>Website analytics events: up to 12 months.</li>
+            <li>Support communications: up to 24 months after the last interaction.</li>
+            <li>Security and abuse-prevention telemetry: up to 30 days, unless retained longer for an active incident investigation.</li>
+            <li>Legal/compliance requests and related correspondence: up to 10 years where required by law or dispute defense needs.</li>
+            <li>Ingress relay payload data: not retained on the Inspectr Service ingress side.</li>
+            <li>Local Inspectr Software data retention: fully controlled by the user/customer.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-white">10. Sub-processors</h2>
           <p class="mt-2">
-            Data is retained only for as long as necessary for the purposes described above, unless a longer
-            period is required by law. For local Inspectr Software usage, retention settings are controlled
-            by you in your own environment.
-          </p>
-          <p class="mt-2">
-            Inspectr Service ingress/expose does not retain proxied request or response payload data on the
-            ingress side.
+            For Inspectr Service, sub-processors include Cloudflare (DNS management) and Delta.blue
+            (European cloud hosting). Sub-processors are used only for service infrastructure and operations.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">9. Sub-processors</h2>
+          <h2 class="text-xl font-semibold text-white">11. International Transfers</h2>
           <p class="mt-2">
-            For Inspectr Service (ingress/expose), we may use carefully selected sub-processors to support
-            infrastructure and service operations. This includes Cloudflare for DNS management and
-            Delta.blue for European cloud hosting. Appropriate contractual safeguards are applied where
-            required.
+            For Inspectr Service, hosting is in Europe and transfers outside the European Economic Area are
+            not part of normal operations.
+          </p>
+          <p class="mt-2">
+            If an exceptional transfer outside the European Economic Area is required, appropriate safeguards
+            such as European Commission Standard Contractual Clauses are applied.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">10. International Transfers</h2>
+          <h2 class="text-xl font-semibold text-white">12. Disclosure of Personal Data</h2>
           <p class="mt-2">
-            For Inspectr Service (ingress/expose), hosting is in Europe and international transfers outside
-            the European Economic Area are not part of normal operations.
-          </p>
-          <p class="mt-2">
-            If personal data is transferred outside the European Economic Area in an exceptional case, we
-            apply appropriate safeguards, such as European Commission Standard Contractual Clauses, where
-            applicable.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-xl font-semibold text-white">11. Disclosure of Personal Data</h2>
-          <p class="mt-2">
-            We may disclose personal data where required by law, to protect rights and security, or in
+            Personal data may be disclosed where required by law, to protect rights and security, or in
             connection with a merger, acquisition, or asset transfer.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">12. Security Measures</h2>
+          <h2 class="text-xl font-semibold text-white">13. Security Measures</h2>
           <p class="mt-2">
-            We apply technical and organizational measures appropriate to risk, including encryption in
-            transit, access controls, and operational safeguards.
+            We apply technical and organizational measures appropriate to risk, including transport
+            encryption, access controls, and operational safeguards.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">13. GDPR Data Subject Rights</h2>
+          <h2 class="text-xl font-semibold text-white">14. Your GDPR Rights</h2>
           <p class="mt-2">
-            If GDPR applies, you may have rights of access, rectification, erasure, restriction, objection,
-            and data portability, as well as the right to lodge a complaint with a supervisory authority.
+            If GDPR applies, you may request access, rectification, erasure, restriction, objection, and
+            data portability. You can also lodge a complaint with the competent data protection authority.
+          </p>
+          <p class="mt-2">
+            Requests can be sent to
+            <a class="text-brand-primary hover:underline ml-1" href="mailto:privacy@inspectr.dev">
+              privacy@inspectr.dev
+            </a>
+            and we aim to respond within one month.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">14. Children's Privacy</h2>
+          <h2 class="text-xl font-semibold text-white">15. Children's Privacy</h2>
           <p class="mt-2">
             The Service is not directed to children under 13, and we do not knowingly collect personal data
             from children under 13.
@@ -175,33 +214,18 @@ import Footer from '../components/Site/Footer';
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">15. Links to Other Websites</h2>
+          <h2 class="text-xl font-semibold text-white">16. Third-Party Links</h2>
           <p class="mt-2">
-            The Service may link to third-party websites. We are not responsible for third-party privacy
-            practices and recommend reviewing their privacy policies.
+            The website may link to third-party websites. Their privacy practices are governed by their own
+            policies.
           </p>
         </section>
 
         <section>
-          <h2 class="text-xl font-semibold text-white">16. Changes to This Policy</h2>
+          <h2 class="text-xl font-semibold text-white">17. Changes to This Policy</h2>
           <p class="mt-2">
-            We may update this Privacy Policy from time to time. Any material update will be reflected on
-            this page with a revised "Last updated" date.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-xl font-semibold text-white">17. Contact</h2>
-          <p class="mt-2">
-            Privacy and GDPR inquiries can be sent to
-            <a class="text-brand-primary hover:underline ml-1" href="mailto:privacy@inspectr.dev">
-              privacy@inspectr.dev
-            </a>
-            . Legal questions can also be sent to
-            <a class="text-brand-primary hover:underline ml-1" href="mailto:legal@inspectr.dev">
-              legal@inspectr.dev
-            </a>
-            .
+            We may update this Privacy Policy from time to time. Material updates are reflected on this page
+            with a revised "Last updated" date.
           </p>
         </section>
       </div>
