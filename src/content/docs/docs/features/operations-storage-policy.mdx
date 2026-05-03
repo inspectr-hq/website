@@ -42,7 +42,7 @@ Use this when you want a bounded Request History. Leave it off when you want Ins
 
 `operations_retention_ttl` limits how long operations stay in storage.
 
-Use Go-style duration values such as `24h`, `168h`, or `30m`. A value of `0` disables TTL cleanup.
+Use duration values such as `24h`, `168h`, or `30m`. A value of `0` disables TTL cleanup.
 
 ```bash
 inspectr --operations-retention-ttl=24h
