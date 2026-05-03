@@ -1,0 +1,151 @@
+---
+title: "Storage Policy"
+description: "Keep captured operations storage limited by age or count"
+excerpt: "Configure optional retention limits for Inspectr operations so long-running sessions keep recent traffic without growing forever."
+---
+
+import { Aside, Tabs, TabItem, Badge } from '@astrojs/starlight/components';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.9.0" variant="success" />
+  Use Inspectr’s new **Storage Policy** to automatically limit stored traffic by age, count, or both.
+</Aside>
+
+Inspectr is most useful when recent traffic is still available: failed webhook deliveries, slow API calls, test runs, traces, tags, exports, and statistics all depend on stored operations.
+
+But not every Inspectr session is short. Some run for hours or days:
+
+- Local development while an API server stays open
+- Webhook debugging where providers retry often
+- CI jobs that capture test traffic
+- Demo or support environments that keep Inspectr available
+- Shared staging boxes where many people send traffic
+
+Operations storage policy gives these sessions an automatic cleanup rule. You keep the traffic that still helps debugging and let Inspectr discard old traffic before the local store grows without a bound.
+
+## Optional by Default
+
+Operations storage policy is optional. By default, Inspectr keeps existing behavior:
+
+- `operations_retention_ttl: 0` disables age-based cleanup
+- `operations_max_stored: 0` disables count-based cleanup
+
+Use this when you want a bounded Request History. Leave it off when you want Inspectr to keep every captured operation until you clear the store yourself.
+
+<Aside type="note" title="Current behavior">
+  In this version, count-based eviction uses `drop oldest` concept. When the cap is exceeded, Inspectr removes the oldest stored operations first and keeps the newest operations available in Request History.
+</Aside>
+
+## How It Works
+
+### Retention TTL
+
+`operations_retention_ttl` limits how long operations stay in storage.
+
+Use Go-style duration values such as `24h`, `168h`, or `30m`. A value of `0` disables TTL cleanup.
+
+```bash
+inspectr --operations-retention-ttl=24h
+```
+
+This keeps operations from roughly the last 24 hours and removes older operations.
+
+### Max Stored Operations
+
+`operations_max_stored` limits the number of operations kept in storage.
+
+When stored operations exceed the cap, Inspectr removes the oldest operations first.
+
+```bash
+inspectr --operations-max-stored=5000
+```
+
+This keeps the newest 5,000 operations and automatically trims older entries.
+
+### Combined Policy
+
+You can use both limits together:
+
+<Tabs>
+  <TabItem label="CLI">
+    ```bash
+    inspectr --operations-retention-ttl=24h --operations-max-stored=5000
+    ```
+  </TabItem>
+  <TabItem label="YAML">
+    ```yaml
+    operations_retention_ttl: 24h
+    operations_max_stored: 5000
+    ```
+  </TabItem>
+</Tabs>
+
+With both set, Inspectr removes operations that are too old and also keeps the total stored count under the configured cap.
+
+## Choosing a Policy
+
+| Situation                             | Start with                          |
+|---------------------------------------|-------------------------------------|
+| Short local debugging session         | Leave defaults (`0`, `0`)           |
+| Daily local development               | `operations_retention_ttl: 24h`     |
+| Noisy webhook testing                 | TTL plus a moderate count cap       |
+| CI or repeatable test jobs            | `operations_max_stored` plus export |
+| Shared staging or support environment | Count cap, optionally with TTL      |
+
+## Recognizable Use Cases
+
+### Daily Local Development
+
+Keep yesterday's useful context without letting `.inspectr/.inspectr.db` grow across weeks of local traffic.
+
+```yaml
+operations_retention_ttl: 24h
+```
+
+### Webhook Debugging
+
+Webhook providers can retry aggressively while you are testing failures. Keep current deliveries visible, but avoid old retries taking over Request History.
+
+```yaml
+operations_retention_ttl: 6h
+operations_max_stored: 2000
+```
+
+### CI and Test Runs
+
+Bound captured operations during automated test runs so build artifacts and local stores stay predictable.
+
+```bash
+inspectr --operations-max-stored=1000 --export
+```
+
+### Shared Staging Sessions
+
+In shared environments, many users can send traffic through one Inspectr instance. A count cap keeps recent debugging data available without preserving stale traffic forever.
+
+```yaml
+operations_max_stored: 10000
+```
+
+### Demos and Support Sessions
+
+Keep enough recent traffic to explain a flow or troubleshoot a customer issue, while avoiding manual cleanup between sessions.
+
+```yaml
+operations_retention_ttl: 48h
+operations_max_stored: 5000
+```
+
+## Configuration Reference
+
+| Option                         | Default       | Description                                                        |
+|--------------------------------|---------------|--------------------------------------------------------------------|
+| `operations_retention_ttl`     | `0`           | Maximum age for stored operations. `0` disables TTL cleanup.       |
+| `operations_max_stored`        | `0`           | Maximum number of stored operations. `0` disables count cleanup.   |
+
+[//]: # (| `operations_eviction_policy`   | `drop_oldest` | Eviction policy used when count cap is exceeded.                   |)
+
+Related configuration:
+
+- [CLI Options](/docs/configuration/cli-options/)
+- [YAML Configuration](/docs/configuration/yaml-config/)

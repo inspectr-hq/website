@@ -66,6 +66,7 @@ export default defineConfig({
             { label: 'MCP Insights', slug: 'docs/features/inspectr-mcp-insights' },
             { label: 'Mocking API Responses', slug: 'docs/features/mocking' },
             { label: 'Using Response Overrides', slug: 'docs/features/response-override' },
+            { label: 'Storage Policy', slug: 'docs/features/operations-storage-policy' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' },
             { label: 'Run a Command on Startup', slug: 'docs/features/inspectr-command-runner' },
             { label: 'Export/Import & Record Traffic', slug: 'docs/features/inspectr-import-export' },

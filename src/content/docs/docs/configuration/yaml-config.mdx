@@ -90,6 +90,20 @@ apiSecret: 'changeme'
 | `storeInMemory` | boolean | Store operations in memory only                                 |
 | `backendCors`   | boolean | Allow backend to handle CORS requests                           |
 
+### Operations Storage Policy
+
+| Key                          | Type    | Default       | Description                                                                              |
+|------------------------------|---------|---------------|------------------------------------------------------------------------------------------|
+| `operations_retention_ttl`   | string  | `0`           | Maximum age for stored operations (for example `24h`, `168h`). `0` disables TTL cleanup. |
+| `operations_max_stored`      | integer | `0`           | Maximum number of stored operations. `0` disables the cap.                               |
+
+[//]: # (| `operations_eviction_policy` | string  | `drop_oldest` | Eviction policy used when the cap is exceeded. Current supported policy: `drop_oldest`.  |)
+
+```yaml
+operations_retention_ttl: 24h
+operations_max_stored: 5000
+```
+
 ## Start-up Options
 
 | Flag                   | Type    | Default                         | Description                                                                             |

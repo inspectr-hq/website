@@ -72,6 +72,17 @@ Inspectr supports a wide range of CLI flags to control how it captures, proxies,
 
 ---
 
+## Operations Storage Policy
+
+| Flag                           | Type    | Default       | Description                                                                              |
+|--------------------------------|---------|---------------|------------------------------------------------------------------------------------------|
+| `--operations-retention-ttl`   | string  | `0`           | Maximum age for stored operations (for example `24h`, `168h`). `0` disables TTL cleanup. |
+| `--operations-max-stored`      | integer | `0`           | Maximum number of stored operations. `0` disables the cap.                               |
+
+[//]: # (#| `--operations-eviction-policy` | string  | `drop_oldest` | Eviction policy used when the cap is exceeded. Current supported policy: `drop_oldest`.  |)
+
+---
+
 ## Configuration & Version
 
 | Flag        | Type   | Default          | Description                                                        |
@@ -131,6 +142,12 @@ inspectr --catch=true --expose --channel=webhook-test --channel-code=secure123
 
 ```bash
 inspectr --mock-backend=./openapi.yaml --mock-dynamic=true
+```
+
+### Keep Recent Operations Only
+
+```bash
+inspectr --operations-retention-ttl=24h --operations-max-stored=5000
 ```
 
 ### Inspectr with config file
