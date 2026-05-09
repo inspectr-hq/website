@@ -27,8 +27,8 @@ Operations storage policy gives these sessions an automatic cleanup rule. You ke
 
 Operations storage policy is optional. By default, Inspectr keeps existing behavior:
 
-- `operations_retention_ttl: 0` disables age-based cleanup
-- `operations_max_stored: 0` disables count-based cleanup
+- `operationsRetentionTTL: 0` disables age-based cleanup
+- `operationsMaxStored: 0` disables count-based cleanup
 
 Use this when you want a bounded Request History. Leave it off when you want Inspectr to keep every captured operation until you clear the store yourself.
 
@@ -40,7 +40,7 @@ Use this when you want a bounded Request History. Leave it off when you want Ins
 
 ### Retention TTL
 
-`operations_retention_ttl` limits how long operations stay in storage.
+`operationsRetentionTTL` limits how long operations stay in storage.
 
 Use duration values such as `24h`, `168h`, or `30m`. A value of `0` disables TTL cleanup.
 
@@ -52,7 +52,7 @@ This keeps operations from roughly the last 24 hours and removes older operation
 
 ### Max Stored Operations
 
-`operations_max_stored` limits the number of operations kept in storage.
+`operationsMaxStored` limits the number of operations kept in storage.
 
 When stored operations exceed the cap, Inspectr removes the oldest operations first.
 
@@ -74,8 +74,8 @@ You can use both limits together:
   </TabItem>
   <TabItem label="YAML">
     ```yaml
-    operations_retention_ttl: 24h
-    operations_max_stored: 5000
+    operationsRetentionTTL: 24h
+    operationsMaxStored: 5000
     ```
   </TabItem>
 </Tabs>
@@ -87,9 +87,9 @@ With both set, Inspectr removes operations that are too old and also keeps the t
 | Situation                             | Start with                          |
 |---------------------------------------|-------------------------------------|
 | Short local debugging session         | Leave defaults (`0`, `0`)           |
-| Daily local development               | `operations_retention_ttl: 24h`     |
+| Daily local development               | `operationsRetentionTTL: 24h`       |
 | Noisy webhook testing                 | TTL plus a moderate count cap       |
-| CI or repeatable test jobs            | `operations_max_stored` plus export |
+| CI or repeatable test jobs            | `operationsMaxStored` plus export   |
 | Shared staging or support environment | Count cap, optionally with TTL      |
 
 ## Recognizable Use Cases
@@ -99,7 +99,7 @@ With both set, Inspectr removes operations that are too old and also keeps the t
 Keep yesterday's useful context without letting `.inspectr/.inspectr.db` grow across weeks of local traffic.
 
 ```yaml
-operations_retention_ttl: 24h
+operationsRetentionTTL: 24h
 ```
 
 ### Webhook Debugging
@@ -107,8 +107,8 @@ operations_retention_ttl: 24h
 Webhook providers can retry aggressively while you are testing failures. Keep current deliveries visible, but avoid old retries taking over Request History.
 
 ```yaml
-operations_retention_ttl: 6h
-operations_max_stored: 2000
+operationsRetentionTTL: 6h
+operationsMaxStored: 2000
 ```
 
 ### CI and Test Runs
@@ -124,7 +124,7 @@ inspectr --operations-max-stored=1000 --export
 In shared environments, many users can send traffic through one Inspectr instance. A count cap keeps recent debugging data available without preserving stale traffic forever.
 
 ```yaml
-operations_max_stored: 10000
+operationsMaxStored: 10000
 ```
 
 ### Demos and Support Sessions
@@ -132,16 +132,16 @@ operations_max_stored: 10000
 Keep enough recent traffic to explain a flow or troubleshoot a customer issue, while avoiding manual cleanup between sessions.
 
 ```yaml
-operations_retention_ttl: 48h
-operations_max_stored: 5000
+operationsRetentionTTL: 48h
+operationsMaxStored: 5000
 ```
 
 ## Configuration Reference
 
 | Option                         | Default       | Description                                                        |
 |--------------------------------|---------------|--------------------------------------------------------------------|
-| `operations_retention_ttl`     | `0`           | Maximum age for stored operations. `0` disables TTL cleanup.       |
-| `operations_max_stored`        | `0`           | Maximum number of stored operations. `0` disables count cleanup.   |
+| `operationsRetentionTTL`       | `0`           | Maximum age for stored operations. `0` disables TTL cleanup.       |
+| `operationsMaxStored`          | `0`           | Maximum number of stored operations. `0` disables count cleanup.   |
 
 [//]: # (| `operations_eviction_policy`   | `drop_oldest` | Eviction policy used when count cap is exceeded.                   |)
 
