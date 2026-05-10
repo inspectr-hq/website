@@ -42,7 +42,9 @@ Use this when you want a bounded Request History. Leave it off when you want Ins
 
 `operationsRetentionTTL` limits how long operations stay in storage.
 
-Use duration values such as `24h`, `168h`, or `30m`. A value of `0` disables TTL cleanup.
+Use duration values with `d` (days), `h` (hours), optionally `m` (minutes) or `s` (seconds).  
+Examples: `24h` works, `168h` works (7 days), `7d` works.  
+A value of `0` disables TTL cleanup.
 
 ```bash
 inspectr --operations-retention-ttl=24h
@@ -140,7 +142,7 @@ operationsMaxStored: 5000
 
 | Option                         | Default       | Description                                                        |
 |--------------------------------|---------------|--------------------------------------------------------------------|
-| `operationsRetentionTTL`       | `0`           | Maximum age for stored operations. `0` disables TTL cleanup.       |
+| `operationsRetentionTTL`       | `0`           | Maximum age for stored operations. Use `d` (days), `h` (hours), optionally `m` or `s` (for example `7d`, `24h`, `168h`, `30m`). `0` disables TTL cleanup. |
 | `operationsMaxStored`          | `0`           | Maximum number of stored operations. `0` disables count cleanup.   |
 
 [//]: # (| `operations_eviction_policy`   | `drop_oldest` | Eviction policy used when count cap is exceeded.                   |)

@@ -94,7 +94,7 @@ apiSecret: 'changeme'
 
 | Key                          | Type    | Default       | Description                                                                              |
 |------------------------------|---------|---------------|------------------------------------------------------------------------------------------|
-| `operationsRetentionTTL`     | string  | `0`           | Maximum age for stored operations (for example `24h`, `168h`). `0` disables TTL cleanup. |
+| `operationsRetentionTTL`     | string  | `0`           | Maximum age for stored operations. Use `d` (days), `h` (hours), optionally `m` (minutes) or `s` (seconds), for example `7d`, `24h`, `168h`, `30m`. `0` disables TTL cleanup. |
 | `operationsMaxStored`        | integer | `0`           | Maximum number of stored operations. `0` disables the cap.                               |
 
 [//]: # (| `operations_eviction_policy` | string  | `drop_oldest` | Eviction policy used when the cap is exceeded. Current supported policy: `drop_oldest`.  |)
