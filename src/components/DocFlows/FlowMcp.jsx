@@ -25,6 +25,38 @@ export function FlowBase() {
   );
 }
 
+export function FlowBase2() {
+  const { nodes, edges } = useMemo(() => {
+    const flow = buildBaseFlow({
+      start: { label: 'Claude', icon: clientIcon },
+      end: { label: 'MCP Server', icon: serviceIcon, width: 140 }
+    });
+
+    return {
+      nodes: flow.nodes,
+      edges: flow.edges.map(edge => {
+        if (edge.id === 'e-0-1') {
+          return { ...edge, label: 'https://your-mcp.in-spectr.dev' };
+        }
+
+        if (edge.id === 'e-1-5') {
+          return { ...edge, label: 'Live traffic stream' };
+        }
+
+        return edge;
+      })
+    };
+  }, []);
+
+  return (
+    <FlowVisualizer
+      nodeData={nodes}
+      edgeData={edges}
+      style={{ width: '100%', height: '210px' }}
+    />
+  );
+}
+
 
 export function FlowIngress() {
   const { nodes, edges } = useMemo(
