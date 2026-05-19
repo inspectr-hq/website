@@ -77,7 +77,7 @@ export default defineConfig({
         },
         {
           label: 'Configuration',
-          autogenerate: { directory: 'docs/configuration' }
+          items: [{ autogenerate: { directory: 'docs/configuration' } }]
         },
         {
           label: 'Guides',
@@ -95,12 +95,12 @@ export default defineConfig({
         },
         {
           label: 'Examples',
-          autogenerate: { directory: 'docs/examples' }
+          items: [{ autogenerate: { directory: 'docs/examples' } }]
         },
         {
           label: 'Reference',
           collapsed: true,
-          autogenerate: { directory: 'docs/reference' }
+          items: [{ autogenerate: { directory: 'docs/reference' } }]
         }
       ],
       components: {

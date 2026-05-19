@@ -8,7 +8,7 @@ import RelatedLink from '../../../../components/RelatedLink.jsx';
 
 import { Image } from 'astro:assets';
 
-import inspectrExpose from '../../../../assets/guides/inspectr-expose.png';
+import inspectrExpose from '../../../../assets/guides/mcp-openai-inspectr-expose2.png';
 import mcpTracingToolList from '../../../../assets/features/mcp/mcp-tracing-toollist.png';
 import mcpTracingInfo from '../../../../assets/features/mcp/mcp-info-02.png';
 
@@ -51,19 +51,27 @@ This standardized approach allows agents to work with real data and perform acti
 
 ## Inspectr for MCP Traffic
 
-[Inspectr](https://inspectr.dev) operates as a transparent proxy. By running Inspectr between the MCP client and server you capture every request and response:
+[Inspectr](https://inspectr.dev) acts as a transparent proxy and tunnel for MCP traffic. Run it next to a local or private MCP server, point your MCP client at the Inspectr URL, and capture every request and response as the client interacts with your tools.
+
+This is especially useful when your MCP server wraps internal systems such as private APIs, databases, knowledge bases, ticketing systems, or local development tools. Inspectr creates an outbound tunnel from your environment, so external MCP clients such as Anthropic Claude, OpenAI ChatGPT, and Microsoft Copilot can reach your server without inbound firewall rules or a public deployment.
 
 ```bash
-inspectr --backend=http://localhost:3000
+inspectr --backend=http://localhost:3000 --expose
 ```
 
 <Image src={inspectrExpose} alt="Inspectr exposing MCP server" />
 
-- The MCP client targets `http://localhost:8080` instead of the server directly.
+Your MCP server is now available at:
+
+```
+https://mcp-demo.in-spectr.dev/mcp
+```
+
+- The MCP client targets the Inspectr tunnel URL, `https://mcp-demo.in-spectr.dev/mcp`, instead of the server directly.
 - Inspectr forwards traffic to `localhost:3000` and records the exchange.
 - The Inspectr UI at `http://localhost:4004` displays the captured calls.
 
-Each entry in the UI shows the HTTP method, path, headers, body, and response. Filters help you isolate calls from a particular tool or resource. You can even replay requests to reproduce behavior.
+Each entry in the UI shows the HTTP method, path, headers, body, and response. For MCP traffic, Inspectr also extracts tool, resource, prompt, session, and token information, giving you reachability plus protocol-aware observability. Filters help isolate calls from a particular tool or resource, and replay lets you reproduce behavior.
 
 ---
 
