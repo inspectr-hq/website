@@ -55,13 +55,15 @@ This standardized approach allows agents to work with real data and perform acti
 
 This is especially useful when your MCP server wraps internal systems such as private APIs, databases, knowledge bases, ticketing systems, or local development tools. Inspectr creates an outbound tunnel from your environment, so external MCP clients such as Anthropic Claude, OpenAI ChatGPT, and Microsoft Copilot can reach your server without inbound firewall rules or a public deployment.
 
+Just use this simple command:
+
 ```bash
-inspectr --backend=http://localhost:3000 --expose
+npx @inspectr/inspectr --backend=http://localhost:3000 --expose
 ```
 
 <Image src={inspectrExpose} alt="Inspectr exposing MCP server" />
 
-Your MCP server is now available at:
+Your private MCP server is now publicly available at:
 
 ```
 https://mcp-demo.in-spectr.dev/mcp
@@ -71,7 +73,23 @@ https://mcp-demo.in-spectr.dev/mcp
 - Inspectr forwards traffic to `localhost:3000` and records the exchange.
 - The Inspectr UI at `http://localhost:4004` displays the captured calls.
 
-Each entry in the UI shows the HTTP method, path, headers, body, and response. For MCP traffic, Inspectr also extracts tool, resource, prompt, session, and token information, giving you reachability plus protocol-aware observability. Filters help isolate calls from a particular tool or resource, and replay lets you reproduce behavior.
+Each entry in the UI shows the HTTP method, path, headers, body, and response. For MCP traffic, Inspectr also extracts tool, resource, prompt, session, and token information, giving you reachability plus protocol-aware observability.
+
+
+<div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+  <a
+    href="/docs/examples/expose-mcp-server/"
+    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+  >
+    Expose an MCP server to Claude →
+  </a>
+  <a
+    href="/docs/examples/expose-mcp-server-openai/"
+    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
+  >
+    Expose an MCP server to OpenAI →
+  </a>
+</div>
 
 ---
 
@@ -88,21 +106,6 @@ With traffic flowing through Inspectr you gain insight into how the agent uses y
 - **Security reviews** – Audit headers and payloads to ensure agents only access permitted data.
 
 This observability helps refine MCP tool definitions, allocate resources, and craft an API strategy that anticipates agent workloads.
-
-<div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-  <a
-    href="/docs/examples/expose-mcp-server/"
-    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
-  >
-    Expose an MCP server to Claude →
-  </a>
-  <a
-    href="/docs/examples/expose-mcp-server-openai/"
-    class="inline-flex items-center justify-center rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition-transform hover:-translate-y-0.5"
-  >
-    Expose an MCP server to OpenAI →
-  </a>
-</div>
 
 ---
 
