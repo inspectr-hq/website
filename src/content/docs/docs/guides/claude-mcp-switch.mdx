@@ -1,0 +1,110 @@
+---
+title: Switch MCP Servers in Claude Desktop
+description: Use Claude MCP Switch to toggle and manage MCP servers in Claude Desktop without editing JSON.
+---
+
+import RelatedLink from '../../../../components/RelatedLink.jsx';
+
+[Claude MCP Switch](https://github.com/inspectr-hq/claude-mcp-switch) is a native macOS menu bar app that lets you enable, disable, and edit MCP servers configured in Claude Desktop — without touching the JSON config file.
+
+![Claude MCP Switch menu bar](https://github.com/inspectr-hq/claude-mcp-switch/raw/main/content/claude-mcp-switch-menu-bar-bg-color.png)
+
+---
+
+
+## Why Use It
+
+Claude Desktop stores all MCP server configuration in a JSON file (`claude_desktop_config.json`). Every time you want to swap servers, toggle one off for a session, add environment variables, or test a new server alongside existing ones — you have to open that file, find the right entry, edit it by hand, save, and restart Claude Desktop.
+
+The "Claude MCP Switch" app replaces that manual JSON editing with a menu bar UI. Enable or disable servers in one click, edit details in a form, and sync back to Claude Desktop.
+
+---
+
+## Features
+
+- Enable or disable individual MCP servers from the macOS menu bar
+- Import your existing `claude_desktop_config.json` entries
+- Edit server names, commands, arguments, and environment variables
+- Preview a diff before syncing changes back to Claude Desktop
+- Automatic backups before any write operation
+
+---
+
+## Screenshots
+
+### Menu Bar
+
+![Menu bar](https://github.com/inspectr-hq/claude-mcp-switch/raw/main/content/claude-mcp-switch-menu-bar.png)
+
+### MCP Server Manager
+
+![MCP Server Manager window](https://github.com/inspectr-hq/claude-mcp-switch/raw/main/content/claude-mcp-switch-manager.png)
+
+### Edit a Server
+
+![Edit server form](https://github.com/inspectr-hq/claude-mcp-switch/raw/main/content/claude-mcp-switch-form.png)
+
+---
+
+## Installation
+
+**Homebrew (recommended)**
+
+```bash
+brew tap inspectr-hq/homebrew-inspectr
+brew install --cask claude-mcp-switch
+```
+
+**DMG or ZIP**
+
+Download the latest release from [GitHub Releases](https://github.com/inspectr-hq/claude-mcp-switch/releases), open the DMG, and drag the app to `/Applications`.
+
+**Build from source**
+
+Requires Swift 5.10+ and Xcode or SwiftPM:
+
+```bash
+git clone https://github.com/inspectr-hq/claude-mcp-switch
+cd claude-mcp-switch
+swift build -c release
+```
+
+---
+
+## Basic Usage
+
+1. Launch **Claude MCP Switch** from your Applications folder — it appears in the macOS menu bar.
+2. Select **Import from Claude Desktop** to load your existing MCP server entries.
+3. Toggle servers on or off directly from the menu or open the manager window to edit details.
+4. When ready, select **Sync to Claude Desktop** — a diff preview shows exactly what will change before anything is written.
+
+The sync preserves all other Claude Desktop settings and treats your enabled servers as the source of truth.
+
+---
+
+## Using It with Inspectr
+
+When you expose a local MCP server with Inspectr, you need to register the Inspectr session URL in Claude Desktop. Claude MCP Switch makes that step faster:
+
+**1. Start your MCP server and run Inspectr to expose it:**
+
+```bash
+inspectr --backend=http://localhost:3001 --expose --channel=mcp-demo
+```
+
+**2. Open Claude MCP Switch and add a new server entry pointing at the Inspectr URL via `mcp-remote`:**
+
+| Field   | Value                                           |
+|---------|-------------------------------------------------|
+| Command | `npx`                                           |
+| Args    | `mcp-remote https://mcp-demo.in-spectr.dev/mcp` |
+
+**3. Sync to Claude Desktop and restart Claude (`Cmd+R`).**
+
+No manual JSON editing required. If you want to switch between multiple Inspectr sessions or test different MCP servers, Claude MCP Switch lets you toggle them individually rather than rewriting the config each time.
+
+---
+
+<RelatedLink href="/docs/examples/expose-mcp-server/" title="Want to expose a local MCP server to Claude Desktop?">
+  Exposing a MCP Server →
+</RelatedLink>

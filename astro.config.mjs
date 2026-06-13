@@ -90,6 +90,7 @@ export default defineConfig({
             { label: 'Handling CORS Issues', slug: 'docs/guides/handling-cors' },
             { label: 'Capturing Webhooks', slug: 'docs/guides/webhook-debugging' },
             { label: 'MCP Server Evals with MCPLab', slug: 'docs/guides/mcp-server-eval-with-mcplab' },
+            { label: 'Switch MCP Servers in Claude', slug: 'docs/guides/claude-mcp-switch' },
             { label: 'Observability for MCP Servers', slug: 'docs/guides/mcp-observability' }
           ]
         },
