@@ -130,6 +130,9 @@ export default function Footer() {
             <a href="/privacy-policy/" className="hover:text-brand-primary">
               Privacy Policy
             </a>
+            <a href="/data-privacy/" className="hover:text-brand-primary">
+              Data Privacy
+            </a>
           </div>
         </div>
       </div>

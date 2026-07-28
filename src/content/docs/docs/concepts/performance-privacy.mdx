@@ -36,7 +36,9 @@ Inspectr was designed as a **local-first tool**, not a SaaS service. All capture
 
 Even when using the `--expose` option, Inspectr functions purely as a lightweight proxy that forwards encrypted traffic directly to your local instance without retaining or inspecting it on the ingress side.
 
-This local-only approach means: no hidden backends or centralized data stores — just your environment, under your control.
+For the complete service boundary, see [Data Privacy & Zero Retention](/data-privacy/). The page explains the Inspectr Ingress architecture and its retention boundaries.
+
+This local-only approach means there are no hidden backends or centralized data stores. Your environment remains under your control.
 It’s a privacy-by-design model that keeps sensitive information where it belongs: with you.
 
 In contrast to traditional tunneling or debugging tools, Inspectr provides the same convenience and real-time inspection capabilities without ever transferring ownership of your data.

@@ -69,6 +69,7 @@ export default defineConfig({
             { label: 'Storage Policy', slug: 'docs/features/operations-storage-policy' },
             { label: 'Access Authentication', slug: 'docs/features/access-authentication' },
             { label: 'Run a Command on Startup', slug: 'docs/features/inspectr-command-runner' },
+            { label: 'Background Services', slug: 'docs/features/background-services' },
             { label: 'Export/Import & Record Traffic', slug: 'docs/features/inspectr-import-export' },
             { label: 'Export on Shutdown', slug: 'docs/features/inspectr-export' },
             { label: 'Catch/Mock/Mirror mode', slug: 'docs/features/inspectr-operation-modes' },
