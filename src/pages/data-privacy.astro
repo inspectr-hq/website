@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Site/Navigation';
 import Footer from '../components/Site/Footer';
-import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
+import IconInspectr from '../components/Flow/IconInspectr.jsx';
+// import { FlowBase, FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
 ---
 
 <Layout
@@ -28,8 +29,9 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
             <span class="text-gradient">by architecture.</span>
           </h1>
           <p class="mt-7 max-w-3xl text-lg leading-8 text-gray-300 sm:text-xl">
-            Inspectr Ingress forwards your API and webhook requests and responses to your environment. It does
-            not store the payloads it relays.
+            Inspectr runs locally. By default your API traffic never leaves your machine, and there is no hosted
+            service in the path. When you choose to expose a local service, the optional Ingress relay forwards
+            traffic without storing the payloads.
           </p>
           <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <a
@@ -49,16 +51,16 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
 
         <div class="mt-16 grid gap-4 sm:grid-cols-3">
           <div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">
-            <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">Real-time pass-through</p>
-            <p class="mt-2 text-sm text-gray-300">Requests and responses move directly through Inspectr Ingress</p>
+            <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">Local by default</p>
+            <p class="mt-2 text-sm text-gray-300">Your traffic stays on your machine, with no hosted service in the path</p>
           </div>
           <div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">
-            <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">Processing in memory</p>
-            <p class="mt-2 text-sm text-gray-300">Payloads are handled transiently during the live request</p>
+            <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">In-memory processing</p>
+            <p class="mt-2 text-sm text-gray-300">Ingress handles payloads transiently, and only for tunnel or --expose</p>
           </div>
           <div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">
             <p class="text-3xl font-bold text-brand-primary">0 bytes</p>
-            <p class="mt-2 text-sm uppercase tracking-wide text-gray-300">Retained on the Ingress side</p>
+            <p class="mt-2 text-sm uppercase tracking-wide text-gray-300">Retained on the Ingress relay</p>
           </div>
         </div>
       </div>
@@ -67,11 +69,64 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
     <section id="architecture" class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
       <div class="max-w-3xl">
         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">The architecture</p>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Local-first, with an optional relay.</h2>
+        <p class="mt-5 text-lg leading-8 text-gray-300">
+          Inspectr runs as a local proxy between your client and your backend. In the default path, no hosted
+          service is involved at all, so your traffic never leaves your machine. Only when you expose a local
+          service does traffic travel through Inspectr Ingress, and even then the relay forwards it without
+          keeping a copy.
+        </p>
+      </div>
+
+      <!-- Default path: everything local -->
+      <div class="mt-12 rounded-2xl border border-orange-300/30 bg-orange-300/[0.04] p-5 sm:p-8">
+        <div class="mb-5 flex items-center gap-3">
+          <span class="rounded-full bg-orange-300/15 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-orange-200">Default</span>
+          <h3 class="text-lg font-semibold">Local proxy: nothing leaves your machine</h3>
+        </div>
+        <div class="grid items-center gap-4 lg:grid-cols-[1fr_auto_1.15fr_auto_1fr]">
+          <div class="rounded-xl border border-gray-700 bg-gray-900/70 p-5 text-center">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Source</p>
+            <h4 class="mt-2 font-semibold">Client / app</h4>
+            <p class="mt-2 text-sm text-gray-400">Running on your machine or local network</p>
+          </div>
+
+          <div class="hidden text-center text-2xl text-orange-200 lg:block" aria-hidden="true">→</div>
+
+          <div class="rounded-xl border border-orange-300/50 bg-orange-300/[0.08] p-5 text-center">
+            <p class="text-xs font-semibold uppercase tracking-widest text-orange-200">Local</p>
+            <h4 class="mt-2 flex items-center justify-center gap-2 font-semibold"><IconInspectr width={24} height={24} />Inspectr Proxy</h4>
+            <p class="mt-2 text-sm text-gray-300">Inspection, history, and replay, all in your environment</p>
+          </div>
+
+          <div class="hidden text-center text-2xl text-orange-200 lg:block" aria-hidden="true">→</div>
+
+          <div class="rounded-xl border border-gray-700 bg-gray-900/70 p-5 text-center">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Your environment</p>
+            <h4 class="mt-2 font-semibold">Your backend</h4>
+            <p class="mt-2 text-sm text-gray-400">Your real API, mock, or catch endpoint</p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-center gap-3 text-center text-sm text-gray-400">
+          <span class="h-px w-10 bg-gray-700"></span>
+          <span>No hosted service in the path. This is how most Inspectr usage works.</span>
+          <span class="h-px w-10 bg-gray-700"></span>
+        </div>
+
+        <!--<div class="mt-6">-->
+        <!--  <FlowBase client:only="react" />-->
+        <!--</div>-->
+      </div>
+
+      <!-- Optional path: tunnel / expose via Ingress -->
+      <div class="mt-20 max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">Inspectr Ingress, a relay tunnel</p>
         <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">A relay, not a data warehouse.</h2>
         <p class="mt-5 text-lg leading-8 text-gray-300">
-          Public traffic enters through Inspectr Ingress, travels to your local Inspectr instance, and reaches
-          your backend. The Ingress layer connects the outside world to your environment. It does not build
-          a hosted copy of the traffic it forwards.
+          When you tunnel a local service, public traffic enters through Inspectr Ingress, travels to your local
+          Inspectr instance, and reaches your backend. The Ingress layer connects the outside world to your
+          environment. It does not build a hosted copy of the traffic it forwards.
         </p>
       </div>
 
@@ -87,7 +142,7 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
 
           <div class="rounded-xl border border-brand-primary/70 bg-brand-primary/[0.08] p-5 text-center shadow-[0_0_35px_rgba(0,229,255,0.12)]">
             <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary">Pass-through only</p>
-            <h3 class="mt-2 font-semibold">Inspectr Ingress</h3>
+            <h3 class="mt-2 flex items-center justify-center gap-2 font-semibold"><IconInspectr width={24} height={24} from="#26ff00" to="#9fe491" />Inspectr Ingress</h3>
             <p class="mt-2 text-sm text-gray-300">Forwards requests and responses; no persistent payload storage</p>
           </div>
 
@@ -95,7 +150,7 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
 
           <div class="rounded-xl border border-orange-300/40 bg-orange-300/[0.06] p-5 text-center">
             <p class="text-xs font-semibold uppercase tracking-widest text-orange-200">Your environment</p>
-            <h3 class="mt-2 font-semibold">Inspectr + backend</h3>
+            <h3 class="mt-2 flex items-center justify-center gap-2 font-semibold"><IconInspectr width={24} height={24} />Inspectr + backend</h3>
             <p class="mt-2 text-sm text-gray-400">Inspection, history, replay, and application storage</p>
           </div>
         </div>
@@ -107,51 +162,41 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
         </div>
       </div>
 
-      <div class="mt-8 rounded-2xl border border-gray-800 bg-black/20 p-5 sm:p-8">
-        <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Inspectr flow</p>
-            <h3 class="mt-2 text-xl font-semibold">The request path in practice</h3>
-          </div>
-          <a href="/docs/concepts/architecture/" class="text-sm font-semibold text-brand-primary hover:underline">
-            View architecture docs <span aria-hidden="true" class="ml-1">→</span>
-          </a>
-        </div>
-        <FlowIngress client:only="react" />
-      </div>
+      <!--<div class="mt-8 rounded-2xl border border-gray-800 bg-black/20 p-5 sm:p-8">-->
+      <!--  <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">-->
+      <!--    <div>-->
+      <!--      <p class="text-xs font-semibold uppercase tracking-widest text-gray-500">Inspectr flow</p>-->
+      <!--      <h3 class="mt-2 text-xl font-semibold">The request path in practice</h3>-->
+      <!--    </div>-->
+      <!--    <a href="/docs/concepts/architecture/" class="text-sm font-semibold text-brand-primary hover:underline">-->
+      <!--      View architecture docs <span aria-hidden="true" class="ml-1">→</span>-->
+      <!--    </a>-->
+      <!--  </div>-->
+      <!--  <FlowIngress client:only="react" />-->
+      <!--</div>-->
 
       <div class="mt-12 grid gap-5 md:grid-cols-2">
-        <article class="rounded-2xl border border-brand-primary/30 bg-brand-primary/[0.05] p-6 sm:p-8">
-          <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary">Hosted layer</p>
-          <h3 class="mt-3 text-xl font-semibold">Inspectr Ingress</h3>
-          <p class="mt-4 leading-7 text-gray-300">
-            Ingress is the public relay. It accepts the connection, forwards the request and response, and does
-            not persist the proxied payload content.
-          </p>
-          <p class="mt-4 text-sm font-semibold text-brand-primary">Zero payload retention on the hosted relay</p>
-        </article>
-
         <article class="rounded-2xl border border-orange-300/30 bg-orange-300/[0.04] p-6 sm:p-8">
-          <p class="text-xs font-semibold uppercase tracking-widest text-orange-200">Local layer</p>
-          <h3 class="mt-3 text-xl font-semibold">Inspectr Proxy</h3>
+          <p class="text-xs font-semibold uppercase tracking-widest text-orange-200">Local layer (the default)</p>
+          <h3 class="mt-3 flex items-center gap-2 text-xl font-semibold"><IconInspectr width={24} height={24} />Inspectr Proxy</h3>
           <p class="mt-4 leading-7 text-gray-300">
             The local proxy receives the traffic and powers inspection, history, replay, and forwarding to your
-            backend. Any operation history is held in your environment and follows your configuration.
+            backend, all on your machine. Any operation history is held in your environment and follows your
+            configuration.
           </p>
           <p class="mt-4 text-sm font-semibold text-orange-200">Local retention under your control</p>
         </article>
-      </div>
 
-      <p class="mx-auto mt-8 max-w-4xl text-center text-sm leading-6 text-gray-400">
-        In other words, zero data retention describes the hosted Ingress boundary. Inspectr’s local-first design
-        keeps inspection data in the environment where you run it, so you decide whether operations are ephemeral
-        or stored for later search and replay.
-      </p>
-
-      <div class="mx-auto mt-8 max-w-4xl rounded-xl border border-brand-primary/20 bg-brand-primary/[0.05] px-5 py-4 text-center text-sm leading-6 text-gray-300">
-        <strong class="text-white">Ingress is optional.</strong> It is used only with the tunnel or
-        <code class="rounded bg-black/30 px-1.5 py-0.5 text-brand-primary">--expose</code> option. Standard local
-        traffic goes directly to your Inspectr Proxy and never passes through the hosted Ingress service.
+        <article class="rounded-2xl border border-brand-primary/30 bg-brand-primary/[0.05] p-6 sm:p-8">
+          <p class="text-xs font-semibold uppercase tracking-widest text-brand-primary">Hosted layer (only when exposed)</p>
+          <h3 class="mt-3 flex items-center gap-2 text-xl font-semibold"><IconInspectr width={24} height={24} from="#26ff00" to="#9fe491" />Inspectr Ingress</h3>
+          <p class="mt-4 leading-7 text-gray-300">
+            Ingress is the public relay used with tunnel and <code class="rounded bg-black/30 px-1.5 py-0.5 text-brand-primary">--expose</code>.
+            It accepts the connection, forwards the request and response, and does not persist the proxied
+            payload content.
+          </p>
+          <p class="mt-4 text-sm font-semibold text-brand-primary">Zero payload retention on the hosted relay</p>
+        </article>
       </div>
 
     </section>
@@ -159,9 +204,10 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
     <section class="border-y border-cyan-400/10 bg-black/10">
       <div class="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-24">
         <div>
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">What zero data retention gives you</p>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">When you expose a service</p>
           <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">No hosted payload store to secure.</h2>
           <p class="mt-5 leading-7 text-gray-300">
+            When you tunnel a local service with <code class="rounded bg-black/30 px-1.5 py-0.5 text-brand-primary">--expose</code>,
             Inspectr Ingress has one job: move traffic between your public endpoint and your environment. It
             does not create a second hosted copy of the traffic, so sensitive payloads stay with the systems
             your team controls.
@@ -186,7 +232,7 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
           </article>
           <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">
             <h3 class="font-semibold">Data minimization</h3>
-            <p class="mt-3 text-sm leading-6 text-gray-400">The relay only needs to process the traffic required to deliver the live request.</p>
+            <p class="mt-3 text-sm leading-6 text-gray-400">Traffic is handled in memory for the live request only, and is never written to disk on the relay.</p>
           </article>
         </div>
       </div>
@@ -197,9 +243,10 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">Data handling</p>
         <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Inspectr Ingress stores no payloads.</h2>
         <p class="mt-5 text-lg leading-8 text-gray-300">
-          Inspectr Ingress forwards request and response content to your environment and releases it after the
-          relay. It does not persist payloads. Any history or persistence happens in your Inspectr instance or
-          downstream systems, where your team controls storage and retention.
+          In local mode there is no hosted service to store anything. When you expose a service, Inspectr Ingress
+          forwards request and response content to your environment and releases it after the relay. It does not
+          persist payloads. Any history or persistence happens in your Inspectr instance or downstream systems,
+          where your team controls storage and retention.
         </p>
       </div>
 
@@ -261,6 +308,13 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
       <div class="mt-10 divide-y divide-gray-800 rounded-2xl border border-gray-800 bg-black/20 px-6 sm:px-8">
         <details class="group py-6" open>
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold marker:hidden">
+            Does local traffic go through Inspectr Ingress?
+            <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="mt-4 max-w-3xl leading-7 text-gray-400">No. This is the default for most Inspectr usage: local traffic goes directly to your Inspectr Proxy and never leaves your machine. Inspectr Ingress is involved only when you use the tunnel or <code class="rounded bg-gray-800 px-1.5 py-0.5 text-brand-primary">--expose</code> option to make a local service publicly reachable.</p>
+        </details>
+        <details class="group py-6">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold marker:hidden">
             Does Inspectr store data sent through Ingress?
             <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
@@ -272,13 +326,6 @@ import { FlowIngress } from '../components/DocFlows/FlowIngressMinimal.jsx';
             <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
           <p class="mt-4 max-w-3xl leading-7 text-gray-400">Yes. Inspectr’s local application can keep request history and support replay in your environment. That local storage is separate from the hosted Ingress relay.</p>
-        </details>
-        <details class="group py-6">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold marker:hidden">
-            Does local traffic go through Inspectr Ingress?
-            <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-          </summary>
-          <p class="mt-4 max-w-3xl leading-7 text-gray-400">No. Local traffic goes directly to your Inspectr Proxy. Inspectr Ingress is involved only when you use the tunnel or <code class="rounded bg-gray-800 px-1.5 py-0.5 text-brand-primary">--expose</code> option to make a local service publicly reachable.</p>
         </details>
         <details class="group py-6">
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold marker:hidden">
