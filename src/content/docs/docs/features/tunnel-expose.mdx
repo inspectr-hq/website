@@ -3,11 +3,15 @@ title: Tunnel & Expose
 description: Expose a local service through a temporary Inspectr Ingress URL for remote testing and collaboration.
 ---
 
+import { Image } from 'astro:assets';
 import FlowIngress from '../../../../components/DocFlows/FlowIngress.jsx';
+import tunnelExposeSettings from '../../../../assets/features/tunnel/settings-tunnel-expose.png';
 
 Inspectr can make a service running on your machine reachable from the public internet without changing your firewall or deploying it first. The **Tunnel & Expose** feature creates a temporary HTTPS URL through Inspectr Ingress and sends incoming traffic to your local Inspectr proxy.
 
 This is useful for sharing a development API, testing an integration from a remote client, connecting an external MCP client to a local server, or receiving webhooks during development.
+
+<Image src={tunnelExposeSettings} alt="Inspectr App Expose settings showing tunnel status, local URL, public URL, channel, and channel code" />
 
 ## Why Tunnel & Expose?
 
