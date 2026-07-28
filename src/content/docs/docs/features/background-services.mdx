@@ -1,0 +1,155 @@
+---
+title: Background Services
+description: Install and operate Inspectr as a native background service on Windows, Linux, and macOS.
+---
+
+import { Aside, Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Aside type="note" title="Feature" icon="rocket">
+  <Badge text="New in 1.10.0" variant="success" />
+  Run Inspectr as a native background service with platform-specific installation, lifecycle control, logging, and recovery.
+</Aside>
+
+Inspectr can register one binary with Windows Service Control Manager, Linux systemd, or macOS launchd. It supports an unnamed default service and multiple optional named instances. Each instance has its own configuration; the operating system's native service manager remains the source of truth.
+
+Linux service mode requires systemd. Inspectr rejects other init systems instead of silently installing with different startup and restart semantics.
+
+## Install and control services
+
+Run service-management commands with Administrator privileges on Windows or with `sudo` on Linux and macOS.
+
+```text
+inspectr service install [name] --config <path>
+inspectr service start [name]
+inspectr service stop [name]
+inspectr service restart [name]
+inspectr service status [name]
+inspectr service uninstall [name]
+```
+
+Installation validates the YAML and records canonical absolute paths for both the Inspectr executable and configuration file. It enables startup at boot but does not start the service immediately. Keep both files at their registered paths.
+
+### Examples by operating system
+
+Each example installs the default instance, starts it, and checks its status. The named-instance commands show how to run a second service with its own configuration.
+
+<Tabs>
+  <TabItem label="Windows">
+  ```powershell
+  # Default instance
+  inspectr service install --config "C:\ProgramData\Inspectr\default.yaml"
+  inspectr service start
+  inspectr service status
+
+  # Named instance
+  inspectr service install payments --config "C:\ProgramData\Inspectr\payments.yaml"
+  inspectr service start payments
+  inspectr service status payments
+  ```
+  </TabItem>
+  <TabItem label="Linux (systemd)">
+  ```bash
+  # Default instance
+  sudo inspectr service install --config /etc/inspectr/default.yaml
+  sudo inspectr service start
+  sudo inspectr service status
+
+  # Named instance
+  sudo inspectr service install payments --config /etc/inspectr/payments.yaml
+  sudo inspectr service start payments
+  sudo inspectr service status payments
+  ```
+  </TabItem>
+  <TabItem label="macOS (launchd)">
+  ```bash
+  # Default instance
+  sudo inspectr service install --config /etc/inspectr/default.yaml
+  sudo inspectr service start
+  sudo inspectr service status
+
+  # Named instance
+  sudo inspectr service install payments --config /etc/inspectr/payments.yaml
+  sudo inspectr service start payments
+  sudo inspectr service status payments
+  ```
+  </TabItem>
+</Tabs>
+
+Installing an identity that already exists fails without replacing it. Uninstall stops only the selected instance when necessary and preserves its configuration, logs, and data.
+
+Instance names must start with a lowercase letter, contain only lowercase letters, digits, and hyphens, and be no longer than 40 characters. `default` is reserved for the unnamed instance.
+
+## Identities
+
+| Instance   | Windows SCM / Linux systemd | macOS launchd                 | Display name                |
+|------------|-----------------------------|-------------------------------|-----------------------------|
+| unnamed    | `inspectr`                  | `com.inspectr.proxy`          | `Inspectr Proxy`            |
+| `payments` | `inspectr-payments`         | `com.inspectr.proxy.payments` | `Inspectr Proxy (payments)` |
+
+There is intentionally no `service list` command. Use the operating system's normal service inventory.
+
+## Multi-instance configuration
+
+Every simultaneously running instance needs non-conflicting proxy and application ports and should use a separate data directory. See the [YAML Configuration guide](/docs/configuration/yaml-config/) when preparing instance configuration files.
+
+Relative paths in YAML are resolved from the directory containing that YAML file, not from the service manager's working directory. This includes `dataDir`, `logFile`, mock specifications, and other file-backed settings. Restrict configuration permissions if the file contains secrets. Installation does not compare ports or directories with other instances; any collision is reported during normal Inspectr startup.
+
+Services run using the native manager's default system account in this release. Custom service accounts are not configured by the Inspectr CLI.
+
+## Startup, shutdown, and recovery
+
+Native stop and shutdown requests enter the same graceful cancellation path used by interactive `SIGINT` and `SIGTERM`. Inspectr waits up to 25 seconds for shutdown before reporting a timeout.
+
+Unexpected failures are restarted after five seconds. Windows SCM uses its failure-recovery policy, systemd uses `Restart=on-failure`, and launchd uses `KeepAlive`. An explicit stop remains stopped.
+
+When `commandStopOnFailure` is enabled, a configured sidecar command cancels Inspectr with an error cause. Inspectr runs its normal deferred store, queue, tunnel, and server cleanup before returning a non-zero failure. Interactive mode reports the error directly; managed mode logs it to the native service logger and exits after cleanup so the native supervisor can apply its restart policy.
+
+## Logs
+
+For background services, `logLevel: info` is recommended. `logLevel: none` continues to disable Inspectr application logging.
+
+If `logFile` is omitted, application logs are written to `<dataDir>/inspectr.log`. Configured files rotate while Inspectr is running with fixed limits: 10 MiB per file, five backups, 30-day retention, and gzip compression. Use a different `dataDir` or `logFile` for every instance.
+
+Service installation, control, and lifecycle failures are also sent to the native operating-system logger.
+
+When running under a native manager, Inspectr also redirects standard Go process logs there. This includes configuration, logger initialization, and server failures that terminate startup.
+
+- Windows: Event Viewer, Windows Logs, Application; the source is the service identity.
+- Linux: system journal/syslog; use `journalctl -u inspectr` or `journalctl -u inspectr-payments` for unit output.
+- macOS: system log plus launchd stdout/stderr files under `/var/log` named from the launchd identity.
+
+## Native manager commands
+
+The Inspectr CLI is the portable control interface. Native commands are useful for diagnostics:
+
+<Tabs>
+  <TabItem label="Windows">
+  ```powershell
+  sc.exe query inspectr
+  sc.exe query inspectr-payments
+  ```
+  </TabItem>
+  <TabItem label="Linux (systemd)">
+  ```bash
+  systemctl status inspectr
+  systemctl status inspectr-payments
+  journalctl -u inspectr-payments
+  ```
+  </TabItem>
+  <TabItem label="macOS (launchd)">
+  ```bash
+  sudo launchctl print system/com.inspectr.proxy
+  sudo launchctl print system/com.inspectr.proxy.payments
+  ```
+  </TabItem>
+</Tabs>
+
+## Upgrade
+
+All registered instances point to the same executable path. Upgrade that shared binary in place:
+
+1. Stop every registered default and named instance.
+2. Replace the Inspectr binary at its registered path without moving it.
+3. Restart each instance independently and check its status and logs.
+
+If the executable or configuration must move, uninstall the affected instance and install it again with the new absolute path.
