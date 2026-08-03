@@ -56,11 +56,15 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
           </div>
           <div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">
             <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">In-memory processing</p>
-            <p class="mt-2 text-sm text-gray-300">Ingress handles payloads transiently, and only for tunnel or --expose</p>
+            <p class="mt-2 text-sm text-gray-300">Inspectr Ingress handles payloads transiently without any storage.</p>
           </div>
+          <!--<div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">-->
+          <!--  <p class="text-lg font-bold uppercase tracking-wide text-brand-primary">Real-time pass-through</p>-->
+          <!--  <p class="mt-2 text-sm text-gray-300">Requests and responses move directly through Inspectr Ingress</p>-->
+          <!--</div>-->
           <div class="rounded-xl border border-cyan-300/20 bg-white/[0.04] p-5">
             <p class="text-3xl font-bold text-brand-primary">0 bytes</p>
-            <p class="mt-2 text-sm uppercase tracking-wide text-gray-300">Retained on the Ingress relay</p>
+            <p class="mt-2 text-sm tracking-wide text-gray-300">Stored on the Inspectr Ingress relay</p>
           </div>
         </div>
       </div>
@@ -208,9 +212,8 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
           <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">No hosted payload store to secure.</h2>
           <p class="mt-5 leading-7 text-gray-300">
             When you tunnel a local service with <code class="rounded bg-black/30 px-1.5 py-0.5 text-brand-primary">--expose</code>,
-            Inspectr Ingress has one job: move traffic between your public endpoint and your environment. It
-            does not create a second hosted copy of the traffic, so sensitive payloads stay with the systems
-            your team controls.
+            Inspectr Ingress is a transparent relay, which moves traffic between your public endpoint and your environment. It
+            does not store the traffic, so sensitive payloads stay with the systems your team controls.
           </p>
           <a href="/docs/concepts/architecture/" class="mt-6 inline-flex text-sm font-semibold text-brand-primary hover:underline">
             Read the technical architecture <span aria-hidden="true" class="ml-2">→</span>
@@ -218,22 +221,27 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2">
-          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">
-            <h3 class="font-semibold">Reduced exposure</h3>
-            <p class="mt-3 text-sm leading-6 text-gray-400">Ingress does not become a second long-lived home for your traffic.</p>
+          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-4">
+            <h3 class="font-semibold">In-memory only</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-400">Traffic is handled in memory for the live request only, and is never written to disk on the relay.</p>
           </article>
-          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">
+          <!--<article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">-->
+          <!--  <h3 class="font-semibold">Reduced exposure</h3>-->
+          <!--  <p class="mt-3 text-sm leading-6 text-gray-400">Ingress does not become a second long-lived home for your traffic.</p>-->
+          <!--</article>-->
+          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-4">
             <h3 class="font-semibold">Relay by design</h3>
             <p class="mt-3 text-sm leading-6 text-gray-400">Ingress forwards the request and response between the public endpoint and your environment.</p>
           </article>
-          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">
+          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-4">
+            <h3 class="font-semibold">Zero-retention</h3>
+            <p class="mt-3 text-sm leading-6 text-gray-400">Request and response payloads are not persisted on the relay.</p>
+          </article>
+          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-4">
             <h3 class="font-semibold">Clear ownership</h3>
             <p class="mt-3 text-sm leading-6 text-gray-400">Local history and replay remain in the environment your team operates.</p>
           </article>
-          <article class="rounded-xl border border-gray-800 bg-brand-dark/70 p-6">
-            <h3 class="font-semibold">Data minimization</h3>
-            <p class="mt-3 text-sm leading-6 text-gray-400">Traffic is handled in memory for the live request only, and is never written to disk on the relay.</p>
-          </article>
+
         </div>
       </div>
     </section>
@@ -267,7 +275,7 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
           <div class="mt-5 space-y-5 text-sm leading-6 text-gray-300">
             <p><strong class="text-white">Local Inspectr:</strong> request history and replay can be stored locally under your control.</p>
             <p><strong class="text-white">Your application:</strong> data written to your own backend, database, warehouse, or downstream tools follows your policies.</p>
-            <p><strong class="text-white">Operations:</strong> limited technical and security telemetry may be retained for reliability and abuse prevention.</p>
+            <p><strong class="text-white">Metadata:</strong> limited technical and security telemetry may be retained for DDoS protection, reliability and abuse prevention.</p>
           </div>
           <a href="/privacy-policy/" class="mt-7 inline-flex text-sm font-semibold text-brand-primary hover:underline">
             Read the Privacy Policy <span aria-hidden="true" class="ml-2">→</span>
@@ -279,7 +287,7 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
     <section class="border-y border-cyan-400/10 bg-black/10">
       <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">Privacy by architecture</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Inspectr Ingress forwards traffic. It does not store it.</h2>
+        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-3xl">Inspectr Ingress forwards traffic. It does not store it.</h2>
         <div class="mt-8 space-y-6 text-lg leading-8 text-gray-300">
           <p>
             When a public request arrives at an Inspectr Ingress endpoint, the relay forwards it to your local
@@ -332,7 +340,7 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
             Does zero retention include operational metadata?
             <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="mt-4 max-w-3xl leading-7 text-gray-400">The zero-retention commitment is about proxied payload content. Limited technical and security telemetry may be processed for reliability and abuse prevention, as described in the <a class="text-brand-primary hover:underline" href="/privacy-policy/">Privacy Policy</a>.</p>
+          <p class="mt-4 max-w-3xl leading-7 text-gray-400">The zero-retention commitment is about proxied payload content. Limited technical and security telemetry may be processed for DDoS protection, reliability and abuse prevention, as described in the <a class="text-brand-primary hover:underline" href="/privacy-policy/">Privacy Policy</a>.</p>
         </details>
         <details class="group py-6">
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-semibold marker:hidden">
@@ -346,7 +354,7 @@ import IconInspectr from '../components/Flow/IconInspectr.jsx';
             Does Inspectr control data stored by my application?
             <span class="text-2xl font-normal text-brand-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="mt-4 max-w-3xl leading-7 text-gray-400">No. Once traffic reaches your Inspectr instance, backend, database, analytics tool, or another downstream service, its retention is governed by that environment’s configuration and policy.</p>
+          <p class="mt-4 max-w-3xl leading-7 text-gray-400">No. Once traffic that reaches your Inspectr instance, backend, database, analytics tool, or another downstream service, its retention is governed by that environment’s configuration and policy.</p>
         </details>
       </div>
     </section>
