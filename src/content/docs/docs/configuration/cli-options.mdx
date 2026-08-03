@@ -180,6 +180,23 @@ When Inspectr exits, the command will be terminated.
 
 ---
 
+## Background services
+
+Register and control Inspectr as a native background service on Windows, Linux, or macOS:
+
+```text
+inspectr service install [name] --config <path>
+inspectr service start [name]
+inspectr service stop [name]
+inspectr service restart [name]
+inspectr service status [name]
+inspectr service uninstall [name]
+```
+
+Run these commands with Administrator privileges on Windows or with `sudo` on Linux and macOS. See the complete [Background Services guide](/docs/features/background-services/) for named instances, logs, recovery, upgrades, and migration.
+
+---
+
 [//]: # '## 📚 Related Topics'
 [//]: #
 [//]: # '* [YAML Configuration →](/configuration/yaml-config)'

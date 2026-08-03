@@ -1,0 +1,121 @@
+---
+title: Tunnel & Expose
+description: Expose a local service through a temporary Inspectr Ingress URL for remote testing and collaboration.
+---
+
+import { Image } from 'astro:assets';
+import FlowIngress from '../../../../components/DocFlows/FlowIngress.jsx';
+import tunnelExposeSettings from '../../../../assets/features/tunnel/settings-tunnel-expose.png';
+
+Inspectr can make a service running on your machine reachable from the public internet without changing your firewall or deploying it first. The **Tunnel & Expose** feature creates a temporary HTTPS URL through Inspectr Ingress and sends incoming traffic to your local Inspectr proxy.
+
+This is useful for sharing a development API, testing an integration from a remote client, connecting an external MCP client to a local server, or receiving webhooks during development.
+
+<Image src={tunnelExposeSettings} alt="Inspectr App Expose settings showing tunnel status, local URL, public URL, channel, and channel code" />
+
+## Why Tunnel & Expose?
+
+Local services are often ready to test before they are deployed, but remote clients cannot reach `localhost`. Port forwarding, firewall changes, and temporary deployments add friction exactly when you want to validate an integration quickly.
+
+Tunnel & Expose gives you a temporary public address while keeping the service and Inspectr proxy running in your environment. You can:
+
+- Test a local API from an external client or teammate
+- Share a development build without deploying it
+- Connect remote tools to a local MCP server
+- Inspect and replay traffic while the integration is still under development
+
+## How the tunnel works
+
+<FlowIngress client:only="react" />
+
+The public request follows this path:
+
+1. A client or webhook provider sends an HTTPS request to your Inspectr URL on `in-spectr.dev`.
+2. Inspectr Ingress relays the request to the Inspectr proxy running on your machine.
+3. The local proxy captures the request so it is available in the terminal and Inspectr App.
+4. Inspectr forwards the request to your configured backend, or handles it in catch/mock mode.
+5. The response travels back through the proxy and Ingress to the caller.
+
+The hosted Ingress layer is a forwarding relay. Inspection history is handled by your local Inspectr instance according to its storage configuration.
+
+## Expose a local backend
+
+Start Inspectr next to your local service and enable exposure:
+
+```bash
+inspectr \
+  --backend=http://localhost:3000 \
+  --expose \
+  --channel=my-api \
+  --channel-code=secret123
+```
+
+Inspectr listens locally on `http://localhost:8080` by default and prints a public URL such as:
+
+```text
+https://my-api.in-spectr.dev
+```
+
+Use that URL from a remote client:
+
+```bash
+curl https://my-api.in-spectr.dev/api/health
+```
+
+The `--channel` value is used as the preferred subdomain. If you omit it, Inspectr assigns a channel for the session. The `--channel-code` value is used to securely register or reserve the channel with Inspectr Ingress. It is not an allow/deny switch for requests sent to an already registered public URL.
+
+## Receive webhooks without a backend
+
+You can expose Inspectr in catch mode when you want to receive and inspect requests before a backend is available:
+
+```bash
+inspectr \
+  --catch=true \
+  --expose \
+  --channel=webhook-test \
+  --channel-code=secret123
+```
+
+Configure the third-party provider to send events to the public URL, for example:
+
+```text
+https://webhook-test.in-spectr.dev/events
+```
+
+Inspectr captures the request and returns the default `200 OK` response. You can inspect the event in the local App and replay it later while developing your handler. When your backend is ready, add `--backend` and continue using the same proxy flow.
+
+## Configure it with YAML
+
+The same setup can live in `.inspectr.yaml`:
+
+```yaml
+listen: ':8080'
+backend: 'http://localhost:3000'
+expose: true
+channel: 'my-api'
+channelCode: 'secret123'
+```
+
+Then start Inspectr with:
+
+```bash
+inspectr
+```
+
+CLI flags can override values from the configuration file. See [YAML Configuration](/docs/configuration/yaml-config/) and [CLI Options](/docs/configuration/cli-options/) for the complete reference.
+
+## URL lifetime and channel registration
+
+- The public URL is available while the Inspectr session is running.
+- Stopping Inspectr closes the local tunnel and releases the public channel.
+- A channel code helps securely register or reserve a preferred channel name; it does not authenticate every request to the public URL.
+- For request-level protection, enable [Access Authentication](/docs/features/access-authentication/) or use authentication provided by your backend.
+
+The tunnel provides public reachability; it does not replace authentication or authorization in your application. Avoid exposing production credentials or sensitive development data, and stop the session when the endpoint is no longer needed.
+
+## Related guides
+
+- [Expose Services Publicly →](/docs/guides/exposing-publicly/)
+- [Capture and replay webhooks →](/docs/guides/webhook-debugging/)
+- [Expose an on-premise REST API →](/docs/examples/expose-onprem-rest-api/)
+- [Expose an MCP server →](/docs/examples/expose-mcp-server/)

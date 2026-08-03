@@ -9,6 +9,7 @@ import TechStacks from '../components/SectionTechStacks';
 import UseCases from '../components/SectionUseCases';
 import Footer from '../components/Site/Footer';
 import UseCaseLevels from '../components/SectionUseLevels';
+// import PrivacyTrust from '../components/SectionPrivacyTrust';
 
 const useCaseModules = import.meta.glob('./use-cases/level-*.astro', { eager: true });
 const useCases = Object.values(useCaseModules)
@@ -34,5 +35,6 @@ const useCases = Object.values(useCaseModules)
   <TechStacks />
   <UseCases />
   <UseCaseLevels useCases={useCases} />
+  <!--<PrivacyTrust />-->
   <Footer />
 </Layout>
