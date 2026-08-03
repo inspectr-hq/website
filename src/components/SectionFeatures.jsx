@@ -41,7 +41,7 @@ const features = [
     icon: <IconSafe className="w-6 h-6" />,
     title: 'Full Data Privacy & Control',
     description: 'Requests and responses are only processed & stored locally.',
-    href: '/docs/concepts/performance-privacy/#keeping-it-local'
+    href: '/data-privacy/'
   },
   {
     icon: <IconGlobe className="w-6 h-6" />,
